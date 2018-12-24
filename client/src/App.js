@@ -6,6 +6,8 @@ import API from './utils/API';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup.jsx'
+//import Picks from './pages/Picks.jsx'
+import ActionPage from './pages/ActionPage.jsx'
 
 
 import './App.css';
@@ -39,14 +41,17 @@ class App extends Component {
       })
       console.log(this.state.loggedIn)
     } else {
+      console.log("Session not null")
       API.checkSession(localSessionID)
         .then(response => {
           if (response.data._id === localSessionID) {
+            console.log("Login confirmed");
             this.setState({
               loggedIn: true
             })
             console.log(this.state.loggedIn)
           } else {
+            console.log("No matching sessions");
             this.setState({
               loggedIn: false
             })
@@ -63,19 +68,36 @@ class App extends Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route exact path='/'
+          <Route exact path='/'
               render={() =>
                 <Login 
                   updateUser={this.updateUser}
                 />
               }
             />
-            <Route exact path='/Signup'
+            <Route exact path='/login'
+              render={() =>
+                <Login 
+                  updateUser={this.updateUser}
+                />
+              }
+            />
+            <Route exact path='/signup'
               render={() =>
                 <Signup
                   updateUser={this.updateUser}
                 />}
             />
+            <Route exact path='/action' component={ActionPage} />
+            <Route exact path='/action' render={() => (
+              this.state.loggedIn === true ? (
+                <ActionPage />
+              ) : this.state.loggedIn === false ? (
+                <Redirect to='/' />
+              ) : (
+                null
+              )
+            )} />
           </Switch>
         </div>
       </Router>

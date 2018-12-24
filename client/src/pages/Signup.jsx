@@ -8,12 +8,12 @@ import ExistingAccount from "../components/alerts/ExistingAccount";
 class Signup extends Component {
 
     state = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        username: "",
-        password: "",
-        img: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        username: '',
+        password: '',
+        img: '',
         redirect: false,
         nameTaken: false
 
@@ -71,7 +71,7 @@ class Signup extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log(this.state)
+        //console.log(this.state)
         let userData = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,

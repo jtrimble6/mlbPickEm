@@ -1,17 +1,23 @@
 import axios from 'axios'
 
 export default {
-    getUser: function(username) {
-        return axios.get('/api/users/' + username)
+    getUser: function(id) {
+        return axios.get('/api/users/' + id)
     },
     getUsers: function() {
-        return axios.get('api/pations/')
+        return axios.get('api/users/')
     },
-    deleteUser: function(username) {
-        return axios.delete('/api/users/' + username)
+    deleteUser: function(id) {
+        return axios.delete('/api/users/' + id)
     },
-    savePick: function(username, thisPick) {
-        return axios.put('/api/pations/' + username, thisPick)
+    postGames: function() {
+        return axios.post('api/games/')
+    },
+    getGames: function() {
+        return axios.get('api/games/')
+    },
+    savePick: function(id, thisPick) {
+        return axios.put('/api/users/' + id, thisPick)
     },
     saveUser: function(userData) {
         return axios.post('/api/users', userData)

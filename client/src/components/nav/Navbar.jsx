@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import '../../css/navbar.css'
 
 class Navbar extends Component {
 
-    render() {
+    render() {                                                                  
         return (
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
@@ -21,7 +21,7 @@ class Navbar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/signup">Log In/Sign Up</a>
+                        <a className="nav-link js-scroll-trigger" href="/signup">Sign Up</a>
                         </li>
                     </ul>
                     </div>

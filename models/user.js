@@ -8,9 +8,10 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: {type: String, required: true},
+    img: { type: String, required: false },
     date: {type: Date, default: Date.now },
     picks: { type: Array, default: [] },
-    points: { type: Number, Default: 0 }
+    points: { type: Number, default: 0 }
 })
 
 userSchema.methods = {

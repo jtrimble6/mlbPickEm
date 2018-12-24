@@ -6,6 +6,7 @@ const session = require('express-session');
 const routes = require("./routes/API/userAPI");
 const sessionRoutes = require("./routes/API/sessionAPI");
 const dbConnection = require("./server/database");
+const MongoStore = require('connect-mongo')(session)
 const passport = require('./server/passport');
 const app = express();
 const path = require("path");
@@ -21,7 +22,7 @@ app.use(bodyParser.json());
 //   app.use(express.static(path.join(__dirname, "client", "build")));
 // }
 
-app.use('/supperclub/', express.static(path.join(__dirname, "client", "build")));
+app.use('/mlbpickem/', express.static(path.join(__dirname, "client", "build")));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -29,23 +30,23 @@ app.use(passport.session());
 // Add routes, both API and view
 app.use(routes, sessionRoutes);
 
-app.use(
-  session({
-    secret: 'fraggle-rock',
-    resave: false,
-    saveUninitialized: false
-  })
-);
-
-//DUPLICATE CODE AS ABOVE W/ ONE ADDITIONAL LINE OF CODE
 // app.use(
 //   session({
 //     secret: 'fraggle-rock',
-//     store: new MongoStore({ mongooseConnection: dbConnection }),
 //     resave: false,
 //     saveUninitialized: false
 //   })
 // );
+
+//DUPLICATE CODE AS ABOVE W/ ONE ADDITIONAL LINE OF CODE
+app.use(
+  session({
+    secret: 'fraggle-rock',
+    store: new MongoStore({ mongooseConnection: dbConnection }),
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
@@ -63,7 +64,7 @@ app.use( (req, res, next) => {
 });
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/supperclub");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/thecompany");
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));

@@ -38,7 +38,7 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.route("/:username")
+router.route("/:id")
   .get(userController.findById)
   .put(userController.findOneAndUpdate)
   

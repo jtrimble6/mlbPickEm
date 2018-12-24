@@ -9,8 +9,8 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
     },
     findById: function(req, res) {
-        // console.log('find by ID')
-        // console.log(req.params)
+        console.log('find by Username')
+        console.log(req.params)
         db.User
           .find({username: req.params.id})
           .then(dbModel => res.json(dbModel))

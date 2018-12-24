@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import API from '../utils/API'
 import Navbar from '../components/nav/Navbar'
 import '../css/login.css'
@@ -15,6 +15,19 @@ class Login extends Component {
 
     componentDidMount() {
         console.log('Ready')
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect === true) {
+          return <Redirect to='/action' />
+        }
+        else {}
     }
 
     handleInputChange = event => {
@@ -53,7 +66,8 @@ class Login extends Component {
                     })
                     API.getUser(thisUser)
                       .then(response => {
-                          console.log(response)
+                        console.log(response)
+                        this.setRedirect()
                       })
               }
           }).catch(error => {
@@ -68,7 +82,7 @@ class Login extends Component {
         return (
             <div id="loginPage">
             <Navbar />
-              {/* {this.renderRedirect()} */}
+              {this.renderRedirect()}
                 <div className="formContainer">    
                     <form className="formLogin" action="index.html">
                         <h2 className="formLoginHeading">Sign In</h2>
@@ -112,7 +126,7 @@ class Login extends Component {
                             <div className="registration">
                                 Don't have an account yet?<br/>
                                 <a className="" href="/signup">
-                                    Create an account
+                                    CREATE AN ACCOUNT
                                 </a>
                             </div>            
                         </div> 
@@ -141,8 +155,8 @@ class Login extends Component {
                 </div>
             </div>
         )
-    };
-};
+    }
+}
 
-export default Login;
+export default Login
        
