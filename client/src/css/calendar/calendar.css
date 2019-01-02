@@ -2,26 +2,19 @@
     font-size: 25px;
 }
 
-.homeTeam {
+.team {
     color: black
 }
 
-.awayTeam {
-    color: black
-}
-
-.homeTeam:hover {
+/* .team:hover {
     color: green
+} */
+
+.team.active {
+    color: green;
+    border: 3px solid darkgreen;
 }
 
-.awayTeam:hover {
-    color: green
-}
-
-.homeTeam:active {
-    color: red
-}
-
-.awayTeam:active {
-    color: red
+.status {
+    text-align: center
 }

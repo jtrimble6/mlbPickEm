@@ -27,6 +27,7 @@ class ActionPage extends Component {
         API.getUser(localUser)
           .then(response => {
               this.setState({
+                  id: response.data[0]._id,
                   username: response.data[0].username,
                   firstName: response.data[0].firstName,
                   lastName: response.data[0].lastName,
@@ -34,6 +35,7 @@ class ActionPage extends Component {
                   points: response.data[0].points,
                   myPicks: response.data[0].picks
               })
+              console.log('ID: ', this.state.id)
               console.log('Username: ', this.state.username)
               console.log('First name: ', this.state.firstName)
               console.log('Last name: ', this.state.lastName)
@@ -54,7 +56,9 @@ class ActionPage extends Component {
 
               />
               <div className='col-md-8'>
-                <Calendar />
+                <Calendar 
+                  username={this.state.username}
+                />
               </div>
 
               <div className='col-md-4'>

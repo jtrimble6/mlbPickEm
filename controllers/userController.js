@@ -17,7 +17,10 @@ module.exports = {
           .catch(err => res.status(422).json(err))
     },
     findOneAndUpdate: function (req, res) {
-        
+        db.User
+          .update({username: req.params.id}, {$push: {picks: req.body}})
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
     },
     finedOneAndDelete: function (req, res) {
         

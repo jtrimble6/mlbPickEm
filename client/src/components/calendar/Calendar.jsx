@@ -8,17 +8,18 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import Games from './Games'
 import API from '../../utils/API'
 import $ from 'jquery'
-//import moment from 'moment';
+import moment from 'moment';
 
 class Calendar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { modal: false, scheduledGames: [], title: '', teams: '', status: ''};
+        this.state = { modal: false, scheduledGames: [], title: '', teams: '', status: '', activePick: '', activeDate: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.toggleActive = this.toggleActive.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -26,6 +27,40 @@ class Calendar extends Component {
         this.setState({
           modal: !this.state.modal
         });
+      }
+
+    toggleActive() {
+        let _this = this
+        $('#modalBody .thisGame .team').click(document, function(){
+            $(this).addClass('active');
+            $(this).parent().children('.team').not(this).removeClass('active');
+            let myPick = $(this).text()
+            _this.setState({ activePick: myPick })
+          }); 
+      }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log('I choose: ', this.state.activePick)
+        console.log('On this date' , this.state.activeDate)
+        let thisPick = {
+            team: this.state.activePick,
+            gameDate: this.state.activeDate
+          }
+        let myId = this.props.username
+        console.log('Pick to submit: ', thisPick)
+        console.log('User id: ', myId)
+        
+        API.savePick(myId, thisPick)
+          .then(res => {
+              console.log(res)
+              console.log('Saving my pick: ', thisPick)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+
+        this.toggle()
       }
 
     handleChangeTitle(event) {
@@ -40,12 +75,11 @@ class Calendar extends Component {
       }
 
     handleChangeStatus(event) {
-        this.setState({status: event.target.value});
-        console.log('Event: ', this.state.event)
-      }
-
-    handleSubmit(event) {
-        event.preventDefault();
+        let gameTime = moment(event.start._d).format("MMM Do, hA")
+        let gameStatus = event.status.toUpperCase()
+        this.setState({status: gameStatus, time: gameTime, activeDate: event.date});
+        console.log('Status: ', this.state.status)
+        console.log('Start Time: ', this.state.time)
       }
 
     componentDidMount() {
@@ -90,15 +124,18 @@ class Calendar extends Component {
                     Make Your Pick
                   </ModalHeader>
                     <ModalBody id='modalBody'>
-                    <div className="row">
-                        <h3 className='col-md-5 awayTeam'>{this.state.awayTeam}</h3>
-                        <h3 className='col-md-2'>@</h3>
-                        <h3 className='col-md-5 homeTeam'>{this.state.homeTeam}</h3>
-                      {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
-                    </div>
+                        <div className="thisGame row">
+                            <span className='col-md-5 team awayTeam' value={this.state.awayTeam} onClick={this.toggleActive}>{this.state.awayTeam}</span>
+                            <span className='col-md-2'>@</span>
+                            <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>{this.state.homeTeam}</span>
+                        {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
+                        </div> <hr />
+                        <div className="row">
+                            <span className='status'>Game Status: {this.state.status} | Game Time: {this.state.time} </span>
+                        </div>
                     </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" />
+                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
                         <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </form>
@@ -132,8 +169,9 @@ class Calendar extends Component {
                 timeFormat= 'h(:mm)'
                 events= {this.state.scheduledGames}
                 eventClick= {(calEvent) => {
-                //   this.handleChangeTitle(calEvent)
+                  //this.handleChangeTitle(calEvent)
                   this.handleChangeTeams(calEvent)
+                  this.handleChangeStatus(calEvent)
                   //$('.modal-content', '.modal-header').append(calEvent.title);
                   //$('.modal-content', '.modal-body').append(calEvent.description);
                   //$('#fullCalModal').modal();
