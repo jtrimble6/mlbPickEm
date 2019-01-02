@@ -1,4 +1,27 @@
-#calendar {
-    max-height: 25%;
-    width: 50%;
+.modalTitle {
+    font-size: 25px;
+}
+
+.homeTeam {
+    color: black
+}
+
+.awayTeam {
+    color: black
+}
+
+.homeTeam:hover {
+    color: green
+}
+
+.awayTeam:hover {
+    color: green
+}
+
+.homeTeam:active {
+    color: red
+}
+
+.awayTeam:active {
+    color: red
 }

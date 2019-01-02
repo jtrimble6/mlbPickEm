@@ -8,9 +8,11 @@ class ProfileBar extends Component {
         return (
 
             <div className="row profileBar">
-                <span className="profileData">
+              <div className='col-md-2'></div>
+                <span className="col-md profileData">
                     Username: {this.props.username} | Points: {this.props.points} | Today's Pick: {this.props.todaysPick}
                 </span>
+                <div className='col-md-2'></div>
             </div>
             
                 

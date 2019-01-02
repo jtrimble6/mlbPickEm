@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
-//import API from '../../utils/API'
+import API from '../../utils/API'
 import '../../css/games.css'
 
 class Games extends Component {
@@ -17,6 +17,25 @@ class Games extends Component {
 
     postGames = (data) => {
       console.log('FULL SCHEDULE: ', data)
+      console.log(data.length)
+      for (let i=0; i<data.length; i++) {
+        console.log(data[i])
+        let gameData = {
+          gameDate: data[i].scheduled,
+          gameStatus: data[i].status,
+          gameId: data[i].id,
+          homeTeam: data[i].home.name,
+          awayTeam: data[i].away.name,
+          homeAlias: data[i].home.alias,
+          awayAlias: data[i].away.alias
+        }
+        API.postGames(gameData)
+          .then(res=> console.log(res))
+          .catch(err => console.log(err))
+      }
+      API.postGames(data)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
     getGames = () => {
@@ -32,18 +51,19 @@ class Games extends Component {
           console.log('GAMES: ', data.games);
           self.setState({ fullSchedule: data.games });
           //console.log('FULL SCHEDULE: ', self.state.fullSchedule);
-          self.postGames(data.games)
-            for (var i = 0; i < data.games.length; i++) {
-                var homeTeams = [];
-                var awayTeams = [];
-                var awayTeam = data.games[i].away.name;
-                var homeTeam = data.games[i].home.name;
-                homeTeams.push(homeTeam);
-                awayTeams.push(awayTeam);
-            }
+          //self.postGames(data.games)
+            // for (let i = 0; i < data.games.length; i++) {
+            //     let homeTeams = [];
+            //     let awayTeams = [];
+            //     let awayTeam = data.games[i].away.name;
+            //     let homeTeam = data.games[i].home.name;
+            //     // let homeAlias = data.games[i].home.alias;
+            //     // let awayAlias = data.games[i].away.alias;
+            //     homeTeams.push(homeTeam);
+            //     awayTeams.push(awayTeam);
+            // }
         }
       })
-      
     }
 
     render() {

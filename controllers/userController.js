@@ -1,6 +1,6 @@
 const db = require('../models')
-const User = require('../models/user')
-const passport = require('../server/passport')
+//const User = require('../models/user')
+//const passport = require('../server/passport')
 
 module.exports = {
     findAll: function(req, res) {
@@ -9,7 +9,7 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
     },
     findById: function(req, res) {
-        console.log('find by Username')
+        console.log('find by id')
         console.log(req.params)
         db.User
           .find({username: req.params.id})

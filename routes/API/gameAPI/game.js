@@ -1,18 +1,16 @@
 const router = require("express").Router();
 const gameController = require("../../../controllers/gameController");
-const passport = require("../../../server/passport");
-const express = require("express");
 
 router.route("/")
   .post(gameController.create)
   .get(gameController.findAll)
 
-// router.route("/login")
-//   .post(userController.findByUsernamePassword)
+//router.route("/action")
+//  .post(userController.create)
 
-router.post(
+// router.post(
   
-)
+// )
 
 // router.get('/', (req, res, next) => {
 //   console.log('===== user!!======')

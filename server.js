@@ -3,8 +3,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require('morgan')
 const session = require('express-session');
-const routes = require("./routes/API/userAPI");
+const userRoutes = require("./routes/API/userAPI");
 const sessionRoutes = require("./routes/API/sessionAPI");
+const gameRoutes = require('./routes/API/gameAPI');
 const dbConnection = require("./server/database");
 const MongoStore = require('connect-mongo')(session)
 const passport = require('./server/passport');
@@ -28,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Add routes, both API and view
-app.use(routes, sessionRoutes);
+app.use(userRoutes, sessionRoutes, gameRoutes);
 
 // app.use(
 //   session({
@@ -64,7 +65,7 @@ app.use( (req, res, next) => {
 });
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/thecompany");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mlbpickem");
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));

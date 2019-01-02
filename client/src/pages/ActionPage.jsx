@@ -44,6 +44,7 @@ class ActionPage extends Component {
     }
 
     render() {
+
         return (
             <div id='actionPage'>
               <Navbar />
@@ -52,7 +53,14 @@ class ActionPage extends Component {
                 points={this.state.points}
 
               />
-              <Calendar />
+              <div className='col-md-8'>
+                <Calendar />
+              </div>
+
+              <div className='col-md-4'>
+                
+              </div>
+              
             </div>
         )
     }
