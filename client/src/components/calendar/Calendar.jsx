@@ -14,7 +14,7 @@ class Calendar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { modal: false, scheduledGames: [], title: '', teams: '', status: '', activePick: '', activeDate: ''};
+        this.state = { modal: false, scheduledGames: [], myPicks: [], title: '', teams: '', status: '', activePick: '', activeDate: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
@@ -22,6 +22,12 @@ class Calendar extends Component {
         this.toggleActive = this.toggleActive.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentDidMount() {
+        this.getSchedule()
+        this.checkPrevPicks()
+    
+      }
 
     toggle() {
         this.setState({
@@ -37,30 +43,6 @@ class Calendar extends Component {
             let myPick = $(this).text()
             _this.setState({ activePick: myPick })
           }); 
-      }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        console.log('I choose: ', this.state.activePick)
-        console.log('On this date' , this.state.activeDate)
-        let thisPick = {
-            team: this.state.activePick,
-            gameDate: this.state.activeDate
-          }
-        let myId = this.props.username
-        console.log('Pick to submit: ', thisPick)
-        console.log('User id: ', myId)
-        
-        API.savePick(myId, thisPick)
-          .then(res => {
-              console.log(res)
-              console.log('Saving my pick: ', thisPick)
-          })
-          .catch(err => {
-              console.log(err)
-          })
-
-        this.toggle()
       }
 
     handleChangeTitle(event) {
@@ -82,8 +64,72 @@ class Calendar extends Component {
         console.log('Start Time: ', this.state.time)
       }
 
-    componentDidMount() {
-        this.getSchedule()
+
+    handleSubmit(event) {
+        event.preventDefault();
+        // console.log('I choose: ', this.state.activePick)
+        // console.log('On this date' , this.state.activeDate)
+        let teamPick = this.state.activePick
+        let pickDate = this.state.activeDate
+        let thisPick = {
+            team: teamPick,
+            gameDate: pickDate
+          }
+        let myId = this.props.username
+        console.log('Pick to submit: ', thisPick)
+        console.log('User id: ', myId)
+
+        let prevDates = this.state.myDatesPicked
+        for (var j=0; j<prevDates.length; j++) {
+            if (pickDate === prevDates[j]) {
+                console.log('These dates match', pickDate, prevDates[j])
+                this.overridePick(pickDate)
+            }
+          }
+
+        API.savePick(myId, thisPick)
+          .then(res => {
+              console.log(res)
+              console.log('Saving my pick: ', thisPick)
+            })
+          .catch(err => {
+              console.log(err)
+          })
+
+        this.toggle()
+      }
+
+    checkPrevPicks() {
+        API.getUser(this.props.username)
+          .then(res => {
+            this.setState({myPicks: res.data[0].picks})
+            console.log('Current picks: ', this.state.myPicks)
+            this.checkPrevDates()
+          })
+          .catch(err => {console.log(err)
+        })
+      }
+
+    checkPrevDates() {
+        let currentPicks = this.state.myPicks
+        let currentDatesPicked = []
+        for (var i=0; i<currentPicks.length; i++) {
+          let thisDate = currentPicks[i].gameDate
+          //console.log('Date already picked: ', thisDate)
+          currentDatesPicked.push(thisDate)
+        }
+        this.setState({myDatesPicked: currentDatesPicked})
+        console.log('Official dates picked: ', this.state.myDatesPicked)
+      }
+    
+    overridePick(date) {
+        console.log(date)
+        API.deletePick(this.props.username, date)
+          .then(res => {
+              console.log(res)
+          })
+          .catch(err => {console.log(err)
+        })
     }
 
     getSchedule = () => {
@@ -113,7 +159,7 @@ class Calendar extends Component {
               console.log('Here are all of the games: ', this.state.scheduledGames)
           })
             .catch(err => console.log(err))
-    }
+      }
 
     render() {
         return (

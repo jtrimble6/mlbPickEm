@@ -38,10 +38,12 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.route("/:id")
+router.route('/:id')
   .get(userController.findById)
   .put(userController.findOneAndUpdate)
+//   .delete(userController.findOneAndDelete)
   
-//   .delete(userController.remove)
+router.route('/:id/:date')
+  .delete(userController.findOneAndDelete)
 
 module.exports = router;

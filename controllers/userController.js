@@ -18,12 +18,19 @@ module.exports = {
     },
     findOneAndUpdate: function (req, res) {
         db.User
-          .update({username: req.params.id}, {$push: {picks: req.body}})
+          .update({username: req.params.id}, { $push: { picks: req.body}})
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
-    finedOneAndDelete: function (req, res) {
-        
+    findOneAndDelete: function (req, res) {
+        db.User
+          .update(
+              { username: req.params.id }, 
+              { $pull: { 'picks': { 'gameDate': req.params.date } } },
+              { multi: true }
+            )
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
     },
     create: function(req, res) {
         db.User
