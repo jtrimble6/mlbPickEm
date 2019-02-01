@@ -18,10 +18,18 @@ module.exports = {
     },
     findOneAndUpdate: function (req, res) {
         db.User
-          .update({username: req.params.id}, { $push: { picks: req.body}})
+          .update({username: req.params.id}, 
+            { $push: { picks: req.body }})
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
+    // findOneAndUpdate: function(req, res) {
+    //     db.User
+    //       .update({ username: req.params.id }, 
+    //         { $push: { wins: req.body }})
+    //       .then(dbModel => res.json(dbModel))
+    //       .catch(err => res.status(422).json(err))
+    // },
     findOneAndDelete: function (req, res) {
         db.User
           .update(

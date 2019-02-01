@@ -1,5 +1,10 @@
 #actionPage {
     margin-top: 5%;
     margin-left: 5%;
-    margin-bottom: 30px;
+}
+
+.calBoard {
+    height: 600px;
+    overflow: scroll;
+    margin-bottom: 200px;
 }

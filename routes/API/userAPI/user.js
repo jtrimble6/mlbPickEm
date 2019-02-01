@@ -46,4 +46,6 @@ router.route('/:id')
 router.route('/:id/:date')
   .delete(userController.findOneAndDelete)
 
+
+
 module.exports = router;

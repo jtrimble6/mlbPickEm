@@ -10,7 +10,10 @@ class ProfileBar extends Component {
             <div className="row profileBar">
               <div className='col-md-2'></div>
                 <span className="col-md profileData">
-                    Username: {this.props.username} | Points: {this.props.points} | Today's Pick: {this.props.todaysPick}
+                    Username: {this.props.username} | 
+                    Today's Pick: {this.props.todaysPick} |
+                    Wins: {this.props.winsCount}
+
                 </span>
                 <div className='col-md-2'></div>
             </div>

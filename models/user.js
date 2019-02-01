@@ -11,7 +11,7 @@ const userSchema = new Schema({
     img: { type: String, required: false },
     date: {type: Date, default: Date.now },
     picks: { type: Array, default: [] },
-    points: { type: Number, default: 0 }
+    wins: { type: Array, default: [] }
 })
 
 userSchema.methods = {

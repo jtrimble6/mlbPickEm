@@ -35,18 +35,24 @@
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
     color: black !important;
-    background-color: transparent;
+    background-color: lightslategray;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active:hover {
-    background-color: transparent;
+    background-color: lightslategray;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
   
   @media (min-width: 992px) {
     #mainNav {
-      border-color: transparent;
-      background-color: transparent;
+      border-color: lightslategray;
+      background-color: lightslategray;
     }
   
     /* logo  */

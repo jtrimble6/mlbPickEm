@@ -19,14 +19,26 @@ export default {
     getGamesByDate: function(date) {
         return axios.get('/api/games/' + date)
     },
+    getGamesById: function(date, id) {
+        return axios.get('/api/games/' + date + '/' + id)
+    },
+    updateGame: function(date, id, gameResult) {
+        return axios.put('/api/games/' + date + '/' + id, gameResult)
+    },
     savePick: function(id, thisPick) {
         return axios.put('/api/users/' + id, thisPick)
+    },
+    updatePick: function(id, result) {
+        return axios.put('/api/users/' + id, result)
     },
     deletePick: function(id, date) {
         return axios.delete('/api/users/' + id + '/' + date)
     },
     getPicks: function(id) {
         return axios.get('/api/users/' + id)
+    },
+    addWin: function(id, newWin) {
+        return axios.put('/api/users/' + id, newWin)
     },
     saveUser: function(userData) {
         return axios.post('/api/users', userData)

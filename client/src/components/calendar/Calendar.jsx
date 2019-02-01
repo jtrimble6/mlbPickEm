@@ -5,7 +5,6 @@ import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
 import FullCalendar from 'fullcalendar-reactwrapper';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-//import Games from './Games'
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment';
@@ -13,20 +12,22 @@ import moment from 'moment';
 class Calendar extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { modal: false, scheduledGames: [], myPicks: [], title: '', teams: '', status: '', activePick: '', activeDate: ''};
+        this.state = { modal: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.toggle = this.toggle.bind(this);
-        this.toggleActive = this.toggleActive.bind(this)
+        this.toggleActive = this.toggleActive.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
+        this.checkPrevPicks = this.checkPrevPicks.bind(this);
+        this.checkPrevDates = this.checkPrevDates.bind(this);
+        this.overridePick = this.overridePick.bind(this);
+        this.getSchedule = this.getSchedule.bind(this);
+      }
 
     componentDidMount() {
         this.getSchedule()
         this.checkPrevPicks()
-    
       }
 
     toggle() {
@@ -37,7 +38,7 @@ class Calendar extends Component {
 
     toggleActive() {
         let _this = this
-        $('#modalBody .thisGame .team').click(document, function(){
+        $('.modal-open #modalBody .thisGame .team').click(function(){
             $(this).addClass('active');
             $(this).parent().children('.team').not(this).removeClass('active');
             let myPick = $(this).text()
@@ -59,51 +60,77 @@ class Calendar extends Component {
     handleChangeStatus(event) {
         let gameTime = moment(event.start._d).format("MMM Do, hA")
         let gameStatus = event.status.toUpperCase()
-        this.setState({status: gameStatus, time: gameTime, activeDate: event.date});
+        let gameId = event._id
+        this.setState({ status: gameStatus, time: gameTime, activeDate: event.date, gameId: gameId });
         console.log('Status: ', this.state.status)
         console.log('Start Time: ', this.state.time)
+        console.log('Game ID: ', this.state.gameId)
       }
-
 
     handleSubmit(event) {
         event.preventDefault();
-        // console.log('I choose: ', this.state.activePick)
-        // console.log('On this date' , this.state.activeDate)
+        let myId = this.props.username
+        let myPicks = this.state.myPicks
+        let myWins = this.state.myWins
         let teamPick = this.state.activePick
         let pickDate = this.state.activeDate
-        let thisPick = {
-            team: teamPick,
-            gameDate: pickDate
-          }
-        let myId = this.props.username
-        console.log('Pick to submit: ', thisPick)
-        console.log('User id: ', myId)
-
         let prevDates = this.state.myDatesPicked
-        for (var j=0; j<prevDates.length; j++) {
-            if (pickDate === prevDates[j]) {
+        let gameId = this.state.gameId
+        let toggle = true
+        let thisPick = { team: teamPick, gameDate: pickDate, gameId: gameId, result: '' }
+
+        //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
+        let pickAlreadyWon = (wins) => {
+          return wins.win === teamPick
+          }
+        let thisPickWinner = myWins.filter(pickAlreadyWon)
+
+        // CHECK TO SEE IF ALREADY A WINNING TEAM OR DATE PICKED
+        if(myPicks.length) {
+          for (var j=0; j<myPicks.length; j++) {
+            if (thisPickWinner) {
+              let pickHasWon = thisPickWinner[0]
+              if (pickHasWon) {
+                toggle = false
+                console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
+                return;
+              } else if (thisPick.gameDate === myPicks[j].gameDate) {
+                // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
+                // console.log('Prev Dates Picked: ', prevDates)
                 console.log('These dates match', pickDate, prevDates[j])
                 this.overridePick(pickDate)
+                
+                } 
+              }
             }
           }
-
+        
+        // SAVE PICK TO DATABASE
         API.savePick(myId, thisPick)
-          .then(res => {
-              console.log(res)
-              console.log('Saving my pick: ', thisPick)
-            })
-          .catch(err => {
-              console.log(err)
-          })
+          .then(res => { 
+            console.log(res)
+           } )
+          .catch(err => { console.log(err) } )
 
-        this.toggle()
+        // CLOSE MODAL IF VALID PICK
+        if (toggle) {
+          this.toggle()
+          document.location.reload()
+        }
+
+      
+        
+
       }
 
     checkPrevPicks() {
         API.getUser(this.props.username)
           .then(res => {
             this.setState({myPicks: res.data[0].picks})
+            this.setState({myWins: res.data[0].wins})
+            // console.log('CURRENT DATA: ', res.data[0].wins[0].win)
             console.log('Current picks: ', this.state.myPicks)
+            console.log('Current Wins: ', this.state.myWins)
             this.checkPrevDates()
           })
           .catch(err => {console.log(err)
@@ -130,7 +157,7 @@ class Calendar extends Component {
           })
           .catch(err => {console.log(err)
         })
-    }
+      }
 
     getSchedule = () => {
         console.log('Getting schedule...')
@@ -140,9 +167,13 @@ class Calendar extends Component {
               res.data.forEach((game) => {
                   let splitDate = game.gameDate.split('T')
                   let gameDate = splitDate[0]
+                  // let splitTime = game.gameTime.split('T')
+                  // let gameTime = splitTime[1]
+                  // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
                   let gameInfo = {
+                      id: game.gameId,
                       date: gameDate,
-                      start: game.gameDate,
+                      start: game.gameTime,
                       status: game.gameStatus,
                       homeTeam: game.homeTeam,
                       awayTeam: game.awayTeam,
@@ -153,9 +184,11 @@ class Calendar extends Component {
 
                   }
                   games.push(gameInfo)
+                  // console.log(gameDate2)
               })
               this.setState({ scheduledGames: games })
-              console.log('We have pulled the schedule')
+              
+              // console.log('We have pulled the schedule')
               console.log('Here are all of the games: ', this.state.scheduledGames)
           })
             .catch(err => console.log(err))
@@ -164,7 +197,13 @@ class Calendar extends Component {
     render() {
         return (
             <div className='calendar'>
-               <Modal isOpen={this.state.modal} className='fullCalModal'>
+               <Modal 
+                 isOpen={this.state.modal} 
+                 autoFocus='true' 
+                 centered='true'
+                 size='lg'
+                 className='fullCalModal'
+               >
                 <form onSubmit={this.handleSubmit}>
                   <ModalHeader id='modalTitle'>
                     Make Your Pick
@@ -186,21 +225,7 @@ class Calendar extends Component {
                     </ModalFooter>
                 </form>
                 </Modal>
-              {/* <div id="fullCalModal" className="modal fade">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span className="sr-only">close</span></button>
-                            <h4 id="modalTitle" className="modal-title"></h4>
-                        </div>
-                        <div id="modalBody" className="modal-body"></div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            <button className="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
-                        </div>
-                    </div>
-                </div>
-              </div> */}
+
               <FullCalendar
                 id = "calendar"
                 header = {{
@@ -208,11 +233,15 @@ class Calendar extends Component {
                     center: 'title',
                     right: 'month,basicWeek,basicDay'
                 }}
+              
+                defaultView= 'basicWeek'
+                themeSystem= 'bootstrap4'
                 navLinks= {true} // can click day/week names to navigate views
                 editable= {false}
                 eventLimit= {false} // allow "more" link when too many events
                 displayEventTime= {true}
-                timeFormat= 'h(:mm)'
+                timeFormat= 'h(:mm)A'
+                showNonCurrentDates= {false}
                 events= {this.state.scheduledGames}
                 eventClick= {(calEvent) => {
                   //this.handleChangeTitle(calEvent)
@@ -227,7 +256,6 @@ class Calendar extends Component {
                   }
                 }
               />
-              {/* <Games /> */}
             </div>
         )
     }

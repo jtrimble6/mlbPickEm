@@ -7,17 +7,29 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
     },
     findById: function(req, res) {
-        console.log('find by id')
-        console.log(req.params)
         db.Game
           .find({gameId: req.params.id})
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
-    findOneAndUpdate: function (req, res) {
-        
+    findByDate: function(req, res) {
+        db.Game
+          .find(
+              { gameDate: req.params.date }
+            )
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
     },
-    finedOneAndDelete: function (req, res) {
+    findOneAndUpdate: function (req, res) {
+        db.Game
+          .update(
+              { gameDate: req.params.date, gameId: req.params.id }, 
+              { $set: { gameResult: req.body } }
+            )
+          .then(dbModel => {res.json(dbModel)})
+          .catch(err => {res.status(422).json(err)})
+    },
+    findOneAndDelete: function (req, res) {
         
     },
     create: function(req, res) {

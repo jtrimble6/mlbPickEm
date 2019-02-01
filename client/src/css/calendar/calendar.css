@@ -1,7 +1,3 @@
-.modalTitle {
-    font-size: 25px;
-}
-
 .team {
     color: black
 }
@@ -11,10 +7,38 @@
 } */
 
 .team.active {
-    color: green;
-    border: 3px solid darkgreen;
+    color: white;
+    background-color: darkgreen;
+    border: 3px solid lightgreen;
 }
 
 .status {
     text-align: center
+}
+
+#calendar {
+    max-height: 100px !important;
+}
+
+table {
+    min-height: 100%;
+}
+
+td.fc-event-container {
+    height: 40px;
+    margin: 10px;
+}
+
+td.fc-event-container a {
+    min-height: 100%;
+    font-size: 12px !important;
+}
+
+#modalBody {
+    font-size: 30px;
+    align-content: center;
+}
+
+#modalTitle {
+    font-size: 40px !important;
 }
