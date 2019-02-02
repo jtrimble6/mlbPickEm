@@ -137,7 +137,7 @@ class Games extends Component {
       }
 
     findGameWinners = () => {
-      // console.log('Showing results: ', this.state.gameResults)
+      console.log('Showing results: ', this.state.gameResults)
       let gameResults = this.state.gameResults
       let winningTeams = []
       for (var x=0; x<gameResults.length; x++) {
@@ -163,7 +163,7 @@ class Games extends Component {
 
       // console.log('WINNING TEAMS: ', winningTeams)
 
-      // this.postGameWinners()
+      this.postGameWinners()
 
       }
 
@@ -219,7 +219,7 @@ class Games extends Component {
                   self.setState({ scheduledGames: games })
                   self.setState({ gameIds: gameIds })
               })
-              self.getResults()
+              // self.getResults()
               self.findUserPicks()
               // self.findUserWins()
               // self.getYesterdaysGames(date)
@@ -292,13 +292,13 @@ class Games extends Component {
             console.log('NEW WIN: ', thisPickTeam)
             let newWin = { win: thisPickTeam }
             console.log('New Win: ', newWin)
-            API.addWin(userId, newWin)
-              .then (res => {
-                console.log(userId)
-                console.log(newWin)
-                console.log(res)
-              })
-              .catch(err => console.log(err))
+            // API.addWin(userId, newWin)
+            //   .then (res => {
+            //     console.log(userId)
+            //     console.log(newWin)
+            //     console.log(res)
+            //   })
+            //   .catch(err => console.log(err))
           
           }
         }

@@ -42,3 +42,7 @@ td.fc-event-container a {
 #modalTitle {
     font-size: 40px !important;
 }
+
+.countdown {
+    font-size: 24px;
+}
