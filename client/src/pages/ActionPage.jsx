@@ -3,7 +3,8 @@ import API from '../utils/API'
 import Navbar from '../components/nav/Navbar'
 import ProfileBar from '../components/profile/profileBar'
 import Calendar from '../components/calendar/Calendar'
-import Games from '../components/calendar/Games'
+import Leaderboard from '../components/leaderboard/Leaderboard'
+import Games from '../components/games/Games'
 import moment from 'moment';
 import '../css/actionPage.css'
 
@@ -43,7 +44,7 @@ class ActionPage extends Component {
               })
               this.getTodaysPick()
             //   console.log('ID: ', this.state.id)
-            //   console.log('Username: ', this.state.username)
+            //    console.log('Username: ', this.state.username)
             //   console.log('First name: ', this.state.firstName)
             //   console.log('Last name: ', this.state.lastName)
             //   console.log('Wins Count: ', this.state.winsCount)
@@ -82,9 +83,17 @@ class ActionPage extends Component {
                   />
                 </div>
                 <div className='col-md-3'>
+                <div className="row">
                   <Games 
                     username={this.state.username}
                   />
+                </div>
+                <div className="row">
+                  <Leaderboard 
+                    
+                  />
+                </div>
+                  
                 </div>
               </div>
             </div>

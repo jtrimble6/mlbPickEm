@@ -8,12 +8,13 @@ import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import API from '../../utils/API'
 import $ from 'jquery'
-import moment from 'moment';
+import Moment from 'moment';
+import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.state = { modal: false, nestedModal: false, closeAll: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: ''};
+        this.state = { modal: false, nestedModal: false, closeAll: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
@@ -75,16 +76,26 @@ class Calendar extends Component {
       }
 
     handleChangeTeams(event) {
-        this.setState({homeTeam: event.homeTeam, awayTeam: event.awayTeam});
+        this.setState({
+          homeTeam: event.homeTeam, 
+          awayTeam: event.awayTeam,
+          homeAlias: event.homeAlias,
+          awayAlias: event.awayAlias
+        });
         console.log('Home team: ', this.state.homeTeam)
         console.log('Away team: ', this.state.awayTeam)
       }
 
     handleChangeStatus(event) {
-        let gameTime = moment(event.start._d).format("MMM Do, hA")
+        let gameTime = Moment(event.start._d).format("MMM Do, hA")
         let gameStatus = event.status.toUpperCase()
         let gameId = event._id
-        this.setState({ status: gameStatus, time: gameTime, activeDate: event.date, gameId: gameId });
+        this.setState({ 
+          status: gameStatus, 
+          time: gameTime, 
+          activeDate: event.date, 
+          gameId: gameId 
+        });
         console.log('Status: ', this.state.status)
         console.log('Start Time: ', this.state.time)
         console.log('Game ID: ', this.state.gameId)
@@ -143,19 +154,17 @@ class Calendar extends Component {
           document.location.reload()
         }
 
-      
-        
-
       }
 
     checkPrevPicks() {
-        API.getUser(this.props.username)
+      let localUser = localStorage.getItem('user')
+        API.getUser(localUser)
           .then(res => {
             this.setState({myPicks: res.data[0].picks})
             this.setState({myWins: res.data[0].wins})
-            // console.log('CURRENT DATA: ', res.data[0].wins[0].win)
-            console.log('Current picks: ', this.state.myPicks)
-            console.log('Current Wins: ', this.state.myWins)
+            // console.log('CURRENT DATA: ', res.data)
+            // console.log('Current picks: ', this.state.myPicks)
+            // console.log('Current Wins: ', this.state.myWins)
             this.checkPrevDates()
           })
           .catch(err => {console.log(err)
@@ -171,7 +180,7 @@ class Calendar extends Component {
           currentDatesPicked.push(thisDate)
         }
         this.setState({myDatesPicked: currentDatesPicked})
-        console.log('Official dates picked: ', this.state.myDatesPicked)
+        // console.log('Official dates picked: ', this.state.myDatesPicked)
       }
     
     overridePick(date) {
@@ -185,13 +194,15 @@ class Calendar extends Component {
       }
 
     getSchedule = () => {
-        console.log('Getting schedule...')
+        // console.log('Getting schedule...')
         API.getGames()
           .then(res => {
               let games = []
               res.data.forEach((game) => {
                   let splitDate = game.gameDate.split('T')
                   let gameDate = splitDate[0]
+                  let homeAlias = game.homeAlias.toLowerCase()
+                  let awayAlias = game.awayAlias.toLowerCase()
                   // let splitTime = game.gameTime.split('T')
                   // let gameTime = splitTime[1]
                   // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
@@ -202,9 +213,11 @@ class Calendar extends Component {
                       status: game.gameStatus,
                       homeTeam: game.homeTeam,
                       awayTeam: game.awayTeam,
+                      homeAlias: homeAlias,
+                      awayAlias: awayAlias,
                       title: game.homeAlias + ' vs ' + game.awayAlias,
                       color: 'yellow',
-                      textColor: 'black',
+                      textColor: 'white',
                       borderColor: 'blue'
 
                   }
@@ -213,45 +226,161 @@ class Calendar extends Component {
               })
               this.setState({ scheduledGames: games })
               
+              
               // console.log('We have pulled the schedule')
-              console.log('Here are all of the games: ', this.state.scheduledGames)
+              // console.log('Here are all of the games: ', this.state.scheduledGames)
               
           })
             .catch(err => console.log(err))
       }
 
     getFirstGame = () => {
-      let now = moment().format()
-      let date = moment(now).format('YYYY-MM-DD')
-      console.log('Todays date: ', date)
+      let now = Moment().format()
+      let date = Moment(now).format('YYYY-MM-DD')
+      // console.log('Todays date: ', date)
+
       API.getGamesByDate(date)
         .then (res => {
-          let firstGame = res.data[0]
+          let games = res.data
+          // console.log('ALLL THE DAMN GAMES: ', games)
+          let now = Moment().format()
+          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+          // console.log('NOW: ', now)
+          // console.log('SORTED GAMES: ', sortedGames)
+          let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
-          let realTime = moment(now).format('HH:mm:ss a')
-          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          // let fgTime = moment(realGameTimeAdj).format('HH:mm:ss a')
-          // let timeDiff = moment.utc(moment(now).diff(moment(fgTime))).format("hh:mm:ss")
-          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
-          let seconds = timeDiff.asHours()
-          console.log('Todays first game: ', firstGameTime)
-          console.log('Right now: ', now)
-          console.log('Game Time: ', realGameTimeAdj)
-          console.log('Time diff: ', timeDiff)
-          console.log('Hours til: ', seconds)
+          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
+          let realTime = Moment(now).format('HH:mm:ss a')
+          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
+          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          // let seconds = timeDiff.asHours()
+          // console.log('Todays first game: ', firstGame)
+          // console.log('Right now: ', now)
+          // console.log('Game Time: ', realGameTimeAdj)
+          // console.log('Time diff: ', timeDiff)
+          // console.log('Hours til: ', seconds)
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))
       
-    }
+      }
 
     createTimer = (timeDiff) => {
-      console.log('Time until first game: ', timeDiff)
-      let seconds = moment.duration(timeDiff).asSeconds() * 1000
-      console.log('In seconds: ', seconds)
+      // console.log('Time until first game: ', timeDiff)
+      let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+      // console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
+      }
+
+    endTimer = () => <span>The games have begun.</span>
+
+    timerRender = ({ hours, minutes, seconds, completed }) => {
+      if (completed) {
+        return this.endTimer()
+
+      } else {
+        return <span>{hours}:{minutes}:{seconds}</span>
+      }
+    }
+
+    loadLogo = (team) => {
+      //console.log('THIS IS THE TEAM LOGO: ', team)
+      switch (true) {
+        case (team === 'atl'):
+          return atl;
+          
+        case (team === 'bkn'):
+          return bkn;
+          
+        case (team === 'bos'):
+          return bos;
+          
+        case (team === 'cha'):
+          return cha;
+          
+        case (team === 'chi'):
+          return chi;
+           
+        case (team === 'cle'):
+          return cle;
+           
+        case (team === 'dal'):
+          return dal;
+           
+        case (team === 'den'):
+          return den;
+           
+        case (team === 'det'):
+          return det;
+           
+        case (team === 'gsw'):
+          return gsw;
+           
+        case (team === 'hou'):
+          return hou;
+           
+        case (team === 'ind'):
+          return ind;
+           
+        case (team === 'lac'):
+          return lac;
+           
+        case (team === 'lal'):
+          return lal;
+           
+        case (team === 'mem'):
+          return mem;
+           
+        case (team === 'mia'):
+          return mia;
+        
+        case (team == 'mil'):
+          return mil;
+           
+        case (team === 'min'):
+          return min;
+           
+        case (team === 'nop'):
+          return nop;
+           
+        case (team === 'nyk'):
+          return nyk;
+           
+        case (team === 'okc'):
+          return okc;
+           
+        case (team === 'orl'):
+          return orl;
+           
+        case (team === 'phi'):
+          return phi;
+           
+        case (team === 'phx'):
+          return phx;
+           
+        case (team === 'por'):
+          return por;
+           
+        case (team === 'sac'):
+          return sac;
+           
+        case (team === 'sas'):
+          return sas;
+           
+        case (team === 'tor'):
+          return tor;
+           
+        case (team === 'uta'):
+          return uta;
+           
+        case (team === 'was'):
+          return was;
+           
+        default:
+          return uta;
+        }  
+
     }
 
     render() {
@@ -270,17 +399,35 @@ class Calendar extends Component {
                   </ModalHeader>
                     <ModalBody id='modalBody'>
                     <Modal isOpen={this.state.nestedModal} toggle={this.toggleInvalidPick} onClosed={this.state.closeAll ? this.toggle : undefined}>
-                      <ModalHeader>Nested Modal title</ModalHeader>
-                      <ModalBody>Stuff and things</ModalBody>
+                      <ModalHeader>Invalid Pick</ModalHeader>
+                      <ModalBody>You have already won with the {this.state.activePick}!</ModalBody>
                       <ModalFooter>
-                        <Button color="primary" onClick={this.toggleInvalidPick}>Done</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleAll}>All Done</Button>
+                        <Button color="primary" onClick={this.toggleInvalidPick}>Close</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleAll}>Close All</Button>
                       </ModalFooter>
                     </Modal>
                         <div className="thisGame row">
-                            <span className='col-md-5 team awayTeam' value={this.state.awayTeam} onClick={this.toggleActive}>{this.state.awayTeam}</span>
-                            <span className='col-md-2'>@</span>
-                            <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>{this.state.homeTeam}</span>
+                            <span className='col-md-5 team awayTeam' value={this.state.awayTeam} onClick={this.toggleActive}>
+                              {this.state.awayTeam} <br />
+                              <img 
+                                className='teamLogo' 
+                                src={this.loadLogo(this.state.awayAlias)}
+                                alt={this.state.awayAlias} 
+                                fluid='true'
+                              />
+                            </span>
+                            <span className='col-md-2'>
+                              @
+                            </span>
+                            <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>
+                              {this.state.homeTeam} <br />
+                              <img 
+                                className='teamLogo' 
+                                src={this.loadLogo(this.state.homeAlias)}
+                                alt={this.state.homeAlias} 
+                                fluid='false'
+                              />
+                            </span>
                         {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
                         </div> <hr />
                         <div className="row">
@@ -295,10 +442,17 @@ class Calendar extends Component {
                 </Modal>
 
               <div className="row countdown">
-                <h3>TIME TO PICK:</h3>
+              <div className="col-3"></div>
+              <div className="col-6 timer">
+                TIME TO PICK:
                   <Countdown 
                     date={Date.now() + this.state.timeDiff}
-                  />
+                    zeroPadTime={2}
+                    renderer={this.timerRender}
+                    
+                  /></div>
+              <div className="col-3"></div>
+                
                 
               </div>
               

@@ -8,12 +8,17 @@
 
 .team.active {
     color: white;
-    background-color: darkgreen;
-    border: 3px solid lightgreen;
+    background-color: darkblue;
+    border: 3px solid lightblue;
 }
 
 .status {
     text-align: center
+}
+
+.calBoard {
+    padding: 10px;
+    border: solid 5px slategray
 }
 
 #calendar {
@@ -34,6 +39,10 @@ td.fc-event-container a {
     font-size: 12px !important;
 }
 
+.fc-view-container {
+    background-color: slategray;
+}
+
 #modalBody {
     font-size: 30px;
     align-content: center;
@@ -43,6 +52,26 @@ td.fc-event-container a {
     font-size: 40px !important;
 }
 
-.countdown {
-    font-size: 24px;
+.timer {
+    font-size: 18px;
+    text-align: center;
+    background-color: red;
+}
+
+.fc-today {
+    background-color: green;
+}
+
+.fc-future {
+    background-color: lightgreen;
+}
+
+.fc-past {
+    background-color: darkgray;
+    color: white;
+}
+
+.teamLogo {
+    max-width: 50%;
+    max-height: 50%;
 }

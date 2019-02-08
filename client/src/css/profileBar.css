@@ -1,4 +1,32 @@
 .profileData {
-  font-size: 60px;
-  margin-bottom: 3%;
+  font-size: 35px;
+  margin-top: 3%;
+}
+
+.teamButton {
+  width: 90px;
+  height: 100px;
+}
+
+.profLogo {
+  width: 55px;
+  height: 70px;
+}
+
+.btn {
+  min-height: 75px !important;
+  max-width: 150px !important;
+}
+
+.teamLogos {
+  margin-right: 50px;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  
+}
+
+.teamLogo {
+  padding: 0;
+  margin-bottom: 5px;
 }

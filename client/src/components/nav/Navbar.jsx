@@ -23,6 +23,9 @@ class Navbar extends Component {
                         <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/signup">Sign Up</a>
                         </li>
+                        <li className="nav-item">
+                        <a className="nav-link js-scroll-trigger" href="\">Sign Out</a>
+                        </li>
                     </ul>
                     </div>
                 </div>

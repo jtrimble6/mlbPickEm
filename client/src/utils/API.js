@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 export default {
-    getUser: function(id) {
-        return axios.get('/api/users/' + id)
-    },
     getUsers: function() {
         return axios.get('/api/users/')
+    },
+    getUser: function(id) {
+        return axios.get('/api/users/' + id)
     },
     deleteUser: function(id) {
         return axios.delete('/api/users/' + id)
