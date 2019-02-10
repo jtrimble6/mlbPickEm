@@ -1,3 +1,24 @@
 .leaderboard {
-    margin-left: 5%;
+    color: gold;
+    margin-left: 15% !important;
+    overflow: scroll;
+    margin-bottom: 25px;
 }
+
+/* table {
+    counter-increment: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+} */
+
+/* table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 2em;
+} */
+
+/* .leaderRow {
+    overflow: scroll;
+} */

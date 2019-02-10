@@ -30,3 +30,14 @@
   padding: 0;
   margin-bottom: 5px;
 }
+
+.jumbotron {
+  padding: 45px;
+  background-color: darkblue;
+}
+
+.display-4 {
+  height: 20px;
+  font-size: 40px;
+  color: gold;
+}

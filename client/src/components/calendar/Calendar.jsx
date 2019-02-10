@@ -6,6 +6,9 @@ import '../../css/calendar/fullcalendar.min.css'
 import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
 import Moment from 'moment';
@@ -14,14 +17,16 @@ import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, m
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.state = { modal: false, nestedModal: false, closeAll: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
+        this.state = { modal: false, nestedModal: false, nestedModal2: false, closeAll: false, closeAll2: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleActive = this.toggleActive.bind(this);
         this.toggleInvalidPick = this.toggleInvalidPick.bind(this);
+        this.toggleExpiredPick = this.toggleExpiredPick.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
+        this.toggleAll2 = this.toggleAll2.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDates = this.checkPrevDates.bind(this);
@@ -63,10 +68,29 @@ class Calendar extends Component {
       $('.modal-open .modal-header').prepend(invalidPickAlert)
     }
 
+    toggleExpiredPick() {
+      this.toggleActive()
+      this.toggle()
+      this.setState({
+        nestedModal2: !this.state.nestedModal2,
+        closeAll2: false
+      });
+      console.log('EXPIRED PICK')
+      let invalidPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
+      $('.modal-open .modal-header').prepend(invalidPickAlert)
+    }
+
     toggleAll() {
       this.setState({
         nestedModal: !this.state.nestedModal,
         closeAll: true
+      });
+    }
+
+    toggleAll2() {
+      this.setState({
+        nestedModal2: !this.state.nestedModal2,
+        closeAll2: true
       });
     }
 
@@ -116,7 +140,7 @@ class Calendar extends Component {
 
         //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
         let pickAlreadyWon = (wins) => {
-          return wins.win === teamPick
+          return wins.win.trim() === teamPick.trim()
           }
         let thisPickWinner = myWins.filter(pickAlreadyWon)
 
@@ -254,12 +278,6 @@ class Calendar extends Component {
           let realTime = Moment(now).format('HH:mm:ss a')
           let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
           let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
-          // let seconds = timeDiff.asHours()
-          // console.log('Todays first game: ', firstGame)
-          // console.log('Right now: ', now)
-          // console.log('Game Time: ', realGameTimeAdj)
-          // console.log('Time diff: ', timeDiff)
-          // console.log('Hours til: ', seconds)
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))
@@ -267,22 +285,21 @@ class Calendar extends Component {
       }
 
     createTimer = (timeDiff) => {
-      // console.log('Time until first game: ', timeDiff)
-      let seconds = Moment.duration(timeDiff).asSeconds() * 1000
-      // console.log('In seconds milliseconds: ', seconds)
-      this.setState({ timeDiff: seconds })
+        // console.log('Time until first game: ', timeDiff)
+        let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+        // console.log('In seconds milliseconds: ', seconds)
+        this.setState({ timeDiff: seconds })
       }
 
-    endTimer = () => <span>The games have begun.</span>
 
-    timerRender = ({ hours, minutes, seconds, completed }) => {
-      if (completed) {
-        return this.endTimer()
+    // timerRender = ({ hours, minutes, seconds, completed }) => {
+    //   if (completed) {
+    //     return this.endTimer()
 
-      } else {
-        return <span>{hours}:{minutes}:{seconds}</span>
-      }
-    }
+    //   } else {
+    //     return <span>{hours}{hours}:{minutes}{minutes}:{seconds}{seconds}</span>
+    //   }
+    // }
 
     loadLogo = (team) => {
       //console.log('THIS IS THE TEAM LOGO: ', team)
@@ -384,6 +401,15 @@ class Calendar extends Component {
     }
 
     render() {
+      library.add(faIgloo, faCaretRight, faBasketballBall)
+      let timerEnded = false;
+      let EndTimer = () => {
+          timerEnded = true
+          return (
+            <span>The games have begun.</span>
+          )
+        }
+        
         return (
             <div className='calendar'>
                <Modal 
@@ -404,6 +430,13 @@ class Calendar extends Component {
                       <ModalFooter>
                         <Button color="primary" onClick={this.toggleInvalidPick}>Close</Button>{' '}
                         <Button color="secondary" onClick={this.toggleAll}>Close All</Button>
+                      </ModalFooter>
+                    </Modal>
+                    <Modal isOpen={this.state.nestedModal2} toggle={this.toggleExpiredPick} onClosed={this.state.closeAll2 ? this.toggle : undefined}>
+                      <ModalHeader>Invalid Pick</ModalHeader>
+                      <ModalBody>This is an old game!</ModalBody>
+                      <ModalFooter>
+                        <Button color="secondary" onClick={this.toggleAll2}>Close All</Button>
                       </ModalFooter>
                     </Modal>
                         <div className="thisGame row">
@@ -430,8 +463,8 @@ class Calendar extends Component {
                             </span>
                         {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
                         </div> <hr />
-                        <div className="row">
-                            <span className='status'>Game Status: {this.state.status} | Game Time: {this.state.time} </span>
+                        <div className="status row">
+                            <span>Game Status: {this.state.status} | Game Time: {this.state.time} </span>
                         </div>
                     </ModalBody>
                     <ModalFooter>
@@ -444,13 +477,10 @@ class Calendar extends Component {
               <div className="row countdown">
               <div className="col-3"></div>
               <div className="col-6 timer">
-                TIME TO PICK:
-                  <Countdown 
-                    date={Date.now() + this.state.timeDiff}
-                    zeroPadTime={2}
-                    renderer={this.timerRender}
-                    
-                  /></div>
+                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+                    <EndTimer />
+                  </Countdown>
+              </div>
               <div className="col-3"></div>
                 
                 
@@ -474,17 +504,30 @@ class Calendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.scheduledGames}
                 eventClick= {(calEvent) => {
+                  if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
+                      console.log('YOU CANT PICK THAT DATE')
+                      // $('#calendar').fullCalendar('unselect');
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      this.toggleExpiredPick()
+                      return false;
+                    } 
+                    else if (timerEnded && (Moment(calEvent.date).isBefore(Moment()))) {
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      this.toggleExpiredPick()
+                    }
+                    else 
+                    {
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      console.log(calEvent)
+                      this.toggle()
+                    }
                   //this.handleChangeTitle(calEvent)
-                  this.handleChangeTeams(calEvent)
-                  this.handleChangeStatus(calEvent)
-                  //$('.modal-content', '.modal-header').append(calEvent.title);
-                  //$('.modal-content', '.modal-body').append(calEvent.description);
-                  //$('#fullCalModal').modal();
-                  console.log(calEvent)
-                  this.toggle()
-                
+                    }
                   }
-                }
+                
               />
             </div>
         )

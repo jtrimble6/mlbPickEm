@@ -44,7 +44,7 @@ class ActionPage extends Component {
               })
               this.getTodaysPick()
             //   console.log('ID: ', this.state.id)
-            //    console.log('Username: ', this.state.username)
+            //   console.log('Username: ', this.state.username)
             //   console.log('First name: ', this.state.firstName)
             //   console.log('Last name: ', this.state.lastName)
             //   console.log('Wins Count: ', this.state.winsCount)
@@ -82,17 +82,17 @@ class ActionPage extends Component {
                     username={this.state.username}
                   />
                 </div>
-                <div className='col-md-3'>
-                <div className="row">
+                <div className='col-md-2'>
+                <div className="leaders row">
+                  <Leaderboard   
+                  />
+                </div>
+                <div className="winningTeams row">
                   <Games 
                     username={this.state.username}
                   />
                 </div>
-                <div className="row">
-                  <Leaderboard 
-                    
-                  />
-                </div>
+                
                   
                 </div>
               </div>

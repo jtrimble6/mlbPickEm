@@ -12,6 +12,9 @@ router.route('/')
 router.route('/:date')
   .get(gameController.findByDate)
 
+// router.route('/:team')
+//   .get(gameController.findbyTeam)
+
 router.route('/:date/:id')
   .get(gameController.findById)
   .put(gameController.findOneAndUpdate)

@@ -1,3 +1,7 @@
+body {
+    background-color: #202020
+}
+
 #actionPage {
     margin-top: 5%;
     margin-left: 5%;
@@ -7,4 +11,13 @@
     height: 575px;
     overflow: scroll;
     margin-bottom: 200px;
+}
+
+.leaderboard {
+    height: 350px;
+    margin-left: 0;
+}
+
+.winningTeams {
+    height: 300px;
 }

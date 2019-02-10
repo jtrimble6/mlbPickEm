@@ -11,12 +11,12 @@
   #mainNav .navbar-brand {
     font-weight: 700;
     text-transform: uppercase;
-    color: black;
+    color: gold;
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   }
   
   #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-    color: black;
+    color: gold;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link,
@@ -24,23 +24,23 @@
     font-size: .9rem;
     font-weight: 700;
     text-transform: uppercase;
-    color:black;
+    color:gold;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-    color: black;
+    color: gold;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
-    color: black !important;
-    background-color: lightslategray;
+    color: gold !important;
+    background-color: darkblue;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active:hover {
-    background-color: lightslategray;
+    background-color: darkblue;
   }
 
   .sticky {
@@ -51,13 +51,13 @@
   
   @media (min-width: 992px) {
     #mainNav {
-      border-color: lightslategray;
-      background-color: lightslategray;
+      border-color: darkblue;
+      background-color: darkblue;
     }
   
     /* logo  */
     #mainNav .navbar-brand {
-    color: black; 
+    color: gold; 
     }
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: 212529(131, 91, 91);
@@ -78,10 +78,10 @@
       background-color: #212529;
     }
     #mainNav.navbar-shrink .navbar-brand {
-      color: black;
+      color: gold;
     }
     #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: black;
+      color: gold;
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
@@ -89,7 +89,7 @@
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: black;
+      color: gold;
     }
   }
   

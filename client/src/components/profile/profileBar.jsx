@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import '../../css/profileBar.css'
 import API from '../../utils/API';
-import { Button } from 'reactstrap'
+import { Button, Jumbotron, Container } from 'reactstrap'
 import $ from 'jquery'
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
@@ -18,6 +18,7 @@ class ProfileBar extends Component {
         this.findWins = this.findWins.bind(this);
         this.getTeams = this.getTeams.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
+        this.findTeamGames = this.findTeamGames.bind(this);
       }
 
     componentDidMount() {
@@ -39,8 +40,8 @@ class ProfileBar extends Component {
             { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'danger' },
             { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'danger' },
             { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'danger' },
-            { name: 'Los Angelos Clippers', abbr: 'lac', logo: lac, status: 'danger' },
-            { name: 'Los Angelos Lakers', abbr: 'lal', logo: lal, status: 'danger' },
+            { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'danger' },
+            { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'danger' },
             { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'danger' },
             { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'danger' },
             { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'danger' },
@@ -59,6 +60,17 @@ class ProfileBar extends Component {
             { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'danger' }
           ] })
     }
+
+    findTeamGames = (team, i) => {
+      let teamAlt = team.target.alt
+      let thisTeam = teamAlt.toUpperCase()
+      console.log('Find the next games for this team: ', thisTeam)
+    //   API.getGamesByTeam(thisTeam)
+    //     .then(res => {
+    //         console.log(res)
+    //     })
+    //     .catch(err => (console.log(err)))
+      }
  
     findWins = () => {
       let localUser = localStorage.getItem('user')
@@ -80,7 +92,7 @@ class ProfileBar extends Component {
         console.log('real wins: ', wins)
         let teamWins = []
         for (var j=0; j<wins.length; j++) {
-            let thisWin = wins[j]
+            // let thisWin = wins[j]
             // console.log('HERE IS THE WIN: ', thisWin)
           for (var y=0; y<teams.length; y++) {
             // let thisTeam = teams[y]
@@ -108,20 +120,23 @@ class ProfileBar extends Component {
         return (
 
             <div className="row profileBar">
-              
-                <span className="col-md">
-                  <div className="row profileData">
+              <Jumbotron>
+                <Container fluid>
+                  <h1 className="display-4">
                     Username: {this.props.username} | 
                     Today's Pick: {this.props.todaysPick} |
                     Wins: {this.props.winsCount}
-                  </div>
-                   
+                  </h1>
+                </Container>
+              </Jumbotron>
+              
+                <span className="col-md"> 
                   <div className="row teamLogos">
                     
                     {
-                        this.state.teams.map((team) => (
+                        this.state.teams.map((team, i) => (
                             <div className='col-md teamLogo' id={uuidv4()} key={uuidv4()}>
-                            <Button color={team.status} className='teamButton'>
+                            <Button onClick={this.findTeamGames} color={team.status} className='teamButton'>
                                 <img
                                 className='profLogo'
                                 src={team.logo}

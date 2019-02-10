@@ -56,16 +56,32 @@ class Leaderboard extends Component {
 
     render() {
         let uuidv4 = require('uuid/v4')
+        let leaderStyle = {
+            overflow: 'scroll'
+        }
         return(
             <div className='leaderboard'>
-                <h1>Leaderboard</h1>
-                {
-                    this.state.leaders.map((leader) => (
-                        <p key={uuidv4()}>
-                          {leader.username} | {leader.wins.length}
-                        </p>
-                    ))
-                }
+                <h2>Leaderboard</h2>
+                <table className='table table-striped table-hover'>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                      this.state.leaders.map((leader, i) => (
+                        <tr key={uuidv4()}>
+                        <td className='leaderRow' style={leaderStyle}>{i+1}</td>
+                        <td className='leaderRow' style={leaderStyle}>{leader.username}</td>
+                        <td className='leaderRow' style={leaderStyle}>{leader.wins.length}</td>
+                        </tr>
+                      ))
+                    }
+                    </tbody>
+                </table>
             </div>
         )
     }

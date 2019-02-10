@@ -1,5 +1,5 @@
 .team {
-    color: black
+    color: gold
 }
 
 /* .team:hover {
@@ -17,12 +17,14 @@
 }
 
 .calBoard {
+    color: gold;
     padding: 10px;
-    border: solid 5px slategray
+    border: solid 5px gold;
+    max-height: 550px;
 }
 
-#calendar {
-    max-height: 100px !important;
+.calendar {
+    max-height: 100% !important;
 }
 
 table {
@@ -35,7 +37,7 @@ td.fc-event-container {
 }
 
 td.fc-event-container a {
-    min-height: 100%;
+    min-height: 95%;
     font-size: 12px !important;
 }
 
@@ -46,6 +48,7 @@ td.fc-event-container a {
 #modalBody {
     font-size: 30px;
     align-content: center;
+    background-color: slategray;
 }
 
 #modalTitle {
@@ -71,7 +74,31 @@ td.fc-event-container a {
     color: white;
 }
 
+.fc-view-container .fc-view {
+    max-height: 500px !important;
+    overflow: scroll;
+}
+
 .teamLogo {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 70%;
+    max-height: 70%;
+    margin-top: 10px;
+}
+
+.thisGame {
+    text-align: center;
+    align-content: center;
+}
+
+.status {
+    text-align: center;
+    color: gold;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.timer {
+    color: gold;
+    font-weight: bolder;
+    margin-bottom: 10px;
 }

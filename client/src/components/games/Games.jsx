@@ -324,9 +324,9 @@ class Games extends Component {
         <div className='winningPicks'>
           <h1>Winning Picks</h1>
           {
-            this.state.userWins.map((userWin) => (
+            this.state.userWins.map((userWin, i) => (
               <p key={uuidv4()}>
-                {userWin.win}
+                {i+1}. {userWin.win}
               </p>
             ))
           }

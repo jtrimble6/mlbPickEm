@@ -20,6 +20,15 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
+    // findByTeam: function(req, res) {
+    //   db.Game
+    //     .find(
+    //         { homeAlias: req.params.team },
+    //         { awayAlias: req.params.team }
+    //     )
+    //     .then(dbModel => res.json(dbModel))
+    //     .catch(err => res.status(422).json(err))
+    // },
     findOneAndUpdate: function (req, res) {
         db.Game
           .update(

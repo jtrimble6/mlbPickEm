@@ -19,6 +19,9 @@ export default {
     getGamesByDate: function(date) {
         return axios.get('/api/games/' + date)
     },
+    // getGamesByTeam: function(team) {
+    //     return axios.get('api/games/' + team)
+    // },
     getGamesById: function(date, id) {
         return axios.get('/api/games/' + date + '/' + id)
     },
