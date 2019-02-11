@@ -19,9 +19,18 @@ export default {
     getGamesByDate: function(date) {
         return axios.get('/api/games/' + date)
     },
-    // getGamesByTeam: function(team) {
-    //     return axios.get('api/games/' + team)
-    // },
+    postTeams: function(data) {
+        return axios.post('/api/teams/', data)
+    },
+    addGamesByTeam: function(team, game) {
+        return axios.put('/api/teams/' + team, game)
+    },
+    getTeam: function(team) {
+        return axios.get('/api/teams/' + team)
+    },
+    getTeams: function() {
+        return axios.get('/api/teams/')
+    },
     getGamesById: function(date, id) {
         return axios.get('/api/games/' + date + '/' + id)
     },

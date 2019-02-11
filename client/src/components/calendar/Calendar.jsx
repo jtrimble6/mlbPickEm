@@ -66,7 +66,7 @@ class Calendar extends Component {
       console.log('WOAAAAH INVALID PICK DOOOOOD')
       let invalidPickAlert = <div className='row invalidPick'>Sorry, you have already won with this team!</div>
       $('.modal-open .modal-header').prepend(invalidPickAlert)
-    }
+      }
 
     toggleExpiredPick() {
       this.toggleActive()
@@ -78,21 +78,21 @@ class Calendar extends Component {
       console.log('EXPIRED PICK')
       let invalidPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
       $('.modal-open .modal-header').prepend(invalidPickAlert)
-    }
+      }
 
     toggleAll() {
       this.setState({
         nestedModal: !this.state.nestedModal,
         closeAll: true
       });
-    }
+      }
 
     toggleAll2() {
       this.setState({
         nestedModal2: !this.state.nestedModal2,
         closeAll2: true
       });
-    }
+      }
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value})
@@ -249,8 +249,6 @@ class Calendar extends Component {
                   // console.log(gameDate2)
               })
               this.setState({ scheduledGames: games })
-              
-              
               // console.log('We have pulled the schedule')
               // console.log('Here are all of the games: ', this.state.scheduledGames)
               
@@ -290,16 +288,6 @@ class Calendar extends Component {
         // console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
       }
-
-
-    // timerRender = ({ hours, minutes, seconds, completed }) => {
-    //   if (completed) {
-    //     return this.endTimer()
-
-    //   } else {
-    //     return <span>{hours}{hours}:{minutes}{minutes}:{seconds}{seconds}</span>
-    //   }
-    // }
 
     loadLogo = (team) => {
       //console.log('THIS IS THE TEAM LOGO: ', team)
@@ -398,7 +386,7 @@ class Calendar extends Component {
           return uta;
         }  
 
-    }
+      }
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
