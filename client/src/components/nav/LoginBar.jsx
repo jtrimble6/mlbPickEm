@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 
-class Navbar extends Component {
+class LoginBar extends Component {
     constructor(props) {
         super(props);
 
@@ -29,19 +29,13 @@ class Navbar extends Component {
                       <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar className='navItems'>
                             <NavItem>
-                                <NavLink href="/action">Home</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/leaderboard">Leaderboard</NavLink>
-                            </NavItem>
-                            <NavItem>
                                 <NavLink href="/about">About</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/rules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="\">Sign Out</NavLink>
+                                <NavLink href="/signup">Sign Up</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -50,19 +44,13 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/action">Home</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
-                      </li>
-                      <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/about">About</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="\">Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href="/signup">Sign Up</a>
                       </li>
                     </ul>
                     </div>
@@ -72,4 +60,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+export default LoginBar

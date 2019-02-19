@@ -134,7 +134,7 @@ html .fc,
 }
 
 .fc-state-highlight > div > div.fc-day-number{
-    background-color: #ff3b30;
+    background-color: gold;
     color: #FFFFFF;
     border-radius: 50%;
     margin: 4px;
@@ -211,8 +211,8 @@ html .fc,
 
 
 .fc-state-default {
-	border-color: #ff3b30;
-	color: #ff3b30;	
+	border-color: gold;
+	color: gold;	
 }
 .fc-button-month.fc-state-default, .fc-button-agendaWeek.fc-state-default, .fc-button-agendaDay.fc-state-default{
     min-width: 67px;
@@ -229,7 +229,7 @@ html .fc,
 	}
 
 .fc-state-hover {
-	color: #ff3b30;
+	color: gold;
 	text-decoration: none;
 	background-position: 0 -15px;
 	-webkit-transition: background-position 0.1s linear;
@@ -240,7 +240,7 @@ html .fc,
 
 .fc-state-down,
 .fc-state-active {
-	background-color: #ff3b30;
+	background-color: gold;
 	background-image: none;
 	outline: 0;
 	color: #FFFFFF;
@@ -253,7 +253,7 @@ html .fc,
 	filter: alpha(opacity=65);
 	box-shadow: none;
 	border:1px solid #FFE3E3;
-	color: #ff3b30;
+	color: gold;
 	}
 
 	
@@ -647,7 +647,7 @@ table.fc-header{
     transition: background-color 0.2s;
 }
 .fc-week .fc-day.fc-state-highlight:hover .fc-day-number{
-    background-color:  #ff3b30;
+    background-color:  gold;
 }
 .fc-button-today{
     border: 1px solid rgba(255,255,255,.0);
@@ -657,11 +657,11 @@ table.fc-header{
     padding-right: 10px;
 }
 .fc-unthemed td.fc-today {
-	background-color: green !important;
-	border: 4px solid green
+	background-color: gold !important;
+	border: 4px solid gold
 }
 
 .fc-unthemed td.fc-today td {
-	background-color: green !important;
-	border: 10px solid green
+	background-color: gold !important;
+	border: 10px solid gold
 }

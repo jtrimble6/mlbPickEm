@@ -1,24 +1,61 @@
-.leaderboard {
-    color: gold;
-    margin-left: 15% !important;
-    overflow: scroll;
-    margin-bottom: 25px;
+@media (min-width: 1300px) {
+    .leaderboard {
+        color: gold;
+        margin-left: 15% !important;
+        overflow: scroll;
+        margin-bottom: 25px;
+        min-width: 100% !important;
+    }
+    
+    /* table {
+        counter-increment: rowNumber;
+    }
+    
+    table tr {
+        counter-increment: rowNumber;
+    } */
+    
+    /* table tr td:first-child::before {
+        content: counter(rowNumber);
+        min-width: 1em;
+        margin-right: 2em;
+    } */
+    
+    /* .leaderRow {
+        overflow: scroll;
+    } */
 }
 
-/* table {
-    counter-increment: rowNumber;
+@media (min-width: 1000px) and (max-width: 1299px) {
+    .leaderboard {
+        color: gold;
+        margin-left: 15% !important;
+        overflow: scroll;
+        margin-bottom: 25px;
+        min-width: 100% !important;
+    }
+}
+@media (min-width: 776px) and (max-width: 999px) {
+    .leaderboard {
+        color: gold;
+        margin-left: 15% !important;
+        overflow: scroll;
+        margin-bottom: 25px;
+        min-width: 100% !important;
+    }
 }
 
-table tr {
-    counter-increment: rowNumber;
-} */
+@media (max-width: 775px) {
+    .leaderboard {
+        color: gold;
+        overflow: scroll;
+        margin-top: 0;
+        margin-bottom: 25px;
+        margin-left: 5% !important;
+        margin-right: 3%;
+        min-width: 80% !important;
+    }.leaderboard :active {
+        overflow: scroll;
+    }
+}
 
-/* table tr td:first-child::before {
-    content: counter(rowNumber);
-    min-width: 1em;
-    margin-right: 2em;
-} */
-
-/* .leaderRow {
-    overflow: scroll;
-} */

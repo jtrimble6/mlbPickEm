@@ -7,11 +7,12 @@ const userSchema = new Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     username: { type: String, required: true },
-    password: {type: String, required: true},
+    password: {type: String, required: true },
     img: { type: String, required: false },
     date: {type: Date, default: Date.now },
     picks: { type: Array, default: [] },
-    wins: { type: Array, default: [] }
+    wins: { type: Array, default: [] },
+    teams: { type: Array, required: true }
 })
 
 userSchema.methods = {

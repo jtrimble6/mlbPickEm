@@ -1,5 +1,35 @@
-.winningPicks {
-    color: gold;
-    margin-left: 15%;
-    overflow: scroll;
+@media (min-width: 1300px) {
+    .winningPicks {
+        color: gold;
+        overflow: scroll;
+        margin-left: 15%;
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1299px) {
+    .winningPicks {
+        color: gold;
+        overflow: scroll;
+        margin-left: 15%;
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 776px) and (max-width: 999px) {
+    .winningPicks {
+        color: gold;
+        overflow: scroll;
+        margin-left: 15%;
+        min-width: 100%;
+    }
+}
+
+@media(max-width: 775px) {
+    .winningPicks {
+        color: gold;
+        overflow: scroll !important;
+        max-width: 100%;
+        margin-bottom: 50px;
+    }
 }

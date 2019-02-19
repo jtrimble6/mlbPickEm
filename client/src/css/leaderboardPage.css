@@ -1,0 +1,92 @@
+@media (min-width: 751px) {
+    thead {
+        border: none;
+    }
+    
+    .allRows {
+        max-height: 30% !important;
+        overflow: scroll;
+    }
+    
+    .leaderboard {
+        /* position: relative; */
+        margin-top: 10%;
+        margin-left: 1% !important;
+    }
+    
+    .leaderRow {
+        position: relative !important;
+        overflow: scroll !important;
+        top: auto;
+        width: 10em !important;
+        left: 0;
+    }
+    
+    .teamLogos {
+        position: relative;
+        flex-wrap: nowrap;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 750px) {
+    thead {
+        border: none;
+    }
+    
+    .allRows {
+        max-height: 30% !important;
+        overflow: scroll;
+    }
+    
+    .leaderboard {
+        /* position: relative; */
+        margin-top: 20%;
+        max-width: 80%;
+        margin-left: 10%;
+    }
+    
+    .leaderRow {
+        position: relative !important;
+        overflow: scroll !important;
+        top: auto;
+        width: 10em !important;
+        left: 0;
+    }
+    
+    .teamLogos {
+        position: relative;
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 450px) {
+    thead {
+        border: none;
+    }
+    
+    .allRows {
+        max-height: 30% !important;
+        overflow: scroll;
+    }
+    
+    .leaderboard {
+        /* position: relative; */
+        margin-top: 20%;
+        max-width: 80%;
+        margin-left: 10%;
+    }
+    
+    .leaderRow {
+        position: relative !important;
+        overflow: scroll !important;
+        top: auto;
+        width: 10em !important;
+        left: 0;
+    }
+    
+    .teamLogos {
+        position: relative;
+        flex-wrap: nowrap;
+    }
+}
+

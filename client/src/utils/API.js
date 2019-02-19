@@ -37,6 +37,9 @@ export default {
     updateGame: function(date, id, gameResult) {
         return axios.put('/api/games/' + date + '/' + id, gameResult)
     },
+    addResult: function(game) {
+        return axios.post('/api/results/', game)
+    },
     savePick: function(id, thisPick) {
         return axios.put('/api/users/' + id, thisPick)
     },
@@ -50,7 +53,10 @@ export default {
         return axios.get('/api/users/' + id)
     },
     addWin: function(id, newWin) {
-        return axios.put('/api/users/' + id, newWin)
+        return axios.post('/api/users/' + id, newWin)
+    },
+    changeStatus: function(id, team) {
+        return axios.put('/api/users/' + id + '/teams/' + team)
     },
     saveUser: function(userData) {
         return axios.post('/api/users', userData)

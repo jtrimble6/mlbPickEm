@@ -71,7 +71,7 @@
     }
     #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: #212529;
+      color: white;
     }
     #mainNav.navbar-shrink {
       border-bottom: 1px solid rgba(33, 37, 41, 0.1);
@@ -92,5 +92,135 @@
       color: gold;
     }
   }
+  
+  @media (min-width: 776px) and (max-width: 992px) {
+    #mainNav {
+      border-color: darkblue;
+      background-color: darkblue;
+    }
+  
+    /* logo  */
+    #mainNav .navbar-brand {
+    color: gold; 
+    }
+    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+      color: 212529(131, 91, 91);
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link {
+      padding: 0.5rem 1rem;
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link,
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+      color: 212529(255, 255, 255, 0.7);
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+      color: white;
+    }
+    #mainNav.navbar-shrink {
+      border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+      background-color: #212529;
+    }
+    #mainNav.navbar-shrink .navbar-brand {
+      color: gold;
+    }
+    #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
+      color: gold;
+    }
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+      color: #212529;
+    }
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+      color: gold;
+    }
+
+    .navbar-toggler-icon {
+      background-color: gold !important;
+      margin-right: -20px;
+    }
+
+    .navItems {
+      position: fixed;
+      z-index: 0;
+      right: 0;
+      margin-right: 85px;
+      background-color: gold;
+      color: darkblue !important;
+      border: solid 1px darkblue;
+    }
+
+    .nav-link {
+      color: darkblue !important;
+    }
+  }
+  
+  @media (max-width: 775px) {
+    #mainNav {
+      border-color: darkblue;
+      background-color: darkblue;
+    }
+  
+    /* logo  */
+    #mainNav .navbar-brand {
+    color: gold; 
+    }
+    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+      color: 212529(131, 91, 91);
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link {
+      padding: 0.5rem 1rem;
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link,
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+      color: 212529(255, 255, 255, 0.7);
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
+    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+      color: white;
+    }
+    #mainNav.navbar-shrink {
+      border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+      background-color: #212529;
+    }
+    #mainNav.navbar-shrink .navbar-brand {
+      color: gold;
+    }
+    #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
+      color: gold;
+    }
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+      color: #212529;
+    }
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+      color: darkblue !important;
+    }
+    .navbar-toggler-icon {
+      background-color: gold !important;
+      margin-right: 10px !important;
+    }
+
+    .navItems {
+      position: absolute;
+      z-index: 0;
+      top: 43px;
+      right: -22px;
+      margin-right: 60px;
+      background-color: gold;
+      color: darkblue !important;
+      border: solid 1px darkblue;
+    }
+
+    .nav-link {
+      color: darkblue !important;
+    }
+
+  }
+  
+  
+  
   
   

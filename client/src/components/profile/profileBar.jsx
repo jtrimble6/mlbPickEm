@@ -14,43 +14,45 @@ class ProfileBar extends Component {
             modal: false,
             userId: '',
             userWins: [],
+            userPicks: [],
             activeTeam: {},
             nextDays: [],
             nextGames: [],
+            recentPicks: [],
             allGames: [],
             homeGames: [],
             awayGames: [],
             teams: [
-            { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'danger' },
-            { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'danger' },
-            { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'danger' },
-            { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'danger' },
-            { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'danger' },
-            { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'danger' },
-            { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'danger' },
-            { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'danger' },
-            { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'danger' },
-            { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'danger' },
-            { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'danger' },
-            { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'danger' },
-            { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'danger' },
-            { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'danger' },
-            { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'danger' },
-            { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'danger' },
-            { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'danger' },
-            { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'danger' },
-            { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'danger' },
-            { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'danger' },
-            { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'danger' },
-            { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'danger' },
-            { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'danger' },
-            { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'danger' },
-            { name: 'Portland Trailblazers', abbr: 'por', logo: por, status: 'danger' },
-            { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'danger' },
-            { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'danger' },
-            { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'danger' },
-            { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'danger' },
-            { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'danger' }
+            { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
+            { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
+            { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
+            { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
+            { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
+            { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
+            { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
+            { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
+            { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
+            { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
+            { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
+            { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
+            { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
+            { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
+            { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
+            { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
+            { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
+            { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
+            { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
+            { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
+            { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
+            { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
+            { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
+            { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
+            { name: 'Portland Trailblazers', abbr: 'por', logo: por, status: 'secondary' },
+            { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
+            { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
+            { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
+            { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
+            { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
           ]
         }
 
@@ -62,10 +64,17 @@ class ProfileBar extends Component {
         this.findTeamGames = this.findTeamGames.bind(this);
         this.findNextGames = this.findNextGames.bind(this);
         this.postTeamGames = this.postTeamGames.bind(this);
+        this.findRecentPicks = this.findRecentPicks.bind(this);
+        this.findNextDays = this.findNextDays.bind(this);
       }
+
+    // componentWillMount() {
+    //   this.findWins()
+    // }
 
     componentDidMount() {
         this.findWins()
+        this.findNextDays()
         //this.postTeams()
         //this.postTeamGames()
       }
@@ -128,7 +137,6 @@ class ProfileBar extends Component {
       }
 
     findNextGames = (homeGames, awayGames) => {
-      let nextDays = []
       //console.log('FIND NEXT GAMES FROM THESE: ', homeGames, awayGames)
       let allGames = []
       for (var n=0; n<homeGames.length; n++) {
@@ -140,10 +148,147 @@ class ProfileBar extends Component {
         allGames: sortedGames
       })
       //console.log('ALL GAMES FOUND: ', this.state.allGames)
+      
+      console.log('NEXT 7 DAYS: ', this.state.nextDays)
+      let nextGames = []
+      for (var u=0; u<this.state.nextDays.length; u++) {  
+        let newGame = ''
+        let noGame = {
+          gameDate: this.state.nextDays[u],
+          homeAlias: 'No Game',
+          awayAlias: 'No Game'
+        }
+        for (var b=0; b<this.state.allGames.length; b++) {
+          if (this.state.allGames[b].gameDate === this.state.nextDays[u]) {
+            newGame = this.state.allGames[b]
+            // nextGames.push(this.state.allGames[b])
+          } 
+        }
+        if (newGame !== '') {
+          nextGames.push(newGame)
+        } else {
+          nextGames.push(noGame)
+        }
+      }
+      
+      this.setState({
+        nextGames: nextGames
+      })
+      console.log('THE NEXT GAMES: ', this.state.nextGames)
+      }
+
+    findRecentPicks = () => {
+      
+      let recentPicks = [ 
+        {
+          date: moment().subtract(6,'day').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().subtract(5,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().subtract(4,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().subtract(3,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().subtract(2,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().subtract(1,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'pastPick'
+        },
+        {
+          date: moment().format('MM-DD'),
+          team: 'NO PICK',
+          status: 'todaysPick'
+        },
+        {
+          date: moment().add(1,'day').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(2,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(3,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(4,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(5,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(6,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        },
+        {
+          date: moment().add(7,'days').format('MM-DD'),
+          team: 'NO PICK',
+          status: 'futurePick'
+        }
+        
+    ]
+      console.log('USER PICKS: ', this.state.userPicks)
+      for (var k=0; k<recentPicks.length; k++) {  
+        // console.log('RECENT PICK: ', recentPicks[k].date)
+        for (var m=0; m<this.state.userPicks.length; m++) {
+          let thisUserPick = this.state.userPicks[m]
+          let thisUserPickDate = moment(thisUserPick.gameDate).format('MM-DD')
+          // console.log('THIS PICK: ', moment(thisUserPick.gameDate).format('MM-DD'))
+          if (thisUserPickDate === recentPicks[k].date) {
+            let newPick = {
+              date: recentPicks[k].date,
+              team: this.state.userPicks[m].team,
+              status: recentPicks[k].status
+            }
+            console.log('THIS IS A NEW PICK: ', newPick)
+            recentPicks[k] = newPick
+            
+            // recentPicks.push(this.state.allGames[m])
+            
+            
+          } 
+        }
+        
+      }
+      
+      this.setState({
+        recentPicks: recentPicks
+      })
+      console.log('THE NEXT PICKS: ', recentPicks)
+      }
+
+    findNextDays = () => {
+      // this.findWins()
       let today = moment().format('YYYY-MM-DD')
+      let nextDays = []
       console.log('GAMES FOR THIS WEEK: ', today)
 
-      for (var c=0; c<7; c++) {
+      for (var c=0; c<14; c++) {
         let thisDay = moment(today).add(c, 'days').format('YYYY-MM-DD')
         // console.log('THIS DAY: ', thisDay)
         nextDays.push(thisDay)
@@ -153,34 +298,40 @@ class ProfileBar extends Component {
         nextDays: nextDays
       })
 
-      console.log('NEXT 7 DAYS: ', this.state.nextDays)
-      let nextGames = []
-      for (var b=0; b<this.state.allGames.length; b++) {
-        for (var u=0; u<this.state.nextDays.length; u++) {
-          if (this.state.allGames[b].gameDate === this.state.nextDays[u]) {
-            nextGames.push(this.state.allGames[b])
-          }
-        }
+      this.findRecentPicks()
+
       }
-      
-      this.setState({
-        nextGames: nextGames
-      })
-      console.log('THE NEXT GAMES: ', this.state.nextGames)
-    }
  
     findWins = () => {
       let localUser = localStorage.getItem('user')
       let self = this
       API.getUser(localUser)
         .then(res => {
-            // console.log('MY PROFILE DATA: ', res.data)
-            this.setState({ userWins: res.data[0].wins})
-            this.setState({ userId: res.data[0].username})
-            // console.log('MY PROFILE WINS: ', this.state.userWins)
-            self.changeLogo()
+          console.log('BIG result: ', res.data)
+          self.setState({ 
+            userWins: res.data[0].wins,
+            userId: res.data[0].username,
+            userPicks: res.data[0].picks
+           })
+          self.changeLogo()
+          self.findRecentPicks()
         })
         .catch(err => console.log(err))
+      
+        $(document).ready(function(){
+       
+            var target = $('.pastPick');
+            if (target.length)
+            {
+                let top = target.offset().top;
+                $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+                // $('recentPicks').scrollTo('.todaysPick')
+                return false;
+            }
+          
+          // $('.recentPicks').animate({scrollTop: '320%'}, 800); 
+        });
+     
       }
     
     changeLogo = () => {
@@ -222,7 +373,7 @@ class ProfileBar extends Component {
             console.log(res.data)
           })
           .catch(err => console.log(err))
-      }
+        }
       }
     
     postTeamGames = () => {
@@ -269,8 +420,8 @@ class ProfileBar extends Component {
     render() {              
         let uuidv4 = require('uuid/v4')    
         let modalStyle = {
-          backgroundColor: '#28a745',
-          color: 'white'
+          backgroundColor: 'gold',
+          color: 'darkblue'
         }                                                
         return (
 
@@ -278,12 +429,39 @@ class ProfileBar extends Component {
               <Jumbotron>
                 <Container fluid>
                   <h1 className="display-4">
-                    Username: {this.props.username} | 
-                    Today's Pick: {this.props.todaysPick} |
+                    Username: {this.props.username} <br /> 
+                    Today's Pick: {this.props.todaysPick} <br />
                     Wins: {this.props.winsCount}
                   </h1>
                 </Container>
               </Jumbotron>
+              <span className='row recentPicks'>
+                <div className="col-11-md">
+                <table className='table table-striped table-hover'>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Pick</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        this.state.recentPicks.map((nextPick, i) => (
+                          <tr key={uuidv4()} className={nextPick.status}>
+                            <td>{nextPick.date}</td>
+                            <td>{nextPick.team}</td>
+                          </tr> 
+                            )
+                          )     
+                      }
+                       
+                    </tbody>
+                  </table>
+                </div>
+                <div className="col-1-md title">
+                  <h4>Recent Picks</h4>
+                </div>
+              </span>
               
                 <span className="col-md"> 
                   <div className="row teamLogos">
@@ -324,7 +502,6 @@ class ProfileBar extends Component {
                   </ModalHeader>
                     <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                         <div className="thisTeam">
-                      
                           <table className='table table-striped table-hover'>
                             <thead>
                               <tr>
@@ -335,7 +512,7 @@ class ProfileBar extends Component {
                             <tbody>
                             {
                               this.state.nextGames.map((nextGame) => (
-                                <tr key={uuidv4()}>
+                                <tr key={uuidv4()} >
                                   <td>{nextGame.gameDate}</td>
                                   <td>{nextGame.homeAlias} vs. {nextGame.awayAlias}</td>
                                 </tr>
@@ -347,7 +524,7 @@ class ProfileBar extends Component {
                         
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="danger" onClick={this.toggle}>Close</Button>
+                      <Button color="secondary" onClick={this.toggle}>Close</Button>
                     </ModalFooter>
          
                 </Modal>

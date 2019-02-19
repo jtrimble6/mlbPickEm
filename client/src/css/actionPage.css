@@ -1,23 +1,155 @@
-body {
-    background-color: #202020
+@media (min-width: 1300px) {
+    body {
+        background-color: #4d4d4d
+    }
+    
+    #actionPage {
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    
+    .calBoard {
+        height: 575px;
+        overflow: scroll;
+        margin-bottom: 200px;
+    }
+    
+    .leaderboard {
+        height: 350px;
+        margin-left: 0;
+    }
+    
+    .winningTeams {
+        height: 300px;
+    }
+    
+    .leaderRow {
+        max-height: 20px;
+    }
 }
 
-#actionPage {
-    margin-top: 5%;
-    margin-left: 5%;
+@media (min-width: 1000px) and (max-width: 1299px) {
+    body {
+        background-color: #4d4d4d
+    }
+    
+    #actionPage {
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    
+    .calBoard {
+        height: 575px;
+        overflow: scroll;
+        margin-bottom: 200px;
+    }
+    
+    .leaderboard {
+        height: 350px;
+        margin-left: 0;
+    }
+    
+    .winningTeams {
+        height: 300px;
+    }
+    
+    .leaderRow {
+        max-height: 20px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
 }
 
-.calBoard {
-    height: 575px;
-    overflow: scroll;
-    margin-bottom: 200px;
+@media (min-width: 776px) and (max-width: 999px) {
+    body {
+        background-color: #4d4d4d
+    }
+    
+    #actionPage {
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    
+    .calBoard {
+        height: 575px;
+        overflow: scroll;
+        margin-bottom: 200px;
+    }
+    
+    .leaderboard {
+        height: 350px;
+        margin-left: 0;
+    }
+    
+    .winningTeams {
+        height: 300px;
+        font-size: 15px
+    }
+    
+    .leaderRow {
+        max-height: 20px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    th {
+        font-size: 13px;
+    }
+
+    tr {
+        font-size: 15px;
+    }
 }
 
-.leaderboard {
-    height: 350px;
-    margin-left: 0;
+@media (max-width: 775px) {
+    body {
+        background-color: #4d4d4d
+    }
+    
+    #actionPage {
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    
+    .calBoard {
+        height: 575px;
+        overflow: scroll;
+        margin-bottom: 20px;
+    }
+    
+    .leaderboard {
+        height: 350px;
+        margin-left: 3%;
+    }
+    
+    .winningTeams {
+        margin-left: 5%;
+        min-width: 80%;
+        height: 300px;
+        font-size: 15px;
+        overflow: scroll;
+    }
+    
+    .leaderRow {
+        max-height: 20px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    th {
+        font-size: 13px;
+    }
+
+    tr {
+        font-size: 15px;
+    }
 }
 
-.winningTeams {
-    height: 300px;
-}
+
+

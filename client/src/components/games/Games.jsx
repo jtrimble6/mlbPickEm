@@ -22,7 +22,6 @@ class Games extends Component {
       };
       this.postGames = this.postGames.bind(this);
       this.getGames = this.getGames.bind(this);
-      // this.getYesterdaysGames = this.getYesterdaysGames.bind(this);
       this.getResults = this.getResults.bind(this);
       this.findGameWinners = this.findGameWinners.bind(this);
       this.getSchedule = this.getSchedule.bind(this);
@@ -82,34 +81,6 @@ class Games extends Component {
           }
         })
       }
-
-    // getYesterdaysGames = (date) => {
-    //   console.log('THIS IS RUNNING')
-    //   // let self = this
-    //   let yesterdaysGames = this.state.scheduledGames
-    //   // let yesterdayInt = 1
-    //   // let yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD')
-    //   // self.setState({ gameDate: yesterday })
-    //   // let yesterdayDate = yesterday.replace(/-/g, "");
-    //   // console.log('THIS IS YESTERDAY: ', date)
-    //   // console.log('THE GAMES: ', yesterdaysGames)
-    //   // for (var b=0; b<yesterdayInt; b++) {
-    //   //   let yesterday = moment().subtract(b, 'days').format('YYYY-MM-DD')
-    //   //   self.setState({ gameDate: yesterday })
-    //     // API.getGamesByDate(yesterday)
-    //     // .then(res => {
-    //     //   console.log('Yesterdays games: ', res.data)
-    //     //   for (var k=0; k<res.data.length; k++) {
-    //     //     // console.log('Game ID: ', res.data[k].gameId)
-    //     //     let thisGameId = res.data[k].gameId
-    //     //     yesterdaysGames.push(thisGameId)
-    //     //     self.setState({ gameIds: yesterdaysGames })
-    //     //   }
-    //     //   // this.getResults()
-    //     // })
-    //     // .catch(err => console.log(err))
-    //     // }
-    //   }
     
     getResults = () => {
       let self = this
@@ -118,7 +89,7 @@ class Games extends Component {
       // console.log('ONLY THESE GAME IDS: ', gameIds)
       //const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      for (var m=0; m<gameIds.length; m++) {
+      for (let m=0; m<gameIds.length; m++) {
         let k = m
         // console.log('Need each result: ', gameIds[k])
         setTimeout ( 
@@ -141,7 +112,7 @@ class Games extends Component {
       // console.log('Showing results: ', this.state.gameResults)
       let gameResults = this.state.gameResults
       let winningTeams = []
-      for (var x=0; x<gameResults.length; x++) {
+      for (let x=0; x<gameResults.length; x++) {
         let gameId = gameResults[x].id
         let gameDate = this.state.today
         let homeTeam = {
@@ -164,69 +135,87 @@ class Games extends Component {
 
       // console.log('WINNING TEAMS: ', winningTeams)
 
-      this.postGameWinners()
+      this.postGameWinners(this.state.winningTeams)
 
       }
 
-    postGameWinners = () => {
-        let gameWinners = this.state.winningTeams
+    postGameWinners = (data) => {
         // console.log("Getting game winners: ", gameWinners)
-        for (var y=0; y<gameWinners.length; y++) {
-          
-          let gameDate = gameWinners[y].gameDate
-          let gameId = gameWinners[y].gameId
-          let gameResult = { gameResult: gameWinners[y].winningTeam }
+        for (let y=0; y<data.length; y++) {
 
-          // console.log('ALL THE INFO: ', gameDate + ' ' + gameId + ' ' + gameResult)
-  
+          //let game = {}
+          // game = {
+          //   gameId: data[y].gameId,
+          //   winner: data[y].winningTeam,
+          //   gameDate: data[y].gameDate
+          // }
+          // API.addResult(game)
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(err => console.log(err))
+          //console.log('ALL THE INFO: ', game)
+
+          let gameDate = data[y].gameDate
+          let gameId = data[y].gameId
+          let gameResult = { gameResult: data[y].winningTeam }
           API.updateGame(gameDate, gameId, gameResult)
             .then(res => console.log(res))
             .catch(err => console.log(err))
           }
+          // console.log('ALL THE INFO: ', gameDate + ' ' + gameId + ' ' + gameResult)
+          
+  
+          
       }
 
-      getSchedule = () => {
-        // console.log('Getting schedule...')
-        let date = '2019-01-27'
-        let self = this
-        self.setState({ today: date })
-        // this.getGames()
-        API.getGamesByDate(date)
-          .then(res => {
-              let games = []
-              let gameIds = []
-              console.log('LOOKING AT THE GAMES FOR YESTERDAY: ', res.data)
-              res.data.forEach((game) => {
-                  let splitDate = game.gameDate.split('T')
-                  let gameDate = splitDate[0]
-                  
-                  // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
-                  let gameInfo = {
-                      id: game.gameId,
-                      date: gameDate,
-                      start: game.gameDate,
-                      status: game.gameStatus,
-                      homeTeam: game.homeTeam,
-                      awayTeam: game.awayTeam,
-                      gameWinner: game.gameResult.gameResult,
-                      title: game.homeAlias + ' vs ' + game.awayAlias,
-                      color: 'yellow',
-                      textColor: 'black',
-                      borderColor: 'blue'
+    getSchedule = () => {
+      // console.log('Getting schedule...')
+      let date = '2019-02-05'
+      let self = this
+      self.setState({ today: date })
+      // this.getGames()
+      API.getGamesByDate(date)
+        .then(res => {
+            let games = []
+            let gameIds = []
+            console.log('LOOKING AT THE GAMES FOR YESTERDAY: ', res.data)
+            res.data.forEach((game) => {
+                let splitDate = game.gameDate.split('T')
+                let gameDate = splitDate[0]
+                
+                // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
+                let gameInfo = {
+                    id: game.gameId,
+                    date: gameDate,
+                    start: game.gameDate,
+                    status: game.gameStatus,
+                    homeTeam: game.homeTeam,
+                    awayTeam: game.awayTeam,
+                    gameWinner: game.gameResult.gameResult,
+                    title: game.homeAlias + ' vs ' + game.awayAlias,
+                    color: 'yellow',
+                    textColor: 'black',
+                    borderColor: 'blue'
 
-                  }
-                  games.push(gameInfo)
-                  gameIds.push(gameInfo.id)
-                  self.setState({ scheduledGames: games })
-                  self.setState({ gameIds: gameIds })
-              })
-              // self.getResults()
-              self.findUserPicks()
-              // self.getYesterdaysGames(date)
-              // console.log('We have pulled the schedule')
-              // console.log('Here are all of the games: ', this.state.scheduledGames)
-          })
-            .catch(err => console.log(err))
+                }
+                games.push(gameInfo)
+                gameIds.push(gameInfo.id)
+                self.setState({ scheduledGames: games })
+                self.setState({ gameIds: gameIds })
+            })
+
+            // GET RESULTS IF UNDEFINED AND USER PICKS
+            if(this.state.scheduledGames[0].gameWinner === undefined) {
+              console.log('DONT HAVE RESULTS')
+              self.getResults()
+            }
+            self.findUserPicks()
+
+            // console.log('We have pulled the schedule')
+            console.log('Here are all of the games: ', this.state.scheduledGames)
+        })
+          .catch(err => console.log(err))
       }
 
     findUserPicks = () => {
@@ -283,7 +272,7 @@ class Games extends Component {
         return;
       } else {
         let gameNum = 1
-        for (var s=0; s<schedule.length; s++) {
+        for (let s=0; s<schedule.length; s++) {
           let winner = schedule[s].gameWinner
           //MUST TRIM THE SPACES
           let thisPick = thisPickTeam.trim()
@@ -300,6 +289,11 @@ class Games extends Component {
             console.log('NEW WIN: ', thisPickTeam)
             let newWin = { win: thisPickTeam }
             console.log('New Win: ', newWin)
+            API.changeStatus(userId, newWin.win) 
+              .then (res => {
+                console.log(res)
+              })
+              .catch(err => console.log(err))
             API.addWin(userId, newWin)
               .then (res => {
                 console.log(userId)
@@ -322,7 +316,7 @@ class Games extends Component {
       let uuidv4 = require('uuid/v4')
       return (
         <div className='winningPicks'>
-          <h1>Winning Picks</h1>
+          <h2>Winning Picks</h2>
           {
             this.state.userWins.map((userWin, i) => (
               <p key={uuidv4()}>

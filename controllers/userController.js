@@ -23,12 +23,41 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
-    // findOneAndUpdate: function(req, res) {
-    //     db.User
-    //       .update({ username: req.params.id }, 
-    //         { $push: { wins: req.body }})
-    //       .then(dbModel => res.json(dbModel))
-    //       .catch(err => res.status(422).json(err))
+    addWin: function(req, res) {
+        db.User
+          .update({ username: req.params.id }, 
+            { $push: { wins: req.body }})
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
+    },
+    getUserTeams: function(req, res) {
+      db.User
+        .find({teams: req})
+        .then(dbModel => res.json(dbModel)) 
+        .catch(err => res.status(422).json(err))
+    },
+    changeStatus: function(req, res) {
+        db.User
+          .update({ 
+            'username': req.params.id, 
+            'teams.name': req.params.team,
+            $elemMatch: { name: req.params.team }
+           },
+            // { teams: { $elemMatch: { team: req.params.team } } },
+            { $set: { 'teams.$.status': 'success' } }
+          )
+          .then(dbModel => res.json(dbModel)) 
+          .catch(err => res.status(422).json(err))
+    },
+    // changeStatus: function(req, res) {
+    //   db.User
+    //     .update(
+    //       { username: req.params.id },
+    //       { $set: { 'teams.$[].team.$[name]': 'success' } },
+    //       { arrayFilters: [ { 'name': req.params.team } ] }
+    //      )
+    //     .then(dbModel => res.json(dbModel))
+    //     .catch(err => res.status(422).json(err))
     // },
     findOneAndDelete: function (req, res) {
         db.User

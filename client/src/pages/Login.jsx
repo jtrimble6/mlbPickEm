@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
+import LoginBar from '../components/nav/LoginBar'
 import '../css/login.css'
 
 class Login extends Component {
@@ -81,7 +81,7 @@ class Login extends Component {
     render() {
         return (
             <div id="loginPage">
-            <Navbar />
+            <LoginBar />
               {this.renderRedirect()}
                 <div className="formContainer">    
                     <form className="formLogin" action="index.html">

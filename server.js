@@ -6,7 +6,8 @@ const session = require('express-session');
 const userRoutes = require("./routes/API/userAPI");
 const sessionRoutes = require("./routes/API/sessionAPI");
 const gameRoutes = require('./routes/API/gameAPI');
-const teamRoutes = require('./routes/API/teamAPI')
+const teamRoutes = require('./routes/API/teamAPI');
+const resultRoutes = require('./routes/API/resultAPI');
 const dbConnection = require("./server/database");
 const MongoStore = require('connect-mongo')(session)
 const passport = require('./server/passport');
@@ -30,7 +31,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Add routes, both API and view
-app.use(userRoutes, sessionRoutes, gameRoutes, teamRoutes);
+app.use(userRoutes, sessionRoutes, gameRoutes, teamRoutes, resultRoutes);
 
 // app.use(
 //   session({

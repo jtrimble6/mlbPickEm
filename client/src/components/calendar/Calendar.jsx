@@ -17,16 +17,18 @@ import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, m
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.state = { modal: false, nestedModal: false, nestedModal2: false, closeAll: false, closeAll2: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
+        this.state = { modal: false, nestedModal: false, nestedModalExpPick: false, nestedModalNoPick: false, closeAll: false, closeAllExpPick: false, closeAllNoPick: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleActive = this.toggleActive.bind(this);
         this.toggleInvalidPick = this.toggleInvalidPick.bind(this);
+        this.toggleNoPick = this.toggleNoPick.bind(this);
+        this.toggleAllNoPick = this.toggleAllNoPick.bind(this);
         this.toggleExpiredPick = this.toggleExpiredPick.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
-        this.toggleAll2 = this.toggleAll2.bind(this);
+        this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDates = this.checkPrevDates.bind(this);
@@ -64,20 +66,29 @@ class Calendar extends Component {
         closeAll: false
       });
       console.log('WOAAAAH INVALID PICK DOOOOOD')
-      let invalidPickAlert = <div className='row invalidPick'>Sorry, you have already won with this team!</div>
-      $('.modal-open .modal-header').prepend(invalidPickAlert)
+      let invPickAlert = <div className='row invalidPick'>Sorry, you have already won with this team!</div>
+      $('.modal-open .modal-header').prepend(invPickAlert)
       }
 
+    toggleNoPick() {
+      this.setState({
+        nestedModalNoPick: !this.state.nestedModalNoPick,
+        closeAllNoPick: false
+      });
+       let noPickAlert = <div className='row invalidPick'>Sorry, you have to pick a team!</div>
+       $('.modal-open .modal-header').prepend(noPickAlert)
+      }
+    
     toggleExpiredPick() {
       this.toggleActive()
       this.toggle()
       this.setState({
-        nestedModal2: !this.state.nestedModal2,
-        closeAll2: false
+        nestedModalExpPick: !this.state.nestedModalExpPick,
+        closeAllExpPick: false
       });
       console.log('EXPIRED PICK')
-      let invalidPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
-      $('.modal-open .modal-header').prepend(invalidPickAlert)
+      let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
+      $('.modal-open .modal-header').prepend(expPickAlert)
       }
 
     toggleAll() {
@@ -87,12 +98,19 @@ class Calendar extends Component {
       });
       }
 
-    toggleAll2() {
+    toggleAllExpPick() {
       this.setState({
-        nestedModal2: !this.state.nestedModal2,
-        closeAll2: true
+        nestedModalExpPick: !this.state.nestedModalExpPick,
+        closeAllExpPick: true
       });
       }
+
+    toggleAllNoPick() {
+      this.setState({
+        nestedModalNoPick: !this.state.nestedModalNoPick,
+        closeAllNoPick: true
+      });
+    }
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value})
@@ -111,7 +129,7 @@ class Calendar extends Component {
       }
 
     handleChangeStatus(event) {
-        let gameTime = Moment(event.start._d).format("MMM Do, hA")
+        let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
         let gameStatus = event.status.toUpperCase()
         let gameId = event._id
         this.setState({ 
@@ -145,6 +163,11 @@ class Calendar extends Component {
         let thisPickWinner = myWins.filter(pickAlreadyWon)
 
         // CHECK TO SEE IF ALREADY A WINNING TEAM OR DATE PICKED
+        if(teamPick === '') {
+          // console.log('NO PICK')
+          self.toggleNoPick()
+          return;
+        }
         if(myPicks.length) {
           for (var j=0; j<myPicks.length; j++) {
             if (thisPickWinner) {
@@ -269,6 +292,11 @@ class Calendar extends Component {
           let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
           // console.log('NOW: ', now)
           // console.log('SORTED GAMES: ', sortedGames)
+          if (!sortedGames[0]) {
+            console.log('THERE MUST BE NO GAMES TODAY')
+            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+            return;
+          }
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
           let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
@@ -283,9 +311,9 @@ class Calendar extends Component {
       }
 
     createTimer = (timeDiff) => {
-        // console.log('Time until first game: ', timeDiff)
+        //console.log('Time until first game: ', timeDiff)
         let seconds = Moment.duration(timeDiff).asSeconds() * 1000
-        // console.log('In seconds milliseconds: ', seconds)
+        //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
       }
 
@@ -394,7 +422,7 @@ class Calendar extends Component {
       let EndTimer = () => {
           timerEnded = true
           return (
-            <span>The games have begun.</span>
+            <span>Today's games have already begun.</span>
           )
         }
         
@@ -412,7 +440,15 @@ class Calendar extends Component {
                     Make Your Pick
                   </ModalHeader>
                     <ModalBody id='modalBody'>
-                    <Modal isOpen={this.state.nestedModal} toggle={this.toggleInvalidPick} onClosed={this.state.closeAll ? this.toggle : undefined}>
+                    <Modal className='invPick' isOpen={this.state.nestedModalNoPick} toggle={this.toggleNoPick} onClosed={this.state.closeAllNoPick ? this.toggle : undefined}>
+                      <ModalHeader>No Pick</ModalHeader>
+                      <ModalBody>You must pick a team!</ModalBody>
+                      <ModalFooter>
+                        <Button color="primary" onClick={this.toggleNoPick}>Close</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleAllNoPick}>Close All</Button>
+                      </ModalFooter>
+                    </Modal>
+                    <Modal className='invPick' isOpen={this.state.nestedModal} toggle={this.toggleInvalidPick} onClosed={this.state.closeAll ? this.toggle : undefined}>
                       <ModalHeader>Invalid Pick</ModalHeader>
                       <ModalBody>You have already won with the {this.state.activePick}!</ModalBody>
                       <ModalFooter>
@@ -420,11 +456,11 @@ class Calendar extends Component {
                         <Button color="secondary" onClick={this.toggleAll}>Close All</Button>
                       </ModalFooter>
                     </Modal>
-                    <Modal isOpen={this.state.nestedModal2} toggle={this.toggleExpiredPick} onClosed={this.state.closeAll2 ? this.toggle : undefined}>
+                    <Modal className='invPick' isOpen={this.state.nestedModalExpPick} toggle={this.toggleExpiredPick} onClosed={this.state.closeAllExpPick ? this.toggle : undefined}>
                       <ModalHeader>Invalid Pick</ModalHeader>
                       <ModalBody>This is an old game!</ModalBody>
                       <ModalFooter>
-                        <Button color="secondary" onClick={this.toggleAll2}>Close All</Button>
+                        <Button color="secondary" onClick={this.toggleAllExpPick}>Close All</Button>
                       </ModalFooter>
                     </Modal>
                         <div className="thisGame row">
@@ -437,7 +473,7 @@ class Calendar extends Component {
                                 fluid='true'
                               />
                             </span>
-                            <span className='col-md-2'>
+                            <span className='atSymbol col-md-2'>
                               @
                             </span>
                             <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>
@@ -452,7 +488,7 @@ class Calendar extends Component {
                         {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
                         </div> <hr />
                         <div className="status row">
-                            <span>Game Status: {this.state.status} | Game Time: {this.state.time} </span>
+                          Game Time: {this.state.time} 
                         </div>
                     </ModalBody>
                     <ModalFooter>
