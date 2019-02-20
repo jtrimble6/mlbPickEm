@@ -2,6 +2,7 @@
   "name": "mlbpickem",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/jtrimble6/mlbPickEm.git",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
