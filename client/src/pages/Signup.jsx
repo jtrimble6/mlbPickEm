@@ -124,7 +124,7 @@ class Signup extends Component {
         };
         console.log(userData);
         if (this.state.password !== this.state.confirmPassword) {
-            console.log('PASSWORDS DO NOT MATCH')
+            console.log('THE PASSWORDS DO NOT MATCH')
             this.setState({
                 passwordError: true
             })
