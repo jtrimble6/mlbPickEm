@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 // import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
+import LoginBar from '../components/nav/LoginBar'
 // import Games from '../components/calendar/Games'
 import '../css/aboutPage.css'
 
@@ -10,7 +10,7 @@ class About extends Component {
     render() {
         return(
             <div id='aboutPage'>
-              <Navbar />
+              <LoginBar />
               <div id='aboutHeader'>
                 <h1>About Page</h1>
                 <hr />

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
+import SignupBar from '../components/nav/SignupBar'
 import '../css/signup.css'
 import ExistingAccount from "../components/alerts/ExistingAccount";
+import PasswordError from '../components/alerts/PasswordError';
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../css/nbaLogos'
+
 
 class Signup extends Component {
 
@@ -14,6 +16,7 @@ class Signup extends Component {
         email: '',
         username: '',
         password: '',
+        confirmPassword: '',
         img: '',
         teams: [
             { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
@@ -48,33 +51,34 @@ class Signup extends Component {
             { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
           ],
         redirect: false,
-        nameTaken: false
+        nameTaken: false,
+        passwordError: false
 
-    }
+      }
 
     componentDidMount() {
         console.log('Ready')
-    }
+      }
 
     setRedirect = () => {
         console.log("Redirect");
         this.setState({
           redirect: true
         })
-    };
+      };
 
     renderRedirect = () => {
         if (this.state.redirect) {
           return <Redirect to='/login' />
         }
-    };
+      };
 
     handleInputChange = event => {
         const { name, value } = event.target
         this.setState({
             [name]: value
         })
-    }
+      }
 
     checkUserName = event => {
         const username = event.target.value;
@@ -91,18 +95,22 @@ class Signup extends Component {
                     nameTaken: "Username available"
                 })
             } else {
-                console.log("Username taken");
+                console.log("Username unavailable");
                 this.setState({
-                    nameTaken: "Username taken"
+                    nameTaken: "Username unavailable"
                 })
             }
         })
         .catch(error => {
             console.log(error)
         })
-    }
+      }
 
     handleFormSubmit = event => {
+        this.setState({
+            passwordError: false,
+            nameTaken: false,
+        })
         event.preventDefault();
         //console.log(this.state)
         let userData = {
@@ -115,8 +123,14 @@ class Signup extends Component {
             teams: this.state.teams
         };
         console.log(userData);
-        API.getUser(userData.username)
-        .then(res => {
+        if (this.state.password !== this.state.confirmPassword) {
+            console.log('PASSWORDS DO NOT MATCH')
+            this.setState({
+                passwordError: true
+            })
+        } else {
+          API.getUser(userData.username)
+          .then(res => {
             console.log(res)
             if (!res.data[0]) {
                 console.log("Username available");
@@ -143,12 +157,14 @@ class Signup extends Component {
         .catch(error => {
             console.log(error)
         })
+        }
+        
     };
 
     render() {
         return (
             <div id="loginPage">
-            <Navbar />
+            <SignupBar />
               {this.renderRedirect()}
                 <div className="formContainer">    
                   <form className="formSignup" action="index.html">
@@ -190,7 +206,6 @@ class Signup extends Component {
                                     aria-describedby="emailHelp"
                                     placeholder="Enter email"
                                 />
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
@@ -203,9 +218,9 @@ class Signup extends Component {
                                 id="username"
                                 placeholder="Username"                                        
                             />
-                            <small id="usernameAvail" className="form-text text-muted">{this.state.nameTaken}</small>
+                            <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label htmlFor="image">Image</label>
                             <input
                                 value={this.state.img}
@@ -216,25 +231,41 @@ class Signup extends Component {
                                 id="img"
                                 placeholder="Image URL"                                        
                             />
-                        </div>
+                        </div> */}
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Password</label>
+                            <label htmlFor="exampleInputPassword1">Create Password</label>
                             <input
                                 value={this.state.password}
                                 name="password"
                                 onChange={this.handleInputChange}
                                 type="password"
                                 className="form-control"
-                                id="exampleInputPassword1"
+                                id="password"
                                 placeholder="Password"
                             />
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                            <input
+                                value={this.state.confirmPassword}
+                                name="confirmPassword"
+                                onChange={this.handleInputChange}
+                                type="password"
+                                className="form-control"
+                                id="confirmPassword"
+                                placeholder="Confirm Password"
+                            />
+                            <small id="passwordError" className="form-text text-muted">{this.state.passwordError}</small>
+                        </div>
                         <ExistingAccount
-                        nameTaken={this.state.nameTaken}
+                          nameTaken={this.state.nameTaken}
+                        />
+                        <PasswordError
+                          passwordError={this.state.passwordError}
                         />
                         <button
                             type="submit"
-                            className="btn btn-primary"
+                            className="btn btn-primary submit"
                             onClick={this.handleFormSubmit}
                         >
                         Submit

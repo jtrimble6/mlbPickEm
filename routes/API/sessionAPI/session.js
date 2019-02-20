@@ -10,7 +10,7 @@ router.route("/:id")
 // router.route("/checksession")
 //   .get(sessionController.checkSession)
 
-// router.route("/logout")
-//   .get(sessionController.logOut)
+router.route("/logout")
+  .delete(sessionController.logout)
 
 module.exports = router;

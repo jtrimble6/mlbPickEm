@@ -102,6 +102,15 @@ class App extends Component {
                   updateUser={this.updateUser}
                 />}
             />
+            <Route exact path='/logout'
+            
+            render={() => (
+              
+              <Redirect to='/' />
+              
+             )
+            }
+            />
             {/* <Route exact path='/action' component={ActionPage} /> */}
             <Route exact path='/action' render={() => (
               this.state.loggedIn === true ? (

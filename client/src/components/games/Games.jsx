@@ -221,7 +221,6 @@ class Games extends Component {
     findUserPicks = () => {
       let self = this
       let localUser = localStorage.getItem('user')
-      
       API.getUser(localUser)
           .then(res => {
             // console.log('BIG result: ', res.data)

@@ -19,6 +19,10 @@ module.exports = {
     },
     logout: function(req, res) {
         console.log('logout')
+        db.Session
+          .deleteOne(req.body)
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
     }
      
 }

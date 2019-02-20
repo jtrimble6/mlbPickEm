@@ -8,7 +8,7 @@
         overflow: scroll;
     }
     
-    .leaderboard {
+    #leaderboardPage .leaderboard {
         /* position: relative; */
         margin-top: 10%;
         margin-left: 1% !important;

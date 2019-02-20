@@ -67,6 +67,9 @@ export default {
     createSession: function(sessionData) {
         return axios.post('/api/sessions', sessionData)
     },
+    logout: function(sessionData) {
+        return axios.delete('/api/sessions', sessionData)
+    },
     checkSession: function(id, localSessionID) {
         return axios.get('/api/sessions/' + id, localSessionID)
     }

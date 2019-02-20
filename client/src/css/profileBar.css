@@ -14,10 +14,10 @@
     height: 70px;
   }
   
-  .btn {
+  /* .Button {
     min-height: 75px !important;
     max-width: 150px !important;
-  }
+  } */
   
   .teamLogos {
     margin-right: 50px;
@@ -50,6 +50,7 @@
     background-color: darkblue;
     max-height: 200px !important;
     padding: 1%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-left: 2%;
@@ -139,10 +140,10 @@
     height: 70px;
   }
   
-  .btn {
+  /* .btn {
     min-height: 75px !important;
     max-width: 150px !important;
-  }
+  } */
   
   .teamLogos {
     margin-right: 50px;
@@ -175,6 +176,7 @@
     background-color: darkblue;
     max-height: 200px !important;
     padding: 1%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-left: 2%;
@@ -211,6 +213,7 @@
   th {
     background-color: darkblue;
     color: gold;
+    border-top: none !important;
   }
 
   .table thead th {
@@ -252,10 +255,10 @@
     height: 70px;
   }
   
-  .btn {
+  /* .btn {
     min-height: 75px !important;
     max-width: 150px !important;
-  }
+  } */
   
   .teamLogos {
     margin-right: 50px;
@@ -274,6 +277,7 @@
     padding: 45px;
     min-width: 50%;
     max-height: 150px;
+    margin-top: 5%;
     background-color: gold;
   }
   
@@ -288,10 +292,12 @@
     background-color: darkblue;
     max-height: 200px !important;
     padding: 1%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-left: 2%;
     margin-bottom: 2%;
+    margin-top: 5%;
     overflow: scroll !important;
   }
   .recentPicks {
@@ -324,6 +330,7 @@
   th {
     background-color: darkblue;
     color: gold;
+    border-top: none !important;
   }
 
   .table thead th {
@@ -365,10 +372,10 @@
     height: 53px;
   }
   
-  .btn {
+  /* .btn {
     min-height: 50px !important;
     max-width: 100px !important;
-  }
+  } */
   
   .teamLogos {
     margin-right: 4%;
@@ -383,8 +390,8 @@
   }
   
   .jumbotron {
-    margin-top: 5%;
-    min-width: 50%;
+    margin-top: 7%;
+    min-width: 40%;
     max-height: 120px;
     padding: 30px;
     background-color: gold;
@@ -399,12 +406,14 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    max-height: 200px !important;
+    max-height: 150px !important;
     padding: 1%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-left: 2%;
     margin-bottom: 2%;
+    margin-top: 7%;
     overflow: scroll !important;
   }
   .recentPicks {
@@ -437,6 +446,7 @@
   th {
     background-color: darkblue;
     color: gold;
+    border-top: none !important;
   }
 
   .table thead th {
@@ -478,10 +488,10 @@
     height: 53px;
   }
   
-  .btn {
+  /* .btn {
     min-height: 50px !important;
     max-width: 100px !important;
-  }
+  } */
   
   .teamLogos {
     margin-right: 4%;
@@ -514,9 +524,11 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
+    font-size: 10px;
     max-height: 188px !important;
-    max-width: 180px;
+    max-width: 230px;
     padding: 1%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-left: 2%;
@@ -528,25 +540,25 @@
     position: relative;
     right: 0;
     border-collapse: collapse;
-  }
-
-  .recentPicks tr {
     font-size: 11px;
   }
 
   .pastPick {
     background-color: lightgrey !important;
     color: darkblue !important;
+    font-size: 12px;
   }
 
   .todaysPick {
     background-color: gold !important;
     color: darkblue !important;
+    font-size: 12px;
   }
 
   .futurePick {
     background-color: lightgreen !important;
     color: darkblue !important;
+    font-size: 12px;
   }
 
   /* .sticky {
@@ -558,6 +570,7 @@
   th {
     background-color: darkblue;
     color: gold;
+    border-top: none !important;
   }
 
   .table thead th {

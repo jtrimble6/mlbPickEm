@@ -3,7 +3,7 @@ import { Alert } from 'reactstrap'
 
 //import { Link } from 'react-router-dom';
 
-class ExistingAccount extends Component {
+class PasswordError extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,11 +18,11 @@ class ExistingAccount extends Component {
     }
 
     render() {
-        console.log(this.props.nameTaken);
-        if (this.props.nameTaken === true) {
+        console.log(this.props.passwordError);
+        if (this.props.passwordError === true) {
             return (
                 <Alert color='info' isOpen={this.state.visible} toggle={this.onDismiss}>
-                    Sorry, that username is taken already!
+                    The passwords entered do not match!
                 </Alert>
             )
         } else {
@@ -31,4 +31,4 @@ class ExistingAccount extends Component {
     }
 }
 
-export default ExistingAccount;
+export default PasswordError;

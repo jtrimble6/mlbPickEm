@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import API from '../../utils/API'
+//import { Link } from 'react-router-dom';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 
-class Navbar extends Component {
+class SignupBar extends Component {
     constructor(props) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.logout = this.logout.bind(this);
         this.state = {
             collapsed: true
         }
@@ -20,17 +19,6 @@ class Navbar extends Component {
         })
       }
 
-    logout() {
-        let localUser = localStorage.getItem('user')
-        let sessionData = {
-            sessionUserID: localUser
-          }
-        console.log('LOGOUT: ', sessionData)
-        // API.logout(sessionData)
-        //   .then(res => console.log(res))
-        //   .catch(err => console.log(err))
-    }
-
     render() {                                                                  
         return (
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -41,19 +29,13 @@ class Navbar extends Component {
                       <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar className='navItems'>
                             <NavItem>
-                                <NavLink href="/action">Home</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/leaderboard">Leaderboard</NavLink>
-                            </NavItem>
-                            {/* <NavItem>
                                 <NavLink href="/about">About</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/rules">Rules</NavLink>
-                            </NavItem> */}
+                            </NavItem>
                             <NavItem>
-                                <NavLink href="/logout" onClick={this.logout}>Sign Out</NavLink>
+                                <NavLink href="\">Sign In</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -62,19 +44,13 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/action">Home</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
-                      </li>
-                      {/* <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/about">About</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
-                      </li> */}
+                      </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/logout" onClick={this.logout}>Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href="\">Sign In</a>
                       </li>
                     </ul>
                     </div>
@@ -84,4 +60,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+export default SignupBar
