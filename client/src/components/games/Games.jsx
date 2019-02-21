@@ -67,11 +67,12 @@ class Games extends Component {
 
     getGames = () => {
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
-      const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
       let self = this
       $.ajax({
         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey,
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey2,
         type: 'GET',
         success: function(data) {
           // console.log('GAMES: ', data.games);
