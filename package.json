@@ -29,6 +29,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "server": "node server.js",
     "build": "react-scripts build",
     "heroku-postbuild": "cd client && yarn && yarn run build"
   },
