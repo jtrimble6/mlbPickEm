@@ -30,7 +30,7 @@ class Games extends Component {
     }
 
     componentDidMount() {
-      // this.getGames()
+      this.getGames()
       this.getSchedule()
       // this.findUserPicks() 
       }
