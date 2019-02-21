@@ -172,7 +172,7 @@ class Games extends Component {
 
     getSchedule = () => {
       // console.log('Getting schedule...')
-      let date = '2019-02-05'
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ today: date })
       // this.getGames()
