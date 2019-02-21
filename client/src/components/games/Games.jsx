@@ -30,7 +30,7 @@ class Games extends Component {
     }
 
     componentDidMount() {
-      //this.getGames()
+      this.getGames()
       this.getSchedule()
       // this.findUserPicks() 
       }
@@ -59,9 +59,9 @@ class Games extends Component {
           gameResult: 'none'
         }
         console.log('Game data!!: ', gameData)
-        // API.postGames(gameData)
-        //   .then(res=> console.log(res))
-        //   .catch(err => console.log(err))
+        API.postGames(gameData)
+          .then(res=> console.log(res))
+          .catch(err => console.log(err))
         }
       }
 
