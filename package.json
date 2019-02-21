@@ -28,7 +28,8 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node index.js",
+    "build": "react-scripts build",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "engines": {
