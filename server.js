@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //   app.use(express.static(path.join(__dirname, "client", "build")));
 // }
 
-app.use('/mlbpickem/', express.static(path.join(__dirname, "client", "build")));
+app.use('/mlbpickem/', express.static(path.join(__dirname, "client/build")));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -70,7 +70,7 @@ app.use( (req, res, next) => {
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mlbpickem");
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
 // Start the API server
