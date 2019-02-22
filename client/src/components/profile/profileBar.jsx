@@ -76,7 +76,7 @@ class ProfileBar extends Component {
         this.findWins()
         this.findNextDays()
         // this.postTeams()
-        this.postTeamGames()
+        // this.postTeamGames()
       }
 
     toggle() {
