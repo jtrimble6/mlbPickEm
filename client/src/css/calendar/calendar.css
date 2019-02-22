@@ -675,8 +675,8 @@
     }
     
     .teamLogo {
-        max-width: 30%;
-        max-height: 30%;
+        max-width: 80%;
+        max-height: 60%;
         margin-top: 10px;
         margin-bottom: 0;
     }
@@ -689,15 +689,15 @@
 
     .homeTeam {
         margin-top: 5px;
-        margin-bottom: 0;
+        padding-bottom: 50px;
         padding: 0;
-        min-height: 100%;
+        max-height: 125px;
     }
 
     .awayTeam {
         padding: 0;
-        margin-bottom: 0;
-        min-height: 100%;
+        padding-bottom: 40px;
+        max-height: 125px;
     }
 
     .thisGame {
