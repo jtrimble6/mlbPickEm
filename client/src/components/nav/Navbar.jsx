@@ -8,7 +8,7 @@ class Navbar extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.logout = this.logout.bind(this);
+        // this.logout = this.logout.bind(this);
         this.state = {
             collapsed: true
         }
@@ -20,16 +20,16 @@ class Navbar extends Component {
         })
       }
 
-    logout() {
-        let localUser = localStorage.getItem('user')
-        let sessionData = {
-            sessionUserID: localUser
-          }
-        console.log('LOGOUT: ', sessionData)
-        // API.logout(sessionData)
-        //   .then(res => console.log(res))
-        //   .catch(err => console.log(err))
-    }
+    // logout() {
+    //     let localUser = localStorage.getItem('user')
+    //     let sessionData = {
+    //         sessionUserID: localUser
+    //       }
+    //     console.log('LOGOUT: ', sessionData)
+    //     // API.logout(sessionData)
+    //     //   .then(res => console.log(res))
+    //     //   .catch(err => console.log(err))
+    // }
 
     render() {                                                                  
         return (
@@ -74,7 +74,7 @@ class Navbar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
                       </li> */}
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/logout" onClick={this.logout}>Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href="/logout">Sign Out</a>
                       </li>
                     </ul>
                     </div>
