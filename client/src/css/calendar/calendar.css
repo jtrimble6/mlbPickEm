@@ -691,11 +691,13 @@
         margin-top: 5px;
         margin-bottom: 0;
         padding: 0;
+        min-height: 100%;
     }
 
     .awayTeam {
         padding: 0;
         margin-bottom: 0;
+        min-height: 100%;
     }
 
     .thisGame {
