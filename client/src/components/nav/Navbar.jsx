@@ -53,7 +53,7 @@ class Navbar extends Component {
                                 <NavLink href="/rules">Rules</NavLink>
                             </NavItem> */}
                             <NavItem>
-                                <NavLink href="/logout" onClick={this.logout}>Sign Out</NavLink>
+                                <NavLink href="/logout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
