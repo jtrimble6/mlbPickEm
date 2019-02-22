@@ -45,14 +45,14 @@ router.route('/:id')
   .post(userController.addWin)
 //   .delete(userController.findOneAndDelete)
 
-router.route('/:id/teams')
-  .get(userController.getUserTeams)
+// router.route('/:id/teams')
+//   .get(userController.getUserTeams)
 
 router.route('/:id/teams/:team')
   .put(userController.changeStatus)
   
-// router.route('/:id/:date')
-//   .delete(userController.findOneAndDelete)
+router.route('/:id/:date')
+  .delete(userController.findOneAndDelete)
 
 
 

@@ -169,22 +169,27 @@ class Calendar extends Component {
           return;
         }
         if(myPicks.length) {
+          
+          // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
+          // console.log('Prev Dates Picked: ', prevDates)
+          // console.log('These dates match', pickDate, prevDates[j])
           for (var j=0; j<myPicks.length; j++) {
             if (thisPickWinner) {
               let pickHasWon = thisPickWinner[0]
-              if (pickHasWon) {
+              console.log('PICK HAS WON: ', pickHasWon)
+              if (pickHasWon !== undefined) {
                 toggle = false
                 self.toggleInvalidPick()
                 console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
-              } else if (thisPick.gameDate === myPicks[j].gameDate) {
-                // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
-                // console.log('Prev Dates Picked: ', prevDates)
+                } 
+              } if (thisPick.gameDate === myPicks[j].gameDate) {
+                console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
+                console.log('Prev Dates Picked: ', prevDates)
                 console.log('These dates match', pickDate, prevDates[j])
                 this.overridePick(pickDate)
                 
-                } 
-              }
+                  } 
             }
           }
         

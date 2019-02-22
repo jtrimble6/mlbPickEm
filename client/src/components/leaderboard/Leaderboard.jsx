@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import $ from 'jquery'
+import { Redirect } from 'react-router-dom'
+//import $ from 'jquery'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
-import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+//import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class Leaderboard extends Component {
@@ -11,11 +12,12 @@ class Leaderboard extends Component {
         this.state = {
             allUsers: [],
             leaders: [],
-            userPlace: {},
+            userPlace: {}
 
         }
         this.getUsers = this.getUsers.bind(this);
         // this.changeLogo = this.changeLogo.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.createLeaderboard = this.createLeaderboard.bind(this);
     }
     componentDidMount() {
@@ -99,7 +101,18 @@ class Leaderboard extends Component {
 
         console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
-    }
+      }
+
+    handleClick = e => {
+        let user = e.target
+        let player = user.textContent
+        console.log('Player page: ', player)
+        return <Redirect to={{
+            pathname: '/playerpage',
+            state: { player: player }
+        }}
+/>
+      }
 
     // changeLogo = () => {
     //     let allUsers = this.state.allUsers
@@ -150,7 +163,7 @@ class Leaderboard extends Component {
                     {
                       this.state.leaders.map((leader, i) => (
                         
-                        <tr key={uuidv4()} className='allRows'>
+                        <tr onClick={this.handleClick} key={uuidv4()} className='allRows'>
                         <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                         <td className='leaderRow' style={leaderStyle}>{leader.username}</td>
                         <td className='leaderRow' style={leaderStyle}>{leader.wins.length}</td>

@@ -9,6 +9,7 @@ import Signup from './pages/Signup.jsx'
 import About from './pages/AboutPage.jsx'
 import Rules from './pages/RulesPage.jsx'
 import ActionPage from './pages/ActionPage.jsx'
+import PlayersPage from './pages/PlayerPage.jsx'
 import Leaderboard from './pages/LeaderboardPage.jsx'
 
 
@@ -124,6 +125,15 @@ class App extends Component {
             <Route exact path='/leaderboard' render={() => (
               this.state.loggedIn === true ? (
                 <Leaderboard />
+              ) : this.state.loggedIn === false ? (
+                <Redirect to='/' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/playerspage' render={() => (
+              this.state.loggedIn === true ? (
+                <PlayersPage />
               ) : this.state.loggedIn === false ? (
                 <Redirect to='/' />
               ) : (

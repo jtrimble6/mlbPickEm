@@ -669,14 +669,15 @@
     }
     
     .atSymbol {
-        margin-top: 0px;
+        margin-top: 10px;
+        margin-bottom: 15px;
         font-size: 40px;
         color: gold;
     }
     
     .teamLogo {
-        max-width: 80%;
-        max-height: 60%;
+        max-width: 60% !important;
+        max-height: 50% !important;
         margin-top: 10px;
         margin-bottom: 0;
     }
@@ -695,6 +696,7 @@
     }
 
     .awayTeam {
+        margin-top: 5px;
         padding: 0;
         padding-bottom: 40px;
         max-height: 125px;
@@ -709,6 +711,7 @@
         color: gold;
         min-width: 90% !important;
         margin-left: 17% !important;
+        margin-top: 7% !important;
     }
     
     .timer {
