@@ -17,6 +17,13 @@
         font-size: 65% !important;
         padding-right: 0 !important;
     }
+
+    td.leaderRow :hover {
+        background-color: gold !important;
+        color: darkblue !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
+    }
     
 }
 

@@ -34,7 +34,7 @@
   
   .jumbotron {
     padding: 8px;
-    min-width: 70%;
+    min-width: 50%;
     height: 220px;
     background-color: darkblue;
   }
@@ -697,7 +697,7 @@
 
   h4 {
     font-size: 60%;
-    max-width: 70%;
+    max-width: 45%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;

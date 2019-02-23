@@ -17,7 +17,30 @@ import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, m
 class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.state = { modal: false, nestedModal: false, nestedModalExpPick: false, nestedModalNoPick: false, closeAll: false, closeAllExpPick: false, closeAllNoPick: false, scheduledGames: [], myPicks: [], myWins: [], title: '', teams: '', status: '', id: '', activePick: '', activeDate: '', today: '', timeDiff: '', homeTeam: '', awayTeam: '', homeAlias: '', awayAlias: ''};
+        this.state = { 
+          modal: false, 
+          nestedModal: false, 
+          estedModalExpPick: false, 
+          nestedModalNoPick: false, 
+          closeAll: false, 
+          closeAllExpPick: false, 
+          closeAllNoPick: false, 
+          scheduledGames: [], 
+          myPicks: [], 
+          myWins: [], 
+          title: '', 
+          teams: '', 
+          status: '', 
+          id: '', 
+          activePick: '', 
+          activeDate: '', 
+          today: '', 
+          timeDiff: '', 
+          homeTeam: '', 
+          awayTeam: '', 
+          homeAlias: '', 
+          awayAlias: ''
+        };
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
@@ -46,7 +69,9 @@ class Calendar extends Component {
 
     toggle() {
         this.setState({
-          modal: !this.state.modal
+          modal: !this.state.modal,
+          activePick: '', 
+          activeDate: ''
         });
       }
 

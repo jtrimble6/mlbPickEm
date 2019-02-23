@@ -70,12 +70,15 @@ class ActionPage extends Component {
         return (
             <div id='actionPage'>
               <Navbar />
+              
+              
               <ProfileBar
-                username={this.state.username}
-                winsCount={this.state.winsCount}
-                todaysPick={this.state.todaysPick}
+                  username={this.state.username}
+                  winsCount={this.state.winsCount}
+                  todaysPick={this.state.todaysPick}
 
-              />
+                />
+              
               <div className='row'>
                 <div className='calBoard col-md-9'>
                   <Calendar 
