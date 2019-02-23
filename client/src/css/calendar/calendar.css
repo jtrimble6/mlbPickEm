@@ -502,10 +502,6 @@
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-
-    }
-
-    .fc-view-container .fc-view :active {
         overflow: scroll;
     }
     
@@ -649,10 +645,6 @@
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-
-    }
-
-    .fc-view-container .fc-view :active {
         overflow: scroll;
     }
     
@@ -841,11 +833,8 @@
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-
-    }
-
-    .fc-view-container .fc-view :active {
         overflow: scroll;
+
     }
     
     .fc-day-header {
