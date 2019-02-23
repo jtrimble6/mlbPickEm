@@ -90,7 +90,11 @@
         max-height: 100% !important;
         overflow: scroll;
     }
-    
+
+    /* .fc-event-container {
+        overflow: scroll;
+    } */
+
     .fc-day-header {
         color: white;
     }
@@ -226,9 +230,14 @@
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
+        overflow: hidden !important;
+    } 
+
+    /* .fc-event-container {
         overflow: scroll;
-    }
+    } */
     
+
     .fc-day-header {
         color: white;
     }
@@ -366,7 +375,11 @@
         max-height: 100% !important;
         overflow: scroll;
     }
-    
+
+    /* .fc-event-container {
+        overflow: scroll;
+    }
+     */
     .fc-day-header {
         color: white;
     }
@@ -403,6 +416,8 @@
     }
     
     .timer {
+        position: fixed;
+        top: 0;
         color: darkblue;
         background-color: gold;
         font-weight: bolder;

@@ -33,15 +33,16 @@
   }
   
   .jumbotron {
-    padding: 45px;
+    padding: 8px;
     min-width: 70%;
-    background-color: gold;
+    max-height: 190px;
+    background-color: darkblue;
   }
   
   .display-4 {
     height: 20px;
-    font-size: 40px;
-    color: darkblue;
+    font-size: 25px;
+    color: gold;
     font-weight: bold;
   }
 
@@ -64,9 +65,14 @@
     border-collapse: collapse;
   }
 
-  .pastPick {
-    background-color: lightgrey !important;
+  .pastPickWin {
+    background-color: lightgreen !important;
     color: darkblue !important;
+  }
+
+  .pastPick {
+    background-color: red !important;
+    color: white !important;
   }
 
   .todaysPick {
@@ -75,7 +81,7 @@
   }
 
   .futurePick {
-    background-color: lightgreen !important;
+    background-color: lightgrey !important;
     color: darkblue !important;
   }
 
@@ -102,7 +108,7 @@
     max-width: 50px;
   }
 
-  h4 {
+  h3 {
     position: relative;
     left: 0;
     margin-top: 70%;
@@ -120,7 +126,15 @@
   } */
 
 
-  
+  h4 {
+    font-size: 45%;
+    max-width: 10%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
+  }
   
 }
 
@@ -159,16 +173,17 @@
   }
   
   .jumbotron {
-    padding: 45px;
+    padding: 10px;
     min-width: 60%;
-    max-height: 170px;
-    background-color: gold;
+    max-height: 190px;
+    margin-top: 2%;
+    background-color: darkblue;
   }
   
   .display-4 {
     height: 20px;
-    font-size: 30px;
-    color: darkblue;
+    font-size: 25px;
+    color: gold;
     font-weight: bold;
   }
   .recentPicks {
@@ -181,6 +196,7 @@
     padding-top: 0;
     margin-left: 2%;
     margin-bottom: 2%;
+    margin-top: 2%;
     overflow: scroll !important;
   }
   .recentPicks {
@@ -189,9 +205,14 @@
     border-collapse: collapse;
   }
 
-  .pastPick {
-    background-color: lightgrey !important;
+  .pastPickWin {
+    background-color: lightgreen !important;
     color: darkblue !important;
+  }
+
+  .pastPick {
+    background-color: red !important;
+    color: white !important;
   }
 
   .todaysPick {
@@ -200,7 +221,7 @@
   }
 
   .futurePick {
-    background-color: lightgreen !important;
+    background-color: lightgrey !important;
     color: darkblue !important;
   }
 
@@ -227,7 +248,7 @@
     max-width: 50px;
   }
 
-  h4 {
+  h3 {
     position: relative;
     top: 0;
     margin-top: 70%;
@@ -236,6 +257,15 @@
     line-height: 25px;
     white-space: nowrap;
     
+  }
+  h4 {
+    font-size: 35%;
+    max-width: 15%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
   }
 }
 
@@ -274,17 +304,17 @@
   }
   
   .jumbotron {
-    padding: 45px;
+    padding: 13px;
     min-width: 50%;
-    max-height: 150px;
+    max-height: 180px;
     margin-top: 5%;
-    background-color: gold;
+    background-color: darkblue;
   }
   
   .display-4 {
     height: 20px;
-    font-size: 25px;
-    color: darkblue;
+    font-size: 20px;
+    color: gold;
     font-weight: bold;
   }
   .recentPicks {
@@ -306,9 +336,14 @@
     border-collapse: collapse;
   }
 
-  .pastPick {
-    background-color: lightgrey !important;
+  .pastPickWin {
+    background-color: lightgreen !important;
     color: darkblue !important;
+  }
+
+  .pastPick {
+    background-color: red !important;
+    color: white !important;
   }
 
   .todaysPick {
@@ -317,7 +352,7 @@
   }
 
   .futurePick {
-    background-color: lightgreen !important;
+    background-color: lightgrey !important;
     color: darkblue !important;
   }
 
@@ -344,7 +379,7 @@
     max-width: 50px;
   }
 
-  h4 {
+  h3 {
     position: relative;
     top: 0;
     margin-top: 70%;
@@ -353,6 +388,15 @@
     line-height: 25px;
     white-space: nowrap;
     
+  }
+  h4 {
+    font-size: 45%;
+    max-width: 20%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
   }
 }
 
@@ -392,16 +436,17 @@
   .jumbotron {
     margin-top: 7%;
     min-width: 40%;
-    max-height: 120px;
-    padding: 30px;
-    background-color: gold;
+    max-height: 150px;
+    padding: 7px;
+    background-color: darkblue;
   }
   
   .display-4 {
     height: 20px;
-    font-size: 18px;
-    color: darkblue;
+    font-size: 16px;
+    color: gold;
     font-weight: bold;
+    padding-bottom: 15px;
   }
   .recentPicks {
     color: white;
@@ -422,19 +467,27 @@
     border-collapse: collapse;
   }
 
-  .pastPick {
-    background-color: lightgrey !important;
+  .pastPickWin {
+    background-color: lightgreen !important;
     color: darkblue !important;
+  }
+
+  .pastPick {
+    background-color: red !important;
+    color: white !important;
+    
   }
 
   .todaysPick {
     background-color: gold !important;
     color: darkblue !important;
+    
   }
 
   .futurePick {
-    background-color: lightgreen !important;
+    background-color: lightgrey !important;
     color: darkblue !important;
+    
   }
 
   /* .sticky {
@@ -460,7 +513,7 @@
     max-width: 50px;
   }
 
-  h4 {
+  h3 {
     position: relative;
     top: 0;
     margin-top: 70%;
@@ -469,6 +522,15 @@
     line-height: 25px;
     white-space: nowrap;
     
+  }
+  h4 {
+    font-size: 45%;
+    max-width: 40%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
   }
 }
 
@@ -507,18 +569,18 @@
   
   .jumbotron {
     margin-top: 15%;
-    max-width: 150px;
+    max-width: 35%;
     min-height: 200px;
-    padding: 20px;
+    padding: 7px;
     padding-left: 0;
-    background-color: gold;
+    background-color: darkblue;
   }
   
   .display-4 {
     height: 20px;
     font-size: 17px;
     line-height: 1.5em;
-    color: darkblue;
+    color: gold;
     font-weight: bold;
     
   }
@@ -527,7 +589,7 @@
     background-color: darkblue;
     font-size: 10px;
     max-height: 188px !important;
-    max-width: 200px;
+    max-width: 50%;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -544,22 +606,28 @@
     font-size: 11px;
   }
 
-  .pastPick {
-    background-color: lightgrey !important;
+  .pastPickWin {
+    background-color: lightgreen !important;
     color: darkblue !important;
-    font-size: 12px;
+    font-size: 12px !important;
+  }
+
+  .pastPick {
+    background-color: red !important;
+    color: white !important;
+    font-size: 12px !important;
   }
 
   .todaysPick {
     background-color: gold !important;
     color: darkblue !important;
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   .futurePick {
-    background-color: lightgreen !important;
+    background-color: lightgrey !important;
     color: darkblue !important;
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   /* .sticky {
@@ -585,7 +653,7 @@
     max-width: 50px;
   }
 
-  h4 {
+  h3 {
     font-size: 90%;
     position: relative;
     top: 0;
@@ -596,6 +664,17 @@
     white-space: nowrap;
     
   }
+
+  h4 {
+    font-size: 50%;
+    max-width: 80%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
+  }
+
 }
 
 

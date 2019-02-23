@@ -37,7 +37,7 @@ class Games extends Component {
 
     postGames = (data) => {
       for (let i=0; i<data.length; i++) {
-        console.log(data[i])
+        // console.log(data[i])
         // let gameDate = moment(data[i].scheduled).format('YYYY-MM-DD')
         let gameDateAdj = moment(data[i].scheduled).subtract(6, 'hours').format()
         let splitDate = gameDateAdj.split('T')
@@ -58,7 +58,7 @@ class Games extends Component {
           awayAlias: data[i].away.alias,
           gameResult: 'none'
         }
-        console.log('Game data!!: ', gameData)
+        // console.log('Game data!!: ', gameData)
         API.postGames(gameData)
           .then(res=> console.log(res))
           .catch(err => console.log(err))
@@ -68,11 +68,12 @@ class Games extends Component {
     getGames = () => {
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
       let self = this
       $.ajax({
         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey2,
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
         type: 'GET',
         success: function(data) {
           // console.log('GAMES: ', data.games);
@@ -89,14 +90,15 @@ class Games extends Component {
       let gameResults = []
       // console.log('ONLY THESE GAME IDS: ', gameIds)
       //const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
       for (let m=0; m<gameIds.length; m++) {
         let k = m
         // console.log('Need each result: ', gameIds[k])
         setTimeout ( 
           function() {
             $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameIds[k] + '/boxscore.json?api_key=' + nbaKey2,
+              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
               type: 'GET',
               success: function(data) {
                 // console.log('Game results: ', data)
@@ -180,7 +182,7 @@ class Games extends Component {
         .then(res => {
             let games = []
             let gameIds = []
-            console.log('LOOKING AT THE GAMES FOR YESTERDAY: ', res.data)
+            //console.log('LOOKING AT THE GAMES FOR YESTERDAY: ', res.data)
             res.data.forEach((game) => {
                 let splitDate = game.gameDate.split('T')
                 let gameDate = splitDate[0]
@@ -208,13 +210,13 @@ class Games extends Component {
 
             // GET RESULTS IF UNDEFINED AND USER PICKS
             if(this.state.scheduledGames[0].gameWinner === undefined) {
-              console.log('DONT HAVE RESULTS')
+              //console.log('DONT HAVE RESULTS')
               self.getResults()
             }
             self.findUserPicks()
 
             // console.log('We have pulled the schedule')
-            console.log('Here are all of the games: ', this.state.scheduledGames)
+            // console.log('Here are all of the games: ', this.state.scheduledGames)
         })
           .catch(err => console.log(err))
       }
@@ -261,32 +263,29 @@ class Games extends Component {
       }
       // console.log('THIS PICK WINNER: ', thisPickWinner)
 
-      console.log('User Picks: ', userPicks)
-      console.log('User Wins: ', userWins)
+      // console.log('User Picks: ', userPicks)
+      // console.log('User Wins: ', userWins)
       // console.log('HERE IS THE PICK: ', thisPick)
       // console.log('THIS PICK WON ALREADY: ', pickHasWon)
       // console.log('WHAT WE WORKING WITH: ', schedule)
 
       if (alreadyWon) {
-        console.log('THIS PICK HAS DEF WON DUDE')
+        // console.log('THIS PICK HAS DEF WON DUDE')
         return;
       } else {
-        let gameNum = 1
+        // let gameNum = 1
         for (let s=0; s<schedule.length; s++) {
           let winner = schedule[s].gameWinner
           //MUST TRIM THE SPACES
           let thisPick = thisPickTeam.trim()
-          console.log(
-          'Game num:', gameNum, 
-          '| WINNER:', winner, 
-          '| YOUR PICK:', thisPick,
-          '| DO THEY EQUAL?', winner === thisPickTeam
-          )
+          // console.log(
+          // 'Game num:', gameNum, 
+          // '| WINNER:', winner, 
+          // '| YOUR PICK:', thisPick,
+          // '| DO THEY EQUAL?', winner === thisPickTeam
+          // )
           
           if (thisPick === winner) {
-            console.log('Game num: ', gameNum, 'WINNER: ', winner, 'YOUR PICK: ', thisPickTeam)
-            console.log('YOU WONNNNNN')
-            console.log('NEW WIN: ', thisPickTeam)
             let newWin = { win: thisPickTeam }
             console.log('New Win: ', newWin)
             API.changeStatus(userId, newWin.win) 
@@ -296,15 +295,16 @@ class Games extends Component {
               .catch(err => console.log(err))
             API.addWin(userId, newWin)
               .then (res => {
-                console.log(userId)
-                console.log(newWin)
+                // console.log(userId)
+                // console.log(newWin)
                 console.log(res)
+                // $('.jumbotron')
               })
               .catch(err => console.log(err))
             
           
           } else {console.log('no win')}
-          gameNum++
+          // gameNum++
         }
       }
 

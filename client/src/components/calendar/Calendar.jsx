@@ -373,7 +373,7 @@ class Calendar extends Component {
         case (team === 'mia'):
           return mia;
         
-        case (team == 'mil'):
+        case (team === 'mil'):
           return mil;
            
         case (team === 'min'):
@@ -534,7 +534,7 @@ class Calendar extends Component {
                 events= {this.state.scheduledGames}
                 eventClick= {(calEvent) => {
                   if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
-                      console.log('YOU CANT PICK THAT DATE')
+                      // console.log('YOU CANT PICK THAT DATE')
                       // $('#calendar').fullCalendar('unselect');
                       this.handleChangeTeams(calEvent)
                       this.handleChangeStatus(calEvent)

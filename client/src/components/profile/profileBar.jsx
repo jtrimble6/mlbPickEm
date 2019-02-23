@@ -19,6 +19,7 @@ class ProfileBar extends Component {
             nextDays: [],
             nextGames: [],
             recentPicks: [],
+            newRecentPicks: [],
             allGames: [],
             homeGames: [],
             awayGames: [],
@@ -60,6 +61,7 @@ class ProfileBar extends Component {
         this.toggleActive = this.toggleActive.bind(this);
         this.findWins = this.findWins.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
+        this.changePastPick = this.changePastPick.bind(this);
         this.postTeams = this.postTeams.bind(this);
         this.findTeamGames = this.findTeamGames.bind(this);
         this.findNextGames = this.findNextGames.bind(this);
@@ -67,10 +69,6 @@ class ProfileBar extends Component {
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.findNextDays = this.findNextDays.bind(this);
       }
-
-    // componentWillMount() {
-    //   this.findWins()
-    // }
 
     componentDidMount() {
         this.findWins()
@@ -111,7 +109,7 @@ class ProfileBar extends Component {
         teamAbbr = thisTeamAlt
       }
 
-      console.log('Find the next games for this team: ', teamAbbr)
+      // console.log('Find the next games for this team: ', teamAbbr)
       let self = this
       API.getTeam(teamAbbr)
         .then(res => {
@@ -123,8 +121,8 @@ class ProfileBar extends Component {
           })
           let homeGames = this.state.homeGames
           let awayGames = this.state.awayGames
-          console.log('HOME GAMES: ', this.state.homeGames)
-          console.log('AWAY GAMES: ', this.state.awayGames)
+          // console.log('HOME GAMES: ', this.state.homeGames)
+          // console.log('AWAY GAMES: ', this.state.awayGames)
           self.findNextGames(homeGames, awayGames)
         })
         .catch(err => console.log(err))
@@ -149,7 +147,7 @@ class ProfileBar extends Component {
       })
       //console.log('ALL GAMES FOUND: ', this.state.allGames)
       
-      console.log('NEXT 7 DAYS: ', this.state.nextDays)
+      console.log('NEXT 14 DAYS: ', this.state.nextDays)
       let nextGames = []
       for (var u=0; u<this.state.nextDays.length; u++) {  
         let newGame = ''
@@ -252,7 +250,7 @@ class ProfileBar extends Component {
         }
         
     ]
-      console.log('USER PICKS: ', this.state.userPicks)
+      // console.log('USER PICKS: ', this.state.userPicks)
       for (var k=0; k<recentPicks.length; k++) {  
         // console.log('RECENT PICK: ', recentPicks[k].date)
         for (var m=0; m<this.state.userPicks.length; m++) {
@@ -265,8 +263,13 @@ class ProfileBar extends Component {
               team: this.state.userPicks[m].team,
               status: recentPicks[k].status
             }
-            console.log('THIS IS A NEW PICK: ', newPick)
+            // console.log('THIS IS A NEW PICK: ', newPick)
             recentPicks[k] = newPick
+            // console.log('RECENT RECENT PICKS: ', recentPicks)
+            this.setState({
+              recentPicks: recentPicks
+            })
+            this.changePastPick()
             
             // recentPicks.push(this.state.allGames[m])
             
@@ -286,7 +289,7 @@ class ProfileBar extends Component {
       // this.findWins()
       let today = moment().format('YYYY-MM-DD')
       let nextDays = []
-      console.log('GAMES FOR THIS WEEK: ', today)
+      // console.log('GAMES FOR THIS WEEK: ', today)
 
       for (var c=0; c<14; c++) {
         let thisDay = moment(today).add(c, 'days').format('YYYY-MM-DD')
@@ -307,7 +310,7 @@ class ProfileBar extends Component {
       let self = this
       API.getUser(localUser)
         .then(res => {
-          console.log('BIG result: ', res.data)
+          // console.log('BIG result: ', res.data)
           self.setState({ 
             userWins: res.data[0].wins,
             userId: res.data[0].username,
@@ -323,7 +326,7 @@ class ProfileBar extends Component {
             var target = $('.pastPick');
             if (target.length)
             {
-                let top = target.offset().top;
+                //let top = target.offset().top;
                 $('.recentPicks').animate({scrollTop: '300%'}, 1000);
                 // $('recentPicks').scrollTo('.todaysPick')
                 return false;
@@ -358,9 +361,36 @@ class ProfileBar extends Component {
 
       }
 
+    changePastPick = () => {
+      let wins = this.state.userWins
+      let recentPicks = JSON.parse(JSON.stringify(this.state.recentPicks))
+      let pastPicks = []
+    
+      for (var u=0; u<recentPicks.length; u++) {
+        let recentStatus = recentPicks[u].status
+        let recentPick = recentPicks[u].team
+        if (recentStatus === 'pastPick' && recentPick !== 'NO PICK') {
+          pastPicks.push(recentPick)
+          for (var q=0; q<wins.length; q++) {
+            if (recentPick === wins[q].win) {
+              console.log('CHANGE THIS COLOR: ', wins[q].win)
+              recentPicks[u].status = 'pastPickWin'
+              }
+            }
+          }
+          this.setState({
+            newRecentPicks: recentPicks
+          })
+        }
+        
+        console.log('Past picks: ', pastPicks)
+        console.log('New Recent picks: ', this.state.newRecentPicks)
+      
+      }
+
     postTeams = () => {
       let teams = this.state.teams
-      console.log('POSTING JUST THESE TEAMS: ', teams)
+      // console.log('POSTING JUST THESE TEAMS: ', teams)
       for (var x=0; x<teams.length; x++) {
         let newTeam = {
           teamName: teams[x].name,
@@ -385,7 +415,7 @@ class ProfileBar extends Component {
           for (var t=0; t<this.state.teams.length; t++) {
             let thisTeam = this.state.teams[t].abbr.toUpperCase()
             // console.log('ALL GAMES: ', theGames)
-            console.log('THIS TEAM: ', thisTeam)
+            // console.log('THIS TEAM: ', thisTeam)
             for (var p=0; p<theGames.length; p++) {
               // let homeA = theGames[p].homeAlias
               let awayA = theGames[p].awayAlias
@@ -399,8 +429,8 @@ class ProfileBar extends Component {
               //     .catch(err => console.log(err))
               // }
               if (awayA === thisTeam) {
-                console.log('THE GAME: ', theGames[p])
-                console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                // console.log('THE GAME: ', theGames[p])
+                // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
                 API.addGamesByTeam(thisTeam, theGames[p])
                   .then(res => {
                     console.log(res)
@@ -428,15 +458,15 @@ class ProfileBar extends Component {
             <div className="row profileBar">
               <Jumbotron>
                 <Container fluid>
-                  <h1 className="display-4">
-                    Username: {this.props.username} <br /> 
-                    Today's Pick: {this.props.todaysPick} <br />
-                    Wins: {this.props.winsCount}
-                  </h1>
+                  <div className="display-4">
+                    <h4>Username</h4> {this.props.username} <br />
+                    <h4>Today's Pick</h4> {this.props.todaysPick} <br />
+                    <h4>Wins</h4> {this.props.winsCount}
+                  </div>
                 </Container>
               </Jumbotron>
               <span className='row recentPicks'>
-                <div className="col-11-md">
+                <div className="col-12-sm">
                 <table className='table table-striped table-hover'>
                     <thead>
                       <tr>
@@ -446,10 +476,10 @@ class ProfileBar extends Component {
                     </thead>
                     <tbody>
                       {
-                        this.state.recentPicks.map((nextPick, i) => (
-                          <tr key={uuidv4()} className={nextPick.status}>
-                            <td>{nextPick.date}</td>
-                            <td>{nextPick.team}</td>
+                        this.state.newRecentPicks.map((newRecentPick, i) => (
+                          <tr key={uuidv4()} className={newRecentPick.status}>
+                            <td>{newRecentPick.date}</td>
+                            <td>{newRecentPick.team}</td>
                           </tr> 
                             )
                           )     
@@ -458,8 +488,8 @@ class ProfileBar extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="col-1-md title">
-                  <h4>Recent Picks</h4>
+                <div className="col-2-sm title">
+                  <h3>Recent Picks</h3>
                 </div>
               </span>
               

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import API from '../../utils/API'
+//import API from '../../utils/API'
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 

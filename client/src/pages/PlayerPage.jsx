@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import API from '../utils/API'
+//import API from '../utils/API'
 import Navbar from '../components/nav/Navbar'
-import ProfileBar from '../components/profile/profileBar'
+//import ProfileBar from '../components/profile/profileBar'
 import Leaderboard from '../components/leaderboard/Leaderboard'
-import Games from '../components/games/Games'
+//import Games from '../components/games/Games'
 import moment from 'moment';
 import '../css/actionPage.css'
 
