@@ -6,6 +6,7 @@
     #actionPage {
         margin-top: 5%;
         margin-left: 5%;
+        margin-right: 10%;
     }
     
     .calBoard {
@@ -36,6 +37,7 @@
     #actionPage {
         margin-top: 5%;
         margin-left: 5%;
+        margin-right: 10%;
     }
     
     .calBoard {
@@ -70,6 +72,7 @@
     #actionPage {
         margin-top: 5%;
         margin-left: 5%;
+        margin-right: 10%;
     }
     
     .calBoard {
@@ -113,6 +116,7 @@
     #actionPage {
         margin-top: 5%;
         margin-left: 5%;
+        margin-right: 5%;
     }
     
     .calBoard {
@@ -127,7 +131,7 @@
     }
     
     .winningTeams {
-        margin-left: 5%;
+        margin-left: 10%;
         min-width: 80%;
         height: 300px;
         font-size: 15px;

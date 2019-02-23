@@ -150,12 +150,13 @@ class Leaderboard extends Component {
         return(
             <div className='leaderboard'>
                 <h2>Leaderboard</h2>
-                <table className='table table-striped table-hover'>
+                <hr />
+                <table className='leaderboardData table table-striped table-hover'>
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>User</th>
-                        <th>Points</th>
+                    <tr className='leaderboardHeader'>
+                        <th className='leaderboardHeader'>#</th>
+                        <th className='leaderboardHeader'>User</th>
+                        <th className='leaderboardHeader'>Points</th>
                         {/* <th>Teams</th> */}
                     </tr>
                     </thead>

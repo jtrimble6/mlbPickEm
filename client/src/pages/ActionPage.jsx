@@ -82,7 +82,7 @@ class ActionPage extends Component {
                     username={this.state.username}
                   />
                 </div>
-                <div className='col-md-2'>
+                <div className='col-md-3'>
                 <div className="leaders row">
                   <Leaderboard   
                   />

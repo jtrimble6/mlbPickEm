@@ -316,7 +316,7 @@ class Games extends Component {
       let uuidv4 = require('uuid/v4')
       return (
         <div className='winningPicks'>
-          <h2>Winning Picks</h2>
+          <h2>Winning Picks</h2> <hr />
           {
             this.state.userWins.map((userWin, i) => (
               <p key={uuidv4()}>

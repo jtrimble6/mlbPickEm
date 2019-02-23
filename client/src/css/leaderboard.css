@@ -1,29 +1,23 @@
 @media (min-width: 1300px) {
     .leaderboard {
         color: gold;
-        margin-left: 15% !important;
+        margin-left: 10% !important;
         overflow: scroll;
         margin-bottom: 25px;
         min-width: 100% !important;
     }
-    
-    /* table {
-        counter-increment: rowNumber;
+    th.leaderboardHeader {
+        color: gold !important;
+        max-width: 5%;
+        font-size: 80% !important;
+        padding-right: 0 !important;
+    }
+    td.leaderRow {
+        color: gold !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
     }
     
-    table tr {
-        counter-increment: rowNumber;
-    } */
-    
-    /* table tr td:first-child::before {
-        content: counter(rowNumber);
-        min-width: 1em;
-        margin-right: 2em;
-    } */
-    
-    /* .leaderRow {
-        overflow: scroll;
-    } */
 }
 
 @media (min-width: 1000px) and (max-width: 1299px) {
@@ -43,19 +37,34 @@
         margin-bottom: 25px;
         min-width: 100% !important;
     }
+    th.leaderboardHeader {
+        color: gold !important;
+        max-width: 5%;
+        font-size: 60% !important;
+        padding-right: 0 !important;
+        font-size: 80% !important;
+    }
+    td.leaderRow {
+        color: gold !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
+    }
 }
 
 @media (max-width: 775px) {
     .leaderboard {
+        font-size: 50% !important;
         color: gold;
         overflow: scroll;
-        margin-top: 0;
+        margin-top: 0 !important;
         margin-bottom: 25px;
-        margin-left: 5% !important;
-        margin-right: 3%;
-        min-width: 80% !important;
-    }.leaderboard :active {
+        margin-left: 10% !important;
+        margin-right: 10%;
+        max-width: 80% !important;
+    }
+    .leaderboard :active {
         overflow: scroll;
     }
+    
 }
 
