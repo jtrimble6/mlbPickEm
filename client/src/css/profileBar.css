@@ -278,6 +278,7 @@
   }
   h4.wins {
     margin-top: 2%;
+    min-width: 60% !important;
   }
   h2 {
     margin-bottom: 0;
@@ -415,6 +416,7 @@
   }
   h4.wins {
     margin-top: 2%;
+    min-width: 100% !important;
   }
   h2 {
     margin-bottom: 0;
@@ -457,7 +459,7 @@
   .jumbotron {
     margin-top: 7%;
     min-width: 40%;
-    height: 160px;
+    height: 180px;
     padding: 7px;
     background-color: darkblue;
   }
@@ -472,7 +474,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    height: 160px !important;
+    height: 180px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -601,7 +603,7 @@
   .jumbotron {
     margin-top: 15%;
     max-width: 35%;
-    min-height: 200px;
+    min-height: 220px;
     padding: 7px;
     padding-left: 0;
     background-color: darkblue;
@@ -619,7 +621,7 @@
     color: white;
     background-color: darkblue;
     font-size: 10px;
-    max-height: 188px !important;
+    max-height: 220px !important;
     max-width: 50%;
     padding: 1%;
     padding-left: 0;
@@ -698,7 +700,7 @@
 
   h4 {
     font-size: 60%;
-    max-width: 45%;
+    max-width: 65%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
