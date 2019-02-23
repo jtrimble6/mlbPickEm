@@ -70,8 +70,7 @@ class Calendar extends Component {
     toggle() {
         this.setState({
           modal: !this.state.modal,
-          activePick: '', 
-          activeDate: ''
+          activePick: ''
         });
       }
 
@@ -88,6 +87,7 @@ class Calendar extends Component {
     toggleInvalidPick() {
       this.setState({
         nestedModal: !this.state.nestedModal,
+        activePick: '', 
         closeAll: false
       });
       console.log('WOAAAAH INVALID PICK DOOOOOD')

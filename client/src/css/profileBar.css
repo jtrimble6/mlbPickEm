@@ -138,6 +138,7 @@
 
   h4.wins {
     margin-top: 1%;
+    min-width: 60% !important;
   }
 
   h2 {

@@ -15,6 +15,7 @@ class ProfileBar extends Component {
             userId: '',
             userWins: [],
             userPicks: [],
+            pastPicks: [],
             activeTeam: {},
             nextDays: [],
             nextGames: [],
@@ -250,10 +251,16 @@ class ProfileBar extends Component {
         }
         
     ]
+      
+      let pastDatesPicked = []
       // console.log('USER PICKS: ', this.state.userPicks)
       for (var k=0; k<recentPicks.length; k++) {  
         // console.log('RECENT PICK: ', recentPicks[k].date)
         for (var m=0; m<this.state.userPicks.length; m++) {
+          if (this.state.userPicks[m].gameDate < moment().format('YYYY-MM-DD')) {
+            let pastGameDate = this.state.userPicks[m].gameDate
+            pastDatesPicked.push(pastGameDate)
+          }
           let thisUserPick = this.state.userPicks[m]
           let thisUserPickDate = moment(thisUserPick.gameDate).format('MM-DD')
           // console.log('THIS PICK: ', moment(thisUserPick.gameDate).format('MM-DD'))
@@ -273,6 +280,17 @@ class ProfileBar extends Component {
             
             // recentPicks.push(this.state.allGames[m])
             
+            let onlyUnique = (value, index, self) => { 
+              return self.indexOf(value) === index;
+            }
+
+            let uniqueDates = pastDatesPicked.filter(onlyUnique)
+
+            console.log('PAST DATES PICKED: ', uniqueDates)
+
+            this.setState({
+              pastPicks: uniqueDates
+            })
             
           } 
         }
@@ -455,7 +473,17 @@ class ProfileBar extends Component {
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
                     <h4>Today's Pick</h4> {this.props.todaysPick} <br />
-                    <h4 className='wins'>Wins</h4> {this.props.winsCount}
+                    <div className="row">
+                      <div className="col-md-3">
+                        <h4 className='wins'>Wins</h4> {this.props.winsCount}
+                      </div>
+                      <div className="col-md-3">
+                        <h4 className='wins'>Record</h4> {this.props.winsCount} - {this.state.pastPicks.length - this.props.winsCount}
+                      </div>  
+                      {/* <div className="col-md-3">
+                        <h4 className='wins'>Place</h4> {this.props.winsCount}
+                      </div>   */}
+                    </div>  
                   </div>
                 </Container>
               </Jumbotron>
