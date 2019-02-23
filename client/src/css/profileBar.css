@@ -35,7 +35,7 @@
   .jumbotron {
     padding: 8px;
     min-width: 70%;
-    max-height: 190px;
+    height: 220px;
     background-color: darkblue;
   }
   
@@ -49,7 +49,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    max-height: 200px !important;
+    height: 220px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -127,8 +127,8 @@
 
 
   h4 {
-    font-size: 30%;
-    max-width: 8%;
+    font-size: 60%;
+    max-width: 20%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
@@ -183,7 +183,7 @@
   .jumbotron {
     padding: 10px;
     min-width: 60%;
-    max-height: 190px;
+    height: 200px;
     margin-top: 2%;
     background-color: darkblue;
   }
@@ -197,7 +197,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    max-height: 200px !important;
+    height: 200px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -267,8 +267,8 @@
     
   }
   h4 {
-    font-size: 30%;
-    max-width: 10%;
+    font-size: 50%;
+    max-width: 20%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
@@ -320,7 +320,7 @@
   .jumbotron {
     padding: 13px;
     min-width: 50%;
-    max-height: 180px;
+    height: 190px;
     margin-top: 5%;
     background-color: darkblue;
   }
@@ -334,7 +334,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    max-height: 200px !important;
+    height: 190px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -404,8 +404,8 @@
     
   }
   h4 {
-    font-size: 30%;
-    max-width: 15%;
+    font-size: 60%;
+    max-width: 30%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
@@ -456,7 +456,7 @@
   .jumbotron {
     margin-top: 7%;
     min-width: 40%;
-    max-height: 150px;
+    height: 160px;
     padding: 7px;
     background-color: darkblue;
   }
@@ -471,7 +471,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    max-height: 150px !important;
+    height: 160px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;
@@ -544,8 +544,8 @@
     
   }
   h4 {
-    font-size: 30%;
-    max-width: 22%;
+    font-size: 55%;
+    max-width: 40%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
@@ -696,8 +696,8 @@
   }
 
   h4 {
-    font-size: 35%;
-    max-width: 45%;
+    font-size: 60%;
+    max-width: 70%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
