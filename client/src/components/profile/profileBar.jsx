@@ -322,16 +322,10 @@ class ProfileBar extends Component {
         .catch(err => console.log(err))
       
         $(document).ready(function(){
-       
-            var target = $('.pastPick');
-            if (target.length)
-            {
-                //let top = target.offset().top;
-                $('.recentPicks').animate({scrollTop: '300%'}, 1000);
-                // $('recentPicks').scrollTo('.todaysPick')
-                return false;
-            }
-          
+          //let top = target.offset().top;
+          $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+          // $('recentPicks').scrollTo('.todaysPick')
+          return false;
           // $('.recentPicks').animate({scrollTop: '320%'}, 800); 
         });
      
