@@ -608,7 +608,7 @@
   
   .display-4 {
     height: 20px;
-    font-size: 17px;
+    font-size: 13px;
     line-height: 1.5em;
     color: gold;
     font-weight: bold;
@@ -696,8 +696,8 @@
   }
 
   h4 {
-    font-size: 23%;
-    max-width: 38%;
+    font-size: 35%;
+    max-width: 45%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
