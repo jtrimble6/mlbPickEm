@@ -868,7 +868,7 @@
     }
     
     .teamLogo {
-        max-height: 20% !important;
+        /* max-height: 20% !important; */
         /* max-width: 40% !important; */
         margin-top: 10px;
         margin-bottom: 0;
@@ -876,27 +876,32 @@
     
     .team {
         font-size: 25px;
-        max-height: 150px;
+        /* max-height: 50px; */
         margin-bottom: 0;
+        
     }
 
     .homeTeam {
         margin-top: 5px;
-        padding-bottom: 50px;
         padding: 0;
-        max-height: 125px;
+        max-height: 40% !important;
     }
 
     .awayTeam {
         margin-top: 5px;
         padding: 0;
-        padding-bottom: 40px;
-        max-height: 125px;
+        max-height: 40% !important;
     }
 
     .thisGame {
         text-align: center;
         align-content: center;
+        max-height: 900px;
+    }
+
+    img {
+        height: 50px !important;
+        width: 50px !important;
     }
     
     .status {
