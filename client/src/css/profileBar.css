@@ -127,12 +127,20 @@
 
 
   h4 {
-    font-size: 45%;
-    max-width: 10%;
+    font-size: 30%;
+    max-width: 8%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
     padding: 5px;
+    margin-bottom: 0;
+  }
+
+  h4.wins {
+    margin-top: 1%;
+  }
+
+  h2 {
     margin-bottom: 0;
   }
   
@@ -259,12 +267,18 @@
     
   }
   h4 {
-    font-size: 35%;
-    max-width: 15%;
+    font-size: 30%;
+    max-width: 10%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
     padding: 5px;
+    margin-bottom: 0;
+  }
+  h4.wins {
+    margin-top: 2%;
+  }
+  h2 {
     margin-bottom: 0;
   }
 }
@@ -390,12 +404,18 @@
     
   }
   h4 {
-    font-size: 45%;
-    max-width: 20%;
+    font-size: 30%;
+    max-width: 15%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
     padding: 5px;
+    margin-bottom: 0;
+  }
+  h4.wins {
+    margin-top: 2%;
+  }
+  h2 {
     margin-bottom: 0;
   }
 }
@@ -524,13 +544,23 @@
     
   }
   h4 {
-    font-size: 45%;
-    max-width: 40%;
+    font-size: 30%;
+    max-width: 22%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
     padding: 5px;
     margin-bottom: 0;
+  }
+  h4.wins {
+    margin-top: 2%;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  hr {
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
 }
 
@@ -666,12 +696,19 @@
   }
 
   h4 {
-    font-size: 50%;
-    max-width: 80%;
+    font-size: 23%;
+    max-width: 38%;
     font-weight: bolder;
     color: darkblue;
     background-color: gold;
     padding: 5px;
+    margin-bottom: 0;
+  }
+
+  h4.wins {
+    margin-top: 2%;
+  }
+  h2 {
     margin-bottom: 0;
   }
 

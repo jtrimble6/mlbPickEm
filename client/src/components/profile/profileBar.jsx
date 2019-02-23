@@ -453,9 +453,9 @@ class ProfileBar extends Component {
               <Jumbotron>
                 <Container fluid>
                   <div className="display-4">
-                    <h4>Username</h4> {this.props.username} <br />
+                    <h2>{this.props.username.toUpperCase()}</h2> <hr />
                     <h4>Today's Pick</h4> {this.props.todaysPick} <br />
-                    <h4>Wins</h4> {this.props.winsCount}
+                    <h4 className='wins'>Wins</h4> {this.props.winsCount}
                   </div>
                 </Container>
               </Jumbotron>
