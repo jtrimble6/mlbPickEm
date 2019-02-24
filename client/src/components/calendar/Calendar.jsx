@@ -206,14 +206,15 @@ class Calendar extends Component {
                 console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
                 } 
+              if (thisPick.gameDate === myPicks[j].gameDate) {
+                  console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
+                  console.log('Prev Dates Picked: ', prevDates)
+                  console.log('These dates match', pickDate, prevDates[j])
+                  this.overridePick(pickDate) 
+                } 
               } 
               
-              if (thisPick.gameDate === myPicks[j].gameDate) {
-                console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
-                console.log('Prev Dates Picked: ', prevDates)
-                console.log('These dates match', pickDate, prevDates[j])
-                this.overridePick(pickDate) 
-              } 
+              
             }
           }
         
@@ -222,12 +223,13 @@ class Calendar extends Component {
           .then(res => { 
             console.log(res)
             // CLOSE MODAL IF VALID PICK
-            if (toggle) {
-              this.toggle()
-              document.location.reload()
-            }
            })
           .catch(err => { console.log(err) } )  
+
+        if (toggle) {
+          this.toggle()
+          document.location.reload()
+        }
 
       }
 
