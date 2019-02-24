@@ -74,13 +74,14 @@ class Calendar extends Component {
       }
 
     toggleActive() {
-        let _this = this
-        $('.modal-open #modalBody .thisGame .team').click(function(){
-            $(this).addClass('active');
-            $(this).parent().children('.team').not(this).removeClass('active');
-            let myPick = $(this).text()
-            _this.setState({ activePick: myPick })
-          }); 
+      // this.setState({ activePick: '' })
+      let _this = this
+      $('.modal-open #modalBody .thisGame .team').click(function(){
+          $(this).addClass('active');
+          $(this).parent().children('.team').not(this).removeClass('active');
+          let myPick = $(this).text()
+          _this.setState({ activePick: myPick })
+        }); 
       }
 
     toggleInvalidPick() {
@@ -152,19 +153,20 @@ class Calendar extends Component {
       }
 
     handleChangeStatus(event) {
-        let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
-        let gameStatus = event.status.toUpperCase()
-        let gameId = event._id
-        this.setState({ 
-          status: gameStatus, 
-          time: gameTime, 
-          activeDate: event.date, 
-          gameId: gameId 
-        });
-        console.log('Status: ', this.state.status)
-        console.log('Start Time: ', this.state.time)
-        console.log('Game ID: ', this.state.gameId)
-      }
+      this.setState({ activeDate: '' })
+      let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
+      let gameStatus = event.status.toUpperCase()
+      let gameId = event._id
+      this.setState({ 
+        status: gameStatus, 
+        time: gameTime, 
+        activeDate: event.date, 
+        gameId: gameId 
+      });
+      console.log('Status: ', this.state.status)
+      console.log('Start Time: ', this.state.time)
+      console.log('Game ID: ', this.state.gameId)
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -231,7 +233,7 @@ class Calendar extends Component {
         // CLOSE MODAL IF VALID PICK
         if (toggle) {
           this.toggle()
-          document.location.reload()
+          //document.location.reload()
         }
 
       }
@@ -277,7 +279,8 @@ class Calendar extends Component {
           .catch(err => { console.log(err) } )  
         
           this.toggle()
-          document.location.reload()
+          debugger;
+          //document.location.reload()
         
       }
 

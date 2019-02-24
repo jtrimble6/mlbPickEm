@@ -223,35 +223,59 @@ class Games extends Component {
 
     findUserPicks = () => {
       let self = this
-      let localUser = localStorage.getItem('user')
-      API.getUser(localUser)
-          .then(res => {
-            // console.log('BIG result: ', res.data)
-            self.setState({ 
-              userId: res.data[0].username,
-              userPicks: res.data[0].picks,
-              userWins: res.data[0].wins
-             })
-            self.findUserWins()
-          })
-          .catch(err => {console.log(err)
+      //let localUser = localStorage.getItem('user')
+      API.getUsers()
+        .then(res => {
+          //console.log('ALL USERS: ', res.data)
+          let allUsers = res.data
+          for(var u=0; u<allUsers.length; u++) {
+            let thisUser = allUsers[u]
+            let thisUserObj = {
+              userId: thisUser.username,
+              userPicks: thisUser.picks,
+              userWins: thisUser.wins
+              }
+            if (thisUser.picks.length > 0) {
+              self.findUserWins(thisUserObj)
+            }
+            
+          }
         })
+      // API.getUser(localUser)
+      //     .then(res => {
+      //       // console.log('BIG result: ', res.data)
+      //       self.setState({ 
+      //         userId: res.data[0].username,
+      //         userPicks: res.data[0].picks,
+      //         userWins: res.data[0].wins
+      //        })
+      //       self.findUserWins()
+      //     })
+      //     .catch(err => {console.log(err)
+      //   })
       }
 
-    findUserWins = () => {
-      let userId = this.state.userId
+    findUserWins = (userData) => {
+      //console.log('THIS USER DATA: ', userData)
+      let userId = userData.userId
       let today = this.state.today
-      let userPicks = this.state.userPicks
+      let userPicks = userData.userPicks
       let schedule = this.state.scheduledGames
-      let userWins = this.state.userWins
+      let userWins = userData.userWins
       let alreadyWon = false
-      // console.log('USER USER PICKS: ', userPicks)
+      //console.log('THIS USER PICKS: ', userPicks)
 
       let thisPickDate = (picks) => {
         return picks.gameDate === today
       }
       let thisPick = userPicks.filter(thisPickDate)
-      let thisPickTeam = thisPick[0].team
+      let thisPickTeam = ''
+      //console.log('THIS PICK: ', thisPick)
+      if (thisPick.length > 0) {
+        thisPickTeam = thisPick[0].team
+      } else {
+        return
+      }
       // console.log('THIS IS TODAYS PICK: ', thisPickTeam)
       let pickAlreadyWon = (wins) => {
         return wins.win === thisPickTeam
@@ -307,8 +331,6 @@ class Games extends Component {
           // gameNum++
         }
       }
-
-      
 
       }
 
