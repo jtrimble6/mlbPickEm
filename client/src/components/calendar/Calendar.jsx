@@ -221,14 +221,13 @@ class Calendar extends Component {
         API.savePick(myId, thisPick)
           .then(res => { 
             console.log(res)
+            // CLOSE MODAL IF VALID PICK
+            if (toggle) {
+              this.toggle()
+              document.location.reload()
+            }
            })
-          .catch(err => { console.log(err) } )
-
-        // CLOSE MODAL IF VALID PICK
-        if (toggle) {
-          this.toggle()
-          document.location.reload()
-        }
+          .catch(err => { console.log(err) } )  
 
       }
 
