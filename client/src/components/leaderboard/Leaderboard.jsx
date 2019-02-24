@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-//import $ from 'jquery'
+import $ from 'jquery'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
 //import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
@@ -107,11 +107,7 @@ class Leaderboard extends Component {
         let user = e.target
         let player = user.textContent
         console.log('Player page: ', player)
-        return <Redirect to={{
-            pathname: '/playerpage',
-            state: { player: player }
-        }}
-/>
+        $('#actionPage').html('')
       }
 
     // changeLogo = () => {

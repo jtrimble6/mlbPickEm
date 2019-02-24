@@ -459,7 +459,7 @@
   .jumbotron {
     margin-top: 7%;
     min-width: 40%;
-    height: 180px;
+    height: 190px;
     padding: 7px;
     background-color: darkblue;
   }
@@ -474,7 +474,7 @@
   .recentPicks {
     color: white;
     background-color: darkblue;
-    height: 180px !important;
+    height: 190px !important;
     padding: 1%;
     padding-left: 0;
     padding-right: 0;

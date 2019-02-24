@@ -70,7 +70,6 @@ class Calendar extends Component {
     toggle() {
         this.setState({
           modal: !this.state.modal,
-          activePick: ''
         });
       }
 
