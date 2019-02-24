@@ -243,7 +243,7 @@ class Calendar extends Component {
             this.setState({myPicks: res.data[0].picks})
             this.setState({myWins: res.data[0].wins})
             // console.log('CURRENT DATA: ', res.data)
-            // console.log('Current picks: ', this.state.myPicks)
+            console.log('Current picks: ', this.state.myPicks)
             // console.log('Current Wins: ', this.state.myWins)
             this.checkPrevDates()
           })
