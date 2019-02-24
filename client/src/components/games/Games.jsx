@@ -31,21 +31,14 @@ class Games extends Component {
 
     componentDidMount() {
       // this.getGames()
-      this.getSchedule()
-      // this.findUserPicks() 
+      this.getSchedule() 
       }
 
     postGames = (data) => {
       for (let i=0; i<data.length; i++) {
-        // console.log(data[i])
-        // let gameDate = moment(data[i].scheduled).format('YYYY-MM-DD')
         let gameDateAdj = moment(data[i].scheduled).subtract(6, 'hours').format()
         let splitDate = gameDateAdj.split('T')
         let gameDate = splitDate[0]
-        
-        // let gameDate = onlyDate.replace(/-/g, "");
-        // console.log('This is the real time: ', gameDateAdj)
-        // console.log('This is the real date: ', gameDate)
         
         let gameData = {
           gameDate: gameDate,
@@ -58,7 +51,8 @@ class Games extends Component {
           awayAlias: data[i].away.alias,
           gameResult: 'none'
         }
-        // console.log('Game data!!: ', gameData)
+    
+        //POST ENTIRE SCHEDULE
         API.postGames(gameData)
           .then(res=> console.log(res))
           .catch(err => console.log(err))
@@ -66,19 +60,21 @@ class Games extends Component {
       }
 
     getGames = () => {
+      let self = this
+
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
       const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
-      let self = this
+
+      // API CALL TO PULL ENTIRE SEASON SCHEDULE
       $.ajax({
         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
         url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
         type: 'GET',
         success: function(data) {
-          // console.log('GAMES: ', data.games);
           self.setState({ fullSchedule: data.games });
-          // console.log('FULL SCHEDULE: ', self.state.fullSchedule);
+          // POST ENTIRE SCHEDULE
           self.postGames(data.games)
           }
         })
@@ -88,13 +84,14 @@ class Games extends Component {
       let self = this
       let gameIds = self.state.gameIds
       let gameResults = []
-      // console.log('ONLY THESE GAME IDS: ', gameIds)
-      //const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      
+      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
       const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+
+      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
       for (let m=0; m<gameIds.length; m++) {
         let k = m
-        // console.log('Need each result: ', gameIds[k])
         setTimeout ( 
           function() {
             $.ajax({
@@ -112,7 +109,7 @@ class Games extends Component {
       }
 
     findGameWinners = () => {
-      // console.log('Showing results: ', this.state.gameResults)
+      // FIND GAME RESULTS FROM YESTERDAY
       let gameResults = this.state.gameResults
       let winningTeams = []
       for (let x=0; x<gameResults.length; x++) {
@@ -132,101 +129,75 @@ class Games extends Component {
           } else {
             winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
           }
-          // console.log('Winning Teams: ', winningTeams)
           this.setState({ winningTeams: winningTeams })
         }
-
-      // console.log('WINNING TEAMS: ', winningTeams)
 
       this.postGameWinners(this.state.winningTeams)
 
       }
 
     postGameWinners = (data) => {
-        // console.log("Getting game winners: ", gameWinners)
-        for (let y=0; y<data.length; y++) {
-
-          //let game = {}
-          // game = {
-          //   gameId: data[y].gameId,
-          //   winner: data[y].winningTeam,
-          //   gameDate: data[y].gameDate
-          // }
-          // API.addResult(game)
-          //   .then(res => {
-          //     console.log(res)
-          //   })
-          //   .catch(err => console.log(err))
-          //console.log('ALL THE INFO: ', game)
-
-          let gameDate = data[y].gameDate
-          let gameId = data[y].gameId
-          let gameResult = { gameResult: data[y].winningTeam }
-          API.updateGame(gameDate, gameId, gameResult)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-          }
-          // console.log('ALL THE INFO: ', gameDate + ' ' + gameId + ' ' + gameResult)
-          
-  
-          
+      for (let y=0; y<data.length; y++) {
+        let gameDate = data[y].gameDate
+        let gameId = data[y].gameId
+        let gameResult = { gameResult: data[y].winningTeam }
+        API.updateGame(gameDate, gameId, gameResult)
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+        } 
       }
 
     getSchedule = () => {
-      // console.log('Getting schedule...')
       let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ today: date })
       // this.getGames()
+
+      // PULL GAMES FROM YESTERDAY
       API.getGamesByDate(date)
         .then(res => {
             let games = []
             let gameIds = []
-            //console.log('LOOKING AT THE GAMES FOR YESTERDAY: ', res.data)
             res.data.forEach((game) => {
-                let splitDate = game.gameDate.split('T')
-                let gameDate = splitDate[0]
-                
-                // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
-                let gameInfo = {
-                    id: game.gameId,
-                    date: gameDate,
-                    start: game.gameDate,
-                    status: game.gameStatus,
-                    homeTeam: game.homeTeam,
-                    awayTeam: game.awayTeam,
-                    gameWinner: game.gameResult.gameResult,
-                    title: game.homeAlias + ' vs ' + game.awayAlias,
-                    color: 'yellow',
-                    textColor: 'black',
-                    borderColor: 'blue'
-
+              let splitDate = game.gameDate.split('T')
+              let gameDate = splitDate[0]
+              let gameInfo = {
+                  id: game.gameId,
+                  date: gameDate,
+                  start: game.gameDate,
+                  status: game.gameStatus,
+                  homeTeam: game.homeTeam,
+                  awayTeam: game.awayTeam,
+                  gameWinner: game.gameResult.gameResult,
+                  title: game.homeAlias + ' vs ' + game.awayAlias,
+                  color: 'yellow',
+                  textColor: 'black',
+                  borderColor: 'blue'
                 }
                 games.push(gameInfo)
                 gameIds.push(gameInfo.id)
                 self.setState({ scheduledGames: games })
                 self.setState({ gameIds: gameIds })
-            })
+              })
 
-            // GET RESULTS IF UNDEFINED AND USER PICKS
+            // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
             if(this.state.scheduledGames[0].gameWinner === undefined) {
-              //console.log('DONT HAVE RESULTS')
               self.getResults()
-            }
+              }
+
+            //FIND ALL USERS PICKS
             self.findUserPicks()
 
-            // console.log('We have pulled the schedule')
-            // console.log('Here are all of the games: ', this.state.scheduledGames)
         })
           .catch(err => console.log(err))
       }
 
     findUserPicks = () => {
       let self = this
-      //let localUser = localStorage.getItem('user')
+
+      // FIND ALL USERS PICKS 
       API.getUsers()
         .then(res => {
-          //console.log('ALL USERS: ', res.data)
           let allUsers = res.data
           for(var u=0; u<allUsers.length; u++) {
             let thisUser = allUsers[u]
@@ -235,46 +206,36 @@ class Games extends Component {
               userPicks: thisUser.picks,
               userWins: thisUser.wins
               }
+            // IF USER HAS MADE PICKS FIND THEIR WINS
             if (thisUser.picks.length > 0) {
               self.findUserWins(thisUserObj)
             }
             
           }
         })
-      // API.getUser(localUser)
-      //     .then(res => {
-      //       // console.log('BIG result: ', res.data)
-      //       self.setState({ 
-      //         userId: res.data[0].username,
-      //         userPicks: res.data[0].picks,
-      //         userWins: res.data[0].wins
-      //        })
-      //       self.findUserWins()
-      //     })
-      //     .catch(err => {console.log(err)
-      //   })
       }
 
     findUserWins = (userData) => {
-      //console.log('THIS USER DATA: ', userData)
       let userId = userData.userId
       let today = this.state.today
       let userPicks = userData.userPicks
       let schedule = this.state.scheduledGames
       let userWins = userData.userWins
       let alreadyWon = false
-      //console.log('THIS USER PICKS: ', userPicks)
 
+      //FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
         return picks.gameDate === today
       }
       let thisPick = userPicks.filter(thisPickDate)
       let thisPickTeam = ''
-      //console.log('THIS PICK: ', thisPick)
+
+      //IF THERE IS A PICK FOR TODAY MAKE THAT 'THISPICKTEAM'
       if (thisPick.length > 0) {
         thisPickTeam = thisPick[0].team
       } 
-      // console.log('THIS IS TODAYS PICK: ', thisPickTeam)
+
+      //CHECK TO SEE IF USER HAS ALREADY WON WITH THIS TEAM
       let pickAlreadyWon = (wins) => {
         return wins.win === thisPickTeam
       }
@@ -283,50 +244,34 @@ class Games extends Component {
         console.log('ALREADY A WINNER')
         alreadyWon = true
       }
-      // console.log('THIS PICK WINNER: ', thisPickWinner)
-
-      // console.log('User Picks: ', userPicks)
-      // console.log('User Wins: ', userWins)
-      // console.log('HERE IS THE PICK: ', thisPick)
-      // console.log('THIS PICK WON ALREADY: ', pickHasWon)
-      // console.log('WHAT WE WORKING WITH: ', schedule)
-
+  
       if (alreadyWon) {
-        // console.log('THIS PICK HAS DEF WON DUDE')
         return;
       } else {
-        // let gameNum = 1
         for (let s=0; s<schedule.length; s++) {
           let winner = schedule[s].gameWinner
-          //MUST TRIM THE SPACES
+          //!IMPORTANT MUST TRIM THE SPACES 
           let thisPick = thisPickTeam.trim()
-          // console.log(
-          // 'Game num:', gameNum, 
-          // '| WINNER:', winner, 
-          // '| YOUR PICK:', thisPick,
-          // '| DO THEY EQUAL?', winner === thisPickTeam
-          // )
-          console.log('THIS PICK: ', thisPick)
+
           if (thisPick === winner) {
+
             let newWin = { win: thisPickTeam }
-            console.log('New Win: ', newWin)
-            API.changeStatus(userId, newWin.win) 
-              .then (res => {
-                console.log(res)
-              })
-              .catch(err => console.log(err))
+
+            // THIS WILL UPDATE TEAM INDEX INSIDE USER API
+            // API.changeStatus(userId, newWin.win) 
+            //   .then (res => {
+            //     console.log(res)
+            //   })
+            //   .catch(err => console.log(err))
+
+            //ADD NEW WINS TO USER DB
             API.addWin(userId, newWin)
               .then (res => {
-                // console.log(userId)
-                // console.log(newWin)
                 console.log(res)
-                // $('.jumbotron')
               })
               .catch(err => console.log(err))
-            
-          
-          } else {console.log('no win')}
-          // gameNum++
+  
+          }
         }
       }
 
@@ -335,6 +280,7 @@ class Games extends Component {
     render() {
       let uuidv4 = require('uuid/v4')
       return (
+        //RENDER USER WINNING PICKS
         <div className='winningPicks'>
           <h2>Winning Picks</h2> <hr />
           {

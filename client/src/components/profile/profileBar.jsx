@@ -286,7 +286,7 @@ class ProfileBar extends Component {
 
             let uniqueDates = pastDatesPicked.filter(onlyUnique)
 
-            console.log('PAST DATES PICKED: ', uniqueDates)
+            // console.log('PAST DATES PICKED: ', uniqueDates)
 
             this.setState({
               pastPicks: uniqueDates
@@ -300,7 +300,7 @@ class ProfileBar extends Component {
       this.setState({
         recentPicks: recentPicks
       })
-      console.log('THE NEXT PICKS: ', recentPicks)
+      // console.log('THE NEXT PICKS: ', recentPicks)
       }
 
     findNextDays = () => {
@@ -385,7 +385,7 @@ class ProfileBar extends Component {
           pastPicks.push(recentPick)
           for (var q=0; q<wins.length; q++) {
             if (recentPick === wins[q].win) {
-              console.log('CHANGE THIS COLOR: ', wins[q].win)
+              // console.log('CHANGE THIS COLOR: ', wins[q].win)
               recentPicks[u].status = 'pastPickWin'
               }
             }
@@ -395,8 +395,8 @@ class ProfileBar extends Component {
           })
         }
         
-        console.log('Past picks: ', pastPicks)
-        console.log('New Recent picks: ', this.state.newRecentPicks)
+        // console.log('Past picks: ', pastPicks)
+        // console.log('New Recent picks: ', this.state.newRecentPicks)
       
       }
 

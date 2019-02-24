@@ -74,7 +74,6 @@ class Calendar extends Component {
       }
 
     toggleActive() {
-      // this.setState({ activePick: '' })
       let _this = this
       $('.modal-open #modalBody .thisGame .team').click(function(){
           $(this).addClass('active');
@@ -110,7 +109,6 @@ class Calendar extends Component {
         nestedModalExpPick: !this.state.nestedModalExpPick,
         closeAllExpPick: false
       });
-      console.log('EXPIRED PICK')
       let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
       $('.modal-open .modal-header').prepend(expPickAlert)
       }
@@ -138,7 +136,7 @@ class Calendar extends Component {
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value})
-        console.log('Title: ', this.state.title)
+        // console.log('Title: ', this.state.title)
       }
 
     handleChangeTeams(event) {
@@ -148,8 +146,8 @@ class Calendar extends Component {
           homeAlias: event.homeAlias,
           awayAlias: event.awayAlias
         });
-        console.log('Home team: ', this.state.homeTeam)
-        console.log('Away team: ', this.state.awayTeam)
+        // console.log('Home team: ', this.state.homeTeam)
+        // console.log('Away team: ', this.state.awayTeam)
       }
 
     handleChangeStatus(event) {
@@ -163,9 +161,9 @@ class Calendar extends Component {
         activeDate: event.date, 
         gameId: gameId 
       });
-      console.log('Status: ', this.state.status)
-      console.log('Start Time: ', this.state.time)
-      console.log('Game ID: ', this.state.gameId)
+      // console.log('Status: ', this.state.status)
+      // console.log('Start Time: ', this.state.time)
+      // console.log('Game ID: ', this.state.gameId)
     }
 
     handleSubmit(event) {
@@ -214,7 +212,7 @@ class Calendar extends Component {
                   console.log('Prev Dates Picked: ', prevDates)
                   console.log('These dates match', pickDate, prevDates[j])
                   this.overridePick(pickDate, newPick) 
-                  return
+                  return;
                 }  
               } 
               
@@ -288,37 +286,31 @@ class Calendar extends Component {
         // console.log('Getting schedule...')
         API.getGames()
           .then(res => {
-              let games = []
-              res.data.forEach((game) => {
-                  let splitDate = game.gameDate.split('T')
-                  let gameDate = splitDate[0]
-                  let homeAlias = game.homeAlias.toLowerCase()
-                  let awayAlias = game.awayAlias.toLowerCase()
-                  // let splitTime = game.gameTime.split('T')
-                  // let gameTime = splitTime[1]
-                  // let gameDate2 = moment(gameDate).format('YYYY-MM-DD')
-                  let gameInfo = {
-                      id: game.gameId,
-                      date: gameDate,
-                      start: game.gameTime,
-                      status: game.gameStatus,
-                      homeTeam: game.homeTeam,
-                      awayTeam: game.awayTeam,
-                      homeAlias: homeAlias,
-                      awayAlias: awayAlias,
-                      title: game.homeAlias + ' vs ' + game.awayAlias,
-                      color: 'yellow',
-                      textColor: 'white',
-                      borderColor: 'blue'
+            let games = []
+            res.data.forEach((game) => {
+              let splitDate = game.gameDate.split('T')
+              let gameDate = splitDate[0]
+              let homeAlias = game.homeAlias.toLowerCase()
+              let awayAlias = game.awayAlias.toLowerCase()
+              let gameInfo = {
+                  id: game.gameId,
+                  date: gameDate,
+                  start: game.gameTime,
+                  status: game.gameStatus,
+                  homeTeam: game.homeTeam,
+                  awayTeam: game.awayTeam,
+                  homeAlias: homeAlias,
+                  awayAlias: awayAlias,
+                  title: game.homeAlias + ' vs ' + game.awayAlias,
+                  color: 'yellow',
+                  textColor: 'white',
+                  borderColor: 'blue'
 
-                  }
-                  games.push(gameInfo)
-                  // console.log(gameDate2)
+                }
+                games.push(gameInfo)
               })
               this.setState({ scheduledGames: games })
-              // console.log('We have pulled the schedule')
-              // console.log('Here are all of the games: ', this.state.scheduledGames)
-              
+      
           })
             .catch(err => console.log(err))
       }
@@ -326,21 +318,21 @@ class Calendar extends Component {
     getFirstGame = () => {
       let now = Moment().format()
       let date = Moment(now).format('YYYY-MM-DD')
-      // console.log('Todays date: ', date)
 
+      // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getGamesByDate(date)
         .then (res => {
           let games = res.data
-          // console.log('ALLL THE DAMN GAMES: ', games)
           let now = Moment().format()
           let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
-          // console.log('NOW: ', now)
-          // console.log('SORTED GAMES: ', sortedGames)
+
+          // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
             console.log('THERE MUST BE NO GAMES TODAY')
             $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
           }
+
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
           let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
@@ -362,7 +354,6 @@ class Calendar extends Component {
       }
 
     loadLogo = (team) => {
-      //console.log('THIS IS THE TEAM LOGO: ', team)
       switch (true) {
         case (team === 'atl'):
           return atl;
