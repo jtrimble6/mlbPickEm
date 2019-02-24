@@ -199,7 +199,7 @@ class Calendar extends Component {
           // console.log('Prev Dates Picked: ', prevDates)
           // console.log('These dates match', pickDate, prevDates[j])
           for (var j=0; j<myPicks.length; j++) {
-            if (thisPickWinner) {
+            if (thisPickWinner.length) {
               let pickHasWon = thisPickWinner[0]
               console.log('PICK HAS WON: ', pickHasWon)
               if (pickHasWon !== undefined) {
@@ -279,8 +279,8 @@ class Calendar extends Component {
           .catch(err => { console.log(err) } )  
         
           this.toggle()
-          debugger;
-          //document.location.reload()
+          // debugger;
+          document.location.reload()
         
       }
 
