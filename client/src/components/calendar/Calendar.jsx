@@ -207,10 +207,12 @@ class Calendar extends Component {
                 return;
                 } 
                 else if (thisPick.gameDate === myPicks[j].gameDate) {
+                  let newPick = thisPick
                   console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
                   console.log('Prev Dates Picked: ', prevDates)
                   console.log('These dates match', pickDate, prevDates[j])
-                  this.overridePick(pickDate) 
+                  this.overridePick(pickDate, newPick) 
+                  return
                 }  
               } 
               
@@ -222,10 +224,11 @@ class Calendar extends Component {
         API.savePick(myId, thisPick)
           .then(res => { 
             console.log(res)
-            // CLOSE MODAL IF VALID PICK
+           
            })
           .catch(err => { console.log(err) } )  
 
+        // CLOSE MODAL IF VALID PICK
         if (toggle) {
           this.toggle()
           document.location.reload()
@@ -260,14 +263,22 @@ class Calendar extends Component {
         // console.log('Official dates picked: ', this.state.myDatesPicked)
       }
     
-    overridePick(date) {
+    overridePick(date, newPick) {
         console.log(date)
         API.deletePick(this.props.username, date)
           .then(res => {
               console.log(res)
           })
-          .catch(err => {console.log(err)
-        })
+          .catch(err => {console.log(err)})
+        API.savePick(this.props.username, newPick)
+          .then(res => { 
+            console.log(res)
+           })
+          .catch(err => { console.log(err) } )  
+        
+          this.toggle()
+          document.location.reload()
+        
       }
 
     getSchedule = () => {
