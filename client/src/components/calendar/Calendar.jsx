@@ -206,12 +206,12 @@ class Calendar extends Component {
                 console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
                 } 
-              if (thisPick.gameDate === myPicks[j].gameDate) {
+                else if (thisPick.gameDate === myPicks[j].gameDate) {
                   console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
                   console.log('Prev Dates Picked: ', prevDates)
                   console.log('These dates match', pickDate, prevDates[j])
                   this.overridePick(pickDate) 
-                } 
+                }  
               } 
               
               
