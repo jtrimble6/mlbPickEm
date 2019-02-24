@@ -86,7 +86,6 @@ class Calendar extends Component {
     toggleInvalidPick() {
       this.setState({
         nestedModal: !this.state.nestedModal,
-        activePick: '', 
         closeAll: false
       });
       console.log('WOAAAAH INVALID PICK DOOOOOD')
@@ -207,13 +206,14 @@ class Calendar extends Component {
                 console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
                 } 
-              } if (thisPick.gameDate === myPicks[j].gameDate) {
+              } 
+              
+              if (thisPick.gameDate === myPicks[j].gameDate) {
                 console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
                 console.log('Prev Dates Picked: ', prevDates)
                 console.log('These dates match', pickDate, prevDates[j])
-                this.overridePick(pickDate)
-                
-                  } 
+                this.overridePick(pickDate) 
+              } 
             }
           }
         
@@ -221,7 +221,7 @@ class Calendar extends Component {
         API.savePick(myId, thisPick)
           .then(res => { 
             console.log(res)
-           } )
+           })
           .catch(err => { console.log(err) } )
 
         // CLOSE MODAL IF VALID PICK
