@@ -200,9 +200,10 @@ class Games extends Component {
       // FIND USER WINS
       API.getUser(thisUser)
         .then(res => {
-          // console.log('THIS USER INFO: ', res.data[0].wins)
           self.setState({
-            userWins: res.data[0].wins
+            userWins: res.data[0].wins,
+            userPicks: res.data[0].picks,
+            userId: res.data[0].username
           })
         })
 
