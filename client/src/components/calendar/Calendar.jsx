@@ -233,7 +233,7 @@ class Calendar extends Component {
         // CLOSE MODAL IF VALID PICK
         if (toggle) {
           this.toggle()
-          //document.location.reload()
+          document.location.reload()
         }
 
       }

@@ -273,9 +273,7 @@ class Games extends Component {
       //console.log('THIS PICK: ', thisPick)
       if (thisPick.length > 0) {
         thisPickTeam = thisPick[0].team
-      } else {
-        return
-      }
+      } 
       // console.log('THIS IS TODAYS PICK: ', thisPickTeam)
       let pickAlreadyWon = (wins) => {
         return wins.win === thisPickTeam
@@ -308,7 +306,7 @@ class Games extends Component {
           // '| YOUR PICK:', thisPick,
           // '| DO THEY EQUAL?', winner === thisPickTeam
           // )
-          
+          console.log('THIS PICK: ', thisPick)
           if (thisPick === winner) {
             let newWin = { win: thisPickTeam }
             console.log('New Win: ', newWin)
