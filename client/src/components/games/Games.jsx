@@ -194,6 +194,17 @@ class Games extends Component {
 
     findUserPicks = () => {
       let self = this
+      let thisUser = localStorage.getItem('user')
+      console.log('THIS USER: ', thisUser)
+
+      // FIND USER WINS
+      API.getUser(thisUser)
+        .then(res => {
+          // console.log('THIS USER INFO: ', res.data[0].wins)
+          self.setState({
+            userWins: res.data[0].wins
+          })
+        })
 
       // FIND ALL USERS PICKS 
       API.getUsers()
