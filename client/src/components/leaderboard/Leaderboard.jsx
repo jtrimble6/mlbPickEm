@@ -107,7 +107,7 @@ class Leaderboard extends Component {
         let user = e.target
         let player = user.textContent
         console.log('Player page: ', player)
-        $('#actionPage').html('')
+        // $('#actionPage').html('')
       }
 
     // changeLogo = () => {
