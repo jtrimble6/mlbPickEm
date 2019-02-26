@@ -190,7 +190,7 @@ class Calendar extends Component {
           // console.log('NO PICK')
           self.toggleNoPick()
           return;
-        }
+          }
         if(myPicks.length) {
           
           // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])

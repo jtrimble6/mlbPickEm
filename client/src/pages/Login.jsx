@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../utils/API'
 import LoginBar from '../components/nav/LoginBar'
+import SignInError from "../components/alerts/SignInError";
 import '../css/login.css'
 
 class Login extends Component {
@@ -10,7 +11,7 @@ class Login extends Component {
         username: '',
         password: '',
         redirect: false,
-        loginError: false
+        signInError: false
     }
 
     componentDidMount() {
@@ -63,6 +64,9 @@ class Login extends Component {
                         })
                     }).catch(error => {
                         console.log('Login Error: ', error)
+                        this.setState({
+                            signInError: true
+                        })
                     })
                     API.getUser(thisUser)
                       .then(response => {
@@ -72,7 +76,7 @@ class Login extends Component {
               }
           }).catch(error => {
               this.setState({
-                  loginError: true
+                  signInError: true
               })
               console.log('Login Error: ', error)
           })
@@ -85,7 +89,7 @@ class Login extends Component {
               {this.renderRedirect()}
                 <div className="formContainer">    
                     <form className="formLogin" action="index.html">
-                        <h2 className="formLoginHeading">Sign In</h2>
+                        <h2 className="formLoginHeading">Sign In</h2> <br />
                         <div className="loginWrap">
                             <input
                                 value={this.state.username}
@@ -93,7 +97,7 @@ class Login extends Component {
                                 onChange={this.handleInputChange}
                                 type="text"
                                 className="form-control"
-                                placeholder="Username"
+                                placeholder="Username (case sensitive)"
                                 autoFocus
                             />
                             <br/>
@@ -103,16 +107,16 @@ class Login extends Component {
                                 onChange={this.handleInputChange}
                                 type="password"
                                 className="form-control"
-                                placeholder="Password"
+                                placeholder="Password (case sensitive)"
                             />
                             <label className="checkbox">
                                 <span className="pull-right">
                                     <a data-toggle="modal" href="login.html#myModal">Forgot Password?</a>               
                                 </span>
                             </label>
-                            {/* <AlertUsername
-                            loginError={this.state.loginError}
-                            /> */}
+                            <SignInError
+                                signInError={this.state.signInError}
+                            />
                             <button
                                 className="btn btn-primary btn-block"
                                 href="index.html"
