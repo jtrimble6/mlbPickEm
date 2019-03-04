@@ -6,6 +6,7 @@ import Calendar from '../components/calendar/Calendar'
 import Leaderboard from '../components/leaderboard/Leaderboard'
 import Games from '../components/games/Games'
 import moment from 'moment';
+import $ from 'jquery'
 import '../css/actionPage.css'
 
 class ActionPage extends Component {
@@ -23,10 +24,16 @@ class ActionPage extends Component {
     }
 
     componentDidMount() {
-        this.getUserData();
+      this.getUserData();
     }
 
+    handlePreloader() {
+      $(".se-pre-con").fadeOut("slow");
+    }
+
+
     getUserData = () => {
+      window.addEventListener('load', this.handlePreloader());
         let localUser = localStorage.getItem('user')
         console.log(localUser)
         API.getUser(localUser)
@@ -59,7 +66,7 @@ class ActionPage extends Component {
         for (var j=0; j<myPicks.length; j++) {
             let pickDate = myPicks[j].gameDate
             if (pickDate === today) {
-                this.setState({todaysPick: myPicks[j].team})
+              this.setState({todaysPick: myPicks[j].team})
             }
         }
 
@@ -69,6 +76,7 @@ class ActionPage extends Component {
 
         return (
             <div id='actionPage'>
+              <div className="se-pre-con"></div>
               <Navbar />
               
               

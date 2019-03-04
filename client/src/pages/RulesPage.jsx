@@ -12,7 +12,7 @@ class Rules extends Component {
             <div id='rulesPage'>
               <LoginBar />
               <div id='rulesHeader'>
-                <h1>Rules Page</h1>
+                <h1>Rules Page User</h1>
                 <hr />
               </div>
             </div>

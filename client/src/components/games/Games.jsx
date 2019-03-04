@@ -195,7 +195,7 @@ class Games extends Component {
     findUserPicks = () => {
       let self = this
       let thisUser = localStorage.getItem('user')
-      console.log('THIS USER: ', thisUser)
+      //console.log('THIS USER: ', thisUser)
 
       // FIND USER WINS
       API.getUser(thisUser)
@@ -243,7 +243,7 @@ class Games extends Component {
       let thisPickTeam = ''
 
       //IF THERE IS A PICK FOR TODAY MAKE THAT 'THISPICKTEAM'
-      if (thisPick.length > 0) {
+      if (thisPick[0]) {
         thisPickTeam = thisPick[0].team
       } 
 
@@ -253,13 +253,15 @@ class Games extends Component {
       }
       let thisPickWinner = userWins.filter(pickAlreadyWon)
       if (thisPickWinner.length > 0) {
-        console.log('ALREADY A WINNER')
+        //console.log('ALREADY A WINNER')
         alreadyWon = true
       }
   
       if (alreadyWon) {
         return;
       } else {
+        let newWin = ''
+        let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
         for (let s=0; s<schedule.length; s++) {
           let winner = schedule[s].gameWinner
           //!IMPORTANT MUST TRIM THE SPACES 
@@ -267,14 +269,19 @@ class Games extends Component {
 
           if (thisPick === winner) {
 
-            let newWin = { win: thisPickTeam }
+            newWin = { win: thisPickTeam }
 
-            // THIS WILL UPDATE TEAM INDEX INSIDE USER API
-            // API.changeStatus(userId, newWin.win) 
-            //   .then (res => {
-            //     console.log(res)
-            //   })
-            //   .catch(err => console.log(err))
+            // let result = 'win'
+            // console.log('ID: ', userId)
+            // console.log('DATE: ', date)
+          
+            // console.log('RESULT: ', result)
+            //debugger;
+            // API.updatePick(userId, date, result) 
+            // .then (res => {
+            //   console.log(res)
+            // })
+            // .catch(err => console.log(err))
 
             //ADD NEW WINS TO USER DB
             API.addWin(userId, newWin)
@@ -282,10 +289,27 @@ class Games extends Component {
                 console.log(res)
               })
               .catch(err => console.log(err))
-  
+          
+            } 
+            // else {
+            //   let result = 'loss'
+            //   // THIS WILL UPDATE THE PICK INSIDE USER API
+            //   // console.log('ID: ', userId)
+            //   // console.log('DATE: ', date)
+            
+            //   // console.log('RESULT: ', result)
+            //   //debugger; 
+            //   // API.updatePick(userId, date, result) 
+            //   // .then (res => {
+            //   //   console.log(res)
+            //   // })
+            //   // .catch(err => console.log(err))
+            // }
           }
+  
+        // debugger;
+
         }
-      }
 
       }
 

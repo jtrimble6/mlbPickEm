@@ -43,16 +43,19 @@ router.route('/:id')
   .get(userController.findById)
   .put(userController.findOneAndUpdate)
   .post(userController.addWin)
+  
 //   .delete(userController.findOneAndDelete)
 
 // router.route('/:id/teams')
 //   .get(userController.getUserTeams)
 
-router.route('/:id/teams/:team')
-  .put(userController.changeStatus)
+// router.route('/:id/picks/:status')
+//   .put(userController.updatePick)
   
 router.route('/:id/:date')
   .delete(userController.findOneAndDelete)
+  .put(userController.updatePick)
+  .get(userController.findByDate)
 
 
 

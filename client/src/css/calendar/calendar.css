@@ -379,7 +379,8 @@
     /* .fc-event-container {
         overflow: scroll;
     }
-     */
+    */
+    
     .fc-day-header {
         color: white;
     }
@@ -392,8 +393,8 @@
     }
     
     .atSymbol {
-        margin-top: 45px;
-        font-size: 90px;
+        margin-top: 10%;
+        font-size: 60px;
         color: gold;
     }
     

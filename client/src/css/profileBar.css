@@ -32,9 +32,9 @@
     margin-bottom: 5px;
   }
   
-  .jumbotron {
+  .profileBar .jumbotron {
     padding: 8px;
-    min-width: 50%;
+    min-width: 70%;
     height: 220px;
     background-color: darkblue;
   }
@@ -65,12 +65,12 @@
     border-collapse: collapse;
   }
 
-  .pastPickWin {
+  .win {
     background-color: lightgreen !important;
     color: darkblue !important;
   }
 
-  .pastPick {
+  .loss {
     background-color: red !important;
     color: white !important;
   }
@@ -84,6 +84,32 @@
     background-color: lightgrey !important;
     color: darkblue !important;
   }
+
+  .pending {
+    background-color: darkblue !important;
+    color: gold !important;
+  }
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .past {
+    background-color: darkgrey !important;
+    color: darkblue !important;
+  }
+
+
 
   /* .sticky {
     position: fixed;
@@ -136,7 +162,7 @@
     margin-bottom: 0;
   }
 
-  h4.wins {
+  h4.winsHeader {
     margin-top: 1%;
     min-width: 60% !important;
   }
@@ -181,9 +207,9 @@
     margin-bottom: 5px;
   }
   
-  .jumbotron {
+  .profileBar .jumbotron {
     padding: 10px;
-    min-width: 60%;
+    min-width: 63%;
     height: 200px;
     margin-top: 2%;
     background-color: darkblue;
@@ -214,12 +240,12 @@
     border-collapse: collapse;
   }
 
-  .pastPickWin {
+  .win {
     background-color: lightgreen !important;
     color: darkblue !important;
   }
 
-  .pastPick {
+  .loss {
     background-color: red !important;
     color: white !important;
   }
@@ -231,6 +257,29 @@
 
   .futurePick {
     background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+  .pending {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .past {
+    background-color: darkgrey !important;
     color: darkblue !important;
   }
 
@@ -276,7 +325,7 @@
     padding: 5px;
     margin-bottom: 0;
   }
-  h4.wins {
+  h4.winsHeader {
     margin-top: 2%;
     min-width: 60% !important;
   }
@@ -285,7 +334,7 @@
   }
 }
 
-@media (min-width: 776px) and (max-width: 999px) {
+@media (min-width: 777px) and (max-width: 999px) {
   .profileData {
     font-size: 25px;
     margin-top: 3%;
@@ -319,9 +368,9 @@
     margin-bottom: 5px;
   }
   
-  .jumbotron {
+  .profileBar .jumbotron {
     padding: 13px;
-    min-width: 50%;
+    min-width: 56%;
     height: 190px;
     margin-top: 5%;
     background-color: darkblue;
@@ -352,12 +401,12 @@
     border-collapse: collapse;
   }
 
-  .pastPickWin {
+  .win {
     background-color: lightgreen !important;
     color: darkblue !important;
   }
 
-  .pastPick {
+  .loss {
     background-color: red !important;
     color: white !important;
   }
@@ -371,6 +420,31 @@
     background-color: lightgrey !important;
     color: darkblue !important;
   }
+  .pending {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .past {
+    background-color: darkgrey !important;
+    color: darkblue !important;
+  }
+
+
 
   /* .sticky {
     position: fixed;
@@ -414,7 +488,7 @@
     padding: 5px;
     margin-bottom: 0;
   }
-  h4.wins {
+  h4.winsHeader {
     margin-top: 2%;
     min-width: 100% !important;
   }
@@ -445,7 +519,7 @@
   } */
   
   .teamLogos {
-    margin-right: 4%;
+    margin-right: 9%;
     margin-bottom: 20px;
     flex-wrap: nowrap;
     overflow: scroll;
@@ -456,7 +530,7 @@
     margin-bottom: 5px;
   }
   
-  .jumbotron {
+  .profileBar .jumbotron {
     margin-top: 7%;
     min-width: 40%;
     height: 190px;
@@ -490,12 +564,12 @@
     border-collapse: collapse;
   }
 
-  .pastPickWin {
+  .win {
     background-color: lightgreen !important;
     color: darkblue !important;
   }
 
-  .pastPick {
+  .loss {
     background-color: red !important;
     color: white !important;
     
@@ -512,7 +586,33 @@
     color: darkblue !important;
     
   }
+  .pending {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
 
+  .past {
+    background-color: darkgrey !important;
+    color: darkblue !important;
+  }
   /* .sticky {
     position: fixed;
     top: 0;
@@ -555,8 +655,10 @@
     padding: 5px;
     margin-bottom: 0;
   }
-  h4.wins {
+  h4.winsHeader {
     margin-top: 2%;
+    font-size: 60%;
+    min-width: 50px;
   }
   h2 {
     margin-bottom: 0;
@@ -567,7 +669,7 @@
   }
 }
 
-@media (max-width: 549px) {
+@media (min-width: 377px) and (max-width: 549px) {
   .profileData {
     font-size: 15px;
     margin-top: 3%;
@@ -600,9 +702,9 @@
     margin-bottom: 5px;
   }
   
-  .jumbotron {
+  .profileBar .jumbotron {
     margin-top: 15%;
-    max-width: 35%;
+    min-width: 50%;
     min-height: 220px;
     padding: 7px;
     padding-left: 0;
@@ -629,7 +731,7 @@
     padding-top: 0;
     margin-left: 2%;
     margin-bottom: 2%;
-    margin-top: 15%;
+    margin-top: 15% !important;
     overflow: scroll !important;
   }
   .recentPicks {
@@ -639,13 +741,13 @@
     font-size: 11px;
   }
 
-  .pastPickWin {
+  .win {
     background-color: lightgreen !important;
     color: darkblue !important;
     font-size: 12px !important;
   }
 
-  .pastPick {
+  .loss {
     background-color: red !important;
     color: white !important;
     font-size: 12px !important;
@@ -661,6 +763,31 @@
     background-color: lightgrey !important;
     color: darkblue !important;
     font-size: 12px !important;
+  }
+  .pending {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .past {
+    background-color: darkgrey !important;
+    color: darkblue !important;
   }
 
   /* .sticky {
@@ -708,7 +835,7 @@
     margin-bottom: 0;
   }
 
-  h4.wins {
+  h4.winsHeader {
     margin-top: 2%;
   }
   h2 {
@@ -717,6 +844,180 @@
 
 }
 
+@media (max-width: 376px) {
+  .profileData {
+    font-size: 15px;
+    margin-top: 3%;
+  }
+  
+  .teamButton {
+    width: 70px;
+    height: 91px;
+  }
+  
+  .profLogo {
+    width: 47px;
+    height: 53px;
+  }
+  
+  /* .btn {
+    min-height: 50px !important;
+    max-width: 100px !important;
+  } */
+  
+  .teamLogos {
+    margin-right: 4%;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+  
+  .teamLogo {
+    padding: 0;
+    margin-bottom: 5px;
+  }
+  
+  .profileBar .jumbotron {
+    margin-top: 15%;
+    max-width: 50%;
+    min-height: 220px;
+    padding: 7px;
+    padding-left: 0;
+    background-color: darkblue;
+  }
+  
+  .display-4 {
+    height: 20px;
+    font-size: 13px;
+    line-height: 1.5em;
+    color: gold;
+    font-weight: bold;
+    
+  }
+  .recentPicks {
+    color: white;
+    background-color: darkblue;
+    font-size: 10px;
+    max-height: 220px !important;
+    max-width: 50%;
+    padding: 1%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    margin-top: 15% !important;
+    overflow: scroll !important;
+  }
+  .recentPicks {
+    position: relative;
+    right: 0;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .win {
+    background-color: lightgreen !important;
+    color: darkblue !important;
+    font-size: 12px !important;
+  }
+
+  .loss {
+    background-color: red !important;
+    color: white !important;
+    font-size: 12px !important;
+  }
+
+  .todaysPick {
+    background-color: gold !important;
+    color: darkblue !important;
+    font-size: 12px !important;
+  }
+
+  .futurePick {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+    font-size: 12px !important;
+  }
+  .pending {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .today {
+    background-color: gold !important;
+    color: darkblue;
+    border: solid darkblue 2px;
+  }
+
+  .noGame {
+    background-color: lightgrey !important;
+    color: darkblue !important;
+  }
+
+  .future {
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .past {
+    background-color: darkgrey !important;
+    color: darkblue !important;
+  }
+
+  /* .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+  } */
+
+  th {
+    background-color: darkblue;
+    color: gold;
+    border-top: none !important;
+  }
+
+  .table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+  }
+
+  .title {
+    min-height: 200px !important;
+    max-width: 50px;
+  }
+
+  h3 {
+    font-size: 90%;
+    position: relative;
+    top: 0;
+    margin-top: 70%;
+    /* margin-right: 0; */
+    transform: rotate(90deg);
+    line-height: 25px;
+    white-space: nowrap;
+    
+  }
+
+  h4 {
+    font-size: 60%;
+    max-width: 65%;
+    font-weight: bolder;
+    color: darkblue;
+    background-color: gold;
+    padding: 5px;
+    margin-bottom: 0;
+  }
+
+  h4.winsHeader {
+    margin-top: 2%;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+
+}
 
 
 

@@ -1,34 +1,46 @@
 @media (min-width: 1300px) {
+    .winningTeams {
+        overflow-x: visible;
+        overflow-y: auto;
+        margin-left: 15%;
+    }
     .winningPicks {
         color: gold;
-        overflow: scroll;
-        margin-left: 15%;
         min-width: 100%;
     }
 }
 
 @media (min-width: 1000px) and (max-width: 1299px) {
+    .winningTeams {
+        overflow-x: visible;
+        margin-left: 15%;
+        overflow-y: auto;
+    }
     .winningPicks {
         color: gold;
-        overflow: scroll;
-        margin-left: 15%;
         min-width: 100%;
     }
 }
 
 @media (min-width: 776px) and (max-width: 999px) {
+    .winningTeams {
+        overflow-x: visible;
+        overflow-y: auto;
+        margin-left: 15%;
+    }
     .winningPicks {
         color: gold;
-        overflow: scroll;
-        margin-left: 15%;
         min-width: 100%;
     }
 }
 
 @media(max-width: 775px) {
+    .winningTeams {
+        overflow-x: visible;
+        overflow-y: auto;
+    }
     .winningPicks {
         color: gold;
-        overflow: scroll !important;
         max-width: 100%;
         margin-bottom: 50px;
     }

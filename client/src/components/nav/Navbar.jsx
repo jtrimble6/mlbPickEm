@@ -46,12 +46,12 @@ class Navbar extends Component {
                             <NavItem>
                                 <NavLink href="/leaderboard">Leaderboard</NavLink>
                             </NavItem>
-                            {/* <NavItem>
-                                <NavLink href="/about">About</NavLink>
+                            <NavItem>
+                                <NavLink href="/aboutUser">About</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/rules">Rules</NavLink>
-                            </NavItem> */}
+                                <NavLink href="/rulesUser">Rules</NavLink>
+                            </NavItem>
                             <NavItem>
                                 <NavLink href="/">Sign Out</NavLink>
                             </NavItem>
@@ -67,12 +67,12 @@ class Navbar extends Component {
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
                       </li>
-                      {/* <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/about">About</a>
+                      <li className="nav-item">
+                        <a className="nav-link js-scroll-trigger" href="/aboutUser">About</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
-                      </li> */}
+                        <a className="nav-link js-scroll-trigger" href="/rulesUser">Rules</a>
+                      </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/">Sign Out</a>
                       </li>

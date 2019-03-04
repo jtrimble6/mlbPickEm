@@ -7,7 +7,9 @@ import API from './utils/API';
 import Login from './pages/Login';
 import Signup from './pages/Signup.jsx'
 import About from './pages/AboutPage.jsx'
+import AboutUser from './pages/AboutPageUser.jsx'
 import Rules from './pages/RulesPage.jsx'
+import RulesUser from './pages/RulesPageUser.jsx'
 import ActionPage from './pages/ActionPage.jsx'
 import PlayersPage from './pages/PlayerPage.jsx'
 import Leaderboard from './pages/LeaderboardPage.jsx'
@@ -97,11 +99,31 @@ class App extends Component {
                   updateUser={this.updateUser}
                 />}
             />
+            <Route exact path='/aboutUser'
+              render={() =>
+                this.state.loggedIn === true ? (
+                  <AboutUser />
+                ) : this.state.loggedIn === false ? (
+                  <Redirect to='/' />
+                ) : (
+                  null
+                )}
+            />
             <Route exact path='/rules'
               render={() =>
                 <Rules
                   updateUser={this.updateUser}
                 />}
+            />
+            <Route exact path='/rulesUser'
+              render={() =>
+                this.state.loggedIn === true ? (
+                  <RulesUser />
+                ) : this.state.loggedIn === false ? (
+                  <Redirect to='/' />
+                ) : (
+                  null
+                )}
             />
             <Route exact path='/logout'
             

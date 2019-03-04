@@ -177,7 +177,7 @@ class Calendar extends Component {
         let prevDates = this.state.myDatesPicked
         let gameId = this.state.gameId
         let toggle = true
-        let thisPick = { team: teamPick, gameDate: pickDate, gameId: gameId, result: '' }
+        let thisPick = { team: teamPick, gameDate: pickDate, gameId: gameId, result: 'pending' }
 
         //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
         let pickAlreadyWon = (wins) => {

@@ -2,9 +2,10 @@
     .leaderboard {
         color: gold;
         margin-left: 10% !important;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 25px;
         min-width: 100% !important;
+        box-sizing: content-box;
     }
     th.leaderboardHeader {
         color: gold !important;
@@ -18,11 +19,56 @@
         padding-right: 0 !important;
     }
 
-    td.leaderRow :hover {
+    .leaderRow :hover {
         background-color: gold !important;
         color: darkblue !important;
         font-size: 65% !important;
         padding-right: 0 !important;
+    }
+
+    .playerModal {
+        min-width: 90%;
+    }
+
+    .playerRow .jumbotron {
+        margin-left: 4%;
+        padding: 8px;
+        min-width:55%;
+        height: 220px;
+        background-color: darkblue;
+    }
+
+    .teamLogos {
+        margin-left: 3%;
+    }
+
+    .no-js #loader { color: gold; display: none;  }
+    .js #loader { color: gold; display: block; position: absolute; left: 100px; top: 0; }
+    .se-pre-con {
+        position: fixed;
+        color: gold;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(images/Preloader_5.gif) center no-repeat black;
+    }
+
+    .win {
+        background-color: lightgreen !important;
+        color: darkblue !important;
+    }
+
+    .loss {
+        background-color: red !important;
+        color: white !important;
+    }
+
+    ._loading_overlay_content {
+        color: gold !important;
+        background-color: darkblue !important;
+        padding: 10px;
     }
     
 }
@@ -31,16 +77,52 @@
     .leaderboard {
         color: gold;
         margin-left: 15% !important;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 25px;
         min-width: 100% !important;
+    }
+    .playerModal {
+        min-width: 90%;
+    }
+
+    .playerRow .jumbotron {
+        min-width: 50% !important;
+        margin-left: 3%;
+        padding: 10px;
+        height: 200px;
+        margin-top: 2%;
+        background-color: darkblue;
+    }
+
+    .teamLogos {
+        margin-left: 3%;
+    }
+    .win {
+        background-color: lightgreen !important;
+        color: darkblue !important;
+    }
+
+    .loss {
+        background-color: red !important;
+        color: white !important;
+    }
+    ._loading_overlay_content {
+        color: gold !important;
+        background-color: darkblue !important;
+        padding: 10px;
+    }
+    .leaderRow :hover {
+        background-color: gold !important;
+        color: darkblue !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
     }
 }
 @media (min-width: 776px) and (max-width: 999px) {
     .leaderboard {
         color: gold;
         margin-left: 15% !important;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 25px;
         min-width: 100% !important;
     }
@@ -56,13 +138,49 @@
         font-size: 65% !important;
         padding-right: 0 !important;
     }
+    .playerModal {
+        min-width: 90%;
+    }
+
+    .playerRow .jumbotron {
+        min-width: 45% !important;
+        margin-left: 3%;
+        padding: 13px;
+        height: 190px;
+        margin-top: 5%;
+        background-color: darkblue;
+    }
+
+    .teamLogos {
+        margin-left: 3%;
+    }
+    .win {
+        background-color: lightgreen !important;
+        color: darkblue !important;
+    }
+
+    .loss {
+        background-color: red !important;
+        color: white !important;
+    }
+    ._loading_overlay_content {
+        color: gold !important;
+        background-color: darkblue !important;
+        padding: 10px;
+    }
+    .leaderRow :hover {
+        background-color: gold !important;
+        color: darkblue !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
+    }
 }
 
-@media (max-width: 775px) {
+@media (min-width: 550px) and (max-width: 775px) {
     .leaderboard {
         font-size: 50% !important;
         color: gold;
-        overflow: scroll;
+        overflow: auto;
         margin-top: 0 !important;
         margin-bottom: 25px;
         margin-left: 10% !important;
@@ -70,7 +188,106 @@
         max-width: 80% !important;
     }
     .leaderboard :active {
-        overflow: scroll;
+        overflow: auto;
+    }
+    .playerModal {
+        min-width: 90%;
+    }
+
+    .recentPicks {
+        max-width: 55%;
+    }
+
+    .playerRow .jumbotron {
+        min-width: 32% !important;
+        margin-left: 3%;
+        margin-top: 7%;        
+        height: 190px;
+        padding: 7px;
+        background-color: darkblue;
+    }
+
+    .teamLogos {
+        margin-left: 1%;
+    }
+    .win {
+        background-color: lightgreen !important;
+        color: darkblue !important;
+    }
+
+    .loss {
+        background-color: red !important;
+        color: white !important;
+    }
+    ._loading_overlay_content {
+        color: gold !important;
+        background-color: darkblue !important;
+        padding: 10px;
+    }
+    .leaderRow :hover {
+        background-color: gold !important;
+        color: darkblue !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
+    }
+    
+}
+
+@media (max-width: 549px) {
+    .leaderboard {
+        font-size: 50% !important;
+        color: gold;
+        overflow: auto;
+        margin-top: 0 !important;
+        margin-bottom: 25px;
+        margin-left: 10% !important;
+        margin-right: 10%;
+        max-width: 80% !important;
+    }
+    .leaderboard :active {
+        overflow: auto;
+    }
+    .playerModal {
+        min-width: 90%;
+    }
+
+    .recentPicks {
+        max-width: 45%;
+        margin-top: 5%;
+    }
+
+    .playerRow .jumbotron {
+        min-width: 40% !important;
+        margin-left: 5%;
+        margin-top: 5%;
+        min-height: 220px;
+        padding: 7px;
+        padding-left: 0;
+        background-color: darkblue;
+    }
+
+    .teamLogos {
+        margin-left: 1%;
+    }
+    .win {
+        background-color: lightgreen !important;
+        color: darkblue !important;
+    }
+
+    .loss {
+        background-color: red !important;
+        color: white !important;
+    }
+    ._loading_overlay_content {
+        color: gold !important;
+        background-color: darkblue !important;
+        padding: 10px;
+    }
+    .leaderRow :hover {
+        background-color: gold !important;
+        color: darkblue !important;
+        font-size: 65% !important;
+        padding-right: 0 !important;
     }
     
 }

@@ -43,14 +43,14 @@ export default {
     savePick: function(id, thisPick) {
         return axios.put('/api/users/' + id, thisPick)
     },
-    updatePick: function(id, result) {
-        return axios.put('/api/users/' + id, result)
+    updatePick: function(id, date, result) {
+        return axios.put('/api/users/' + id + '/' + date, result)
     },
     deletePick: function(id, date) {
         return axios.delete('/api/users/' + id + '/' + date)
     },
-    getPicks: function(id) {
-        return axios.get('/api/users/' + id)
+    getPickByDate: function(id, date) {
+        return axios.get('/api/users/' + id + '/' + date)
     },
     addWin: function(id, newWin) {
         return axios.post('/api/users/' + id, newWin)
