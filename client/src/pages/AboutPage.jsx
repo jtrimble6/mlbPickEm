@@ -16,23 +16,23 @@ class About extends Component {
                 <hr />
                 <p>
                 <h2>Who We Are:</h2>
-                The Company was made with the average everyday sports fan in mind. We all love sports, and what’s better than watching your favorite team win? Enjoying that win with them. Imagine those Wednesday nights you spend, thinking about the two days left of the work week to come, and already fatigued from the three days you just worked. Our goal is to give you something to look forward to that night! Whether it is the outcome of a game played out on the diamond, or how many points a team scores on the hardcourt. We want to see sports mean something to you, just like it does for the players. 
+                The Company was made with the everyday sports fan in mind. We all love sports, and what’s better than watching your favorite team win? Enjoying that win with them. Imagine those Wednesday nights you spend, thinking about the two days left of the work week to come, and already fatigued from the three days you just worked. Our goal is to give you something to look forward to that night! Whether it is the outcome of a game played out on the diamond, or how many points a team scores on the hardcourt. We want to see sports mean something to you, just like it does for the players. 
                 <br /><br />
                 <h2>Our Mission:</h2>
-                Our vision for The Company is to make every game you watch equally as exciting as watching your favorite sports team play.  Whether it’s opening day, Saturday night primetime, a mid-week matchup, or the final game of the year determine playoff position — we want to bring the game more excitement.  Traditionally daily challenges and fantasy sports are also great ways to enjoy games as well, and we are not looking to replace those in your sports experience. Our mission is to run along side, and give you a new unique opportunity to enjoy sports. If we can get you to watch a new sport, team, player that you may not have watched before, then we are doing exactly what we set out to do.
+                Our vision for The Company is to make every game you watch equally as exciting as watching your favorite sports team play.  Whether it’s Opening Day, Saturday Night primetime, a mid-week matchup, or the final game of the year determine playoff position — we want to bring the game more excitement.  Traditionally daily Challenges and fantasy sports are also great ways to enjoy games as well, and we are not looking to replace those in your sports experience. Our mission is to run along side, and give you a new unique opportunity to enjoy sports. If we can get you to watch a new sport, team, player that you may not have watched before, then we are doing exactly what we set out to do.
                 <br /><br />
                 <h2>Strategic Challenges:</h2>
-                Our challenges are going to challenge you to think outside the box. We pride ourselves on creating challenges that will require strategic thinking, and not just picking and praying. Sure you will make picks/calls on outcomes, however our goal is to make you think about the WHY just as much as the WHO.
+                Our Challenges are going to Challenge you to think outside the box. We pride ourselves on creating Challenges that will require strategic thinking, and not just picking and praying. Sure you will make picks/calls on outcomes, however our goal is to make you think about the WHY just as much as the WHO.
                 <br /><br />
                 <h2>What To Look For:</h2>
-                The MLB challenge will be our first live challenge on the site. This will begin on March 28th, 2019. Check out the Rules tab once you create an account to learn more about that challenge. The second challenge to be launched will be the NBA playoff challenge beginning on opening night of the NBA playoffs (April 13th, 2019). Check the site in early April for more on that challenge!
+                The MLB Challenge will be our first live Challenge on the site. This will begin on March 28th, 2019. Check out the Rules tab once you create an account to learn more about that Challenge. The second Challenge to be launched will be the NBA playoff Challenge beginning on opening night of the NBA playoffs (April 13th, 2019). Check the site in early April for more on that Challenge!
                 <br /><br />
                 <h2>Questions/Comments/Feedback?</h2>
                 Send us an email at TheSp0rtsC0mpany22@gmail.com. 
                 We want to hear from you and your thoughts on the experience. Whether that is something you particularly enjoy, something you particular don’t enjoy, or anything that can make your user experience better.
                 <br /><br />
                 All in all we want you to enjoy your experience, and hopefully profit from doing so as well!<br />
-                Enjoy the challenges!<br />
+                Enjoy the Challenges!<br />
                 The Company
                 </p>
               </div>

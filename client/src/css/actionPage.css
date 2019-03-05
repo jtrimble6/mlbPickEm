@@ -11,7 +11,7 @@
     
     .calBoard {
         height: 575px;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 200px;
     }
     
@@ -42,7 +42,7 @@
     
     .calBoard {
         height: 575px;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 200px;
     }
     
@@ -77,7 +77,7 @@
     
     .calBoard {
         height: 575px;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 200px;
     }
     
@@ -121,7 +121,7 @@
     
     .calBoard {
         height: 575px;
-        overflow: scroll;
+        overflow: auto;
         margin-bottom: 20px;
     }
     
@@ -135,7 +135,7 @@
         min-width: 80%;
         height: 300px;
         font-size: 15px;
-        overflow: scroll;
+        overflow: auto;
     }
     
     .leaderRow {

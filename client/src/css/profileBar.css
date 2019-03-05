@@ -23,7 +23,7 @@
     margin-right: 50px;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
     
   }
   
@@ -56,7 +56,7 @@
     padding-top: 0;
     margin-left: 2%;
     margin-bottom: 2%;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
 
   .recentPicks {
@@ -198,7 +198,7 @@
     margin-right: 50px;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
     
   }
   
@@ -232,7 +232,7 @@
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 2%;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
   .recentPicks {
     position: relative;
@@ -359,7 +359,7 @@
     margin-right: 50px;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
     
   }
   
@@ -393,7 +393,7 @@
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 5%;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
   .recentPicks {
     position: relative;
@@ -522,7 +522,7 @@
     margin-right: 9%;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
   }
   
   .teamLogo {
@@ -556,7 +556,7 @@
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 7%;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
   .recentPicks {
     position: relative;
@@ -694,7 +694,7 @@
     margin-right: 4%;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
   }
   
   .teamLogo {
@@ -732,7 +732,7 @@
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 15% !important;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
   .recentPicks {
     position: relative;
@@ -869,7 +869,7 @@
     margin-right: 4%;
     margin-bottom: 20px;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow: auto;
   }
   
   .teamLogo {
@@ -907,7 +907,7 @@
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 15% !important;
-    overflow: scroll !important;
+    overflow: auto !important;
   }
   .recentPicks {
     position: relative;

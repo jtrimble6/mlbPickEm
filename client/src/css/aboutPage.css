@@ -1,11 +1,86 @@
+@media (min-width: 1000px) {
+    #aboutPage {
+        font-size: 24px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    #aboutPage h1 {
+        font-size: 27px;
+        font-weight: bolder;
+        
+    }
+    #aboutPage h2 {
+        font-size: 35px;
+        font-weight: bolder;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 999px) {
+    #aboutPage {
+        font-size: 24px;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    #aboutPage h1 {
+        font-size: 25px;
+        font-weight: bolder;
+        
+    }
+    #aboutPage h2 {
+        font-size: 35px;
+        font-weight: bolder;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+    #aboutPage {
+        margin-top: 20% !important;
+        font-size: 18px;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    #aboutPage h1 {
+        font-size: 20px;
+        font-weight: bolder;
+    }
+    #aboutPage h2 {
+        font-size: 35px;
+        font-weight: bolder;
+    }
+}
+
+@media (max-width: 499px) {
+    #aboutPage {
+        margin-top: 25% !important;
+        font-size: 18px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    #aboutPage h1 {
+        font-size: 25px;
+        font-weight: bolder;
+    }
+    #aboutPage h2 {
+        font-size: 30px;
+        font-weight: bolder;
+    }
+}
+
+
 #aboutPage {
     font-family: 'Abel', sans-serif;
     text-align: center;
 }
 
-#aboutHeader {
-    margin-top: 10%;
+#aboutHeader h1 {
+    margin-top: 10% !important;
     margin-left: 1%;
+    margin-right: 1%;
+    color: gold;
+    background-color: darkblue;
+}
+
+#aboutHeader {
     color: gold;
 }
 

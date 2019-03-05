@@ -16,10 +16,10 @@ class RulesUser extends Component {
                 <hr /> <br />
                 <h2>MLB 2019 Winners Challenge Rules</h2>
                 <br />
-                <h5>How the challenge works:</h5>
+                <h5>How the Challenge works:</h5>
                 <p>
                   Each day you will pick ONE MLB team that is playing a game on that particular day (see below for how to make a pick). Picks are due each day BEFORE the scheduled time of the first game on that particular day. <br /> <br />
-                  <em>For example:</em> Opening day is March 28th. The first game that day is scheduled to begin at 1:05 EST. that means all picks for March 28th are due at 1:05 EST. The next day March 29th the first pitch is not schedule until 7:07 EST. Picks for March 29th are due by 7:07 EST.
+                  <em>FOR EXAMPLE:</em> Opening day is March 28th. The first game that day is scheduled to begin at 1:05 EST. that means all picks for March 28th are due at 1:05 EST. The next day March 29th the first pitch is not schedule until 7:07 EST. Picks for March 29th are due by 7:07 EST.
                 </p>
                 <h5>Objective: </h5>
                 <p>
@@ -28,7 +28,7 @@ class RulesUser extends Component {
                 </p>
                 <h5>How to win:</h5>
                 <p>
-                If you pick the Cardinals on opening day and they win, you get 1 point. You now will no longer pick the Cardinals throughout the challenge. If the Cardinals lose, nothing happens and you can pick the Cardinals again at any time. 
+                If you pick the Cardinals on opening day and they win, you get 1 point. You now will no longer pick the Cardinals throughout the Challenge. If the Cardinals lose, nothing happens and you can pick the Cardinals again at any time. 
                 </p> 
                 <h5>Important notes:</h5>
                 <p>

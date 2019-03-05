@@ -5,7 +5,7 @@
     
     .allRows {
         max-height: 30% !important;
-        overflow: scroll;
+        overflow: auto;
     }
     
     #leaderboardPage .leaderboard {
@@ -16,7 +16,7 @@
     
     .leaderRow {
         position: relative !important;
-        overflow: scroll !important;
+        overflow: auto !important;
         top: auto;
         width: 10em !important;
         left: 0;
@@ -35,7 +35,7 @@
     
     .allRows {
         max-height: 30% !important;
-        overflow: scroll;
+        overflow: auto;
     }
     
     .leaderboard {
@@ -47,7 +47,7 @@
     
     .leaderRow {
         position: relative !important;
-        overflow: scroll !important;
+        overflow: auto !important;
         top: auto;
         width: 10em !important;
         left: 0;
@@ -66,7 +66,7 @@
     
     .allRows {
         max-height: 30% !important;
-        overflow: scroll;
+        overflow: auto;
     }
     
     .leaderboard {
@@ -78,7 +78,7 @@
     
     .leaderRow {
         position: relative !important;
-        overflow: scroll !important;
+        overflow: auto !important;
         top: auto;
         width: 10em !important;
         left: 0;
