@@ -235,7 +235,6 @@ class Games extends Component {
       let schedule = this.state.scheduledGames
       let userWins = userData.userWins
       let alreadyWon = false
-
       //FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
         return picks.gameDate === today

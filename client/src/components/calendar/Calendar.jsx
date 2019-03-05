@@ -20,7 +20,7 @@ class Calendar extends Component {
         this.state = { 
           modal: false, 
           nestedModal: false, 
-          estedModalExpPick: false, 
+          nestedModalExpPick: false, 
           nestedModalNoPick: false, 
           closeAll: false, 
           closeAllExpPick: false, 
@@ -68,6 +68,7 @@ class Calendar extends Component {
       }
 
     toggle() {
+        this.getFirstGame()
         this.setState({
           modal: !this.state.modal,
         });
