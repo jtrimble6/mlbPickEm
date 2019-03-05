@@ -4,7 +4,9 @@ import moment from 'moment'
 import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
-//import $ from 'jquery'
+import Moment from 'moment'
+import Countdown from 'react-countdown-now';
+import $ from 'jquery'
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 //import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
@@ -14,6 +16,7 @@ class Leaderboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            timerEnded: false,
             isActive: false,
             hover: false,
             allUsers: [],
@@ -23,6 +26,7 @@ class Leaderboard extends Component {
             newRecentPicks: [],
             thisRecentPick: '',
             userWin: '',
+            todaysPick: 'No Pick',
             thisDate: '',
             userPlace: {},
             teams: [
@@ -62,6 +66,8 @@ class Leaderboard extends Component {
         // this.toggleHover = this.toggleHover.bind(this);
         this.handlePreloader = this.handlePreloader.bind(this);
         this.getUsers = this.getUsers.bind(this);
+        this.getFirstGame = this.getFirstGame.bind(this);
+        this.createTimer = this.createTimer.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -70,6 +76,7 @@ class Leaderboard extends Component {
     componentDidMount() {
         // window.addEventListener('load', this.handlePreloader());
         this.getUsers()
+        this.getFirstGame()
       }
 
     handlePreloader() {
@@ -141,15 +148,25 @@ class Leaderboard extends Component {
           return 0;
         })
 
+      let todaysPickFunc = (userPicks) => {
+        return(moment(userPicks.gameDate).isSame(moment().format('YYYY-MM-DD')))
+      }
+
       let prevPicksFunc = (userPrevPicks) => {
         return (moment(userPrevPicks.gameDate).isBefore(moment().format('YYYY-MM-DD')))
       }
+      let todaysUserPick = 'NO PICK'
+      let userPick = sortedPicks.filter(todaysPickFunc)
+      if (userPick[0]) {
+        todaysUserPick = userPick[0].team
+      } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
       // console.log('SORTED ARRAY: ', sortedPicks)
       // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
+        todaysPick: todaysUserPick,
         newRecentPicks: prevPicks
         })
       
@@ -249,6 +266,44 @@ class Leaderboard extends Component {
         
       }
 
+    getFirstGame = () => {
+      let now = Moment().format()
+      let date = Moment(now).format('YYYY-MM-DD')
+
+      // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
+      API.getGamesByDate(date)
+        .then (res => {
+          let games = res.data
+          let now = Moment().format()
+          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+
+          // CHECK TO SEE IF THERE ARE NO GAMES TODAY
+          if (!sortedGames[0]) {
+            console.log('THERE MUST BE NO GAMES TODAY')
+            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+            return;
+          }
+
+          let firstGame = sortedGames[0]
+          let firstGameTime = firstGame.gameTime
+          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
+          let realTime = Moment(now).format('HH:mm:ss a')
+          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
+          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          this.createTimer(timeDiff)
+        })
+        .catch(err => console.log(err))
+      
+      }
+
+    createTimer = (timeDiff) => {
+      //console.log('Time until first game: ', timeDiff)
+      let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+      //console.log('In seconds milliseconds: ', seconds)
+      this.setState({ timeDiff: seconds })
+      }
+
     render() {
         let uuidv4 = require('uuid/v4')
         let leaderStyle = {
@@ -271,6 +326,14 @@ class Leaderboard extends Component {
         // let winsCount = this.state.activeUser.wins.length
         // let picks = this.state.activeUser.picks
         //let pickCount = picks.length
+        let timerEnded = false;
+        let EndTimer = () => {
+          timerEnded = true
+          return (
+            <span>{this.state.todaysPick}</span>
+          )
+        }
+
         return(
             <div className='leaderboard'>
             <LoadingOverlay
@@ -325,7 +388,15 @@ class Leaderboard extends Component {
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
-                                    <h4>Today's Pick</h4> ??? <br />
+                                    <h4>Today's Pick</h4>
+                                      <Countdown 
+                                       date={Date.now() + this.state.timeDiff}
+                                       zeroPadTime={2} 
+                                       daysInHours={true} 
+                                       renderer={this.timerRender}>
+                                       <EndTimer />
+                                       </Countdown>
+                                       <br />
                                     <div className="row">
                                       <div className="col-md-3">
                                         <h4 className='winsHeader'>Wins</h4> {this.state.activeUser.winsCount}
