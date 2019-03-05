@@ -98,7 +98,7 @@ class Games extends Component {
               url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
               type: 'GET',
               success: function(data) {
-                // console.log('Game results: ', data)
+                console.log('Game results: ', data)
                 gameResults.push(data)
                 self.setState({gameResults: gameResults})
                 self.findGameWinners()
@@ -181,8 +181,9 @@ class Games extends Component {
               })
 
             // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
+            console.log('THESE GAMES: ', this.state.scheduledGames)
             if(this.state.scheduledGames[0].gameWinner === undefined) {
-              self.getResults()
+                self.getResults()
               }
 
             //FIND ALL USERS PICKS
@@ -194,18 +195,18 @@ class Games extends Component {
 
     findUserPicks = () => {
       let self = this
-      let thisUser = localStorage.getItem('user')
+      //let thisUser = localStorage.getItem('user')
       //console.log('THIS USER: ', thisUser)
 
       // FIND USER WINS
-      API.getUser(thisUser)
-        .then(res => {
-          self.setState({
-            userWins: res.data[0].wins,
-            userPicks: res.data[0].picks,
-            userId: res.data[0].username
-          })
-        })
+      // API.getUser(thisUser)
+      //   .then(res => {
+      //     self.setState({
+      //       userWins: res.data[0].wins,
+      //       userPicks: res.data[0].picks,
+      //       userId: res.data[0].username
+      //     })
+      //   })
 
       // FIND ALL USERS PICKS 
       API.getUsers()
@@ -251,6 +252,7 @@ class Games extends Component {
       let pickAlreadyWon = (wins) => {
         return wins.win === thisPickTeam
       }
+      console.log()
       let thisPickWinner = userWins.filter(pickAlreadyWon)
       if (thisPickWinner.length > 0) {
         //console.log('ALREADY A WINNER')
@@ -260,22 +262,16 @@ class Games extends Component {
       if (alreadyWon) {
         return;
       } else {
-        let newWin = ''
+        let newWin = null
         let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
         for (let s=0; s<schedule.length; s++) {
           let winner = schedule[s].gameWinner
           //!IMPORTANT MUST TRIM THE SPACES 
           let thisPick = thisPickTeam.trim()
-
           if (thisPick === winner) {
-
+            let result = 'win'
+            console.log('THIS IS A WINNER: ', thisPick)
             newWin = { win: thisPickTeam }
-
-            // let result = 'win'
-            // console.log('ID: ', userId)
-            // console.log('DATE: ', date)
-          
-            // console.log('RESULT: ', result)
             //debugger;
             // API.updatePick(userId, date, result) 
             // .then (res => {
@@ -290,22 +286,18 @@ class Games extends Component {
               })
               .catch(err => console.log(err))
           
-            } 
-            // else {
-            //   let result = 'loss'
-            //   // THIS WILL UPDATE THE PICK INSIDE USER API
-            //   // console.log('ID: ', userId)
-            //   // console.log('DATE: ', date)
-            
-            //   // console.log('RESULT: ', result)
-            //   //debugger; 
-            //   // API.updatePick(userId, date, result) 
-            //   // .then (res => {
-            //   //   console.log(res)
-            //   // })
-            //   // .catch(err => console.log(err))
-            // }
+            }
           }
+
+          // if (newWin === null) {
+          //   let result = 'loss'
+          //   console.log('THIS IS A LOSS: ', thisPick)
+          //   API.updatePick(userId, date, result) 
+          //   .then (res => {
+          //     console.log(res)
+          //   })
+          //   .catch(err => console.log(err))
+          // }
   
         // debugger;
 
