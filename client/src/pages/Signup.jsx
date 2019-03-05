@@ -43,7 +43,7 @@ class Signup extends Component {
             { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
             { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
             { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
-            { name: 'Portland Trailblazers', abbr: 'por', logo: por, status: 'secondary' },
+            { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
             { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
             { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
             { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },

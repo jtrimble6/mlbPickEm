@@ -469,7 +469,7 @@ class ProfileBar extends Component {
         for (var j=0; j<teams.length; j++) {
           //console.log('CURRENT WINS: ', wins)
           //console.log('CURRENT TEAMS: ', teams)
-          // console.log('CURRENT TEAM: ', teams[j].name)
+          console.log('CURRENT TEAM: ', teams[j].name)
           this.setState({
             thisTeam: teams[j].name.trim()
           })
@@ -477,7 +477,7 @@ class ProfileBar extends Component {
           let teamMatched = teams.filter(matchingTeams)
           if (teamMatched[0]) {
             if (teamMatched[0].name.trim() === teams[j].name.trim()) {
-              //console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
+              console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
               teams[j].status = 'warning'
             } 
           }
@@ -488,7 +488,7 @@ class ProfileBar extends Component {
           }
           theseMatchingWins = wins.filter(matchingWins)
           if (theseMatchingWins[0]) {
-            //console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
             teams[j].status = 'success'
           }
           
