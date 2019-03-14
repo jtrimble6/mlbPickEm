@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import API from './utils/API';
-
 import Login from './pages/Login';
 import Signup from './pages/Signup.jsx'
 import About from './pages/AboutPage.jsx'
 import AboutUser from './pages/AboutPageUser.jsx'
 import Rules from './pages/RulesPage.jsx'
-import RulesUser from './pages/RulesPageUser.jsx'
+import MlbRulesPage from './pages/MlbRulesPage.jsx'
+import Landing from './pages/LandingPage.jsx'
 import ActionPage from './pages/ActionPage.jsx'
 import PlayersPage from './pages/PlayerPage.jsx'
 import Leaderboard from './pages/LeaderboardPage.jsx'
@@ -115,10 +115,10 @@ class App extends Component {
                   updateUser={this.updateUser}
                 />}
             />
-            <Route exact path='/rulesUser'
+            <Route exact path='/mlbRules'
               render={() =>
                 this.state.loggedIn === true ? (
-                  <RulesUser />
+                  <MlbRulesPage />
                 ) : this.state.loggedIn === false ? (
                   <Redirect to='/' />
                 ) : (
@@ -134,7 +134,15 @@ class App extends Component {
              )
             }
             />
-            {/* <Route exact path='/action' component={ActionPage} /> */}
+            <Route exact path='/landing' render={() => (
+              this.state.loggedIn === true ? (
+                <Landing />
+              ) : this.state.loggedIn === false ? (
+                <Redirect to='/' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/action' render={() => (
               this.state.loggedIn === true ? (
                 <ActionPage />

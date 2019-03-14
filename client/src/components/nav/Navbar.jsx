@@ -41,16 +41,13 @@ class Navbar extends Component {
                       <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar className='navItems'>
                             <NavItem>
-                                <NavLink href="/action">Home</NavLink>
+                                <NavLink href="/landing">Home</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/leaderboard">Leaderboard</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/aboutUser">About</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/rulesUser">Rules</NavLink>
+                                <NavLink href="/mlbRules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/">Sign Out</NavLink>
@@ -62,16 +59,13 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/action">Home</a>
+                        <a className="nav-link js-scroll-trigger" href="/landing">Home</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/aboutUser">About</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/rulesUser">Rules</a>
+                        <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/">Sign Out</a>

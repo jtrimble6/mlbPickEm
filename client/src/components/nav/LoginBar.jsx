@@ -32,7 +32,7 @@ class LoginBar extends Component {
                                 <NavLink href="/about">About</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/rules">Rules</NavLink>
+                                <NavLink href="/contact">Contact</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/signup">Sign Up</NavLink>
@@ -47,7 +47,7 @@ class LoginBar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/about">About</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/rules">Rules</a>
+                        <a className="nav-link js-scroll-trigger" href="/contact">Contact</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/signup">Sign Up</a>

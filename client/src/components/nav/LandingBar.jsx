@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
+//import API from '../../utils/API'
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 
-class SignupBar extends Component {
+class Navbar extends Component {
     constructor(props) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        // this.logout = this.logout.bind(this);
         this.state = {
             collapsed: true
         }
@@ -19,34 +20,52 @@ class SignupBar extends Component {
         })
       }
 
+    // logout() {
+    //     let localUser = localStorage.getItem('user')
+    //     let sessionData = {
+    //         sessionUserID: localUser
+    //       }
+    //     console.log('LOGOUT: ', sessionData)
+    //     // API.logout(sessionData)
+    //     //   .then(res => console.log(res))
+    //     //   .catch(err => console.log(err))
+    // }
+
     render() {                                                                  
         return (
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
                     <a className="navbar-brand js-scroll-trigger" href="/">The Company</a>
+                    <h2 className="navbar-brand js-scroll-trigger username">({this.props.username})</h2>
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>
                       <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar className='navItems'>
                             <NavItem>
-                                <NavLink href="/about">About</NavLink>
+                                <NavLink href="/aboutUser">About</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="\">Sign In</NavLink>
+                                <NavLink href="/saved">Saved</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
                     </span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
-                    <ul className="navbar-nav ml-auto">
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/about">About</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="\">Sign In</a>
-                      </li>
-                    </ul>
+                      <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="/aboutUser">About</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="/saved">Saved</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="/">Sign Out</a>
+                        </li>
+                      </ul>
                     </div>
                 </div>
             </nav>
@@ -54,4 +73,4 @@ class SignupBar extends Component {
     }
 }
 
-export default SignupBar
+export default Navbar

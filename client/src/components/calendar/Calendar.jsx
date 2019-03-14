@@ -25,17 +25,29 @@ class Calendar extends Component {
           closeAll: false, 
           closeAllExpPick: false, 
           closeAllNoPick: false, 
-          scheduledGames: [], 
+          allGames: [],
+          yesterdaysGames: [], 
           myPicks: [], 
-          myWins: [], 
+          myWins: [],
+          userId: '',
+          userPicks: [],
+          userWins: [],
+          fullSchedule: [],
+          allGameIds: [],
+          yesterdaysGameIds: [],
+          gameResults: [], 
+          winningTeams: [],
+          gameDate: '',
           title: '', 
           teams: '', 
           status: '', 
           id: '', 
           activePick: '', 
           activeDate: '', 
-          today: '', 
+          yesterday: '', 
+          firstGameTime: '',
           timeDiff: '', 
+          timerEnded: false,
           homeTeam: '', 
           awayTeam: '', 
           homeAlias: '', 
@@ -50,6 +62,7 @@ class Calendar extends Component {
         this.toggleNoPick = this.toggleNoPick.bind(this);
         this.toggleAllNoPick = this.toggleAllNoPick.bind(this);
         this.toggleExpiredPick = this.toggleExpiredPick.bind(this);
+        this.toggleLatePick = this.toggleLatePick.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
         this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,6 +72,13 @@ class Calendar extends Component {
         this.getSchedule = this.getSchedule.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.getFirstGame = this.getFirstGame.bind(this);
+        this.postGames = this.postGames.bind(this);
+        this.getGames = this.getGames.bind(this);
+        this.getResults = this.getResults.bind(this);
+        this.findGameWinners = this.findGameWinners.bind(this);
+        this.findUserPicks = this.findUserPicks.bind(this);
+        this.findUserWins = this.findUserWins.bind(this);
+        this.overridePickResult = this.overridePickResult.bind(this);
       }
 
     componentDidMount() {
@@ -102,6 +122,15 @@ class Calendar extends Component {
        let noPickAlert = <div className='row invalidPick'>Sorry, you have to pick a team!</div>
        $('.modal-open .modal-header').prepend(noPickAlert)
       }
+
+    toggleLatePick() {
+      this.setState({
+        nestedModalExpPick: !this.state.nestedModalExpPick,
+        closeAllExpPick: false
+      });
+      let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game, but nice try!</div>
+      $('.modal-open .modal-header').prepend(expPickAlert)
+      }
     
     toggleExpiredPick() {
       this.toggleActive()
@@ -133,7 +162,7 @@ class Calendar extends Component {
         nestedModalNoPick: !this.state.nestedModalNoPick,
         closeAllNoPick: true
       });
-    }
+      }
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value})
@@ -165,7 +194,7 @@ class Calendar extends Component {
       // console.log('Status: ', this.state.status)
       // console.log('Start Time: ', this.state.time)
       // console.log('Game ID: ', this.state.gameId)
-    }
+      }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -178,8 +207,32 @@ class Calendar extends Component {
         let prevDates = this.state.myDatesPicked
         let gameId = this.state.gameId
         let toggle = true
-        let thisPick = { team: teamPick, gameDate: pickDate, gameId: gameId, result: 'pending' }
+        let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
 
+        // TODAY'S TIMER STATUS
+        let realTime = Moment().format('HH:mm:ss a')
+        let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
+        let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+        console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
+        if (timeDiff._milliseconds > 0) {
+          console.log('TIMER STILL RUNNING')
+        } else {
+          console.log('TIMER HAS ENDED NO MORE PICKS')
+          this.setState({
+            timerEnded: true
+          })
+          // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
+          if (pickDate === Moment().format('YYYY-MM-DD')) {
+            console.log('THIS IS A LATE PICK FOR TODAY')
+            this.toggleLatePick()
+            return;
+          } else {
+            console.log('THIS IS A VALID PICK')
+          }
+
+        }
+
+        
         //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
         let pickAlreadyWon = (wins) => {
           return wins.win.trim() === teamPick.trim()
@@ -188,15 +241,10 @@ class Calendar extends Component {
 
         // CHECK TO SEE IF ALREADY A WINNING TEAM OR DATE PICKED
         if(teamPick === '') {
-          // console.log('NO PICK')
           self.toggleNoPick()
           return;
           }
-        if(myPicks.length) {
-          
-          // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
-          // console.log('Prev Dates Picked: ', prevDates)
-          // console.log('These dates match', pickDate, prevDates[j])
+        if (myPicks.length) {
           for (var j=0; j<myPicks.length; j++) {
             if (thisPickWinner.length) {
               let pickHasWon = thisPickWinner[0]
@@ -216,8 +264,6 @@ class Calendar extends Component {
               this.overridePick(pickDate, newPick) 
               return;
               }   
-              
-              
             }
           }
         
@@ -278,47 +324,60 @@ class Calendar extends Component {
           .catch(err => { console.log(err) } )  
         
           this.toggle()
-          // debugger;
           document.location.reload()
         
       }
 
     getSchedule = () => {
-        // console.log('Getting schedule...')
-        API.getGames()
-          .then(res => {
+      let date = Moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let self = this
+      self.setState({ yesterday: date })
+      this.getGames()
+
+      // PULL GAMES FROM YESTERDAY
+      API.getGamesByDate(date)
+        .then(res => {
             let games = []
+            let yesterdaysGameIds = []
             res.data.forEach((game) => {
               let splitDate = game.gameDate.split('T')
               let gameDate = splitDate[0]
-              let homeAlias = game.homeAlias.toLowerCase()
-              let awayAlias = game.awayAlias.toLowerCase()
               let gameInfo = {
                   id: game.gameId,
                   date: gameDate,
-                  start: game.gameTime,
+                  start: game.gameDate,
                   status: game.gameStatus,
                   homeTeam: game.homeTeam,
                   awayTeam: game.awayTeam,
-                  homeAlias: homeAlias,
-                  awayAlias: awayAlias,
+                  gameWinner: game.gameResult.gameResult,
                   title: game.homeAlias + ' vs ' + game.awayAlias,
                   color: 'yellow',
-                  textColor: 'white',
+                  textColor: 'black',
                   borderColor: 'blue'
-
                 }
                 games.push(gameInfo)
+                yesterdaysGameIds.push(gameInfo.id)
+                self.setState({ yesterdaysGames: games })
+                self.setState({ yesterdaysGameIds: yesterdaysGameIds })
               })
-              this.setState({ scheduledGames: games })
-      
-          })
-            .catch(err => console.log(err))
+
+            // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
+            console.log('THESE GAMES: ', this.state.yesterdaysGames)
+            if(this.state.yesterdaysGames[0].gameWinner === undefined) {
+                self.getResults()
+              } else {
+                //FIND ALL USERS PICKS
+                self.findUserPicks()
+              }
+
+        })
+          .catch(err => console.log(err))
       }
 
     getFirstGame = () => {
       let now = Moment().format()
       let date = Moment(now).format('YYYY-MM-DD')
+      let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getGamesByDate(date)
@@ -341,10 +400,308 @@ class Calendar extends Component {
           let realTime = Moment(now).format('HH:mm:ss a')
           let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
           let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          self.setState({
+            firstGameTime: realGameTimeAdj
+          })
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))
       
+      }
+
+    postGames = (data) => {
+      for (let i=0; i<data.length; i++) {
+        let gameDateAdj = Moment(data[i].scheduled).subtract(6, 'hours').format()
+        let splitDate = gameDateAdj.split('T')
+        let gameDate = splitDate[0]
+        
+        let gameData = {
+          gameDate: gameDate,
+          gameTime: gameDateAdj,
+          gameStatus: data[i].status,
+          gameId: data[i].id,
+          homeTeam: data[i].home.name,
+          awayTeam: data[i].away.name,
+          homeAlias: data[i].home.alias,
+          awayAlias: data[i].away.alias,
+          gameResult: 'none'
+        }
+    
+        //POST ENTIRE SCHEDULE
+        API.postGames(gameData)
+          .then(res=> console.log(res))
+          .catch(err => console.log(err))
+        }
+      }
+
+    getGames = () => {
+      // let self = this
+
+      // PULL FULL SCHEDULE FROM DATABASE
+      API.getGames()
+        .then(res => {
+          let games = []
+          res.data.forEach((game) => {
+            let splitDate = game.gameDate.split('T')
+            let gameDate = splitDate[0]
+            let homeAlias = game.homeAlias.toLowerCase()
+            let awayAlias = game.awayAlias.toLowerCase()
+            let gameInfo = {
+                id: game.gameId,
+                date: gameDate,
+                start: game.gameTime,
+                status: game.gameStatus,
+                homeTeam: game.homeTeam,
+                awayTeam: game.awayTeam,
+                homeAlias: homeAlias,
+                awayAlias: awayAlias,
+                title: game.homeAlias + ' vs ' + game.awayAlias,
+                color: 'yellow',
+                textColor: 'white',
+                borderColor: 'blue'
+
+              }
+              games.push(gameInfo)
+            })
+            this.setState({ allGames: games })
+        })
+          .catch(err => console.log(err))
+
+      // PULL ENTIRE SCHEDULE FROM API
+
+      // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
+      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+
+      // API CALL TO PULL ENTIRE SEASON SCHEDULE
+      // $.ajax({
+      //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
+      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
+      //   type: 'GET',
+      //   success: function(data) {
+      //     self.setState({ fullSchedule: data.games });
+      //     // POST ENTIRE SCHEDULE
+      //     self.postGames(data.games)
+      //     }
+      //   })
+      }
+    
+    getResults = () => {
+      let self = this
+      let yesterdaysGameIds = self.state.yesterdaysGameIds
+      let gameResults = []
+      
+      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+
+      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
+      for (let m=0; m<yesterdaysGameIds.length; m++) {
+        let k = m
+        setTimeout ( 
+          function() {
+            $.ajax({
+              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+              type: 'GET',
+              success: function(data) {
+                console.log('Game results: ', data)
+                gameResults.push(data)
+                self.setState({gameResults: gameResults})
+                self.findGameWinners()
+              }
+            })
+          }, 1500*k)
+
+          self.findUserPicks()
+      
+        }
+      }
+
+    findGameWinners = () => {
+      // FIND GAME RESULTS FROM YESTERDAY
+      let gameResults = this.state.gameResults
+      let winningTeams = []
+      for (let x=0; x<gameResults.length; x++) {
+        let gameId = gameResults[x].id
+        let gameDate = this.state.yesterday
+        let homeTeam = {
+            team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
+            points: gameResults[x].home.points
+          }
+        let awayTeam = {
+            team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
+            points: gameResults[x].away.points
+          }
+
+        if (homeTeam.points > awayTeam.points) {
+            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team})
+          } else {
+            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
+          }
+          this.setState({ winningTeams: winningTeams })
+        }
+
+      this.postGameWinners(this.state.winningTeams)
+
+      }
+
+    postGameWinners = (data) => {
+      for (let y=0; y<data.length; y++) {
+        let gameDate = data[y].gameDate
+        let gameId = data[y].gameId
+        let gameResult = { gameResult: data[y].winningTeam }
+        API.updateGame(gameDate, gameId, gameResult)
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+        } 
+      }
+
+    findUserPicks = () => {
+      let self = this
+      let thisUser = localStorage.getItem('user')
+      //console.log('THIS USER: ', thisUser)
+
+      //FIND USER WINS
+      API.getUser(thisUser)
+        .then(res => {
+          self.setState({
+            userWins: res.data[0].wins,
+            userPicks: res.data[0].picks,
+            userId: res.data[0].username
+          })
+        })
+
+      // FIND ALL USERS PICKS 
+      API.getUsers()
+        .then(res => {
+          let allUsers = res.data
+          for(var u=0; u<allUsers.length; u++) {
+            let thisUser = allUsers[u]
+            let thisUserObj = {
+              userId: thisUser.username,
+              userPicks: thisUser.picks,
+              userWins: thisUser.wins
+              }
+            // IF USER HAS MADE PICKS FIND THEIR WINS
+            if (thisUser.picks.length > 0) {
+              self.findUserWins(thisUserObj)
+            }
+            
+          }
+        })
+      }
+
+    findUserWins = (userData) => {
+      let userId = userData.userId
+      let yesterday = this.state.yesterday
+      let userPicks = userData.userPicks
+      let schedule = this.state.yesterdaysGames
+      let userWins = userData.userWins
+    
+      // FIND THIS USER'S PICK FOR TODAY
+      let thisPickDate = (picks) => {
+        return picks.gameDate === yesterday
+      }
+      let thisPick = userPicks.filter(thisPickDate)
+      let thisPickTeam = ''
+
+      // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
+      if (thisPick[0]) {
+        thisPickTeam = thisPick[0].team
+        console.log('THIS PICK RESULT: ',userId, thisPickTeam,thisPick[0].result)
+
+        // ONLY CHECKING GAMES WITH 'PENDING' RESULT
+        if (thisPick[0].result === 'pending') {
+          console.log('THESE GAMES ARE STILL PENDING')
+
+        // CHECK IF THE USER HAS ALREADY WON WITH THIS TEAM
+        let pickAlreadyWon = (wins) => {
+          return wins.win === thisPickTeam
+        }
+        let thisPickWinner = userWins.filter(pickAlreadyWon)
+        // ADD LOSS IF USER HAS ALREADY WON WITH THIS PICK
+        if (thisPickWinner[0]) {
+          console.log(userId, 'HAS ALREADY WON WITH ', thisPickWinner[0].win)
+          let result = 'loss'
+          let newPick = {
+            team: thisPick[0].team,
+            gameDate: thisPick[0].gameDate,
+            gameId: thisPick[0].gameId,
+            result: result
+          }
+            console.log('THIS IS A LOSS: ', thisPick)
+            console.log('RESULT: ', newPick)
+            this.overridePickResult(userId, yesterday, newPick) 
+            return;
+          }
+
+          // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
+          let newWin = null
+          for (let s=0; s<schedule.length; s++) {
+            let winner = schedule[s].gameWinner
+            let thisPick = thisPickTeam.trim()
+            if (thisPick === winner) {
+              let result = 'win'
+              console.log('THIS IS A WINNER: ', thisPick)
+              newWin = { win: thisPickTeam }
+
+              // CHANGE PICK RESULT IF WIN
+              let newPick = {
+                team: schedule[s].gameWinner,
+                gameDate: schedule[s].date,
+                gameId: schedule[s].id,
+                result: result
+              }
+              console.log('NEW PICK: ', newPick)
+              this.overridePickResult(userId, yesterday, newPick) 
+              
+              // ADD NEW WINS TO USER DB
+              API.addWin(userId, newWin)
+                .then (res => {
+                  console.log(res)
+                })
+                .catch(err => console.log(err))
+            
+              }
+            }
+    
+            // CHANGE PICK RESULT IF LOSS
+            if (newWin === null && thisPick[0]) {
+              let result = 'loss'
+              let newPick = {
+                team: thisPick[0].team,
+                gameDate: thisPick[0].gameDate,
+                gameId: thisPick[0].gameId,
+                result: result
+              }
+              console.log('THIS IS A LOSS: ', thisPick)
+              console.log('RESULT: ', newPick)
+              this.overridePickResult(userId, yesterday, newPick) 
+              return;
+            }
+          } else { return }
+        } else { return }
+
+      }
+
+    overridePickResult(userId, date, newPick) {
+      console.log(date)
+      API.deletePick(userId, date)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {console.log(err)})
+      API.savePick(userId, newPick)
+        .then(res => { 
+          console.log(res)
+          })
+        .catch(err => { console.log(err) } )  
+      
+        // this.toggle()
+        // debugger;
+        // document.location.reload()
+        
       }
 
     createTimer = (timeDiff) => {
@@ -352,6 +709,7 @@ class Calendar extends Component {
         let seconds = Moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
+        console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
       }
 
     loadLogo = (team) => {
@@ -524,11 +882,11 @@ class Calendar extends Component {
                         {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
                         </div> <hr />
                         <div className="status row">
-                          Game Time: {this.state.time} 
+                          {this.state.time} 
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
+                        <input type="submit" value="Submit" color="primary" className="btn btn-primary footer" onClick={this.handleSubmit} />
                         <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </form>
@@ -562,7 +920,7 @@ class Calendar extends Component {
                 displayEventTime= {true}
                 timeFormat= 'h(:mm)A'
                 showNonCurrentDates= {false}
-                events= {this.state.scheduledGames}
+                events= {this.state.allGames}
                 eventClick= {(calEvent) => {
                   if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
                       // console.log('YOU CANT PICK THAT DATE')

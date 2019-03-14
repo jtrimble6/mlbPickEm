@@ -26,7 +26,7 @@ class Login extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect === true) {
-          return <Redirect to='/action' />
+          return <Redirect to='/landing' />
         }
         else {}
     }

@@ -1,0 +1,54 @@
+.landingBoard {
+    margin-top: 10%;
+}
+
+.landingBoard h1 {
+    color: gold;
+}
+
+.myChallenges {
+    text-align: center;
+    text-overflow: wrap;
+}
+.myChallenges .challengeButton {
+    margin-top: 10%;
+}
+
+.upcomingChallenges {
+    text-align: center;
+}
+.upcomingChallenges .card {
+    border: none;
+}
+.upcomingChallenges .challengeCard {
+    float: left;
+    margin-bottom: 5%;
+    margin: 1%;
+    width: 45%;
+    border: solid 2px gold;
+    border-radius: 1%;
+}
+.challengeCard .card-title {
+    font-weight: bolder;
+}
+.challengeCard .card-subtitle {
+    font-size: 14px;
+    color: red;
+}
+.challengeCard .card-body {
+    color: gold;
+    background-color: darkblue;
+}
+.challengeCard .card-link {
+    color: gold;
+    padding: 2%;
+    font-weight: bolder;
+}
+.challengeCard .card-link:hover {
+    background-color: gold;
+    color: darkblue;
+}
+
+.messageBoard {
+    text-align: center;
+}

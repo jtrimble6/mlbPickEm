@@ -27,6 +27,7 @@ class Games extends Component {
       this.getSchedule = this.getSchedule.bind(this);
       this.findUserPicks = this.findUserPicks.bind(this);
       this.findUserWins = this.findUserWins.bind(this);
+      this.overridePickResult = this.overridePickResult.bind(this);
     }
 
     componentDidMount() {
@@ -245,63 +246,91 @@ class Games extends Component {
       //IF THERE IS A PICK FOR TODAY MAKE THAT 'THISPICKTEAM'
       if (thisPick[0]) {
         thisPickTeam = thisPick[0].team
-      } 
+        console.log('THIS PICK RESULT: ',userId, thisPick[0].result)
+        if (thisPick[0].result === 'pending') {
+          console.log('THESE GAMES ARE STILL PENDING')
+          //CHECK TO SEE IF USER HAS ALREADY WON WITH THIS TEAM
+        let pickAlreadyWon = (wins) => {
+          return wins.win === thisPickTeam
+        }
+        let thisPickWinner = userWins.filter(pickAlreadyWon)
+        if (thisPickWinner.length > 0) {
+          //console.log('ALREADY A WINNER')
+          alreadyWon = true
+        }
+    
+        if (alreadyWon) {
+          console.log(userId, 'HAS ALREADY WON WITH THE: ', thisPickWinner[0].win)
+          return;
+        } else {
+          let newWin = null
+          let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
+          for (let s=0; s<schedule.length; s++) {
+            let winner = schedule[s].gameWinner
+            //!IMPORTANT MUST TRIM THE SPACES 
+            let thisPick = thisPickTeam.trim()
+            if (thisPick === winner) {
+              let result = 'win'
+              console.log('THIS IS A WINNER: ', thisPick)
+              newWin = { win: thisPickTeam }
 
-      //CHECK TO SEE IF USER HAS ALREADY WON WITH THIS TEAM
-      let pickAlreadyWon = (wins) => {
-        return wins.win === thisPickTeam
-      }
-      console.log()
-      let thisPickWinner = userWins.filter(pickAlreadyWon)
-      if (thisPickWinner.length > 0) {
-        //console.log('ALREADY A WINNER')
-        alreadyWon = true
-      }
-  
-      if (alreadyWon) {
-        return;
-      } else {
-        let newWin = null
-        let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
-        for (let s=0; s<schedule.length; s++) {
-          let winner = schedule[s].gameWinner
-          //!IMPORTANT MUST TRIM THE SPACES 
-          let thisPick = thisPickTeam.trim()
-          if (thisPick === winner) {
-            let result = 'win'
-            console.log('THIS IS A WINNER: ', thisPick)
-            newWin = { win: thisPickTeam }
-            //debugger;
-            // API.updatePick(userId, date, result) 
-            // .then (res => {
-            //   console.log(res)
-            // })
-            // .catch(err => console.log(err))
-
-            //ADD NEW WINS TO USER DB
-            API.addWin(userId, newWin)
-              .then (res => {
-                console.log(res)
-              })
-              .catch(err => console.log(err))
-          
+              // CHANGE PICK RESULT FOR WIN
+              let newPick = {
+                team: schedule[s].gameWinner,
+                gameDate: schedule[s].date,
+                gameId: schedule[s].id,
+                result: result
+              }
+              console.log('NEW PICK: ', newPick)
+              this.overridePickResult(userId, date, newPick) 
+              
+              //ADD NEW WINS TO USER DB
+              API.addWin(userId, newWin)
+                .then (res => {
+                  console.log(res)
+                })
+                .catch(err => console.log(err))
+            
+              }
+            }
+    
+            // CHANGE PICK RESULT FOR LOSS
+            if (newWin === null && thisPick[0]) {
+              let result = 'loss'
+              let newPick = {
+                team: thisPick[0].team,
+                gameDate: thisPick[0].gameDate,
+                gameId: thisPick[0].gameId,
+                result: result
+              }
+              console.log('THIS IS A LOSS: ', thisPick)
+              console.log('RESULT: ', newPick)
+              this.overridePickResult(userId, date, newPick) 
+              return;
             }
           }
+        } else { return }
+      } else { return }
 
-          // if (newWin === null) {
-          //   let result = 'loss'
-          //   console.log('THIS IS A LOSS: ', thisPick)
-          //   API.updatePick(userId, date, result) 
-          //   .then (res => {
-          //     console.log(res)
-          //   })
-          //   .catch(err => console.log(err))
-          // }
-  
+      }
+
+    overridePickResult(userId, date, newPick) {
+      console.log(date)
+      API.deletePick(userId, date)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {console.log(err)})
+      API.savePick(userId, newPick)
+        .then(res => { 
+          console.log(res)
+          })
+        .catch(err => { console.log(err) } )  
+      
+        // this.toggle()
         // debugger;
-
-        }
-
+        // document.location.reload()
+      
       }
 
     render() {

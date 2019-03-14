@@ -16,7 +16,7 @@ class Leaderboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timerEnded: false,
+            // timerEnded: false,
             isActive: false,
             hover: false,
             allUsers: [],
@@ -240,30 +240,33 @@ class Leaderboard extends Component {
       }
 
     handleClick = e => {
-      this.handlePreloader()
       let self = this
       let user = e.target
       let player = user.textContent
-      console.log('Player page: ', player)
-      self.toggle()
-      API.getUser(player)
-        .then(res => {
-          let thisUser = {
-            username: res.data[0].username,
-            wins: res.data[0].wins,
-            winsCount: res.data[0].wins.length,
-            picks: res.data[0].picks
-          }
-          console.log('THIS USER: ', thisUser)
-          this.setState({
-            activeUser: thisUser
+      if (isNaN(player)) {
+        this.handlePreloader()
+        console.log('THIS IS NOT A NUMBER') 
+        console.log('Player page: ', player)
+        self.toggle()
+        API.getUser(player)
+          .then(res => {
+            let thisUser = {
+              username: res.data[0].username,
+              wins: res.data[0].wins,
+              winsCount: res.data[0].wins.length,
+              picks: res.data[0].picks
+            }
+            console.log('THIS USER: ', thisUser)
+            this.setState({
+              activeUser: thisUser
+            })
+            self.findRecentPicks()
+            self.changeLogo()
           })
-          self.findRecentPicks()
-          self.changeLogo()
-        })
-        .catch(err => console.log(err))
-        
-        
+          .catch(err => console.log(err))
+        } else {
+          return
+        }
       }
 
     getFirstGame = () => {
@@ -326,16 +329,16 @@ class Leaderboard extends Component {
         // let winsCount = this.state.activeUser.wins.length
         // let picks = this.state.activeUser.picks
         //let pickCount = picks.length
-        let timerEnded = false;
+        // let timerEnded = false;
         let EndTimer = () => {
-          timerEnded = true
+          // timerEnded = true
           return (
             <span>{this.state.todaysPick}</span>
           )
         }
 
         return(
-            <div className='leaderboard'>
+          <div className='leaderboard'>
             <LoadingOverlay
               active={this.state.isActive}
               spinner
@@ -353,36 +356,36 @@ class Leaderboard extends Component {
             </LoadingOverlay>
               <h2>Leaderboard</h2>
               <hr />
-              <table className='leaderboardData table table-striped table-hover'>
-                  <thead>
+              <table className='leaderboardData table table-hover'>
+                <thead>
                   <tr className='leaderboardHeader'>
-                      <th className='leaderboardHeader'>#</th>
-                      <th className='leaderboardHeader'>User</th>
-                      <th className='leaderboardHeader'>Points</th>
-                      {/* <th>Teams</th> */}
+                    <th className='leaderboardHeader'>Place</th>
+                    <th className='leaderboardHeader'>User</th>
+                    <th className='leaderboardHeader'>Points</th>
+                    {/* <th>Teams</th> */}
                   </tr>
-                  </thead>
-                  <tbody>
-                  
-                  {
-                    this.state.leaders.map((leader, i) => (
-                      
-                      <tr onClick={this.handleClick} key={uuidv4()} className='allRows'>
+                </thead>
+                <tbody>
+                
+                {
+                  this.state.leaders.map((leader, i) => (
+                    
+                    <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.username}</td>
+                      <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
                       <td className='leaderRow' style={leaderStyle}>{leader.wins.length}</td>
-                      
+                    
                       <Modal 
                         isOpen={this.state.modal} 
                         autoFocus={true}
                         centered={true}
                         size='lg'
                         className='playerModal'
-                        >
+                      >
                           <ModalHeader id='modalTitle'>
                             USER PROFILE ({username})
                           </ModalHeader>
-                            <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
+                          <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                             <div className="row playerRow">
                               <Jumbotron>
                                 <Container fluid>
@@ -390,13 +393,13 @@ class Leaderboard extends Component {
                                     <h2>{username}</h2> <hr />
                                     <h4>Today's Pick</h4>
                                       <Countdown 
-                                       date={Date.now() + this.state.timeDiff}
-                                       zeroPadTime={2} 
-                                       daysInHours={true} 
-                                       renderer={this.timerRender}>
-                                       <EndTimer />
-                                       </Countdown>
-                                       <br />
+                                        date={Date.now() + this.state.timeDiff}
+                                        zeroPadTime={2} 
+                                        daysInHours={true} 
+                                        renderer={this.timerRender}>
+                                        <EndTimer />
+                                        </Countdown>
+                                        <br />
                                     <div className="row">
                                       <div className="col-md-3">
                                         <h4 className='winsHeader'>Wins</h4> {this.state.activeUser.winsCount}
@@ -413,7 +416,7 @@ class Leaderboard extends Component {
                               </Jumbotron>
                               <span className='row recentPicks'>
                                 <div className="col-12-sm">
-                                <table className='table table-striped table-hover'>
+                                  <table className='table table-hover'>
                                     <thead>
                                       <tr>
                                         <th>Date</th>
@@ -444,109 +447,43 @@ class Leaderboard extends Component {
                               <div className="row teamLogos">
                                 
                                 {
-                                    this.state.teams.map((team, i) => (
-                                    
-                                        <Button 
-                                          key={uuidv4()}
-                                          onClick={this.findTeamGames}
-                                          color={team.status} 
-                                          className='teamButton'
-                                          data={team.abbr}
-                                        >
-                                            <img
-                                            className='profLogo'
-                                            src={team.logo}
-                                            alt={team.abbr}
-                                            fluid='true'
-                                            />
-                                            <br />
-                                            {team.abbr.toUpperCase()}
-                                        </Button>
-                              
-                                    ))
-                                }
-
-                                  {/* <Modal 
-                                    isOpen={this.state.modal} 
-                                    autoFocus={true}
-                                    centered={true}
-                                    size='lg'
-                                    className='fullCalModal'
-                                    >
-                                    
-                                      <ModalHeader id='modalTitle'>
-                                        Upcoming Games
-                                      </ModalHeader>
-                                        <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
-                                            <div className="thisTeam">
-                                              <table className='table table-striped table-hover'>
-                                                <thead>
-                                                  <tr>
-                                                    <th>Date</th>
-                                                    <th>Matchup</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                  this.state.nextGames.map((nextGame) => (
-                                                    <tr key={uuidv4()} >
-                                                      <td>{nextGame.game.gameDate}</td>
-                                                      <td>{nextGame.game.homeAlias} vs. {nextGame.game.awayAlias}</td>
-                                                    </tr>
-                                                  ))
-                                                }    
-                                                </tbody>
-                                              </table>
-                                            </div> <hr />
-                                            
-                                        </ModalBody>
-                                        <ModalFooter>
-                                          <Button color="secondary" onClick={this.toggle}>Close</Button>
-                                        </ModalFooter>
-                            
-                                    </Modal> */}
+                                  this.state.teams.map((team, i) => (
                                   
-                                </div>
-                              </span>
-                            </ModalBody>
-                            <ModalFooter>
-                              <Button color="secondary" onClick={this.toggle}>Close</Button>
-                            </ModalFooter>
+                                    <Button 
+                                      key={uuidv4()}
+                                      onClick={this.findTeamGames}
+                                      color={team.status} 
+                                      className='teamButton'
+                                      data={team.abbr}
+                                    >
+                                      <img
+                                        className='profLogo'
+                                        src={team.logo}
+                                        alt={team.abbr}
+                                        fluid='true'
+                                      />
+                                      <br />
+                                      {team.abbr.toUpperCase()}
+                                    </Button>
+                            
+                                  ))
+                                }
+                                
+                              </div>
+                            </span>
+                          </ModalBody>
+                          <ModalFooter>
+                            <Button color="secondary" onClick={this.toggle}>Close</Button>
+                          </ModalFooter>
                 
                         </Modal>
-                      
-                      {/* {
 
-                      leader.teams.map((team, i) => (
-                          <td key={uuidv4()} className='teamLogos' style={leaderStyle}>
-                            <Button 
-                              key={uuidv4()}
-                              onClick={this.findTeamGames}
-                              color={team.status} 
-                              className='userTeamButton'
-                              data={team.abbr}
-                              >
-                              <img
-                              className='profLogo'
-                              src={team.logo}
-                              alt={team.abbr}
-                              fluid='true'
-                              />
-                              <br />
-                                {team.abbr.toUpperCase()}
-                              </Button>
-                            </td>
-                          ))
-                          
-                      } */}
-                      
-                      
-                      </tr>
-                    ))
-                  }
-                  </tbody>
-                </table>
-            </div>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         )
     }
 }

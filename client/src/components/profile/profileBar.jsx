@@ -103,7 +103,6 @@ class ProfileBar extends Component {
         }); 
       }
 
-
     findTeamGames = (team, i) => {
       this.toggleActive()
       this.toggle()
@@ -223,10 +222,6 @@ class ProfileBar extends Component {
       // this.setNextGames(nextGames)
       }
     
-    // setNextGames = (nextGames) => {
-    //   console.log('SET THESE GAMES: ', nextGames)
-    // }
-
     sortUserPicks = () => {
       let userPicks = this.state.userPicks
       // console.log('USER PICKS: ', this.state.userPicks)
@@ -252,51 +247,6 @@ class ProfileBar extends Component {
       // console.log('THE NEXT PICKS: ', this.state.sortedPicks)
       //console.log('THE OLD PICKS: ', this.state.oldPicks)
       this.findRecentPicks()
-      
-      // let pastDatesPicked = []
-      // // console.log('USER PICKS: ', this.state.userPicks)
-      // for (var k=0; k<sortedPicks.length; k++) {  
-      //   // console.log('RECENT PICK: ', sortedPicks[k].date)
-      //   for (var m=0; m<this.state.userPicks.length; m++) {
-      //     if (this.state.userPicks[m].gameDate < moment().format('YYYY-MM-DD')) {
-      //       let pastGameDate = this.state.userPicks[m].gameDate
-      //       pastDatesPicked.push(pastGameDate)
-      //     }
-      //     let thisUserPick = this.state.userPicks[m]
-      //     let thisUserPickDate = moment(thisUserPick.gameDate).format('MM-DD')
-      //     // console.log('THIS PICK: ', moment(thisUserPick.gameDate).format('MM-DD'))
-      //     if (thisUserPickDate === sortedPicks[k].date) {
-      //       let newPick = {
-      //         date: sortedPicks[k].date,
-      //         team: this.state.userPicks[m].team,
-      //         status: sortedPicks[k].status
-      //       }
-      //       // console.log('THIS IS A NEW PICK: ', newPick)
-      //       sortedPicks[k] = newPick
-      //       // console.log('RECENT RECENT PICKS: ', sortedPicks)
-      //       this.setState({
-      //         sortedPicks: sortedPicks
-      //       })
-      //       this.changePastPick()
-            
-      //       // sortedPicks.push(allGamesState[m])
-            
-      //       let onlyUnique = (value, index, self) => { 
-      //         return self.indexOf(value) === index;
-      //       }
-
-      //       let uniqueDates = pastDatesPicked.filter(onlyUnique)
-
-      //       // console.log('PAST DATES PICKED: ', uniqueDates)
-
-      //       this.setState({
-      //         pastPicks: uniqueDates
-      //       })
-            
-      //     } 
-      //   }
-        
-      // }
     
       }
 
@@ -469,7 +419,7 @@ class ProfileBar extends Component {
         for (var j=0; j<teams.length; j++) {
           //console.log('CURRENT WINS: ', wins)
           //console.log('CURRENT TEAMS: ', teams)
-          console.log('CURRENT TEAM: ', teams[j].name)
+          // console.log('CURRENT TEAM: ', teams[j].name)
           this.setState({
             thisTeam: teams[j].name.trim()
           })
@@ -571,12 +521,13 @@ class ProfileBar extends Component {
         
         return (
 
-            <div className="row profileBar">
+          <div className="row profileBar">
+            <div className="col-8">
               <Jumbotron>
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4>Today's Pick</h4> {this.props.todaysPick} <br />
+                    <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
                     <div className="row">
                       <div className="col-md-3">
                         <h4 className='winsHeader'>Wins</h4> {this.props.winsCount}
@@ -584,16 +535,18 @@ class ProfileBar extends Component {
                       <div className="col-md-3">
                         <h4 className='winsHeader'>Record</h4> {this.props.winsCount} - {this.state.oldPicks.length - this.props.winsCount}
                       </div>  
-                      {/* <div className="col-md-3">
+                      { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.winsCount}
-                      </div>   */}
+                      </div> */ }
                     </div>
                   </div>
                 </Container>
               </Jumbotron>
-              <span className='row recentPicks'>
-                <div className="col-12-sm">
-                <table className='table table-striped table-hover'>
+            </div>
+            <div className="col-4">
+              <div className='row recentPicksRow'>
+                <div className="col-10 recentPicks picks">
+                  <table className='table table-hover'>
                     <thead>
                       <tr>
                         <th>Date</th>
@@ -611,87 +564,77 @@ class ProfileBar extends Component {
                             )
                           )     
                       }
-                       
+                        
                     </tbody>
                   </table>
                 </div>
-                <div className="col-2-sm title">
-                  <h3>Recent Picks</h3>
+                <div className="col-1 title">
+                  <h3>My Recent Picks</h3>
                 </div>
-              </span>
-              
-                <span className="col-md"> 
-                  <div className="row teamLogos">
-                    
-                    {
-                        this.state.teams.map((team, i) => (
-                         
-                            <Button 
-                              key={uuidv4()}
-                              onClick={this.findTeamGames}
-                              color={team.status} 
-                              className='teamButton'
-                              data={team.abbr}
-                            >
-                                <img
-                                className='profLogo'
-                                src={team.logo}
-                                alt={team.abbr}
-                                fluid='true'
-                                />
-                                <br />
-                                {team.abbr.toUpperCase()}
-                            </Button>
-                   
-                        ))
-                    }
+              </div>
+            </div>
+              <div className="row teamLogos">
+                {
+                  this.state.teams.map((team, i) => (
+                    <Button 
+                      key={uuidv4()}
+                      onClick={this.findTeamGames}
+                      color={team.status} 
+                      className='teamButton'
+                      data={team.abbr}
+                    >
+                        <img
+                        className='profLogo'
+                        src={team.logo}
+                        alt={team.abbr}
+                        fluid='true'
+                        />
+                        <br />
+                        {team.abbr.toUpperCase()}
+                    </Button>
+                  ))
+                }
 
               <Modal 
-                 isOpen={this.state.modal} 
-                 autoFocus={true}
-                 centered={true}
-                 size='lg'
-                 className='fullCalModal'
-                >
+                isOpen={this.state.modal} 
+                autoFocus={true}
+                centered={true}
+                size='lg'
+                className='fullCalModal'
+              >
                 
-                  <ModalHeader id='modalTitle'>
-                    Upcoming Games ({this.state.activeTeam.teamName})
-                  </ModalHeader>
-                    <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
-                        <div className="thisTeam">
-                          <table className='table table-striped table-hover'>
-                            <thead>
-                              <tr>
-                                <th>Date</th>
-                                <th>Matchup</th>
+                <ModalHeader id='modalTitle'>
+                  Upcoming Games ({this.state.activeTeam.teamName})
+                </ModalHeader>
+                  <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
+                      <div className="thisTeam">
+                        <table className='table  table-hover'>
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Matchup</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {
+                            this.state.nextGames.map((nextGame) => (
+                              <tr key={uuidv4()} className={(moment().format('YYYY-MM-DD') === nextGame.game.gameDate) ? 'today' : nextGame.status} >
+                                <td>{moment(nextGame.game.gameDate).format('MM-DD')}</td>
+                                <td>{nextGame.gameDetails}</td>
                               </tr>
-                            </thead>
-                            <tbody>
-                            {
-                              this.state.nextGames.map((nextGame) => (
-                                <tr key={uuidv4()} className={(moment().format('YYYY-MM-DD') === nextGame.game.gameDate) ? 'today' : nextGame.status} >
-                                  <td>{moment(nextGame.game.gameDate).format('MM-DD')}</td>
-                                  <td>{nextGame.gameDetails}</td>
-                                </tr>
-                              ))
-                            }    
-                            </tbody>
-                          </table>
-                        </div> <hr />
-                        
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button color="secondary" onClick={this.toggle}>Close</Button>
-                    </ModalFooter>
-         
+                            ))
+                          }    
+                          </tbody>
+                        </table>
+                      </div> <hr />
+                      
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggle}>Close</Button>
+                  </ModalFooter>
                 </Modal>
-                    
-                  </div>
-                </span>
-                
+              </div>
             </div>
-            
-                
         )
     }
 }

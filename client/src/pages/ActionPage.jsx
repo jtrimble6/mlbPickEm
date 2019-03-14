@@ -4,7 +4,7 @@ import Navbar from '../components/nav/Navbar'
 import ProfileBar from '../components/profile/profileBar'
 import Calendar from '../components/calendar/Calendar'
 import Leaderboard from '../components/leaderboard/Leaderboard'
-import Games from '../components/games/Games'
+// import Games from '../components/games/Games'
 import moment from 'moment';
 import $ from 'jquery'
 import '../css/actionPage.css'
@@ -98,11 +98,11 @@ class ActionPage extends Component {
                   <Leaderboard   
                   />
                 </div>
-                <div className="winningTeams row">
+                {/* <div className="winningTeams row">
                   <Games 
                     username={this.state.username}
                   />
-                </div>
+                </div> */}
                 
                   
                 </div>

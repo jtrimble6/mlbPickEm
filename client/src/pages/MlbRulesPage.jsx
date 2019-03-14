@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 // import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
+import RulesBar from '../components/nav/RulesBar'
 // import Games from '../components/calendar/Games'
 import '../css/rulesPage.css'
 
-class RulesUser extends Component {
+class MlbRules extends Component {
 
     render() {
         return(
             <div id='rulesPage'>
-              <Navbar />
+              <RulesBar />
               <div id='rulesHeader'>
               <h1>Rules</h1>
                 <hr /> <br />
@@ -45,4 +45,4 @@ class RulesUser extends Component {
     }
 }
 
-export default RulesUser
+export default MlbRules

@@ -69,15 +69,15 @@ module.exports = {
     updatePick: function (req, res) {
       db.User
         // .find({ username: req.params.id })
-        .update(
-          { username: req.params.id, gameDate: req.params.gameDate },
-          { $set: { result: req.body } }
-        )
         // .update(
-        //   { username: req.params.id },
-        //   { $set: {'picks.$[elem].result': req.body } },
-        //   { multi: true, arrayFilters: [ {'elem.gameDate': req.params.gameDate } ]}
+        //   { username: req.params.id, gameDate: req.params.gameDate },
+        //   { $set: { result: req.body } }
         // )
+        .update(
+          { username: req.params.id },
+          { $set: {'picks.$[elem].result': req.body } },
+          { multi: true, arrayFilters: [ {'elem.gameDate': req.params.gameDate } ]}
+        )
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },

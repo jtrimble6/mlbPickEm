@@ -1,29 +1,32 @@
 @media (min-width: 1300px) {
     .leaderboard {
         color: gold;
+        text-align: center;
         margin-left: 10% !important;
         overflow: auto;
         margin-bottom: 25px;
         min-width: 100% !important;
         box-sizing: content-box;
+        border: dashed 3px darkblue;
+        border-radius: 5%;
+        padding: 5%;
     }
     th.leaderboardHeader {
         color: gold !important;
         max-width: 5%;
         font-size: 80% !important;
-        padding-right: 0 !important;
     }
     td.leaderRow {
         color: gold !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
+        font-size: 100% !important;
+        border: none;
     }
 
-    .leaderRow :hover {
+    td.leaderRow.username:hover {
+        cursor: pointer;
         background-color: gold !important;
         color: darkblue !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
+        font-size: 100% !important;
     }
 
     .playerModal {
@@ -118,7 +121,7 @@
         padding-right: 0 !important;
     }
 }
-@media (min-width: 776px) and (max-width: 999px) {
+@media (min-width: 765px) and (max-width: 999px) {
     .leaderboard {
         color: gold;
         margin-left: 15% !important;
@@ -176,7 +179,7 @@
     }
 }
 
-@media (min-width: 550px) and (max-width: 775px) {
+@media (min-width: 550px) and (max-width: 764px) {
     .leaderboard {
         font-size: 50% !important;
         color: gold;
@@ -193,11 +196,6 @@
     .playerModal {
         min-width: 90%;
     }
-
-    .recentPicks {
-        max-width: 55%;
-    }
-
     .playerRow .jumbotron {
         min-width: 32% !important;
         margin-left: 3%;
@@ -235,7 +233,7 @@
 
 @media (max-width: 549px) {
     .leaderboard {
-        font-size: 50% !important;
+        font-size: 30% !important;
         color: gold;
         overflow: auto;
         margin-top: 0 !important;
@@ -249,11 +247,6 @@
     }
     .playerModal {
         min-width: 90%;
-    }
-
-    .recentPicks {
-        max-width: 45%;
-        margin-top: 5%;
     }
 
     .playerRow .jumbotron {

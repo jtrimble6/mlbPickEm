@@ -1,12 +1,15 @@
 @media (min-width: 1300px) {
     .winningTeams {
-        overflow-x: visible;
+        /* overflow-x: visible; */
         overflow-y: auto;
-        margin-left: 15%;
+        margin-left: 10%;
+        min-width: 100% !important;
     }
     .winningPicks {
         color: gold;
-        min-width: 100%;
+        border: dashed 3px darkblue;
+        padding: 20px;
+        text-align: center;
     }
 }
 
