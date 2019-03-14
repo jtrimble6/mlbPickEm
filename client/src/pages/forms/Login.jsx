@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import API from '../utils/API'
-import LoginBar from '../components/nav/LoginBar'
-import SignInError from "../components/alerts/SignInError";
-import '../css/login.css'
+import API from '../../utils/API'
+import LoginBar from '../../components/nav/LoginBar'
+import SignInError from "../../components/alerts/SignInError";
+import '../../css/login.css'
 
 class Login extends Component {
 

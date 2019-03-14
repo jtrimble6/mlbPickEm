@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import API from '../utils/API'
-import SignupBar from '../components/nav/SignupBar'
-import '../css/signup.css'
-import ExistingAccount from "../components/alerts/ExistingAccount";
-import PasswordError from '../components/alerts/PasswordError';
-import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../css/nbaLogos'
+import API from '../../utils/API'
+import SignupBar from '../../components/nav/SignupBar'
+import '../../css/signup.css'
+import ExistingAccount from "../../components/alerts/ExistingAccount";
+import PasswordError from '../../components/alerts/PasswordError';
+import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 
 class Signup extends Component {

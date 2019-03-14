@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
-import ProfileBar from '../components/profile/profileBar'
-import Calendar from '../components/calendar/Calendar'
-import Leaderboard from '../components/leaderboard/Leaderboard'
+import API from '../../utils/API'
+import Navbar from '../../components/nav/Navbar'
+import ProfileBar from '../../components/profile/profileBar'
+import Calendar from '../../components/calendar/Calendar'
+import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
 // import Games from '../components/games/Games'
 import moment from 'moment';
 import $ from 'jquery'
-import '../css/actionPage.css'
+import '../../css/actionPage.css'
 
-class ActionPage extends Component {
+class MlbActionPage extends Component {
 
     state = {
         redirect: false,
@@ -113,4 +113,4 @@ class ActionPage extends Component {
 
 }
 
-export default ActionPage
+export default MlbActionPage

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 // import API from '../utils/API'
-import LoginBar from '../components/nav/LoginBar'
+import LoginBar from '../../components/nav/LoginBar'
 // import Games from '../components/calendar/Games'
-import '../css/aboutPage.css'
+import '../../css/aboutPage.css'
 
 class About extends Component {
 

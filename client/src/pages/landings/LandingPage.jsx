@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import API from '../utils/API'
-import LandingBar from '../components/nav/LandingBar'
-import MyChallenges from '../components/landing/myChallenges'
-import UpcomingChallenges from '../components/landing/upcomingChallenges'
-import moment from 'moment';
+import API from '../../utils/API'
+import LandingBar from '../../components/nav/LandingBar'
+import MyChallenges from '../../components/landing/myChallenges'
+import UpcomingChallenges from '../../components/landing/upcomingChallenges'
+// import moment from 'moment';
 import $ from 'jquery'
-import '../css/landing.css'
+import '../../css/landing.css'
 
 class LandingPage extends Component {
 

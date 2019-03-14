@@ -3,16 +3,15 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import API from './utils/API';
-import Login from './pages/Login';
-import Signup from './pages/Signup.jsx'
-import About from './pages/AboutPage.jsx'
-import AboutUser from './pages/AboutPageUser.jsx'
-import Rules from './pages/RulesPage.jsx'
-import MlbRulesPage from './pages/MlbRulesPage.jsx'
-import Landing from './pages/LandingPage.jsx'
-import ActionPage from './pages/ActionPage.jsx'
-import PlayersPage from './pages/PlayerPage.jsx'
-import Leaderboard from './pages/LeaderboardPage.jsx'
+import Login from './pages/forms/Login';
+import Signup from './pages/forms/Signup.jsx'
+import About from './pages/abouts/AboutPage.jsx'
+import AboutUser from './pages/abouts/AboutPageUser.jsx'
+import Rules from './pages/rules/RulesPage.jsx'
+import MlbRules from './pages/rules/MlbRulesPage.jsx'
+import Landing from './pages/landings/LandingPage.jsx'
+import MlbActionPage from './pages/actions/MlbActionPage.jsx'
+import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage.jsx'
 
 
 import './App.css';
@@ -118,7 +117,7 @@ class App extends Component {
             <Route exact path='/mlbRules'
               render={() =>
                 this.state.loggedIn === true ? (
-                  <MlbRulesPage />
+                  <MlbRules />
                 ) : this.state.loggedIn === false ? (
                   <Redirect to='/' />
                 ) : (
@@ -145,7 +144,7 @@ class App extends Component {
             )} />
             <Route exact path='/action' render={() => (
               this.state.loggedIn === true ? (
-                <ActionPage />
+                <MlbActionPage />
               ) : this.state.loggedIn === false ? (
                 <Redirect to='/' />
               ) : (
@@ -154,16 +153,7 @@ class App extends Component {
             )} />
             <Route exact path='/leaderboard' render={() => (
               this.state.loggedIn === true ? (
-                <Leaderboard />
-              ) : this.state.loggedIn === false ? (
-                <Redirect to='/' />
-              ) : (
-                null
-              )
-            )} />
-            <Route exact path='/playerspage' render={() => (
-              this.state.loggedIn === true ? (
-                <PlayersPage />
+                <MlbLeaderboard />
               ) : this.state.loggedIn === false ? (
                 <Redirect to='/' />
               ) : (

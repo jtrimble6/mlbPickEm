@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import API from '../utils/API'
-import Navbar from '../components/nav/Navbar'
-import Leaderboard from '../components/leaderboard/Leaderboard'
+import API from '../../utils/API'
+import Navbar from '../../components/nav/Navbar'
+import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
 import moment from 'moment';
-import '../css/leaderboardPage.css'
+import '../../css/leaderboardPage.css'
 
 class LeaderboardPage extends Component {
 
