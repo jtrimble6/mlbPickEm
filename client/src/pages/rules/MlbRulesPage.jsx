@@ -36,7 +36,7 @@ class MlbRules extends Component {
                 If you lock in a pick, and the team you picked is involved in a game that is canceled for any reason that day, no points are awarded. Furthermore, if the game is  suspended mid game, and DOES NOT finish on that day, no points are awarded. The final out of the 9th inning must be recorded on that day for the game to count. <br />
                 If the first game of the day is delayed, that does not effect the time that picks are due. Picks are always due at the scheduled time of the first game on each respective day. <br />
                 You can make picks as far out in the future as you would like. <br /> <br />
-                For any questions/comments/concerns please email us directly at: TheSp0rtsC0mpany@gmail.com <br />
+                For any questions/comments/concerns please email us directly at: TheChallengeMaster@SportHabits.com <br />
                 Good luck!
                 </p>
               </div>
