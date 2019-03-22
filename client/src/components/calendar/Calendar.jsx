@@ -955,7 +955,7 @@ class Calendar extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary footer" onClick={this.handleSubmit} />
+                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
                         <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </form>
