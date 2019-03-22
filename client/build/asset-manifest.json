@@ -1,7 +1,7 @@
 {
-  "main.css": "/mlbPickEm/static/css/main.1576d381.chunk.css",
-  "main.js": "/mlbPickEm/static/js/main.90224328.chunk.js",
-  "main.js.map": "/mlbPickEm/static/js/main.90224328.chunk.js.map",
+  "main.css": "/mlbPickEm/static/css/main.2a131ea9.chunk.css",
+  "main.js": "/mlbPickEm/static/js/main.711103ba.chunk.js",
+  "main.js.map": "/mlbPickEm/static/js/main.711103ba.chunk.js.map",
   "static/css/1.f8231f51.chunk.css": "/mlbPickEm/static/css/1.f8231f51.chunk.css",
   "static/js/1.9b4f4e27.chunk.js": "/mlbPickEm/static/js/1.9b4f4e27.chunk.js",
   "static/js/1.9b4f4e27.chunk.js.map": "/mlbPickEm/static/js/1.9b4f4e27.chunk.js.map",
@@ -46,9 +46,9 @@
   "static/media/nbaplayoffchallenge.jpg": "/mlbPickEm/static/media/nbaplayoffchallenge.d7823ee9.jpg",
   "static/media/soccerchallenge.jpg": "/mlbPickEm/static/media/soccerchallenge.44eba0c0.jpg",
   "static/media/cws.png": "/mlbPickEm/static/media/cws.2bc6c070.png",
-  "static/css/main.1576d381.chunk.css.map": "/mlbPickEm/static/css/main.1576d381.chunk.css.map",
+  "static/css/main.2a131ea9.chunk.css.map": "/mlbPickEm/static/css/main.2a131ea9.chunk.css.map",
   "static/css/1.f8231f51.chunk.css.map": "/mlbPickEm/static/css/1.f8231f51.chunk.css.map",
   "index.html": "/mlbPickEm/index.html",
-  "precache-manifest.8edd2e8449ec9c8edc531482f6fd3a14.js": "/mlbPickEm/precache-manifest.8edd2e8449ec9c8edc531482f6fd3a14.js",
+  "precache-manifest.a4b05a64615c8eeda70afb386982ff2e.js": "/mlbPickEm/precache-manifest.a4b05a64615c8eeda70afb386982ff2e.js",
   "service-worker.js": "/mlbPickEm/service-worker.js"
 }
