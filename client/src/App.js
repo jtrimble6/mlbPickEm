@@ -119,7 +119,7 @@ class App extends Component {
             />
             <Route exact path='/logout'
               render={() =>
-                <Login 
+                <LogoutPage 
                 />
               }
             />

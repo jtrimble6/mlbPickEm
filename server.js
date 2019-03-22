@@ -90,10 +90,10 @@ app.use( (req, res, next) => {
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mlbpickem");
 
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+// app.get('/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build/index.html"));

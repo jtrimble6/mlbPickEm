@@ -29,7 +29,7 @@
 .upcomingChallenges {
     text-align: center;
     overflow: auto !important;
-    height: 750px;
+    height: 400px;
 }
 .upcomingChallenges .card {
     border: none;
