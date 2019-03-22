@@ -51,7 +51,7 @@ class Navbar extends Component {
                                 <NavLink href="/mlbRules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/logout">Sign Out</NavLink>
+                                <NavLink href="/signout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -69,7 +69,7 @@ class Navbar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href='/logout'>Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href='/signout'>Sign Out</a>
                       </li>
                     </ul>
                     </div>

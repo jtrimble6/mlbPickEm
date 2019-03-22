@@ -8,13 +8,13 @@ class AdminBar extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.logout = this.logout.bind(this);
+        this.signout = this.signout.bind(this);
         this.state = {
             collapsed: true
         }
     }
 
-    logout() {
+    signout() {
       localStorage.clear()
       }
 
@@ -24,13 +24,13 @@ class AdminBar extends Component {
         })
       }
 
-    // logout() {
+    // signout() {
     //     let localUser = localStorage.getItem('user')
     //     let sessionData = {
     //         sessionUserID: localUser
     //       }
     //     console.log('LOGOUT: ', sessionData)
-    //     // API.logout(sessionData)
+    //     // API.signout(sessionData)
     //     //   .then(res => console.log(res))
     //     //   .catch(err => console.log(err))
     // }
@@ -57,7 +57,7 @@ class AdminBar extends Component {
                                 <NavLink href="/mlbRules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/logout">Sign Out</NavLink>
+                                <NavLink href="/signout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -75,7 +75,7 @@ class AdminBar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/logout">Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href="/signout">Sign Out</a>
                       </li>
                     </ul>
                     </div>

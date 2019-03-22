@@ -8,13 +8,13 @@ class AdminLoginBar extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.logout = this.logout.bind(this);
+        this.signout = this.signout.bind(this);
         this.state = {
             collapsed: true
         }
     }
 
-    logout() {
+    signout() {
       localStorage.clear()
       }
 
@@ -24,13 +24,13 @@ class AdminLoginBar extends Component {
         })
       }
 
-    // logout() {
+    // signout() {
     //     let localUser = localStorage.getItem('user')
     //     let sessionData = {
     //         sessionUserID: localUser
     //       }
     //     console.log('LOGOUT: ', sessionData)
-    //     // API.logout(sessionData)
+    //     // API.signout(sessionData)
     //     //   .then(res => console.log(res))
     //     //   .catch(err => console.log(err))
     // }

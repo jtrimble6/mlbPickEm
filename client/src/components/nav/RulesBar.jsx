@@ -8,7 +8,7 @@ class RulesBar extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        // this.logout = this.logout.bind(this);
+        // this.signout = this.signout.bind(this);
         this.state = {
             collapsed: true
         }
@@ -20,13 +20,13 @@ class RulesBar extends Component {
         })
       }
 
-    // logout() {
+    // signout() {
     //     let localUser = localStorage.getItem('user')
     //     let sessionData = {
     //         sessionUserID: localUser
     //       }
     //     console.log('LOGOUT: ', sessionData)
-    //     // API.logout(sessionData)
+    //     // API.signout(sessionData)
     //     //   .then(res => console.log(res))
     //     //   .catch(err => console.log(err))
     // }
@@ -47,7 +47,7 @@ class RulesBar extends Component {
                                 <NavLink href="/home">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/logout">Sign Out</NavLink>
+                                <NavLink href="/signout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -59,7 +59,7 @@ class RulesBar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/home">Home</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/logout">Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href="/signout">Sign Out</a>
                       </li>
                     </ul>
                     </div>

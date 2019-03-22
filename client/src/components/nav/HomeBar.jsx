@@ -50,7 +50,7 @@ class HomeBar extends Component {
                                 <NavLink href="/saved">SAVED</NavLink>
                             </NavItem> */}
                             <NavItem>
-                                <NavLink href='/logout'>SIGN OUT</NavLink>
+                                <NavLink href='/signout'>SIGN OUT</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -65,7 +65,7 @@ class HomeBar extends Component {
                             <a className="nav-link js-scroll-trigger" href="/saved">SAVED</a>
                         </li> */}
                         <li className="nav-item">
-                            <NavLink className="nav-link js-scroll-trigger" href='/logout' >SIGN OUT</NavLink>
+                            <NavLink className="nav-link js-scroll-trigger" href='/signout' >SIGN OUT</NavLink>
                         </li>
                       </ul>
                     </div>
