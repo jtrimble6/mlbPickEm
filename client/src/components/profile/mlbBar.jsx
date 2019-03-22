@@ -387,7 +387,7 @@ class MlbBar extends Component {
           })
           self.getUserData()
           // self.postTeams()
-          self.postTeamGames()
+          // self.postTeamGames()
         })
         .catch(err => console.log(err))
         }

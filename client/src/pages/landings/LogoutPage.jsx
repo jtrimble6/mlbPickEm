@@ -7,8 +7,6 @@ class LogoutPage extends Component {
     constructor(props) {
         super(props)
           this.state ={
-            redirect: false,
-            loginRedirect: false,
             loggedOut: false
           }
           this.renderLogout = this.renderLogout.bind(this)
