@@ -105,7 +105,7 @@ class Signup extends Component {
         const username = event.target.value;
         console.log(username);
         this.setState({
-          username: username
+          username: username.toLowerCase()
         });
         API.getUser(username)
         .then(res => {

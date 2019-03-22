@@ -113,12 +113,12 @@ class Login extends Component {
                         <h2 className="formLoginHeading">Sign In</h2> <br />
                         <div className="loginWrap">
                             <input
-                                value={this.state.username}
+                                value={this.state.username.toLowerCase()}
                                 name="username"
                                 onChange={this.handleInputChange}
                                 type="text"
                                 className="form-control"
-                                placeholder="Username (case sensitive)"
+                                placeholder="Username"
                                 autoFocus
                             />
                             <br/>

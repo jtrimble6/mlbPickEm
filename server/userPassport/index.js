@@ -1,5 +1,4 @@
 const passport = require('passport')
-const LocalStrategyAdmin = require('../adminPassport/localStrategyAdmin')
 const LocalStrategyUser = require('./localStrategyUser')
 const User = require('../../models/user')
 
