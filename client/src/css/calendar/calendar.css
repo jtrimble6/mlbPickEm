@@ -49,17 +49,17 @@ td.fc-event-container a {
 }
 
 .fc-view-container {
-    background-color: darkblue;
+    background-color: #209CEE;
 }
 
 #modalBody {
     font-size: 25px;
     align-content: center;
-    background-color: darkblue;
+    background-color: #209CEE;
 }
 
 #modalTitle {
-    background-color: darkblue;
+    background-color: #209CEE;
     color: gold;
     border-bottom: solid 1px gold;
     /* font-size: 40px !important; */
@@ -67,11 +67,11 @@ td.fc-event-container a {
 
 .footer {
     background-color: gold;
-    color: darkblue
+    color: #209CEE
 }
 
 .modal-footer {
-    background-color: darkblue;
+    background-color: #209CEE;
     color: gold;
     border-top: solid 1px gold;
 }
@@ -79,7 +79,7 @@ td.fc-event-container a {
 .timer {
     font-size: 14px;
     text-align: center;
-    color: darkblue;
+    color: #209CEE;
     background-color: gold;
     min-width: 80%;
     margin-left: 10%;
@@ -96,7 +96,7 @@ td.fc-event-container a {
 }
 
 .fc-future {
-    background-color: darkblue;
+    background-color: #209CEE;
 }
 
 .fc-past {
@@ -118,7 +118,7 @@ td.fc-event-container a {
 .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
     color: gold !important;
     background-image: none !important;
-    background-color: darkblue !important;
+    background-color: #209CEE !important;
     border-color: gold !important;
 }
 
@@ -141,7 +141,7 @@ td.fc-event-container a {
 }
 
 .timer {
-    color: darkblue;
+    color: #209CEE;
     background-color: gold;
     font-weight: bolder;
     margin-bottom: 10px;
@@ -191,13 +191,13 @@ td.fc-event-container a {
     }
     
     .fc-view-container {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalBody {
         font-size: 20px;
         align-content: center;
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalTitle {
@@ -207,7 +207,7 @@ td.fc-event-container a {
     .timer {
         font-size: 14px;
         text-align: center;
-        color: darkblue;
+        color: #209CEE;
         background-color: gold;
         min-width: 80%;
         margin-left: 10%;
@@ -224,7 +224,7 @@ td.fc-event-container a {
     }
     
     .fc-future {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     .fc-past {
@@ -249,7 +249,7 @@ td.fc-event-container a {
     .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
         color: gold !important;
         background-image: none !important;
-        background-color: darkblue !important;
+        background-color: #209CEE !important;
         border-color: gold !important;
     }
     
@@ -271,7 +271,7 @@ td.fc-event-container a {
     }
     
     .timer {
-        color: darkblue;
+        color: #209CEE;
         background-color: gold;
         font-weight: bolder;
         margin-bottom: 10px;
@@ -321,13 +321,13 @@ td.fc-event-container a {
     }
     
     .fc-view-container {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalBody {
         font-size: 23px;
         align-content: center;
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalTitle {
@@ -337,7 +337,7 @@ td.fc-event-container a {
     .timer {
         font-size: 18px;
         text-align: center;
-        color: darkblue;
+        color: #209CEE;
         background-color: gold;
         min-width: 80%;
         margin-left: 10%;
@@ -354,7 +354,7 @@ td.fc-event-container a {
     }
     
     .fc-future {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     .fc-past {
@@ -379,7 +379,7 @@ td.fc-event-container a {
     .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
         color: gold !important;
         background-image: none !important;
-        background-color: darkblue !important;
+        background-color: #209CEE !important;
         border-color: gold !important;
     }
     
@@ -403,7 +403,7 @@ td.fc-event-container a {
     .timer {
         position: fixed;
         top: 0;
-        color: darkblue;
+        color: #209CEE;
         background-color: gold;
         font-weight: bolder;
         margin-bottom: 10px;
@@ -452,13 +452,13 @@ td.fc-event-container a {
     }
     
     .fc-view-container {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalBody {
         font-size: 15px;
         align-content: center;
-        background-color: darkblue;
+        background-color: #209CEE;
         max-width: 100%;
     }
     
@@ -469,7 +469,7 @@ td.fc-event-container a {
     .timer {
         font-size: 10px;
         text-align: center;
-        color: darkblue;
+        color: #209CEE;
         background-color: gold;
         min-width: 80%;
         margin-left: 10%;
@@ -486,7 +486,7 @@ td.fc-event-container a {
     }
     
     .fc-future {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     .fc-past {
@@ -506,7 +506,7 @@ td.fc-event-container a {
     .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
         color: gold !important;
         background-image: none !important;
-        background-color: darkblue !important;
+        background-color: #209CEE !important;
         border-color: gold !important;
     }
     
@@ -539,7 +539,7 @@ td.fc-event-container a {
     }
     
     .timer {
-        color: darkblue;
+        color: #209CEE;
         font-weight: bolder;
         margin-bottom: 10px;
         min-width: 80%;
@@ -591,13 +591,13 @@ td.fc-event-container a {
     }
     
     .fc-view-container {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalBody {
         font-size: 15px;
         align-content: center;
-        background-color: darkblue;
+        background-color: #209CEE;
         max-width: 100%;
     }
     
@@ -616,7 +616,7 @@ td.fc-event-container a {
     }
     
     .fc-future {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     .fc-past {
@@ -636,7 +636,7 @@ td.fc-event-container a {
     .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
         color: gold !important;
         background-image: none !important;
-        background-color: darkblue !important;
+        background-color: #209CEE !important;
         border-color: gold !important;
         margin-bottom: 8px !important;
     }
@@ -682,7 +682,7 @@ td.fc-event-container a {
     .timer {
         min-width: 90%;
         margin-left: 5%;
-        color: darkblue;
+        color: #209CEE;
         font-weight: bolder;
         margin-bottom: 10px;
         font-size: 15px;
@@ -767,13 +767,13 @@ td.fc-event-container a {
     }
     
     .fc-view-container {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     #modalBody {
         font-size: 15px;
         align-content: center;
-        background-color: darkblue;
+        background-color: #209CEE;
         max-width: 100%;
     }
     
@@ -792,7 +792,7 @@ td.fc-event-container a {
     }
     
     .fc-future {
-        background-color: darkblue;
+        background-color: #209CEE;
     }
     
     .fc-past {
@@ -813,7 +813,7 @@ td.fc-event-container a {
     .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
         color: gold !important;
         background-image: none !important;
-        background-color: darkblue !important;
+        background-color: #209CEE !important;
         border-color: gold !important;
         margin-bottom: 8px !important;
     }
@@ -857,7 +857,7 @@ td.fc-event-container a {
         max-height: 900px;
     }
 
-    img {
+    .thisGame img {
         height: 50px !important;
         width: 50px !important;
     }
@@ -865,7 +865,7 @@ td.fc-event-container a {
     .timer {
         min-width: 90%;
         margin-left: 5%;
-        color: darkblue;
+        color: #209CEE;
         font-weight: bolder;
         margin-bottom: 10px;
         font-size: 15px;

@@ -32,12 +32,12 @@ class Games extends Component {
 
     componentDidMount() {
       // this.getGames()
-      this.getSchedule() 
+      // this.getSchedule() 
       }
 
     postGames = (data) => {
       for (let i=0; i<data.length; i++) {
-        let gameDateAdj = moment(data[i].scheduled).subtract(6, 'hours').format()
+        let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
         let splitDate = gameDateAdj.split('T')
         let gameDate = splitDate[0]
         
@@ -52,9 +52,11 @@ class Games extends Component {
           awayAlias: data[i].away.alias,
           gameResult: 'none'
         }
-    
+        console.log('GAME DATA: ', gameData)
+        // debugger;
+
         //POST ENTIRE SCHEDULE
-        API.postGames(gameData)
+        API.postNbaGames(gameData)
           .then(res=> console.log(res))
           .catch(err => console.log(err))
         }
@@ -75,6 +77,8 @@ class Games extends Component {
         type: 'GET',
         success: function(data) {
           self.setState({ fullSchedule: data.games });
+          console.log('ALL GAMES: ', data.games)
+
           // POST ENTIRE SCHEDULE
           self.postGames(data.games)
           }
@@ -155,7 +159,7 @@ class Games extends Component {
       // this.getGames()
 
       // PULL GAMES FROM YESTERDAY
-      API.getGamesByDate(date)
+      API.getNbaGamesByDate(date)
         .then(res => {
             let games = []
             let gameIds = []

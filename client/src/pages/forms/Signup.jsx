@@ -13,6 +13,9 @@ class Signup extends Component {
     state = {
         firstName: '',
         lastName: '',
+        birthDate: '',
+        gender: '',
+        favoriteTeam: '',
         email: '',
         username: '',
         password: '',
@@ -80,24 +83,42 @@ class Signup extends Component {
         })
       }
 
+    checkPassword = event => {
+        const password = event.target.value
+        this.setState({
+         confirmPassword: password
+        })
+        if (this.state.password !== password) {
+            console.log('THE PASSWORDS DO NOT MATCH')
+            this.setState({
+                passwordError: 'PASSWORDS DO NOT MATCH'
+            })
+        } else {
+            this.setState({
+                passwordError: 'PASSWORDS MATCH'
+            })
+        }
+
+    }
+
     checkUserName = event => {
         const username = event.target.value;
         console.log(username);
         this.setState({
-            username: username
+          username: username
         });
         API.getUser(username)
         .then(res => {
             console.log(res)
             if (!res.data[0]) {
-                console.log("Username available");
+                console.log("USERNAME AVAILABLE");
                 this.setState({
-                    nameTaken: "Username available"
+                  nameTaken: "USERNAME AVAILABLE"
                 })
             } else {
-                console.log("Username unavailable");
+                console.log("USERNAME UNAVAILABLE");
                 this.setState({
-                    nameTaken: "Username unavailable"
+                  nameTaken: "USERNAME UNAVAILABLE"
                 })
             }
         })
@@ -116,11 +137,12 @@ class Signup extends Component {
         let userData = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
+            favoriteTeam: this.state.favoriteTeam,
+            birthDate: this.state.birthDate,
+            gender: this.state.gender,
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,
-            img: this.state.img,
-            teams: this.state.teams
         };
         console.log(userData);
         if (this.state.password !== this.state.confirmPassword) {
@@ -133,7 +155,7 @@ class Signup extends Component {
           .then(res => {
             console.log(res)
             if (!res.data[0]) {
-                console.log("Username available");
+                console.log("USERNAME AVAILABLE");
                 API.saveUser(userData)
                 .then(res => {
                     console.log(res)
@@ -163,7 +185,7 @@ class Signup extends Component {
 
     render() {
         return (
-            <div id="loginPage">
+            <div id="signupPage">
             <SignupBar />
               {this.renderRedirect()}
                 <div className="formContainer">    
@@ -195,6 +217,45 @@ class Signup extends Component {
                                 />
                         </div>
                         <div className="form-group">
+                            <label htmlFor="favoriteTeam">Favorite Team</label>
+                                <input
+                                    value={this.state.favoriteTeam}
+                                    name="favoriteTeam"
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    id="favoriteTeam"
+                                    placeholder="Favorite team"                                        
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="birthDate">Birth Date</label>
+                                <input 
+                                value={this.state.birthDate}
+                                name="birthDate"
+                                onChange={this.handleInputChange}
+                                type="date"
+                                className="form-control"
+                                id="birthDate"
+                                placeholder="MM/DD/YYYY"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="gender">Gender</label>
+                                <select
+                                    name="gender"
+                                    value={this.state.gender}
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    id="gender"                                       
+                                >
+                                <option value='optout'>(optional)</option>
+                                <option value='male'>Male</option>
+                                <option value='female'>Female</option>
+                                </select>
+                        </div>
+                        <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Email address</label>
                                 <input
                                     value={this.state.email}
@@ -204,7 +265,7 @@ class Signup extends Component {
                                     className="form-control"
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
-                                    placeholder="Enter email"
+                                    placeholder="Email"
                                 />
                         </div>
                         <div className="form-group">
@@ -249,7 +310,7 @@ class Signup extends Component {
                             <input
                                 value={this.state.confirmPassword}
                                 name="confirmPassword"
-                                onChange={this.handleInputChange}
+                                onChange={this.checkPassword}
                                 type="password"
                                 className="form-control"
                                 id="confirmPassword"

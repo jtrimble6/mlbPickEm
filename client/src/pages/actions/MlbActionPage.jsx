@@ -1,63 +1,89 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import Navbar from '../../components/nav/Navbar'
-import ProfileBar from '../../components/profile/profileBar'
-import Calendar from '../../components/calendar/Calendar'
+import MlbActionNav from '../../components/nav/MlbActionNav'
+import MlbBar from '../../components/profile/mlbBar'
+import MlbCalendar from '../../components/calendar/MlbCalendar'
 import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
-// import Games from '../components/games/Games'
+//import Games from '../../components/games/Games'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/actionPage.css'
 
 class MlbActionPage extends Component {
-
-    state = {
-        redirect: false,
-        username: '',
-        profPic: '',
-        firstName: '',
-        lastName: '',
-        wins: [],
-        winsCount: 0,
-        myPicks: [],
-        todaysPick: 'No Pick'
+  constructor(props) {
+    super(props)
+    this.state = {
+      redirect: false,
+      challengeId: '',
+      challengeData: {},
+      challengeUsers: [],
+      currentUser: {},
+      username: '',
+      firstName: '',
+      lastName: '',
+      wins: [],
+      winsCount: 0,
+      myPicks: [],
+      todaysPick: 'No Pick'
     }
+    this.handlePreloader = this.handlePreloader.bind(this)
+    this.getChallengeData = this.getChallengeData.bind(this)
+    this.getUserData = this.getUserData.bind(this)
+    this.getTodaysPick = this.getTodaysPick.bind(this)
+  }
 
     componentDidMount() {
-      this.getUserData();
+      this.getChallengeData();
+      // this.getUserData();
     }
 
     handlePreloader() {
       $(".se-pre-con").fadeOut("slow");
     }
 
+    getChallengeData = () => {
+      // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
+      let self = this
+      let challengeId = localStorage.getItem('userChallengeId')
+      this.setState({
+        challengeId: challengeId
+      })
+      API.getChallenge(challengeId)
+        .then(res => {
+          // console.log(res)
+          self.setState({
+            challengeData: res.data[0]
+          })
+          self.getUserData()
+        })
+        .catch(err => console.log(err))
+    }
 
     getUserData = () => {
       window.addEventListener('load', this.handlePreloader());
         let localUser = localStorage.getItem('user')
-        console.log(localUser)
-        API.getUser(localUser)
-          .then(response => {
-            let winsCount = response.data[0].wins.length
-              this.setState({
-                  id: response.data[0]._id,
-                  username: response.data[0].username,
-                  firstName: response.data[0].firstName,
-                  lastName: response.data[0].lastName,
-                  profPic: response.data[0].img,
-                  wins: response.data[0].wins,
-                  winsCount: winsCount,
-                  myPicks: response.data[0].picks
-              })
-              this.getTodaysPick()
-            //   console.log('ID: ', this.state.id)
-            //   console.log('Username: ', this.state.username)
-            //   console.log('First name: ', this.state.firstName)
-            //   console.log('Last name: ', this.state.lastName)
-            //   console.log('Wins Count: ', this.state.winsCount)
-            //   console.log('My picks: ', this.state.myPicks)
-          })
-          .catch(err => console.log(err))
+        let chalUsers = this.state.challengeData.users
+
+        // FILTER OUT THIS USER AND SET STATE
+        let chalFilter = (challengers) => {
+          return challengers.username === localUser
+        }
+        let thisUser = chalUsers.filter(chalFilter)
+
+        this.setState({
+          currentUser: thisUser[0],
+          username: thisUser[0].username,
+          firstName: thisUser[0].firstName,
+          lastName: thisUser[0].lastName,
+          wins: thisUser[0].wins,
+          winsCount: thisUser[0].wins.length,
+          myPicks: thisUser[0].picks,
+        })
+
+        this.getTodaysPick()
+
+        // console.log('CURRENT USER PICKS: ', this.state.myPicks)
+        // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
     }
 
     getTodaysPick = () => {
@@ -69,27 +95,26 @@ class MlbActionPage extends Component {
               this.setState({todaysPick: myPicks[j].team})
             }
         }
-
-    }
+      }
 
     render() {
 
         return (
             <div id='actionPage'>
               <div className="se-pre-con"></div>
-              <Navbar />
+              <MlbActionNav 
+                challengeName={this.state.challengeData.challengeName}
+              />
               
-              
-              <ProfileBar
+              <MlbBar
                   username={this.state.username}
                   winsCount={this.state.winsCount}
                   todaysPick={this.state.todaysPick}
-
                 />
               
               <div className='row'>
                 <div className='calBoard col-md-9'>
-                  <Calendar 
+                  <MlbCalendar 
                     username={this.state.username}
                   />
                 </div>
@@ -98,12 +123,12 @@ class MlbActionPage extends Component {
                   <Leaderboard   
                   />
                 </div>
+
                 {/* <div className="winningTeams row">
                   <Games 
                     username={this.state.username}
                   />
                 </div> */}
-                
                   
                 </div>
               </div>

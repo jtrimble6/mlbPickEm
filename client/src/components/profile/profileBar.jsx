@@ -12,6 +12,8 @@ class ProfileBar extends Component {
         super(props);
         this.state = {
             modal: false,
+            currentUser: {},
+            challengeData: {},
             userId: '',
             userWins: [],
             thisTeam: '',
@@ -68,7 +70,7 @@ class ProfileBar extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.toggleActive = this.toggleActive.bind(this);
-        this.findWins = this.findWins.bind(this);
+        // this.findWins = this.findWins.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
         this.postTeams = this.postTeams.bind(this);
         this.findTeamGames = this.findTeamGames.bind(this);
@@ -78,13 +80,15 @@ class ProfileBar extends Component {
         this.sortUserPicks = this.sortUserPicks.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.findNextDays = this.findNextDays.bind(this);
+        this.getChallengeData = this.getChallengeData.bind(this);
+        this.getUserData = this.getUserData.bind(this);
       }
 
     componentDidMount() {
-        this.findWins()
-        this.findNextDays()
-        // this.postTeams()
-        // this.postTeamGames()
+      this.getChallengeData()
+      this.findNextDays()
+      // this.postTeams()
+      // this.postTeamGames()
       }
 
     toggle() {
@@ -120,7 +124,7 @@ class ProfileBar extends Component {
 
       // console.log('Find the next games for this team: ', teamAbbr)
       let self = this
-      API.getTeam(teamAbbr)
+      API.getNbaTeam(teamAbbr)
         .then(res => {
           // console.log(res.data)
           self.setState({
@@ -136,7 +140,7 @@ class ProfileBar extends Component {
         })
         .catch(err => console.log(err))
 
-      // API.getGamesByTeam(teamAbbr)
+      // API.getNbaGamesByTeam(teamAbbr)
       //   .then(res => {
       //       console.log(res)
       //   })
@@ -367,39 +371,86 @@ class ProfileBar extends Component {
 
       }
  
-    findWins = () => {
-      let localUser = localStorage.getItem('user')
+    getChallengeData = () => {
+      // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      API.getUser(localUser)
+      let challengeId = localStorage.getItem('userChallengeId')
+      this.setState({
+        challengeId: challengeId
+      })
+      API.getChallenge(challengeId)
         .then(res => {
-          // console.log('BIG result: ', res.data)
-          self.setState({ 
-            userWins: res.data[0].wins,
-            userId: res.data[0].username,
-            userPicks: res.data[0].picks,
-            teams: res.data[0].teams
-           })
-          self.changeLogo()
-          self.sortUserPicks()
+          // console.log(res)
+          self.setState({
+            challengeData: res.data[0]
+          })
+          self.getUserData()
         })
         .catch(err => console.log(err))
-      
-        $(document).ready(function(){
-          //let top = target.offset().top;
-          $('.recentPicks').animate({scrollTop: '300%'}, 1000);
-          // $('recentPicks').scrollTo('.todaysPick')
-          return false;
-          // $('.recentPicks').animate({scrollTop: '320%'}, 800); 
-        });
-     
+        }
+  
+    getUserData = () => {
+      let localUser = localStorage.getItem('user')
+      let chalUsers = this.state.challengeData.users
+
+      // FILTER OUT THIS USER AND SET STATE
+      let chalFilter = (challengers) => {
+        return challengers.username === localUser
       }
+      let thisUser = chalUsers.filter(chalFilter)
+
+      this.setState({
+        currentUser: thisUser[0],
+        userId: thisUser[0].username,
+        userWins: thisUser[0].wins,
+        winsCount: thisUser[0].wins.length,
+        userPicks: thisUser[0].picks,
+      })
+      this.changeLogo()
+      this.sortUserPicks()
+
+      $(document).ready(function(){
+        $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+        return false;
+      });
+
+      // console.log('CURRENT USER: ', this.state.currentUser)
+      // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
+        }  
+
+    // findWins = () => {
+    //   let localUser = localStorage.getItem('user')
+    //   let self = this
+    //   API.getUser(localUser)
+    //     .then(res => {
+    //       // console.log('BIG result: ', res.data)
+    //       self.setState({ 
+    //         userWins: res.data[0].wins,
+    //         userId: res.data[0].username,
+    //         userPicks: res.data[0].picks,
+    //         teams: res.data[0].teams
+    //        })
+    //       self.changeLogo()
+    //       self.sortUserPicks()
+    //     })
+    //     .catch(err => console.log(err))
+      
+    //     $(document).ready(function(){
+    //       //let top = target.offset().top;
+    //       $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+    //       // $('recentPicks').scrollTo('.todaysPick')
+    //       return false;
+    //       // $('.recentPicks').animate({scrollTop: '320%'}, 800); 
+    //     });
+     
+    //   }
     
     changeLogo = () => {
         let wins = this.state.userWins
         let allPicks = this.state.userPicks
         //let matchedTeams = []
         let theseMatchingWins = []
-        let teams = JSON.parse(JSON.stringify(this.state.teams))
+        let teams = JSON.parse(JSON.stringify(this.state.challengeData.teams))
 
         let todaysPickFunc = (picks) => {
           return picks.gameDate === moment().format('YYYY-MM-DD')
@@ -427,7 +478,7 @@ class ProfileBar extends Component {
           let teamMatched = teams.filter(matchingTeams)
           if (teamMatched[0]) {
             if (teamMatched[0].name.trim() === teams[j].name.trim()) {
-              console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
+              // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
               teams[j].status = 'warning'
             } 
           }
@@ -447,14 +498,14 @@ class ProfileBar extends Component {
               todaysPick: teamMatched
           })
 
-          // console.log('NEW TEAMS ARRAY: ', this.state.teams)
+          // console.log('NEW TEAMS ARRAY: ', this.state.challengeData.teams)
 
         }
         
       }
 
     postTeams = () => {
-      let teams = this.state.teams
+      let teams = this.state.challengeData.teams
       // console.log('POSTING JUST THESE TEAMS: ', teams)
       for (var x=0; x<teams.length; x++) {
         let newTeam = {
@@ -463,7 +514,7 @@ class ProfileBar extends Component {
           homeGames: [],
           awayGames: []
         }
-        API.postTeams(newTeam)
+        API.postNbaTeams(newTeam)
           .then(res => {
             console.log(res.data)
           })
@@ -473,35 +524,35 @@ class ProfileBar extends Component {
     
     postTeamGames = () => {
       let allGames = []
-      API.getGames()
+      API.getNbaGames()
         .then(res => {
           allGames.push(res.data)
           let theGames = allGames[0]
-          for (var t=0; t<this.state.teams.length; t++) {
-            let thisTeam = this.state.teams[t].abbr.toUpperCase()
+          for (var t=0; t<this.state.challengeData.teams.length; t++) {
+            let thisTeam = this.state.challengeData.teams[t].abbr.toUpperCase()
             // console.log('ALL GAMES: ', theGames)
             // console.log('THIS TEAM: ', thisTeam)
             for (var p=0; p<theGames.length; p++) {
-              // let homeA = theGames[p].homeAlias
-              let awayA = theGames[p].awayAlias
-              // if (homeA === thisTeam) {
-              //   console.log('THE GAME: ', theGames[p])
-              //   console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
-              //   API.addGamesByTeam(thisTeam, theGames[p])
-              //     .then(res => {
-              //       console.log(res)
-              //     })
-              //     .catch(err => console.log(err))
-              // }
-              if (awayA === thisTeam) {
+              let homeA = theGames[p].homeAlias
+              // let awayA = theGames[p].awayAlias
+              if (homeA === thisTeam) {
                 // console.log('THE GAME: ', theGames[p])
-                // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
-                API.addGamesByTeam(thisTeam, theGames[p])
+                // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
+                API.addNbaGamesByTeam(thisTeam, theGames[p])
                   .then(res => {
                     console.log(res)
                   })
                   .catch(err => console.log(err))
               }
+              // if (awayA === thisTeam) {
+              //   // console.log('THE GAME: ', theGames[p])
+              //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+              //   API.addNbaGamesByTeam(thisTeam, theGames[p])
+              //     .then(res => {
+              //       console.log(res)
+              //     })
+              //     .catch(err => console.log(err))
+              // }
             }
           }
           
@@ -513,7 +564,8 @@ class ProfileBar extends Component {
       }
 
     render() {              
-        let uuidv4 = require('uuid/v4')    
+        let uuidv4 = require('uuid/v4')
+        //let teams = this.state.challengeData.teams   
         let modalStyle = {
           backgroundColor: 'gold',
           color: 'darkblue'

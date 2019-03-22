@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 //import API from '../../utils/API'
+import { Redirect } from 'react-router-dom';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 
@@ -8,7 +9,7 @@ class Navbar extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        // this.logout = this.logout.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
         this.state = {
             collapsed: true
         }
@@ -20,22 +21,22 @@ class Navbar extends Component {
         })
       }
 
-    // logout() {
-    //     let localUser = localStorage.getItem('user')
-    //     let sessionData = {
-    //         sessionUserID: localUser
-    //       }
-    //     console.log('LOGOUT: ', sessionData)
-    //     // API.logout(sessionData)
-    //     //   .then(res => console.log(res))
-    //     //   .catch(err => console.log(err))
-    // }
+    handleLogout() {
+      localStorage.clear()
+      return(
+        <Redirect to='\' />
+      )
+        
+    }
 
     render() {                                                                  
         return (
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
-                    <a className="navbar-brand js-scroll-trigger" href="/">The Company</a>
+                    <a className="navbar-brand" href="/">
+                        <img src={require('../../css/images/bannerLogo.png')} alt='SportHabits' />
+                    </a>
+                    {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>
                       <Collapse isOpen={!this.state.collapsed} navbar>
@@ -50,7 +51,7 @@ class Navbar extends Component {
                                 <NavLink href="/mlbRules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/">Sign Out</NavLink>
+                                <NavLink href="/logout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -68,11 +69,14 @@ class Navbar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/">Sign Out</a>
+                        <a className="nav-link js-scroll-trigger" href='/logout'>Sign Out</a>
                       </li>
                     </ul>
                     </div>
                 </div>
+                <footer class="footer">
+                  <p>WWW.SPORTHABITS.COM</p>
+                </footer>
             </nav>
         )
     }

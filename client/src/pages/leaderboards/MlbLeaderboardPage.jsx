@@ -25,7 +25,7 @@ class LeaderboardPage extends Component {
 
     getUserData = () => {
         let localUser = localStorage.getItem('user')
-        console.log(localUser)
+        // console.log(localUser)
         API.getUser(localUser)
           .then(response => {
             let winsCount = response.data[0].wins.length

@@ -1,6 +1,48 @@
 import axios from 'axios'
 
 export default {
+
+    // ADMIN API CALLS
+    saveAdmin: function(adminData) {
+        return axios.post('/api/admins', adminData)
+    },
+    loginAdmin: function(adminData) {
+        return axios.post('/api/admins/adminLogin', adminData)
+    },
+    createAdminSession: function(sessionData) {
+        return axios.post('/api/sessions', sessionData)
+    },
+    checkAdminSession: function(id, localSessionID) {
+        return axios.get('/api/sessions/' + id, localSessionID)
+    },
+    logoutAdminSession: function(sessionData) {
+        return axios.delete('/api/sessions', sessionData)
+    },
+    getAdmins: function() {
+        return axios.get('/api/admins')
+    },
+    getAdmin: function(id) {
+        return axios.get('/api/admins/' + id)
+    },
+    
+    
+
+    // USERS API CALLS
+    saveUser: function(userData) {
+        return axios.post('/api/users', userData)
+    },
+    loginUser: function(userData) {
+        return axios.post('/api/users/login', userData)
+    },
+    createUserSession: function(sessionData) {
+        return axios.post('/api/sessions', sessionData)
+    },
+    checkUserSession: function(id, localSessionID) {
+        return axios.get('/api/sessions/' + id, localSessionID)
+    },
+    logoutUserSession: function(sessionData) {
+        return axios.delete('/api/sessions', sessionData)
+    },
     getUsers: function() {
         return axios.get('/api/users/')
     },
@@ -10,68 +52,158 @@ export default {
     deleteUser: function(id) {
         return axios.delete('/api/users/' + id)
     },
-    postGames: function(data) {
-        return axios.post('/api/games/', data)
+    
+
+    // MESSAGE BOARD API CALLS
+    saveMessageBoard: function(userData) {
+        return axios.post('/api/messageBoard', userData)
     },
-    getGames: function() {
-        return axios.get('/api/games/')
+    getMessageBoards: function() {
+        return axios.get('/api/messageBoard/')
     },
-    getGamesByDate: function(date) {
-        return axios.get('/api/games/' + date)
+    getMessageBoard: function(user) {
+        return axios.get('/api/messageBoard/' + user)
     },
-    postTeams: function(data) {
-        return axios.post('/api/teams/', data)
+    deleteMessageBoard: function(user, id) {
+        return axios.delete('/api/messageBoard/' + user, id)
     },
-    addGamesByTeam: function(team, game) {
-        return axios.put('/api/teams/' + team, game)
+
+
+    // NBA API CALLS 
+    postNbaGames: function(data) {
+        return axios.post('/api/nbagames/', data)
     },
-    getTeam: function(team) {
-        return axios.get('/api/teams/' + team)
+    getNbaGames: function() {
+        return axios.get('/api/nbagames/')
     },
-    getTeams: function() {
-        return axios.get('/api/teams/')
+    getNbaGamesByDate: function(date) {
+        return axios.get('/api/nbagames/' + date)
     },
-    getGamesById: function(date, id) {
-        return axios.get('/api/games/' + date + '/' + id)
+    postNbaTeams: function(data) {
+        return axios.post('/api/nbateams/', data)
     },
-    updateGame: function(date, id, gameResult) {
-        return axios.put('/api/games/' + date + '/' + id, gameResult)
+    addNbaGamesByTeam: function(team, game) {
+        return axios.put('/api/nbateams/' + team, game)
+    },
+    getNbaTeam: function(team) {
+        return axios.get('/api/nbateams/' + team)
+    },
+    getNbaTeams: function() {
+        return axios.get('/api/nbateams/')
+    },
+    getNbaGamesById: function(date, id) {
+        return axios.get('/api/nbagames/' + date + '/' + id)
+    },
+    updateNbaGame: function(date, id, gameResult) {
+        return axios.put('/api/nbagames/' + date + '/' + id, gameResult)
     },
     addResult: function(game) {
         return axios.post('/api/results/', game)
     },
-    savePick: function(id, thisPick) {
-        return axios.put('/api/users/' + id, thisPick)
+    saveUserChallenge: function(id, thisChallenge) {
+        return axios.put('/api/users/' + id, thisChallenge)
     },
-    updatePick: function(id, date, result) {
-        return axios.put('/api/users/' + id + '/' + date, result)
+
+
+    
+
+    // MLB API CALLS
+    postMlbGames: function(data) {
+        return axios.post('/api/mlbgames/', data)
     },
-    deletePick: function(id, date) {
-        return axios.delete('/api/users/' + id + '/' + date)
+    getMlbGames: function() {
+        return axios.get('/api/mlbgames/')
     },
+    getMlbGamesByDate: function(date) {
+        return axios.get('/api/mlbgames/' + date)
+    },
+    postMlbTeams: function(data) {
+        return axios.post('/api/mlbteams/', data)
+    },
+    addMlbGamesByTeam: function(team, game) {
+        return axios.put('/api/mlbteams/' + team, game)
+    },
+    getMlbTeam: function(team) {
+        return axios.get('/api/mlbteams/' + team)
+    },
+    getMlbTeams: function() {
+        return axios.get('/api/mlbteams/')
+    },
+    getMlbGamesById: function(date, id) {
+        return axios.get('/api/mlbgames/' + date + '/' + id)
+    },
+    updateMlbGame: function(date, id, gameResult) {
+        return axios.put('/api/mlbgames/' + date + '/' + id, gameResult)
+    },
+    addMlbWin: function(id, user, newWin) {
+        return axios.post('/api/challenges/' + id + '/users/' + user, newWin)
+    },
+    saveMlbPick: function(id, user, thisPick) {
+        return axios.put('/api/challenges/' + id + '/users/' + user, thisPick)
+    },
+    deleteMlbPick: function(id, user, date) {
+        return axios.delete('/api/challenges/' + id + '/users/' + user + '/' + date)
+    },
+    updateMlbPick: function(id, user, date, result) {
+        return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
+    },
+
+    
+    
+    
     getPickByDate: function(id, date) {
         return axios.get('/api/users/' + id + '/' + date)
     },
-    addWin: function(id, newWin) {
-        return axios.post('/api/users/' + id, newWin)
-    },
+    
     changeStatus: function(id, team) {
-        return axios.put('/api/users/' + id + '/teams/' + team)
+        return axios.put('/api/users/' + id + '/mlbteams/' + team)
     },
-    saveUser: function(userData) {
-        return axios.post('/api/users', userData)
+    
+
+
+
+    
+    saveMessageBoard: function(data) {
+        return axios.post('/api/messageBoard', data)
     },
-    loginUser: function(userData) {
-        return axios.post('/api/users/login', userData)
+
+    // CHALLENGE API CALLS
+    getChallenges: function() {
+        return axios.get('/api/challenges')
     },
-    createSession: function(sessionData) {
-        return axios.post('/api/sessions', sessionData)
+    getChallenge: function(id) {
+        return axios.get('/api/challenges/' + id)
     },
-    logout: function(sessionData) {
-        return axios.delete('/api/sessions', sessionData)
+    saveChallenge: function(challengeData) {
+        return axios.post('/api/challenges', challengeData)
     },
-    checkSession: function(id, localSessionID) {
-        return axios.get('/api/sessions/' + id, localSessionID)
-    }
+    deleteChallenge: function(id) {
+        return axios.delete('/api/challenges/' + id)
+    },
+    addUserToChallenge: function(id, userData) {   
+        return axios.put('/api/challenges/' + id, userData)
+    },
+
+    // CHALLENGE API CALLS
+    addNbaWin: function(id, user, newWin) {
+        return axios.post('/api/challenges/' + id + '/users/' + user, newWin)
+    },
+    saveNbaPick: function(id, user, thisPick) {
+        return axios.put('/api/challenges/' + id + '/users/' + user, thisPick)
+    },
+    deleteNbaPick: function(id, user, date) {
+        return axios.delete('/api/challenges/' + id + '/users/' + user + '/' + date)
+    },
+    updateNbaPick: function(id, user, date, result) {
+        return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
+    },
+
+    
+
+
+
+    
+    
+    
         
 }

@@ -2,15 +2,17 @@ const router = require("express").Router();
 const sessionController = require("../../../controllers/sessionController");
 
 router.route("/")
-  .post(sessionController.create)
+  .post(sessionController.createUserSession)
+  
 
 router.route("/:id")
-  .get(sessionController.checkSession)
+  .post(sessionController.createUserSession)
+  .get(sessionController.checkUserSession)
 
 // router.route("/checksession")
 //   .get(sessionController.checkSession)
 
 router.route("/logout")
-  .delete(sessionController.logout)
+  .delete(sessionController.logoutUserSession)
 
 module.exports = router;

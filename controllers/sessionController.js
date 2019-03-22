@@ -1,25 +1,25 @@
 const db = require('../models')
 
 module.exports = {
-    checkSession: function(req, res) {
-        console.log("Checking session")
+    checkUserSession: function(req, res) {
+        console.log("Checking user Session")
         console.log(req.params);
         console.log(req.params.id);
-        db.Session
+        db.UserSession
           .findById(req.params.id)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
-    create: function(req, res) {
-        console.log("create session");
-        db.Session
+    createUserSession: function(req, res) {
+        console.log("create user Session");
+        db.UserSession
           .create(req.body)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
-    logout: function(req, res) {
-        console.log('logout')
-        db.Session
+    logoutUserSession: function(req, res) {
+        console.log('logout user')
+        db.UserSession
           .deleteOne(req.body)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))

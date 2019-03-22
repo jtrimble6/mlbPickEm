@@ -1,3 +1,73 @@
+#landingPage {
+    margin-top: 5%;
+    min-height: 1000px;
+    background-color: #209CEE;
+}
+
+.lazyHero {
+    margin-top: 305px;
+}
+
+.bRjMMg {
+    position: relative !important;
+    min-height: 370px !important;
+}
+
+.heroTitle {
+    position: relative;
+    top: -220px;
+    /* margin: 0 auto; */
+    font-family: 'Audiowide', cursive;
+    text-shadow: 2px 2px black;
+    font-size: 50px !important;
+    color: gold;
+    margin-top: 0 !important;
+    font-weight: 500;
+}
+
+.heroText {
+    position: relative;
+    top: -290px;
+    font-family: 'Audiowide', cursive;
+    font-family: 'Special Elite', cursive;
+    font-size: 32px;
+    font-weight: 900;
+    color: gold;
+    padding: 45px;
+    width: 80%;
+    margin: 0 auto;
+    text-shadow: 2px 2px black;
+}
+
+.signUpButton {
+    position: relative;
+    top: -340px;
+    font-family: 'Special Elite', cursive;
+    color: gold;
+    text-shadow: 1px 1px black;
+    border: solid 3px #209CEE;
+}
+
+.loginButton {
+    position: relative;
+    top: -340px;
+    font-family: 'Special Elite', cursive;
+    color: gold;
+    text-shadow: 1px 1px black;
+    border: solid 3px #209CEE;
+    margin-left: 1%;
+}
+
+.emphasis {
+    color: white;
+    font-size: 60px;
+    font-weight: 600;
+    text-shadow: 7px 7px 50px gold;
+    border-bottom: solid 10px gold;
+    border-radius: 5%;
+    padding-bottom: 2px;
+}
+
 .landingBoard {
     margin-top: 10%;
 }
@@ -6,49 +76,62 @@
     color: gold;
 }
 
-.myChallenges {
-    text-align: center;
-    text-overflow: wrap;
-}
-.myChallenges .challengeButton {
-    margin-top: 10%;
-}
-
-.upcomingChallenges {
-    text-align: center;
-}
-.upcomingChallenges .card {
-    border: none;
-}
-.upcomingChallenges .challengeCard {
-    float: left;
-    margin-bottom: 5%;
-    margin: 1%;
-    width: 45%;
-    border: solid 2px gold;
-    border-radius: 1%;
-}
-.challengeCard .card-title {
-    font-weight: bolder;
-}
-.challengeCard .card-subtitle {
-    font-size: 14px;
-    color: red;
-}
-.challengeCard .card-body {
-    color: gold;
-    background-color: darkblue;
-}
-.challengeCard .card-link {
-    color: gold;
-    padding: 2%;
-    font-weight: bolder;
-}
-.challengeCard .card-link:hover {
-    background-color: gold;
-    color: darkblue;
+@media (min-width: 200px) and (max-width: 500px) {
+    .heroTitle {
+        font-size: 18px !important;
+        top: -230px;
+    }
+    .heroTitle .emphasis {
+        font-size: 20px;
+    }
+    .heroText {
+        top: -280px;
+        font-size: 16px;
+    }
+    .signUpButton {
+        font-size: 14px;
+        top: -300px;
+    }
+    .loginButton {
+        font-size: 14px;
+        top: -300px;
+    }
 }
 
-.messageBoard {
-    text-align: center;
+@media (min-width: 501px) and (max-width: 800px) {
+    .heroTitle {
+        font-size: 24px !important;
+        top: -230px;
+    }
+    .heroTitle .emphasis {
+        font-size: 28px;
+    }
+    .heroText {
+        top: -280px;
+        font-size: 20px;
+    }
+    .signUpButton {
+        top: -300px;
+    }
+    .loginButton {
+        top: -300px;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+    .heroTitle {
+        font-size: 40px !important;
+    }
+    .heroTitle .emphasis {
+        font-size: 45px;
+    }
+    .heroText {
+        font-size: 28px;
+    }
+    .signUpButton {
+        top: -300px;
+    }
+    .loginButton {
+        top: -300px;
+    }
 }

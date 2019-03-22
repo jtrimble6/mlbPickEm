@@ -21,7 +21,7 @@ class SignInError extends Component {
         console.log(this.props.SignInError);
         if (this.props.signInError === true) {
             return (
-                <Alert color='info' isOpen={this.state.visible} toggle={this.onDismiss}>
+                <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>
                     The username or password is incorrect!
                 </Alert>
             )

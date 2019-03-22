@@ -1,131 +1,80 @@
 import React, { Component } from 'react'
-import API from '../../utils/API'
+import { Redirect } from 'react-router-dom'
+import LazyHero from 'react-lazy-hero'
+import { Button } from 'reactstrap'
 import LandingBar from '../../components/nav/LandingBar'
-import MyChallenges from '../../components/landing/myChallenges'
-import UpcomingChallenges from '../../components/landing/upcomingChallenges'
 // import moment from 'moment';
 import $ from 'jquery'
 import '../../css/landing.css'
 
 class LandingPage extends Component {
 
-    state = {
-        redirect: false,
-        id: '',
-        username: '',
-        profPic: '',
-        firstName: '',
-        lastName: '',
-        wins: [],
-        winsCount: 0,
-        myChallenges: [],
-        allChallenges: []
-    }
-
-    componentDidMount() {
-      this.getUserData();
-    }
+    constructor(props) {
+        super(props)
+          this.state ={
+            redirect: false,
+            loginRedirect: false
+          }
+          this.setRedirect = this.setRedirect.bind(this)
+          this.setLoginRedirect = this.setLoginRedirect.bind(this)
+          this.renderRedirect = this.renderRedirect.bind(this)
+          this.handlePreloader = this.handlePreloader.bind(this)
+          
+      }
 
     handlePreloader() {
       $(".se-pre-con").fadeOut("slow");
     }
 
+    setRedirect = () => {
+        this.setState({
+          redirect: true,
+        })
+      }
 
-    getUserData = () => {
-      window.addEventListener('load', this.handlePreloader());
-        let localUser = localStorage.getItem('user')
-        console.log(localUser)
-        let allChallenges = [
-            {
-                name: '2019 MLB PICK EM',
-                startDate: '2019-03-28',
-                info: 'MLB Season is here! Checkout out the 2019 MLB Challenge!',
-                img: 'mlbpickemchallenge.jpeg',
-                url: '/action'
-            },
-            {
-                name: '2019 NBA PLAYOFF CHALLENGE',
-                startDate: '2019-04-01',
-                info: 'Checkout out the 2019 NBA Playoff Challenge!',
-                img: 'nbaplayoffchallenge.jpg',
-                url: '/action'
-            },
-            {
-                name: '2019 MASTERS CHALLENGE',
-                startDate: '2019-04-07',
-                info: 'Looking for a fun way to cheer on your favorite golfers in Augusta? Check out the 2019 Masters Challenge!',
-                img: 'masterschallenge.jpg',
-                url: '/action'
-            },
-        ]
-        let myChallenges = [
-            {
-                name: '2019 MLB PICK EM',
-                startDate: '2019-03-28',
-                url: '/action'
-            },
-            {
-                name: '2019 NBA PLAYOFF CHALLENGE',
-                startDate: '2019-04-01',
-                url: '/action'
-            },
-            {
-                name: '2019 MASTERS CHALLENGE',
-                startDate: '2019-04-07',
-                url: '/action'
-            },
-        ]
-        API.getUser(localUser)
-          .then(response => {
-            let winsCount = response.data[0].wins.length
-              this.setState({
-                id: response.data[0]._id,
-                username: response.data[0].username,
-                firstName: response.data[0].firstName,
-                lastName: response.data[0].lastName,
-                profPic: response.data[0].img,
-                wins: response.data[0].wins,
-                winsCount: winsCount,
-                myChallenges: myChallenges,
-                allChallenges: allChallenges
-              })
+    setLoginRedirect = () => {
+        this.setState({
+          loginRedirect: true,
+        })
+      }
 
-          })
-          .catch(err => console.log(err))
-    }
+    renderRedirect = () => {
+        window.addEventListener('load', this.handlePreloader());
+        if (this.state.redirect) {
+            return <Redirect to='/signup' />
+          }
+        else if (this.state.loginRedirect) {
+          return <Redirect to='/login' />
+        }
+      }
 
     render() {
-
+        let background1 = require('../../css/images/landing2.jpeg')
         return (
-            <div id='actionPage'>
+            <div id='landingPage'>
+              {this.renderRedirect()}
               <div className="se-pre-con"></div>
               <LandingBar 
                 username={this.state.username}
               />
-              <div className='row landingBoard'>
-                <div className="col-md-3 myChallenges">
-                  <h1>
-                      My Challenges
-                  </h1>
-                  <MyChallenges 
-                    username={this.state.username}
-                    challenges={this.state.myChallenges}
-                  />
-                </div>
-                <div className="col-md-6 upcomingChallenges">
-                  <h1>
-                      Upcoming Challenges
-                  </h1>
-                  <UpcomingChallenges 
-                    challenges={this.state.allChallenges}
-                  />
-                </div>
-                <div className="col-md-3 messageBoard">
-                  <h1>
-                      Message Board
-                  </h1>
-                </div>
-              </div>
+              <LazyHero 
+                imageSrc={background1}
+                className='lazyHero'
+                parallaxOffset={100}
+                minHeight='700px'
+              >
+                <p className='heroTitle'>Home of sports <em className='emphasis'>Challenges!</em></p> <br />
+                <p className='heroText'>
+                  Join today and begin competing in the ultimate sports <em>Challenges</em> ranging across all major sports leagues and events! 
+                </p> <br />
+                <Button outline color='warning' className='signUpButton' onClick={this.setRedirect}>
+                  SIGN UP
+                </Button>
+                <Button outline color='warning' className='loginButton' onClick={this.setLoginRedirect}>
+                  LOGIN
+                </Button>
+              </LazyHero>
+              
             </div>
         )
     }

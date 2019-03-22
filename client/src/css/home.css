@@ -1,0 +1,414 @@
+#homePage {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10%;
+    font-family: 'Audiowide', cursive;
+    /* font-family: 'Special Elite', cursive; */
+}
+
+.homePageBoard {
+    /* margin-top: 8%; */
+    color: gold;
+}
+
+/* MY CHALLENGES */
+.myChallenges {
+    text-align: center;
+    overflow: auto !important;
+}
+.myChallenges .challengeButton {
+    margin-top: 5%;
+}
+
+.myChallenges .btn {
+    white-space: pre-wrap !important;
+}
+
+
+/* UPCOMING CHALLENGES */
+.upcomingChallenges {
+    text-align: center;
+    overflow: auto !important;
+    height: 750px;
+}
+.upcomingChallenges .card {
+    border: none;
+}
+.upcomingChallenges .challengeCard {
+    /* float: left; */
+    display: inline-block;
+    margin: 0 auto ;
+    margin-bottom: 5%;
+    margin: 1%;
+    width: 40%;
+    border: solid 2px gold;
+    border-radius: 1%;
+}
+.challengeCard .card-title {
+    font-weight: bolder;
+    font-size: 16px;
+}
+.challengeCard .card-subtitle {
+    font-size: 12px;
+    color: red;
+    margin: 5px;
+}
+.challengeCard .card-body {
+    color: gold;
+    background-color: #209CEE;
+}
+.challengeCard .card-link {
+    color: gold;
+    padding: 2%;
+    font-weight: bolder;
+}
+.challengeCard .card-link:hover {
+    background-color: gold !important;
+    color: #209CEE !important;
+    cursor: pointer !important;
+}
+.challengeCard .signUpDate {
+    color: white !important;
+}
+.challengeCard .rulesLink {
+    color: white !important;
+}
+.challengeCard .signUp {
+    color: lightgreen !important;
+}
+.challengeCard .challengeInfo {
+    font-size: 14px;
+}
+
+
+/* CHALLENGE MODAL */
+.challengeModal {
+    align-content: center;
+    color: gold;
+}
+
+.challengeModal strong {
+    margin-left: 1%;
+    margin-right: 1%;
+    color: lightgreen !important;
+}
+
+.thisChallenge, .challengeStatus {
+    margin: 0 auto;
+}
+
+.buyIn {
+    color: lightgreen !important;
+}
+
+.signUpDate, .remainingSpots {
+    color: gold !important;
+}
+
+
+/* MESSAGE BOARD */
+.messageBoardPage {
+    height: 750px;
+    text-align: center;
+}
+.messageBoard {
+    height: 400px !important;
+    text-align: center;
+}
+
+.messageList {
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+.messageBox {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    margin-top: 10%;
+    padding-top: 5%;
+    border-top: solid 3px gold;
+}
+
+#messageType {
+    margin-bottom: 1%;
+}
+
+.messageBox .submit {
+    margin-top: 2%;
+}
+
+.rce-mbox-text {
+    color: black !important;
+    font-size: 12px;
+    margin: 2%;
+    text-align: left !important;
+}
+
+.rce-mbox-time {
+    font-size: 8px;
+}
+
+
+@media (min-width: 930px) and (max-width: 1100px) {
+    .homePageBoard h1 {
+        font-size: 20px !important;
+    }
+
+    .challengeCard {
+        margin: 0 auto;
+        width: 100%; 
+        max-height: 100% !important; 
+        height: 200px;
+        overflow: scroll;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 929px) {
+    /* .homePageBoard {
+        margin-top: 14% !important;
+    } */
+    .homePageBoard h1 {
+        font-size: 18px !important;
+    }
+
+    .upcomingChallenges {
+        min-width: 70%;
+    }
+
+    .challengeCard {
+        font-size: 15px;
+        margin: 0 auto;
+        width: 100%; 
+        max-height: 100% !important; 
+        height: 200px;
+        overflow: scroll;
+    }
+
+    .challengeCard .card-title {
+        font-weight: bolder;
+        font-size: 13px !important;
+    }
+    .challengeCard .card-subtitle {
+        font-size: 12px;
+        color: red;
+        margin: 5px;
+    }
+
+    .rce-mbox {
+        width: 70%;
+    }
+    .rce-mbox-text {
+        font-size: 15px;
+    }
+    
+    .rce-mbox-time {
+        font-size: 10px;
+    }
+
+    .myChallenges .challengeButton {
+        font-size: 10px;
+    }
+
+    .myChallenges {
+        padding: 0;
+    }
+
+    .messageBoardPage {
+        margin-top: 8%;
+        min-width: 100%;
+        text-align: center;
+        border-top: solid 2px gold;
+    }
+
+    .messageBoardPage h1 {
+        padding-top: 5%;
+    }
+    
+    .messageBox {
+        position: relative !important;
+        width: 90%;
+        text-align: center;
+        /* align-content: center; */
+        margin-left: 5% !important;
+    }
+
+    .messageBoard {
+        height: 700px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 470px) and (max-width: 639px) {
+    /* .homePageBoard {
+        margin-top: 18% !important;
+    } */
+    .homePageBoard h1 {
+        font-size: 18px !important;
+    }
+
+    .upcomingChallenges {
+        min-width: 70%;
+        padding-right: 0;
+    }
+
+    .challengeCard {
+        font-size: 12px;
+        margin: 0 auto;
+        width: 90% !important; 
+        /* max-height: 100% !important;  */
+        height: 200px;
+        overflow: scroll;
+    }
+
+    .challengeCard .card-title {
+        font-weight: bolder;
+        font-size: 16px !important;
+    }
+    .challengeCard .card-subtitle {
+        font-size: 14px;
+        color: red;
+        margin: 5px;
+    }
+
+    .challengeInfo {
+        font-size: 12px !important;
+    }
+    .rulesLink {
+        font-size: 13px;
+    }
+    .signUp {
+        font-size: 13px;
+    }
+    .rce-mbox {
+        width: 70%;
+    }
+    .rce-mbox-text {
+        font-size: 12px;
+    }
+    
+    .rce-mbox-time {
+        font-size: 8px;
+    }
+
+    .myChallenges .challengeButton {
+        font-size: 10px;
+    }
+
+    .myChallenges {
+        margin: 1%;
+    }
+
+    .messageBoardPage {
+        margin-top: 8%;
+        min-width: 100%;
+        text-align: center;
+        border-top: solid 2px gold;
+    }
+
+    .messageBoardPage h1 {
+        padding-top: 5%;
+    }
+    
+    .messageBox {
+        position: relative !important;
+        width: 90%;
+        text-align: center;
+        /* align-content: center; */
+        margin-left: 5% !important;
+    }
+
+    .messageBoard {
+        height: 700px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 469px) {
+    .homePageBoard h1 {
+        font-size: 14px !important;
+    }
+
+    .upcomingChallenges {
+        min-width: 70%;
+        padding-right: 0;
+        padding-left: 5%;
+    }
+
+    .challengeCard {
+        font-size: 9px;
+        margin: 0 auto;
+        width: 90% !important; 
+        /* max-height: 100% !important;  */
+        height: 200px;
+        overflow: scroll;
+    }
+
+    .challengeCard .card-title {
+        font-weight: bolder;
+        font-size: 12px !important;
+    }
+    .challengeCard .card-subtitle {
+        font-size: 12px;
+        color: red;
+        margin: 5px;
+    }
+
+    .challengeInfo {
+        font-size: 10px !important;
+    }
+    .rulesLink {
+        font-size: 11px;
+    }
+    .signUp {
+        font-size: 11px;
+    }
+    .rce-mbox {
+        width: 70%;
+    }
+    .rce-mbox-text {
+        font-size: 12px;
+    }
+    
+    .rce-mbox-time {
+        font-size: 8px;
+    }
+
+    .myChallenges .challengeButton {
+        font-size: 10px;
+    }
+
+    .myChallenges {
+        padding: 0;
+    }
+
+    .messageBoardPage {
+        margin-top: 8%;
+        min-width: 100%;
+        text-align: center;
+        border-top: solid 2px gold;
+    }
+
+    .messageBoardPage h1 {
+        padding-top: 5%;
+    }
+    
+    .messageBox {
+        position: relative !important;
+        width: 90%;
+        text-align: center;
+        /* align-content: center; */
+        margin-left: 5% !important;
+    }
+
+    .messageBoard {
+        height: 700px;
+        padding: 0;
+    }
+}
+
+
+
+
+

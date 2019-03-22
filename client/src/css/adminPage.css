@@ -1,0 +1,64 @@
+.formContainer {
+    margin-top: 100px;
+  }
+
+.formAdmin {
+    color: gold;
+    max-width: 60%;
+    margin-left: 20%;
+  }
+
+a {
+    color: white;
+  }
+
+#adminPage {
+    font-family: 'Special Elite', cursive;
+    margin-top: 7%;
+    text-align: center;
+  }
+
+#adminPage h1 {
+    color: gold !important;
+    margin-bottom: 2%;
+}
+
+#adminPage h3 {
+  color: white;
+}
+
+#chalDeletionPage {
+    font-family: 'Special Elite', cursive;
+    margin-bottom: 10%;
+}
+
+.challengeDeletionModal {
+    font-family: 'Special Elite', cursive;
+    color: gold;
+}
+
+.deletionRow p {
+    font-size: 22px;
+    margin: 0 auto;
+}
+
+.deletionRow strong {
+    color: red;
+    font-size: 14px;
+    margin: 0 auto;
+}
+
+#adminActions .btn {
+  margin: 2%;
+}
+
+.challengeButtons {
+  margin: 1%;
+}
+
+@media (min-width: 200px) and (max-width: 900px) {
+  #adminPage {
+    margin-top: 20% !important;
+  }
+
+}

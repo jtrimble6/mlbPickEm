@@ -6,13 +6,23 @@ import SignInError from "../../components/alerts/SignInError";
 import '../../css/login.css'
 
 class Login extends Component {
-
-    state = {
+  constructor(props) {
+      super(props) 
+      this.state = {
         username: '',
         password: '',
         redirect: false,
         signInError: false
-    }
+        }
+
+        this.setRedirect = this.setRedirect.bind(this)
+        this.renderRedirect = this.renderRedirect.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleFormSubmit = this.handleFormSubmit.bind(this)
+
+  }
+
+    
 
     componentDidMount() {
         console.log('Ready')
@@ -26,7 +36,7 @@ class Login extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect === true) {
-          return <Redirect to='/landing' />
+          return <Redirect to='/home' />
         }
         else {}
     }
@@ -44,35 +54,46 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
+        console.log('LOGIN: ', userData)
 
         API.loginUser(userData)
           .then(response => {
-              if (response.status === 200) {
-                  console.log('Authenticated!')
-                  let thisUser = response.data.username
-                  this.props.updateUser({
-                      loggedIn: true,
-                      username: response.data.username
-                  })
-                  let sessionData = {
-                      sessionUserID: response.data.username
-                  }
-                  API.createSession(sessionData)
-                    .then(response => {
-                        this.props.updateUser({
-                            sessionID: response.data._id
-                        })
-                    }).catch(error => {
-                        console.log('Login Error: ', error)
-                        this.setState({
-                            signInError: true
-                        })
-                    })
-                    API.getUser(thisUser)
-                      .then(response => {
-                        console.log(response)
-                        this.setRedirect()
-                      })
+            if (response.status === 200) {
+            console.log('Authenticated!')
+            console.log('USER DATA: ', response.data)
+            let thisUser = response.data.username
+            // if (response.data.admin) {
+            //     this.props.updateUser({
+            //         adminLoggedIn: true
+            //     })
+            // }
+            this.props.updateUser({
+                userLoggedIn: true,
+                userUsername: thisUser
+            })
+            let sessionData = {
+                sessionUserId: thisUser
+            }
+            console.log('THIS USER: ', thisUser)
+            console.log('THIS SESSION DATA: ', sessionData)
+
+            API.createUserSession(sessionData)
+                .then(response => {
+                console.log('RESPONSE: ', response)
+                this.props.updateUser({
+                    userSessionId: response.data._id
+                })
+            }).catch(error => {
+                console.log('Login Error: ', error)
+                this.setState({
+                    signInError: true
+                })
+            })
+            API.getUser(thisUser)
+                .then(response => {
+                console.log('THIS USER: ', response)
+                this.setRedirect()
+                })
               }
           }).catch(error => {
               this.setState({

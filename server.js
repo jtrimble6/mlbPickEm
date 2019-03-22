@@ -3,14 +3,23 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require('morgan')
 const session = require('express-session');
-const userRoutes = require("./routes/API/userAPI");
+const messageBoardRoutes = require('./routes/API/messageBoardAPI')
+const adminRoutes = require('./routes/API/adminAPI')
+const userRoutes = require('./routes/API/userAPI')
+const adminSessionRoutes = require("./routes/API/adminSessionAPI");
 const sessionRoutes = require("./routes/API/sessionAPI");
-const gameRoutes = require('./routes/API/gameAPI');
-const teamRoutes = require('./routes/API/teamAPI');
-const resultRoutes = require('./routes/API/resultAPI');
-const dbConnection = require("./server/database");
-const MongoStore = require('connect-mongo')(session)
-const passport = require('./server/passport');
+const mlbGameRoutes = require('./routes/API/mlbGameAPI')
+const mlbTeamRoutes = require('./routes/API/mlbTeamAPI')
+const nbaGameRoutes = require('./routes/API/nbaGameAPI')
+const nbaTeamRoutes = require('./routes/API/nbaTeamAPI')
+const challengeRoutes = require('./routes/API/challengeAPI')
+// const mlbPickEmUserRoutes = require("./routes/API/mlbPickEmAPI/mlbPickEmUserAPI");
+// const mlbPickEmGameRoutes = require('./routes/API/mlbPickEmAPI/mlbPickEmGameAPI');
+// const mlbPickEmTeamRoutes = require('./routes/API/mlbPickEmAPI/mlbPickEmTeamAPI');
+// const dbConnection = require("./server/database");
+// const MongoStore = require('connect-mongo')(session)
+const userPassport = require('./server/userPassport');
+const adminPassport = require('./server/adminPassport')
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -19,6 +28,8 @@ const PORT = process.env.PORT || 3001;
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // Serve up static assets (usually on heroku)
 // if (process.env.NODE_ENV === "production") {
@@ -27,11 +38,11 @@ app.use(bodyParser.json());
 
 app.use('/mlbpickem/', express.static(path.join(__dirname, "client/build")));
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(userPassport.initialize(), adminPassport.initialize());
+app.use(userPassport.session(), adminPassport.session());
 
 // Add routes, both API and view
-app.use(userRoutes, sessionRoutes, gameRoutes, teamRoutes, resultRoutes);
+app.use(messageBoardRoutes, adminRoutes, adminSessionRoutes, userRoutes, sessionRoutes, challengeRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaTeamRoutes);
 
 app.use(
   session({
@@ -51,11 +62,21 @@ app.use(
 //   })
 // );
 
-passport.serializeUser(function(user, done) {
+adminPassport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+adminPassport.deserializeUser(function(id, done) {
+  Admin.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+userPassport.serializeUser(function(user, done) {
   done(null, user._id);
 });
  
-passport.deserializeUser(function(id, done) {
+userPassport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
   });

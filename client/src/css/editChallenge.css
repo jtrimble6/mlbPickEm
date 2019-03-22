@@ -1,0 +1,13 @@
+#editChallengePage {
+    color: gold;
+    /* margin: 0 auto; */
+}
+
+#editChalForm {
+    justify-content: center;
+    /* margin-top: 5%; */
+}
+
+.formPlaceholder {
+    text-align: center;
+}

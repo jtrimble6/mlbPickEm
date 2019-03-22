@@ -1,8 +1,4 @@
 @media (min-width: 1300px) {
-    body {
-        background-color: #4d4d4d
-    }
-    
     #actionPage {
         margin-top: 5%;
         margin-left: 5%;
@@ -27,14 +23,12 @@
     .leaderRow {
         max-height: 20px;
     }
+
 }
 
 @media (min-width: 1000px) and (max-width: 1299px) {
-    body {
-        background-color: #4d4d4d
-    }
-    
     #actionPage {
+        background-color: #4d4d4d;
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 10%;
@@ -65,11 +59,8 @@
 }
 
 @media (min-width: 776px) and (max-width: 999px) {
-    body {
-        background-color: #4d4d4d
-    }
-    
     #actionPage {
+        background-color: #4d4d4d;
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 10%;
@@ -109,11 +100,8 @@
 }
 
 @media (max-width: 775px) {
-    body {
-        background-color: #4d4d4d
-    }
-    
     #actionPage {
+        background-color: #4d4d4d;
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 5%;
@@ -152,6 +140,9 @@
 
     tr {
         font-size: 15px;
+    }
+    .winsTitle {
+        color: red;
     }
 }
 

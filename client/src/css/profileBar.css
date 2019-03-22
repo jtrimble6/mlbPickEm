@@ -6,6 +6,7 @@
 .teamButton {
   width: 90px;
   height: 100px;
+  border: solid 2px #209CEE
 }
 
 .teamButton img {
@@ -39,7 +40,7 @@
 .profileBar .jumbotron {
   padding: 8px;
   height: 220px;
-  background-color: darkblue;
+  background-color: #209CEE;
 }
 
 .display-4 {
@@ -51,7 +52,7 @@
 
 .recentPicks {
   color: white;
-  background-color: darkblue;
+  background-color: #209CEE;
   height: 220px !important;
   /* width: 90%; */
   padding: 1%;
@@ -66,11 +67,15 @@
   position: relative;
   right: 0;
   border-radius: 2%;
-  display: inline-block;
+  line-height: 1.5em;
 }
+.recentPicks .table {
+  border-top: none !important;
+}
+
 .win {
   background-color: lightgreen !important;
-  color: darkblue !important;
+  color: #209CEE !important;
 }
 .loss {
   background-color: red !important;
@@ -78,38 +83,38 @@
 }
 .todaysPick {
   background-color: gold !important;
-  color: darkblue !important;
+  color: #209CEE !important;
 }
 .futurePick {
   background-color: lightgrey !important;
-  color: darkblue !important;
+  color: #209CEE !important;
 }
 .pending {
-  background-color: darkblue !important;
+  background-color: #209CEE !important;
   color: gold !important;
 }
 .today {
   background-color: gold !important;
-  color: darkblue;
-  border: solid darkblue 2px;
+  color: #209CEE;
+  border: solid #209CEE 2px;
 }
 .noGame {
   background-color: lightgrey !important;
-  color: darkblue !important;
+  color: #209CEE !important;
 }
 
 .future {
-  background-color: darkblue !important;
+  background-color: #209CEE !important;
   color: white !important;
 }
 
 .past {
   background-color: darkgrey !important;
-  color: darkblue !important;
+  color: #209CEE !important;
 }
 
 th {
-  background-color: darkblue;
+  background-color: #209CEE;
   color: gold;
   border-top: none !important;
 }
@@ -141,20 +146,20 @@ h4.winsTitle {
   font-size: 60%;
   /* max-width: 20%; */
   font-weight: bolder;
-  color: darkblue;
+  color: #209CEE;
   background-color: gold;
   padding: 5px;
   margin-bottom: 0;
 }
 
 h4.winsHeader {
-  margin-top: 1%;
+  margin-top: 5%;
   font-size: 60%;
   font-weight: bolder;
-  color: darkblue;
+  color: #209CEE;
   background-color: gold;
   padding: 5px;
-  margin-bottom: 0;
+  margin-bottom: 5%;
   /* width: 100%; */
 }
 
@@ -162,12 +167,13 @@ h2 {
   margin-bottom: 0;
 }
 
-@media (min-width: 950px) and (max-width: 1326px) {
-  .profileBar {
+@media (min-width: 950px) {
+  /* .profileBar {
     margin-top: 9% !important;
-  }
+  } */
   .recentPicks {
     max-width: 80% !important;
+    line-height: 1.5em;
   }
   h4.winsHeader {
     margin-top: 2%;
@@ -175,32 +181,47 @@ h2 {
 }
 
 @media (min-width: 805px) and (max-width: 949px) {
-  .profileBar {
+  /* .profileBar {
     margin-top: 11% !important;
-  }
+  } */
   .recentPicks {
     max-width: 77%;
+    line-height: 1.5em;
+  }
+  .recentPicks .col-10 {
+    max-width: 80%;
   }
   h4.winsHeader {
     margin-top: 2%;
   }
+  .display-4 {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 695px) and (max-width: 804px) {
-  .profileBar {
+  /* .profileBar {
     margin-top: 13% !important;
-  }
+  } */
   /* .recentPicksRow {
      min-width: 150%; 
   } */
   .recentPicks {
     max-width: 75%;
+    line-height: 1.5em;
   }
   .recentPicks tr {
-    font-size: 50%;
+    font-size: 14px;
+    line-height: 1.5em;
+  }
+  .recentPicks .col-10 {
+    max-width: 75%;
   }
   .display-4 {
-    font-size: 17px;
+    font-size: 14px;
+  }
+  .display-4 .col-3-md {
+    width: 100% !important;
   }
   .title {
     width: 50px;
@@ -212,17 +233,21 @@ h2 {
   h4.winsHeader {
     width: 100%;
   }
+  .recordRow {
+    width: 40%;
+  }
 }
 
 @media (min-width: 580px) and (max-width: 694px) {
-  .profileBar {
+  /* .profileBar {
     margin-top: 13% !important;
-  }
+  } */
   .recentPicks {
-    max-width: 70%;
+    max-width: 60% !important;
   }
   .recentPicks tr {
-    font-size: 7px;
+    line-height: 1.5em;
+    font-size: 12px;
   }
   .title {
     width: 30px;
@@ -239,18 +264,21 @@ h2 {
   h4.winsTitle {
     width: 70%;
   }
+  .recordRow {
+    width: 40%;
+  }
 }
 
 @media (min-width: 500px) and (max-width: 579px) {
-  .profileBar {
-    margin-top: 13% !important;
-  }
   .recentPicks {
     max-width: 65%;
   }
   .recentPicks tr {
-    font-size: 6px;
+    font-size: 10px;
     line-height: 1em;
+  }
+  .recentPicks .col-10 {
+    max-width: 80%;
   }
   .title {
     width: 30px;
@@ -267,28 +295,38 @@ h2 {
   .display-4 {
     font-size: 15px;
   }
+  .recordRow {
+    width: 40%;
+  }
 }
 
 @media (min-width: 400px) and (max-width: 499px) {
-  .profileBar {
-    margin-top: 17% !important;
-  }
   .recentPicks {
-    max-width: 70%;
+    width: 70%;
   }
   .recentPicks th {
     font-size: 10px;
   }
   .recentPicks tr {
-    min-width: 100%;
-    font-size: 5px;
+    /* min-width: 100%; */
+    font-size: 10px;
     line-height: 1em;
+  }
+  .profileBar .col-4 {
+    flex: 0 0 33%;
+    max-width: 50%;
+  }
+  .profileBar .col-8 {
+    max-width: 240px;
+  }
+  .recentPicks .col-10 {
+    max-width: 80%;
   }
   .title {
     width: 30px;
   }
   .title h3 {
-    font-size: 12px;
+    font-size: 10px;
   }
   h4.winsHeader {
     width: 70%;
@@ -296,42 +334,62 @@ h2 {
   h4.winsTitle {
     width: 70%;
   }
+  .display-4 h4 {
+    font-size: 13px;
+  }
   .display-4 {
-    font-size: 10px;
+    font-size: 14px;
   }
   .teamLogos {
     margin-right: 3%;
   }
+  .recordRow {
+    width: 70%;
+  }
+  .jumbotron {
+    width: 80%;
+    padding-right: 0;
+  }
+  .profileBar .col-8 {
+    /* max-width: 240px !important; */
+    padding-right: 0 !important;
+  }
+  .profileBar .col-10 {
+    flex: 0 0 75%;
+  }
+  /* .recentPicksRow {
+    width: 170%;
+  } */
 }
 
-@media (min-width: 300px) and (max-width: 399px) {
-  .profileBar {
-    margin-top: 25% !important;
-  }
+@media (max-width: 399px) {
   .profileBar .col-1 {
     padding-left: 5px;
     padding-right: 0;
   }
   .profileBar .col-4 {
-    min-width: 40%;
+    min-width: 50%;
   }
   .profileBar .col-8 {
     max-width: 50%;
   }
-  /* .recentPicksRow {
-    display: inline-block;
-  } */
   .recentPicks {
-    flex: 0 0 83.333333%;
+    max-width: 70%;
+    flex: 0 0 99.333333%;
+  }
+  .recentPicks .col-10 {
+    width: 80% !important;
   }
   .recentPicks th {
     font-size: 7px;
   }
   .recentPicks tr {
-    /* max-width: 65%; */
-    font-size: 4px;
-    line-height: 1.5em;
+    font-size: 9px;
+    line-height: 1em;
   } 
+  .recentPicks td {
+    max-height: 5px !important;
+  }
   .title {
     float: left;
     width: 10px !important;
@@ -340,18 +398,50 @@ h2 {
     font-size: 12px;
   }
   h4.winsHeader {
+    font-size: 8px !important;
     width: 70%;
   }
   h4.winsTitle {
     width: 70%;
   }
   .display-4 {
-    font-size: 7px;
+    font-size: 10px;
+  }
+  .display-4 h4 {
+    font-size: 12px;
   }
 
   .teamLogos {
     margin-right: 3%;
   }
+  .recordRow {
+    width: 40%;
+  }
+  /* .recentPicksRow {
+    width: 110%;
+  } */
+
 }
 
+@media (min-width: 372px) and (max-width: 376px) {
+  /* .recentPicksRow{
+    min-width: 180%;
+  } */
+}
 
+@media (max-width: 450px) {
+  .profileBar .jumbotronMain .display-4 .recordRow {
+    min-width: 100%;
+  }
+}
+@media (min-width: 760px) and (max-width: 770px) {
+  .profileBar .jumbotronMain .display-4 .recordRow {
+    min-width: 100%;
+  }
+}
+.mainPicks {
+  width: 60% !important;
+}
+.recentPicks td {
+  border-top: none;
+}

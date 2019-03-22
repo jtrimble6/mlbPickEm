@@ -1,7 +1,13 @@
 module.exports = {
+    MessageBoard: require('./messageBoard'),
+    Admin: require('./admin'),
+    AdminSession: require('./adminSession'),
     User: require('./user'),
-    Session: require('./session'),
-    Game: require('./game'),
-    Team: require('./team'),
-    Result: require('./result')
+    UserSession: require('./session'),
+    MlbGame: require('./mlbGame'),
+    MlbTeam: require('./mlbTeam'),
+    NbaGame: require('./nbaGame'),
+    NbaTeam: require('./nbaTeam'),
+    Challenge: require('./challenge'),
+    MlbPickEm: require('./mlbPickEm'),
 }

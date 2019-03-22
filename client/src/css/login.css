@@ -8,6 +8,19 @@
     margin-left: 20%;
 }
 
+.formLoginHeading {
+    text-align: center;
+}
+
+.registration {
+    text-align: center;
+}
+
 a {
     color: white;
+}
+
+.btn-primary {
+    color: #209CEE;
+    background-color: gold !important;
 }

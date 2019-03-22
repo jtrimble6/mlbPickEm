@@ -3,15 +3,17 @@ import React, { Component } from 'react';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
 
-class Navbar extends Component {
+class LandingBar extends Component {
     constructor(props) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        // this.logout = this.logout.bind(this);
         this.state = {
             collapsed: true
         }
+    }
+
+    componentDidMount() {
     }
 
     toggleNavbar() {
@@ -20,35 +22,32 @@ class Navbar extends Component {
         })
       }
 
-    // logout() {
-    //     let localUser = localStorage.getItem('user')
-    //     let sessionData = {
-    //         sessionUserID: localUser
-    //       }
-    //     console.log('LOGOUT: ', sessionData)
-    //     // API.logout(sessionData)
-    //     //   .then(res => console.log(res))
-    //     //   .catch(err => console.log(err))
-    // }
-
     render() {                                                                  
         return (
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
-                    <a className="navbar-brand js-scroll-trigger" href="/">The Company</a>
-                    <h2 className="navbar-brand js-scroll-trigger username">({this.props.username})</h2>
+                    {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
+                    <a className="navbar-brand" href="/">
+                        <img src={require('../../css/images/bannerLogo.png')} alt='SportHabits' />
+                    </a>
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>
                       <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar className='navItems'>
+                            {/* <NavItem>
+                                <NavLink href="/challenges">CHALLENGES</NavLink>
+                            </NavItem> */}
                             <NavItem>
-                                <NavLink href="/aboutUser">About</NavLink>
+                                <NavLink href="/about">ABOUT</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/saved">Saved</NavLink>
+                                <NavLink href="/contact">CONTACT</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/">Sign Out</NavLink>
+                                <NavLink href="/login">LOGIN/SIGN UP</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/admin">ADMIN</NavLink>
                             </NavItem>
                         </Nav>
                       </Collapse>
@@ -56,21 +55,30 @@ class Navbar extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                       <ul className="navbar-nav ml-auto">
+                        {/* <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="/challenges">CHALLENGES</a>
+                        </li> */}
                         <li className="nav-item">
-                            <a className="nav-link js-scroll-trigger" href="/aboutUser">About</a>
+                            <a className="nav-link js-scroll-trigger" href="/about">ABOUT</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link js-scroll-trigger" href="/saved">Saved</a>
+                            <a className="nav-link js-scroll-trigger" href="/contact">CONTACT</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link js-scroll-trigger" href="/">Sign Out</a>
+                            <a className="nav-link js-scroll-trigger" href="/login">LOGIN/SIGN UP</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="/admin">ADMIN</a>
                         </li>
                       </ul>
                     </div>
                 </div>
+                <footer class="footer">
+                  <p>WWW.SPORTHABITS.COM</p>
+                </footer>
             </nav>
         )
     }
 }
 
-export default Navbar
+export default LandingBar

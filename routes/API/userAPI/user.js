@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const userController = require("../../../controllers/userController");
-const passport = require("../../../server/passport");
+const passport = require("../../../server/userPassport");
 const express = require("express");
 
 router.route("/")
@@ -41,8 +41,7 @@ router.get('/', (req, res, next) => {
 
 router.route('/:id')
   .get(userController.findById)
-  .put(userController.findOneAndUpdate)
-  .post(userController.addWin)
+  .put(userController.addChallenge)
   
 //   .delete(userController.findOneAndDelete)
 
@@ -52,10 +51,9 @@ router.route('/:id')
 // router.route('/:id/picks/:status')
 //   .put(userController.updatePick)
   
-router.route('/:id/:date')
-  .delete(userController.findOneAndDelete)
-  .put(userController.updatePick)
-  .get(userController.findByDate)
+// router.route('/:id/:date')
+//   .delete(userController.findOneAndDelete)
+//   .get(userController.findByDate)
 
 
 

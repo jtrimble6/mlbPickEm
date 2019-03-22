@@ -7,76 +7,54 @@ import '../../css/leaderboard.css'
 import Moment from 'moment'
 import Countdown from 'react-countdown-now';
 import $ from 'jquery'
-import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
+// import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 //import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-//import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
+import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
 
 class Leaderboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // timerEnded: false,
-            isActive: false,
-            hover: false,
-            allUsers: [],
-            leaders: [],
-            modal: false,
-            activeUser: {},
-            newRecentPicks: [],
-            thisRecentPick: '',
-            userWin: '',
-            todaysPick: 'No Pick',
-            thisDate: '',
-            userPlace: {},
-            teams: [
-              { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
-              { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
-              { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
-              { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
-              { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
-              { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
-              { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
-              { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
-              { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
-              { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
-              { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
-              { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
-              { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
-              { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
-              { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
-              { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
-              { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
-              { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
-              { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
-              { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
-              { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
-              { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
-              { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
-              { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
-              { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
-              { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
-              { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
-              { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
-              { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
-              { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
-            ]
+          challengeId: '',
+          challengeData: {},
+          currentUser: {},
+          teams: [],
+          isActive: false,
+          hover: false,
+          allUsers: [],
+          leaders: [],
+          modal: false,
+          activeUser: {},
+          activeUserUsername: '',
+          activeUserWins: [],
+          activeUserPicks: [],
+          activeUserPrevPicks: [],
+          prevPicks: [],
+          thisRecentPick: '',
+          userWin: '',
+          todaysPick: 'No Pick',
+          thisDate: '',
+          userPlace: {},
         }
         this.toggle = this.toggle.bind(this);
         // this.toggleHover = this.toggleHover.bind(this);
         this.handlePreloader = this.handlePreloader.bind(this);
-        this.getUsers = this.getUsers.bind(this);
+        this.getUser = this.getUser.bind(this);
         this.getFirstGame = this.getFirstGame.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
+        this.loadLogo = this.loadLogo.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.createLeaderboard = this.createLeaderboard.bind(this);
+        this.getChallengeData = this.getChallengeData.bind(this);
+        this.getUserData = this.getUserData.bind(this);
     }
     componentDidMount() {
-        // window.addEventListener('load', this.handlePreloader());
-        this.getUsers()
-        this.getFirstGame()
+      this.getChallengeData()
+      this.getFirstGame()
+        
       }
 
     handlePreloader() {
@@ -96,22 +74,62 @@ class Leaderboard extends Component {
     //   this.setState({hover: !this.state.hover})
     // }
 
-    getUsers = () => {
+    getChallengeData = () => {
+      // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let allUserData = []
-      API.getUsers()
+      let challengeId = localStorage.getItem('userChallengeId')
+      this.setState({
+        challengeId: challengeId
+      })
+      API.getChallenge(challengeId)
         .then(res => {
-          for (var q=0; q<res.data.length; q++) {
-              let userData = res.data[q]
-              allUserData.push(userData)
-          }
-            self.setState({ allUsers: allUserData })
-            self.createLeaderboard()
+          // console.log(res)
+          self.setState({
+            challengeData: res.data[0],
+            allUsers: res.data[0].users,
+            teams: res.data[0].teams
+          })
+          self.getUserData()
+  
         })
+        .catch(err => console.log(err))
+      }
+
+    getUserData = () => {
+      let localUser = localStorage.getItem('user')
+      let chalUsers = this.state.challengeData.users
+
+      // FILTER OUT THIS USER AND SET STATE
+      let chalFilter = (challengers) => {
+        return challengers.username === localUser
+      }
+      let thisUser = chalUsers.filter(chalFilter)
+
+      this.setState({
+        currentUser: thisUser[0],
+        username: thisUser[0].username,
+        firstName: thisUser[0].firstName,
+        lastName: thisUser[0].lastName,
+        wins: thisUser[0].wins,
+        winsCount: thisUser[0].wins.length,
+        myPicks: thisUser[0].picks,
+      })
+
+      this.createLeaderboard()
+      // console.log('CURRENT USER: ', this.state.currentUser)
+      // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
+      }
+
+    getUser = () => {
+      console.log('ACTIVE USER: ', this.state.activeUser)
+      this.findRecentPicks()
+      this.changeLogo()
+      this.toggle()
+      
       }
 
     createLeaderboard = () => {
-        let users = this.state.allUsers
+        let users = this.state.challengeData.users
         // console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
             return { index: i, value: el.wins.length }
@@ -137,7 +155,7 @@ class Leaderboard extends Component {
       }
 
     findRecentPicks = () => {
-      let userPicks = this.state.activeUser.picks
+      let userPicks = this.state.activeUserPicks
       let sortedPicks = userPicks.sort(function(a, b) {
           if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
               return -1;
@@ -162,108 +180,287 @@ class Leaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      // console.log('SORTED ARRAY: ', sortedPicks)
-      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      console.log('SORTED ARRAY: ', sortedPicks)
+      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
-        todaysPick: todaysUserPick,
-        newRecentPicks: prevPicks
+          todaysPick: todaysUserPick,
+          prevPicks: prevPicks
         })
       
       }
 
-    changeLogo = () => {
-      this.setState({
-        teams: [
-          { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
-          { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
-          { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
-          { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
-          { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
-          { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
-          { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
-          { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
-          { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
-          { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
-          { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
-          { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
-          { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
-          { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
-          { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
-          { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
-          { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
-          { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
-          { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
-          { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
-          { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
-          { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
-          { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
-          { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
-          { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
-          { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
-          { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
-          { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
-          { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
-          { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
-        ]
-      })
-      let wins = this.state.activeUser.wins
-      let teams = JSON.parse(JSON.stringify(this.state.teams))
-      console.log('THIS USERS WINS: ', wins)
-      // let thisWin = (theWins) => {
-      //   return theWins.team === this.state.userWin
-      // }
-        for (var j=0; j<wins.length; j++) {
+      changeLogo = () => {
+        let wins = this.state.activeUserWins
+        let allPicks = this.state.activeUserPicks
+        //let matchedTeams = []
+        let theseMatchingWins = []
+        let teams = JSON.parse(JSON.stringify(this.state.challengeData.teams))
+
+        let todaysPickFunc = (picks) => {
+          return picks.gameDate === moment().format('YYYY-MM-DD')
+        }
+        let todaysPickObj = allPicks.filter(todaysPickFunc)
+        let todaysPick = ''
+        if (todaysPickObj[0]) {
+          todaysPick = todaysPickObj[0].team
+          //console.log('TODAYS PICK: ', todaysPick)
+        }
+
+        // FIND TODAYS PICK
+        let matchingTeams = (teams) => {
+          return teams.name.trim() === todaysPick.trim()
+        }
+
+        for (var j=0; j<teams.length; j++) {
+          //console.log('CURRENT WINS: ', wins)
+          //console.log('CURRENT TEAMS: ', teams)
+          // console.log('CURRENT TEAM: ', teams[j].name)
           this.setState({
-            userWin: wins[j].win.trim()
+            thisTeam: teams[j].name.trim()
           })
-
-          //let newWin = teams.filter(thisWin)
-
-          // if (newWin[0]) {
-          //   let thisUserWin = newWin[0].team
-          // }
-
-          for (var y=0; y<teams.length; y++) {
-            if (teams[y].name.trim() === wins[j].win.trim()) {
-              teams[y].status = 'success'
-            }
+          
+          let teamMatched = teams.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].name.trim() === teams[j].name.trim()) {
+              // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
+              teams[j].status = 'warning'
+            } 
           }
 
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.win.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = wins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            teams[j].status = 'success'
+          }
+          
           this.setState({
-              teams: teams
+              teams: teams,
+              todaysPick: teamMatched
           })
-          // console.log('NEW TEAMS ARRAY: ', this.state.teams)
+
+          this.handlePreloader()
+          // console.log('NEW TEAMS ARRAY: ', this.state.challengeData.teams)
+
         }
-        //debugger;
-        this.handlePreloader()
+        
       }
 
+      loadLogo = (team) => {
+        switch (true) {
+          case (team === 'atl'):
+            return atl2;
+            
+          case (team === 'bal'):
+            return bal;
+            
+          case (team === 'bos'):
+            return bos2;
+            
+          case (team === 'chc'):
+            return chc;
+            
+          case (team === 'cws'):
+            return cws;
+             
+          case (team === 'cle'):
+            return cle2;
+             
+          case (team === 'cin'):
+            return cin;
+             
+          case (team === 'col'):
+            return col;
+             
+          case (team === 'det'):
+            return det2;
+             
+          case (team === 'mia'):
+            return mia2;
+             
+          case (team === 'hou'):
+            return hou2;
+             
+          case (team === 'kc'):
+            return kc;
+             
+          case (team === 'laa'):
+            return laa;
+             
+          case (team === 'lad'):
+            return lad;
+             
+          case (team === 'nym'):
+            return nym;
+             
+          case (team === 'nyy'):
+            return nyy;
+          
+          case (team === 'mil'):
+            return mil2;
+             
+          case (team === 'min'):
+            return min2;
+             
+          case (team === 'oak'):
+            return oak;
+             
+          case (team === 'pit'):
+            return pit;
+             
+          case (team === 'sd'):
+            return sd;
+             
+          case (team === 'sf'):
+            return sf;
+             
+          case (team === 'phi'):
+            return phi2;
+             
+          case (team === 'sea'):
+            return sea;
+             
+          case (team === 'stl'):
+            return stl;
+             
+          case (team === 'tb'):
+            return tb;
+             
+          case (team === 'tex'):
+            return tex;
+             
+          case (team === 'tor'):
+            return tor2;
+             
+          case (team === 'ari'):
+            return ari;
+             
+          case (team === 'wsh'):
+            return wsh;
+             
+          default:
+            return ari;
+          }  
+  
+        }
+
+    // changeLogo = () => {
+    //   this.setState({
+    //     teams: [
+    //       { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
+    //       { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
+    //       { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
+    //       { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
+    //       { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
+    //       { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
+    //       { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
+    //       { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
+    //       { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
+    //       { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
+    //       { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
+    //       { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
+    //       { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
+    //       { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
+    //       { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
+    //       { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
+    //       { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
+    //       { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
+    //       { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
+    //       { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
+    //       { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
+    //       { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
+    //       { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
+    //       { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
+    //       { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
+    //       { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
+    //       { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
+    //       { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
+    //       { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
+    //       { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
+    //     ]
+    //   })
+    //   let wins = this.state.activeUserWins
+    //   let teams = JSON.parse(JSON.stringify(this.state.teams))
+    //   // console.log('THIS USERS WINS: ', wins)
+    //   // let thisWin = (theWins) => {
+    //   //   return theWins.team === this.state.userWin
+    //   // }
+    //     for (var j=0; j<wins.length; j++) {
+    //       this.setState({
+    //         userWin: wins[j].win.trim()
+    //       })
+
+    //       //let newWin = teams.filter(thisWin)
+
+    //       // if (newWin[0]) {
+    //       //   let thisUserWin = newWin[0].team
+    //       // }
+
+    //       for (var y=0; y<teams.length; y++) {
+    //         if (teams[y].name.trim() === wins[j].win.trim()) {
+    //           teams[y].status = 'success'
+    //         }
+    //       }
+
+    //       this.setState({
+    //           teams: teams
+    //       })
+    //       // console.log('NEW TEAMS ARRAY: ', this.state.teams)
+    //     }
+    //     //debugger;
+    //     this.handlePreloader()
+    //   }
+
     handleClick = e => {
-      let self = this
+      // let self = this
       let user = e.target
       let player = user.textContent
+      let allUsers = this.state.challengeData.users
+      // console.log('ALL USERs: ', allUsers)
       if (isNaN(player)) {
+        let thisPlayer = []
         this.handlePreloader()
-        console.log('THIS IS NOT A NUMBER') 
+        // console.log('THIS IS NOT A NUMBER') 
         console.log('Player page: ', player)
-        self.toggle()
-        API.getUser(player)
-          .then(res => {
-            let thisUser = {
-              username: res.data[0].username,
-              wins: res.data[0].wins,
-              winsCount: res.data[0].wins.length,
-              picks: res.data[0].picks
-            }
-            console.log('THIS USER: ', thisUser)
-            this.setState({
-              activeUser: thisUser
-            })
-            self.findRecentPicks()
-            self.changeLogo()
-          })
-          .catch(err => console.log(err))
+        console.log('ALL PLAYERS: ', allUsers)
+        let thisPlayerFunc = (players) => {
+          return players.username === player
+        }
+        let thisPlayerObj = allUsers.filter(thisPlayerFunc)
+        console.log('THIS PLAYER: ', thisPlayerObj[0])
+        thisPlayer.push(thisPlayerObj[0])
+        this.setState({
+          activeUser: thisPlayer[0],
+          activeUserUsername: thisPlayer[0].username,
+          activeUserWins: thisPlayer[0].wins,
+          activeUserPicks: thisPlayer[0].picks
+        }, () => {
+          this.getUser()
+        })
+        
+        // this.findRecentPicks()
+        // this.changeLogo()
+        // self.toggle()
+        // API.getUser(player)
+        //   .then(res => {
+        //     let thisUser = {
+        //       username: res.data[0].username,
+        //       wins: res.data[0].wins,
+        //       winsCount: res.data[0].wins.length,
+        //       picks: res.data[0].picks
+        //     }
+        //     console.log('THIS USER: ', thisUser)
+        //     this.setState({
+        //       activeUser: thisUser
+        //     })
+        //     self.findRecentPicks()
+        //     self.changeLogo()
+        //   })
+        //   .catch(err => console.log(err))
         } else {
           return
         }
@@ -274,7 +471,7 @@ class Leaderboard extends Component {
       let date = Moment(now).format('YYYY-MM-DD')
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getGamesByDate(date)
+      API.getMlbGamesByDate(date)
         .then (res => {
           let games = res.data
           let now = Moment().format()
@@ -282,7 +479,7 @@ class Leaderboard extends Component {
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
-            console.log('THERE MUST BE NO GAMES TODAY')
+            // console.log('THERE MUST BE NO GAMES TODAY')
             $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
           }
@@ -301,7 +498,7 @@ class Leaderboard extends Component {
       }
 
     createTimer = (timeDiff) => {
-      //console.log('Time until first game: ', timeDiff)
+      console.log('Time until first game: ', timeDiff)
       let seconds = Moment.duration(timeDiff).asSeconds() * 1000
       //console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
@@ -323,8 +520,9 @@ class Leaderboard extends Component {
             color: 'darkblue !important'
             }
           }
-        
-        let username = this.state.activeUser.username
+        let userPicks = this.state.activeUserPrevPicks
+        let username = this.state.activeUserUsername
+        let timerDiff = this.state.timeDiff
         // let wins = this.state.activeUser.wins
         // let winsCount = this.state.activeUser.wins.length
         // let picks = this.state.activeUser.picks
@@ -387,35 +585,55 @@ class Leaderboard extends Component {
                           </ModalHeader>
                           <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                             <div className="row playerRow">
-                              <Jumbotron>
+                              <Jumbotron className='playerJumbo'>
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
                                     <h4>Today's Pick</h4>
-                                      <Countdown 
-                                        date={Date.now() + this.state.timeDiff}
-                                        zeroPadTime={2} 
-                                        daysInHours={true} 
-                                        renderer={this.timerRender}>
-                                        <EndTimer />
-                                        </Countdown>
-                                        <br />
-                                    <div className="row">
-                                      <div className="col-md-3">
-                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUser.winsCount}
+                                      <div className="userTimer">
+
+                                        {
+                                          (!timerDiff) ? <p>No Games Today</p> :
+
+                                          <Countdown 
+                                            date={Date.now() + this.state.timeDiff}
+                                            zeroPadTime={2} 
+                                            daysInHours={true} 
+                                            renderer={this.timerRender}
+                                            className='userTimer'
+                                          >
+                                            <EndTimer />
+                                          </Countdown> 
+                                        }
+
+
+
+                                        {/* <Countdown 
+                                          date={Date.now() + this.state.timeDiff}
+                                          zeroPadTime={2} 
+                                          daysInHours={true} 
+                                          renderer={this.timerRender}
+                                          className='userTimer'
+                                        >
+                                          <EndTimer />
+                                        </Countdown> */}
                                       </div>
+                                    <div className="row recordRow">
+                                      <div className="col-md-3">
+                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
+                                      </div>
+                                      <div className="col-md-3">
+                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {this.state.activeUserPrevPicks.length - this.state.activeUserWins.length}
+                                      </div>  
                                       {/* <div className="col-md-3">
-                                        <h4 className='wins'>Record</h4> {this.props.winsCount} - {this.state.pastPicks.length - this.props.winsCount}
-                                      </div>   */}
-                                      {/* <div className="col-md-3">
-                                        <h4 className='wins'>Place</h4> {this.props.winsCount}
+                                        <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
                                       </div>   */}
                                     </div>  
                                   </div>
                                 </Container>
                               </Jumbotron>
-                              <span className='row recentPicks'>
-                                <div className="col-12-sm">
+                              <span className='row recentPicks profilePicks'>
+                                <div className="col-10">
                                   <table className='table table-hover'>
                                     <thead>
                                       <tr>
@@ -424,20 +642,29 @@ class Leaderboard extends Component {
                                       </tr>
                                     </thead>
                                     <tbody>
+                          
                                       {
-                                        this.state.newRecentPicks.map((newRecentPick, i) => (
+                                        userPicks[0] ? 
+                                        
+                                        userPicks.map((newRecentPick, i) => (
                                           <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
                                             <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
                                             <td>{newRecentPick.team}</td>
                                           </tr> 
-                                            )
-                                          )     
-                                      }
+                                          )
+                                        )                                            
+
+                                        : <tr className='loss'>
+                                            <td>--</td>
+                                            <td>No Previous Picks</td>
+                                          </tr>
                                         
+                                      }
+                                      
                                     </tbody>
                                   </table>
                                 </div>
-                                <div className="col-2-sm title">
+                                <div className="col-2 title">
                                   <h3>{username}'s Picks</h3>
                                 </div>
                               </span>
@@ -458,7 +685,7 @@ class Leaderboard extends Component {
                                     >
                                       <img
                                         className='profLogo'
-                                        src={team.logo}
+                                        src={this.loadLogo(team.abbr)}
                                         alt={team.abbr}
                                         fluid='true'
                                       />

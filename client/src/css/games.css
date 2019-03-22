@@ -7,7 +7,7 @@
     }
     .winningPicks {
         color: gold;
-        border: dashed 3px darkblue;
+        border: dashed 3px #209CEE;
         padding: 20px;
         text-align: center;
     }

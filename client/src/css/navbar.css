@@ -2,7 +2,8 @@
     border-bottom: 1px solid rgba(33, 37, 41, 0.1);
     margin-bottom: 100px;
     background-color: #fff;
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Special Elite', cursive;
+    /* font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; */
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     transition: all 0.2s;
@@ -11,8 +12,9 @@
   #mainNav .navbar-brand {
     font-weight: 700;
     text-transform: uppercase;
-    color: gold;
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: #209CEE;
+    font-family: 'Special Elite', cursive;
+    /* font-family: 'Audiowide', cursive; */
   }
 
   #mainNav .navbar-brand.username {
@@ -21,31 +23,32 @@
   }
   
   #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-    color: gold;
+    color: #209CEE;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+    font-family: 'Audiowide', cursive;
     font-size: .9rem;
     font-weight: 700;
     text-transform: uppercase;
-    color:gold;
+    color:#209CEE;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-    color: gold;
+    color: #209CEE;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
-    color: gold !important;
-    background-color: darkblue;
+    color: #209CEE !important;
+    background-color: gold;
   }
   
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active:hover {
-    background-color: darkblue;
+    background-color: gold;
   }
 
   .sticky {
@@ -53,16 +56,37 @@
     top: 0;
     width: 100%;
   }
-  
+
+  .username {
+    margin: 0 auto;
+    margin-top: 10%;
+  }
+
+  .challengeName {
+    text-transform: uppercase;
+    margin: 0 auto;
+    margin-bottom: 5%
+  }
+
+  .footer {   
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #209CEE !important;
+    color: gold !important;
+    text-align: center;
+  }
+
   @media (min-width: 992px) {
     #mainNav {
-      border-color: darkblue;
-      background-color: darkblue;
+      border-color: gold;
+      background-color: gold;
     }
   
     /* logo  */
     #mainNav .navbar-brand {
-    color: gold; 
+      color: #209CEE; 
     }
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: 212529(131, 91, 91);
@@ -83,10 +107,10 @@
       background-color: #212529;
     }
     #mainNav.navbar-shrink .navbar-brand {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
@@ -94,19 +118,23 @@
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: gold;
+      color: #209CEE;
+    }
+    .challengeName {
+      margin-top: 6%;
+      color: white; 
     }
   }
   
   @media (min-width: 776px) and (max-width: 992px) {
     #mainNav {
-      border-color: darkblue;
-      background-color: darkblue;
+      border-color: gold;
+      background-color: gold;
     }
   
     /* logo  */
     #mainNav .navbar-brand {
-    color: gold; 
+    color: #209CEE; 
     }
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: 212529(131, 91, 91);
@@ -127,10 +155,10 @@
       background-color: #212529;
     }
     #mainNav.navbar-shrink .navbar-brand {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
@@ -138,12 +166,7 @@
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: gold;
-    }
-
-    .navbar-toggler-icon {
-      background-color: gold !important;
-      margin-right: -20px;
+      color: #209CEE;
     }
 
     .navItems {
@@ -151,25 +174,30 @@
       z-index: 0;
       right: 0;
       margin-right: 85px;
-      background-color: gold;
-      color: darkblue !important;
-      border: solid 1px darkblue;
+      background-color: #209CEE;
+      color: gold !important;
+      border: solid 1px gold;
     }
 
     .nav-link {
-      color: darkblue !important;
+      color: gold !important;
     }
+    .challengeName {
+      margin-top: 10%;
+      color: white; 
+    }
+    
   }
   
   @media (max-width: 775px) {
     #mainNav {
-      border-color: darkblue;
-      background-color: darkblue;
+      border-color: gold;
+      background-color: gold;
     }
   
     /* logo  */
     #mainNav .navbar-brand {
-    color: gold; 
+    color: #209CEE; 
     }
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: 212529(131, 91, 91);
@@ -190,10 +218,10 @@
       background-color: #212529;
     }
     #mainNav.navbar-shrink .navbar-brand {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: gold;
+      color: #209CEE;
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
@@ -201,28 +229,58 @@
     }
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: darkblue !important;
+      color: gold !important;
     }
-    .navbar-toggler-icon {
-      background-color: gold !important;
-      margin-right: 10px !important;
-    }
-
+  
     .navItems {
       position: absolute;
       z-index: 0;
       top: 43px;
       right: -22px;
       margin-right: 60px;
-      background-color: gold;
-      color: darkblue !important;
-      border: solid 1px darkblue;
+      background-color: #209CEE;
+      color: gold !important;
+      border: solid 1px gold;
     }
 
     .nav-link {
-      color: darkblue !important;
+      color: gold !important;
+    }
+    .challengeName {
+      margin-top: 13%;
+      color: white; 
     }
 
+  }
+
+  @media (max-width: 630px) {
+    .homePageBoard {
+      margin-top: 0 !important;
+    }
+    .navbar-brand {
+      font-size: 14px;
+    }
+    .username {
+      color: white;
+    }
+    .challengeName {
+      margin-top: 18%;
+      color: white; 
+    }
+  }
+
+  @media (max-width: 330px) {
+    .navbar-brand {
+      font-size: 10px;
+    }
+    .username {
+      margin: 0 auto;
+      margin-top: 20%;
+      
+    }
+    /* .container {
+      width: 100px !important;
+    } */
   }
   
   

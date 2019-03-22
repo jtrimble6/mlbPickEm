@@ -1,11 +1,16 @@
 .formContainer {
     margin-top: 100px;
+    margin-bottom: 10%;
 }
 
 .formSignup {
     color: gold;
     max-width: 60%;
     margin-left: 20%;
+}
+
+.formSignup-heading {
+    text-align: center;
 }
 
 #usernameError {
@@ -16,3 +21,11 @@
     min-width: 100%;
     max-height: 40px !important;
 }
+
+.text-muted {
+    color: white !important;
+}
+
+/* input {
+    width: 50% !important;
+} */
