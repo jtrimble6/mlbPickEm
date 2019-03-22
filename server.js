@@ -91,7 +91,7 @@ app.use( (req, res, next) => {
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mlbpickem");
 
 app.get('/logout', function(req, res){
-  // req.logout();
+  req.logout();
   res.redirect('/logout');
 });
 
