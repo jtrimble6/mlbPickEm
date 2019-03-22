@@ -57,7 +57,7 @@ class UsersPage extends Component {
           Header: 'Username',
           headerClassName: 'gamesHeaders',
           accessor: 'username',
-          Cell: props => <span className='username'>{props.value}</span>,
+          Cell: props => <span className='usernames'>{props.value}</span>,
           filterMethod: (filter, rows) =>
             matchSorter(rows, filter.value, { keys: ["username"] }),
             filterAll: true
