@@ -417,8 +417,8 @@ class MlbBar extends Component {
         return false;
       });
 
-      console.log('CURRENT USER: ', this.state.currentUser)
-      console.log('CHAL USERS DATA: ', this.state.challengeData)
+      // console.log('CURRENT USER: ', this.state.currentUser)
+      // console.log('CHAL USERS DATA: ', this.state.challengeData)
         }  
 
     // findWins = () => {
@@ -607,7 +607,7 @@ class MlbBar extends Component {
 
     postTeams = () => {
       let teams = this.state.challengeData.teams
-      console.log('POSTING JUST THESE TEAMS: ', teams)
+      // console.log('POSTING JUST THESE TEAMS: ', teams)
       for (var x=0; x<teams.length; x++) {
         let teamNameCombo = teams[x].name
         let newTeam = {

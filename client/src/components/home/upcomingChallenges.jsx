@@ -89,9 +89,9 @@ class UpcomingChallenges extends Component {
     }
 
     toggleEvent(event) {
-        console.log('TARGETTT: ', event.target)
+        // console.log('TARGETTT: ', event.target)
         if (moment(event.target.dataset.openSignUp).add(8,'hours').format() < moment().format()) {
-          console.log('THIS SIGN UP ISN\'T OPEN YET!')
+          // console.log('THIS SIGN UP ISN\'T OPEN YET!')
           return
         }
         // console.log('USER DATA: ', this.state.userData)
@@ -151,11 +151,11 @@ class UpcomingChallenges extends Component {
         }
 
         if (challengeData.challengeMax !== 0 && challengeData.challengeMax <= challengeData.challengeUsers) {
-            console.log('THIS CHALLENGE IS FULL')
+            // console.log('THIS CHALLENGE IS FULL')
             this.toggleFullChal()
             return
           } else {
-              console.log('THE CHALLENGE IS NOT FULL')
+              // console.log('THE CHALLENGE IS NOT FULL')
           }
 
         let userData = {
@@ -182,14 +182,14 @@ class UpcomingChallenges extends Component {
         } else {
             API.getChallenge(challengeData.challengeId)
               .then(res=> {
-                  console.log('MOST RECENT DATA: ', res.data)
+                  // console.log('MOST RECENT DATA: ', res.data)
                   let users = res.data[0].users
                   let usersCount = users.length
                   if (usersCount === challengeData.challengeMax) {
                       this.toggleFullChal()
                       return;
                   } else {
-                      console.log('THE CHALLENGE REALLY ISNT FULL')
+                      // console.log('THE CHALLENGE REALLY ISNT FULL')
                   }
               })
               .catch(err => console.log(err))

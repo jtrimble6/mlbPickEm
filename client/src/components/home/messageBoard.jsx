@@ -42,7 +42,7 @@ class MessageBoard extends Component {
     getUser = () => {
         let username = localStorage.getItem('user')
         let self = this
-        console.log('MESSAGE USER: ', username)
+        // console.log('MESSAGE USER: ', username)
         API.getUser(username)
           .then(res => {
               self.setState({
@@ -56,7 +56,7 @@ class MessageBoard extends Component {
     getMessageBoard = () => {
         API.getMessageBoard()
           .then(res => {
-              console.log('MESSAGE BOARD: ', res.data)
+              // console.log('MESSAGE BOARD: ', res.data)
               this.setState({
                   messageBoardData: res.data
               })
@@ -74,7 +74,7 @@ class MessageBoard extends Component {
         }
 
         let allRecentMessages = messageBoard.filter(recentMessageFunc)
-        console.log('ALL RECENT MESSAGES: ', allRecentMessages)
+        // console.log('ALL RECENT MESSAGES: ', allRecentMessages)
 
         for (var w=0; w<allRecentMessages.length; w++) {
             let admin = false
@@ -95,7 +95,7 @@ class MessageBoard extends Component {
         this.setState({
             recentMessageData: recentMessages
         })
-        console.log('ONLY THE RECENT MESSAGES: ', this.state.recentMessageData)
+        // console.log('ONLY THE RECENT MESSAGES: ', this.state.recentMessageData)
     }
 
     
@@ -109,10 +109,10 @@ class MessageBoard extends Component {
             text: this.state.messageText
           }
 
-        console.log('MESSAGE INFO: ', messageBoardData)
+        // console.log('MESSAGE INFO: ', messageBoardData)
         API.saveMessageBoard(messageBoardData)
           .then(res => {
-              console.log('MESSAGE RESULT: ', res)
+              // console.log('MESSAGE RESULT: ', res)
               this.setState({
                   messageText: '',
               })

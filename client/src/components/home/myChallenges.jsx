@@ -88,7 +88,7 @@ class MyChallenges extends Component {
 
     findChallenges = () => {
       let challenges = this.state.myChallenges
-      console.log('MY CHALLENGES: ', challenges)
+      // console.log('MY CHALLENGES: ', challenges)
       
     }
 

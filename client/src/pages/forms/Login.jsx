@@ -25,7 +25,7 @@ class Login extends Component {
     
 
     componentDidMount() {
-        console.log('Ready')
+        // console.log('Ready')
     }
 
     setRedirect = () => {
@@ -54,13 +54,13 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        console.log('LOGIN: ', userData)
+        // console.log('LOGIN: ', userData)
 
         API.loginUser(userData)
           .then(response => {
             if (response.status === 200) {
-            console.log('Authenticated!')
-            console.log('USER DATA: ', response.data)
+            // console.log('Authenticated!')
+            // console.log('USER DATA: ', response.data)
             let thisUser = response.data.username
             // if (response.data.admin) {
             //     this.props.updateUser({
@@ -74,24 +74,24 @@ class Login extends Component {
             let sessionData = {
                 sessionUserId: thisUser
             }
-            console.log('THIS USER: ', thisUser)
-            console.log('THIS SESSION DATA: ', sessionData)
+            // console.log('THIS USER: ', thisUser)
+            // console.log('THIS SESSION DATA: ', sessionData)
 
             API.createUserSession(sessionData)
                 .then(response => {
-                console.log('RESPONSE: ', response)
+                // console.log('RESPONSE: ', response)
                 this.props.updateUser({
                     userSessionId: response.data._id
                 })
             }).catch(error => {
-                console.log('Login Error: ', error)
+                // console.log('Login Error: ', error)
                 this.setState({
                     signInError: true
                 })
             })
             API.getUser(thisUser)
                 .then(response => {
-                console.log('THIS USER: ', response)
+                // console.log('THIS USER: ', response)
                 this.setRedirect()
                 })
               }
@@ -99,7 +99,7 @@ class Login extends Component {
               this.setState({
                   signInError: true
               })
-              console.log('Login Error: ', error)
+            //   console.log('Login Error: ', error)
           })
     }
 

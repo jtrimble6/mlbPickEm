@@ -197,15 +197,6 @@ class App extends Component {
                   null
                 )}
             />
-            <Route exact path='/logout'
-            
-            render={() => (
-              
-              <Redirect to='/login' />
-              
-             )
-            }
-            />
             <Route exact path='/adminPage' render={() => (
               this.state.adminLoggedIn === true ? (
                 <AdminPage 
