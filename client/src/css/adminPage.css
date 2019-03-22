@@ -59,7 +59,7 @@ a {
 #editUsersPage {
   color: gold;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 10%;
   margin-bottom: 10%;
 }
 
@@ -80,5 +80,9 @@ a {
   #adminPage {
     margin-top: 20% !important;
   }
+  #editUsersPage {
+    margin-top: 20%;
+  }
+  
 
 }
