@@ -637,25 +637,25 @@ class MlbBar extends Component {
             // console.log('THIS TEAM: ', thisTeam)
             for (var p=0; p<theGames.length; p++) {
               let homeA = theGames[p].homeAlias
-              let awayA = theGames[p].awayAlias
-              // if (homeA === thisTeam) {
-              //   // console.log('THE GAME: ', theGames[p])
-              //   // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
-              //   API.addMlbGamesByTeam(thisTeam, theGames[p])
-              //     .then(res => {
-              //       console.log(res)
-              //     })
-              //     .catch(err => console.log(err))
-              // }
-              if (awayA === thisTeam) {
+              // let awayA = theGames[p].awayAlias
+              if (homeA === thisTeam) {
                 // console.log('THE GAME: ', theGames[p])
-                // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
                 API.addMlbGamesByTeam(thisTeam, theGames[p])
                   .then(res => {
                     console.log(res)
                   })
                   .catch(err => console.log(err))
               }
+              // if (awayA === thisTeam) {
+              //   // console.log('THE GAME: ', theGames[p])
+              //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+              //   API.addMlbGamesByTeam(thisTeam, theGames[p])
+              //     .then(res => {
+              //       console.log(res)
+              //     })
+              //     .catch(err => console.log(err))
+              // }
             }
           }
           

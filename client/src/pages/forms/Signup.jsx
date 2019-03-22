@@ -326,7 +326,7 @@ class Signup extends Component {
                         />
                         <button
                             type="submit"
-                            className="btn btn-primary submit"
+                            className="btn btn-primary submit btnMaster"
                             onClick={this.handleFormSubmit}
                         >
                         Submit

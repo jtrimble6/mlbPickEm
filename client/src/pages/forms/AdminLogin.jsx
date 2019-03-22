@@ -168,7 +168,7 @@ class Login extends Component {
                                     </div>
                                     <div className="modal-footer">
                                         <button data-dismiss="modal" className="btn btn-default" type="button">Cancel</button>
-                                        <button className="btn btn-theme" type="button">Submit</button>
+                                        <button className="btn btn-theme btnMaster" type="button">Submit</button>
                                     </div>
                                 </div>
                             </div>

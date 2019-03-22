@@ -199,7 +199,7 @@ class DeleteChallenge extends Component {
                         <button
                             type="button"
                             color="danger"
-                            className="btn btn-primary submit"
+                            className="btn btn-primary submit btnMaster"
                             onClick={this.toggleInitial}
                         >
                         Delete
