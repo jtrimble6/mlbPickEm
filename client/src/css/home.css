@@ -74,7 +74,11 @@
     color: white !important;
 }
 .challengeCard .signUp {
+    border: solid 2px gold;
+    border-radius: 5%;
+    padding: 2%;
     color: lightgreen !important;
+    margin-bottom: 1%;
 }
 .challengeCard .challengeInfo {
     font-size: 14px;

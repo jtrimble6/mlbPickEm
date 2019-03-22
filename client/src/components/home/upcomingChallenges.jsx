@@ -251,6 +251,9 @@ class UpcomingChallenges extends Component {
                           <Card>
                             <CardBody>
                               <CardTitle>{challenge.challengeName}</CardTitle><hr />
+                              <CardLink className='signUp' onClick={this.toggleEvent} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
+                                Sign Up Now
+                              </CardLink>
                               <CardSubtitle className='buyIn'>
                                   Entry Fee: ${challenge.buyIn}
                               </CardSubtitle>
@@ -276,12 +279,9 @@ class UpcomingChallenges extends Component {
                               <CardText className='challengeInfo'><em>{challenge.info}</em></CardText>
                               {/* <CardLink href="#">Bookmark Challenge</CardLink><br /> */}
                               <CardLink className='rulesLink' href={challenge.rulesUrl}>Checkout The Rules</CardLink><br />
-                              <CardLink className='signUp' onClick={this.toggleEvent} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
-                                Sign Up Now
-                              </CardLink>
+                              
                             </CardBody>
                           </Card>
-
                           <Modal 
                               isOpen={this.state.modal} 
                               autoFocus={true}
