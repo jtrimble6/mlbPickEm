@@ -29,7 +29,7 @@
 .upcomingChallenges {
     text-align: center;
     overflow: auto !important;
-    height: 400px;
+    height: 500px;
 }
 .upcomingChallenges .card {
     border: none;
@@ -108,7 +108,7 @@
 
 /* MESSAGE BOARD */
 .messageBoardPage {
-    height: 750px;
+    height: 600px;
     text-align: center;
 }
 .messageBoard {
@@ -117,7 +117,7 @@
 }
 
 .messageList {
-    max-height: 450px;
+    max-height: 300px;
     overflow-y: scroll;
 }
 

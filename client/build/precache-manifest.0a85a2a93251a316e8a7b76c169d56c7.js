@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/mlbPickEm/static/media/mil.4cffd57a.png"
   },
   {
-    "revision": "15fdc0f7d819e5bb59f2",
-    "url": "/mlbPickEm/static/css/main.2a131ea9.chunk.css"
+    "revision": "01e245e1882f21088263",
+    "url": "/mlbPickEm/static/css/main.1c97f646.chunk.css"
   },
   {
     "revision": "2bc6c07054b979f6d121c1a9f2c1fb45",
@@ -88,8 +88,8 @@ self.__precacheManifest = [
     "url": "/mlbPickEm/static/media/mia.c6b3f465.gif"
   },
   {
-    "revision": "15fdc0f7d819e5bb59f2",
-    "url": "/mlbPickEm/static/js/main.15fdc0f7.chunk.js"
+    "revision": "01e245e1882f21088263",
+    "url": "/mlbPickEm/static/js/main.01e245e1.chunk.js"
   },
   {
     "revision": "22280ecb6c9657419cd87042b265d9a8",
@@ -176,7 +176,7 @@ self.__precacheManifest = [
     "url": "/mlbPickEm/static/css/1.f8231f51.chunk.css"
   },
   {
-    "revision": "33392e408b1739e2840ec8c005b4d15a",
+    "revision": "e635ef272ba4e5aa96e05adb2457e6e5",
     "url": "/mlbPickEm/index.html"
   }
 ];
