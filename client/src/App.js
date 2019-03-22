@@ -113,7 +113,7 @@ class App extends Component {
           <Switch>
           <Route exact path='/'
               render={() =>
-                <AdminSignup 
+                <LandingPage 
                 />
               }
             />
