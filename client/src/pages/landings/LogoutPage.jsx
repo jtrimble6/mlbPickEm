@@ -40,6 +40,7 @@ class LogoutPage extends Component {
                   (loggedOut) ? <small id="logoutSuccess" className="form-text text-muted">You have successfully logged out!</small> :
                   <small id="logoutFailure" className="form-text text-muted">There was an error logging you out!</small>
                 }
+                <a href='/login'>Back to login</a>
             </div>
         )
     }

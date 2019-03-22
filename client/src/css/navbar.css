@@ -58,14 +58,22 @@
   }
 
   .username {
+    font-family: 'Special Elite', cursive;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 1%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
   }
 
   .challengeName {
+    font-family: 'Special Elite', cursive;
     text-transform: uppercase;
     margin: 0 auto;
-    margin-bottom: 5%
+    margin-bottom: 1%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
   }
 
   .footer {   
