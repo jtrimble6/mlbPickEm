@@ -34,14 +34,14 @@ class LogoutPage extends Component {
 
     render() {
         // let background1 = require('../../css/images/landing2.jpeg')
-        let loggedOut = this.state.loggedOut
+        // let loggedOut = this.state.loggedOut
         return (
             <div id='logoutPage'>
               <h2>Thank you for doing your chores!</h2>
-                {
+                {/* {
                   (loggedOut) ? <small id="logoutSuccess" className="form-text text-muted">You have successfully logged out!</small> :
                   <small id="logoutFailure" className="form-text text-muted">There was an error logging you out!</small>
-                }
+                } */}
             </div>
         )
     }
