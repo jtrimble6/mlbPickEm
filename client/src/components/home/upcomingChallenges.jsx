@@ -253,7 +253,7 @@ class UpcomingChallenges extends Component {
                               <CardTitle>{challenge.challengeName}</CardTitle><hr />
                               <CardLink className='signUp' onClick={this.toggleEvent} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
                                 Sign Up Now
-                              </CardLink>
+                              </CardLink><hr />
                               <CardSubtitle className='buyIn'>
                                   Entry Fee: ${challenge.buyIn}
                               </CardSubtitle>

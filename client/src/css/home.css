@@ -72,6 +72,7 @@
 }
 .challengeCard .rulesLink {
     color: white !important;
+    border-radius: 5%;
 }
 .challengeCard .signUp {
     border: solid 2px gold;
@@ -81,7 +82,7 @@
     margin-bottom: 1%;
 }
 .challengeCard .challengeInfo {
-    font-size: 14px;
+    font-size: 22px;
 }
 
 
@@ -154,6 +155,9 @@
     font-size: 8px;
 }
 
+.challengeCard .card-subtitle {
+    font-size: 18px;
+}
 
 @media (min-width: 930px) and (max-width: 1100px) {
     .homePageBoard h1 {
@@ -164,8 +168,14 @@
         margin: 0 auto;
         width: 100%; 
         max-height: 100% !important; 
-        height: 200px;
+        height: 300px;
         overflow: scroll;
+    }
+    .challengeCard .card-subtitle {
+        font-size: 14px;
+    }
+    .challengeCard .challengeInfo {
+        font-size: 12px;
     }
 }
 
