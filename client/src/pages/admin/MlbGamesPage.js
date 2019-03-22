@@ -34,8 +34,8 @@ class MlbGamesPage extends Component {
     }
 
   componentDidMount() {
-      // this.getAllGames()
-      this.getGames()
+      this.getAllGames()
+      // this.getGames()
     }
 
   getAllGames = () => {
