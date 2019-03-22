@@ -114,6 +114,18 @@ renderRedirect = () => {
                     MLB Games DB
                   </Button>
                 </div>
+                <div id="adminUsers">
+                  <h3>Users DB</h3>
+                  <Button
+                    color='danger'
+                    className='userButtons'
+                    data-url='/usersPage'
+                    onClick={this.setRedirect}
+                  >
+                    Active Users
+                  </Button>
+
+                </div>
                 <div id="adminChals">
                   <h3>Active Challenges</h3>
                   {

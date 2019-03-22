@@ -56,6 +56,26 @@ a {
   margin: 1%;
 }
 
+#editUsersPage {
+  color: gold;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+.usersTable {
+  text-align: center;
+  margin: 0 auto;
+}
+
+#adminUsers {
+  margin-bottom: 3%;
+}
+
+.usersButtons {
+  margin: 1%;
+}
+
 @media (min-width: 200px) and (max-width: 900px) {
   #adminPage {
     margin-top: 20% !important;

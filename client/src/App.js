@@ -8,6 +8,7 @@ import AdminSignup from './pages/forms/AdminSignup'
 import AdminPage from './pages/admin/AdminPage'
 import AddDeleteChallenge from './pages/admin/AddDeleteChallengePage'
 import EditChallengePage from './pages/admin/EditChallengePage'
+import UsersPage from './pages/admin/UsersPage'
 import NbaGamesPage from './pages/admin/NbaGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
 import LogoutPage from './pages/landings/LogoutPage'
@@ -228,6 +229,17 @@ class App extends Component {
             <Route exact path='/editChallenge' render={() => (
               this.state.adminLoggedIn === true ? (
                 <EditChallengePage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/usersPage' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <UsersPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (
