@@ -82,7 +82,12 @@ a {
   }
   #editUsersPage {
     margin-top: 20%;
+    margin-bottom: 10%;
   }
   
 
+}
+
+#adminPage {
+  margin-bottom: 10%;
 }

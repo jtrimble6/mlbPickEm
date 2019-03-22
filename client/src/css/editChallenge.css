@@ -1,6 +1,7 @@
 #editChallengePage {
     color: gold;
     /* margin: 0 auto; */
+    margin-bottom: 10%;
 }
 
 #editChalForm {
@@ -11,3 +12,4 @@
 .formPlaceholder {
     text-align: center;
 }
+
