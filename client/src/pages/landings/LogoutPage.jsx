@@ -21,13 +21,13 @@ class LogoutPage extends Component {
 
     renderLogout = () => {
         localStorage.clear()
-        let afterLogoutUser = localStorage.getItem('user')
-        // console.log('USER AFTER LOGOUT: ', afterLogoutUser)
-        if (afterLogoutUser === null) {
-            this.setState({
-                loggedOut: true
-            })
-          }
+        // let afterLogoutUser = localStorage.getItem('user')
+        // // console.log('USER AFTER LOGOUT: ', afterLogoutUser)
+        // if (afterLogoutUser === null) {
+        //     this.setState({
+        //         loggedOut: true
+        //     })
+        //   }
     }
     
 
