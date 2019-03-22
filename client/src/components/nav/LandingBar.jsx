@@ -28,7 +28,7 @@ class LandingBar extends Component {
                 <div className="container">
                     {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     <a className="navbar-brand" href="/">
-                        <img src={require('../../css/images/bannerLogo.png')} alt='SportHabits' />
+                        <img src={require('../../css/images/logo2.png')} alt='SportHabits' />
                     </a>
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>

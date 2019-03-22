@@ -30,7 +30,7 @@ class MlbActionNav extends Component {
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
                     <a className="navbar-brand" href="/">
-                        <img src={require('../../css/images/bannerLogo.png')} alt='SportHabits' />
+                        <img src={require('../../css/images/logo2.png')} alt='SportHabits' />
                     </a>
                     {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     
