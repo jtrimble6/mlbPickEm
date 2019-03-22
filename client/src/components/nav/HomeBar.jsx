@@ -74,7 +74,7 @@ class HomeBar extends Component {
             <div className="row">
               <h2 className="navbar-brand js-scroll-trigger challengeName">{this.props.username}</h2>
             </div>
-            <footer class="footer">
+            <footer className="footer">
               <p>WWW.SPORTHABITS.COM</p>
             </footer>
           </div>

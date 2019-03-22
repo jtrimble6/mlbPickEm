@@ -38,11 +38,11 @@ if (process.env.NODE_ENV === "production") {
 
 app.use('/mlbpickem/', express.static(path.join(__dirname, "client/build")));
 
-app.use(userPassport.initialize(), adminPassport.initialize());
-app.use(userPassport.session(), adminPassport.session());
+app.use(userPassport.initialize());
+app.use(userPassport.session());
 
 // Add routes, both API and view
-app.use(messageBoardRoutes, adminRoutes, adminSessionRoutes, userRoutes, sessionRoutes, challengeRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaTeamRoutes);
+app.use(messageBoardRoutes, userRoutes, sessionRoutes, challengeRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaTeamRoutes);
 
 app.use(
   session({
@@ -61,16 +61,6 @@ app.use(
 //     saveUninitialized: false
 //   })
 // );
-
-adminPassport.serializeUser(function(user, done) {
-  done(null, user._id);
-});
-
-adminPassport.deserializeUser(function(id, done) {
-  Admin.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
 
 userPassport.serializeUser(function(user, done) {
   done(null, user._id);

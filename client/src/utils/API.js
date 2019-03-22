@@ -158,14 +158,6 @@ export default {
     changeStatus: function(id, team) {
         return axios.put('/api/users/' + id + '/mlbteams/' + team)
     },
-    
-
-
-
-    
-    saveMessageBoard: function(data) {
-        return axios.post('/api/messageBoard', data)
-    },
 
     // CHALLENGE API CALLS
     getChallenges: function() {

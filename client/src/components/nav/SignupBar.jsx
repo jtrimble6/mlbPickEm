@@ -52,7 +52,7 @@ class SignupBar extends Component {
                     </ul>
                     </div>
                 </div>
-                <footer class="footer">
+                <footer className="footer">
                   <p>WWW.SPORTHABITS.COM</p>
                 </footer>
             </nav>

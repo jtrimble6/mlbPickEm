@@ -65,7 +65,7 @@ class App extends Component {
     let self = this
     API.getUser(username)
       .then(res => {
-        console.log('ADMIN USER INFO: ', res.data)
+        // console.log('ADMIN USER INFO: ', res.data)
         if (res.data[0].admin) {
           self.setState({
             adminLoggedIn: true
@@ -79,7 +79,7 @@ class App extends Component {
     let self = this
     let localUser = localStorage.getItem('user')
     let localUserID = localStorage.getItem('userSessionId')
-    console.log('USER ID: ', localUser)
+    // console.log('USER ID: ', localUser)
     if (!localUserID || localUserID === 'null') {
       this.setState({
         userLoggedIn: false

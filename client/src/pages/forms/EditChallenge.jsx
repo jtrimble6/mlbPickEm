@@ -230,8 +230,8 @@ class EditChallenge extends Component {
             winner: this.state.winner,
             teams: teams,
             info: this.state.info,
-            img: this.state.img,
-            password: this.state.confirmPassword
+            img: this.state.img
+            // password: this.state.confirmPassword
         };
         console.log('NEW CHALLENGE DATA: ', challengeData);
         console.log('CHALLENGE DELETION ID: ', challengeDeletionId)
