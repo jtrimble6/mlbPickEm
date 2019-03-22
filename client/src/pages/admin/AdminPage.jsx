@@ -75,6 +75,14 @@ renderRedirect = () => {
                   <h3>Controls</h3>
                   <Button
                       color='warning'
+                      className='adminSignup'
+                      data-url='/adminSignup'
+                      onClick={this.setRedirect}
+                    >
+                    Add Admin
+                  </Button>
+                  <Button
+                      color='warning'
                       className='addChallengeButton'
                       data-url='/addDeleteChallenge'
                       onClick={this.setRedirect}

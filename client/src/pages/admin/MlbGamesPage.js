@@ -34,8 +34,8 @@ class MlbGamesPage extends Component {
     }
 
   componentDidMount() {
-      this.getAllGames()
-      // this.getGames()
+      // this.getAllGames()
+      this.getGames()
     }
 
   getAllGames = () => {
@@ -53,7 +53,7 @@ class MlbGamesPage extends Component {
     }
 
   getYesterdaysGames = () => {
-    let yesterday = moment().subtract(2, 'day').format('YYYY-MM-DD')
+    let yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD')
     this.setState({
       yesterday: yesterday
     })
@@ -230,7 +230,7 @@ class MlbGamesPage extends Component {
     
     for (let y=0; y<data.length; y++) {
       // let thisDate = data[y].scheduled
-      let gameDate = moment().subtract(2, 'day').format('YYYY-MM-DD')
+      let gameDate = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let gameId = data[y].gameId
       let gameResult = { gameResult: data[y].winningTeam }
       console.log('ALL GAME DATA: ', gameDate, gameId, gameResult)
