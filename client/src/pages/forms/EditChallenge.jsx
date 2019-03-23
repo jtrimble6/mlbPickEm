@@ -151,7 +151,7 @@ class EditChallenge extends Component {
         this.setState({
             challengeId: chal._id,
             challengeName: chal.challengeName,
-            openSignUp: moment(chal.openSignUP).format('YYYY-MM-DD'),
+            openSignUp: moment(chal.openSignUp).format('YYYY-MM-DD'),
             startDate: moment(chal.startDate).format('YYYY-MM-DD'),
             endDate: moment(chal.endDate).format('YYYY-MM-DD'),
             buyIn: chal.buyIn,

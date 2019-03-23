@@ -128,7 +128,15 @@ renderRedirect = () => {
                 </div>
                 <div id="adminChals">
                   <h3>Active Challenges</h3>
-                  {
+                  <Button
+                    color='success'
+                    classNames='challengeButtons'
+                    data-url='/challengePage'
+                    onClick={this.setRedirect}
+                  >
+                    Challenge DB
+                  </Button>
+                  {/* {
                     (!activeChallenges[0]) ? <Button color='warning' className='challengeButtons'>No Active Challenges</Button> :
 
                     activeChallenges.map(activeChallenge => (
@@ -147,7 +155,7 @@ renderRedirect = () => {
                       </Button>
                     ))
                     
-                  }
+                  } */}
 
                 </div>
             </div>

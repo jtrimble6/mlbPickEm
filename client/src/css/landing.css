@@ -136,6 +136,17 @@
     }
 }
 
+@media (min-width: 1001px) {
+    .signUpButton {
+        font-size: 14px;
+        top: -300px;
+    }
+    .loginButton {
+        font-size: 14px;
+        top: -300px;
+    }
+}
+
 #landingPage {
     margin-bottom: 10%;
 }
