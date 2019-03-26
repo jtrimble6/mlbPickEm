@@ -169,24 +169,24 @@ class Signup extends Component {
     //     }
     //   }
 
-    checkEmail = event => {
-        if (!event) {
-            return;
-        }
-        const email = event.target.value;
-        console.log(email);
-        let emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        console.log('EMAIL VALID? ', emailValid)
-        if (emailValid === null) {
-            this.setState({ emailError: true }) 
-        } else { this.setState({ emailError: false }) }
+    // checkEmail = event => {
+    //     // if (!event) {
+    //     //     return;
+    //     // }
+    //     const email = event.target.value;
+    //     console.log(email);
+    //     let emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    //     console.log('EMAIL VALID? ', emailValid)
+    //     if (emailValid === null) {
+    //         this.setState({ emailError: true }) 
+    //     } else { this.setState({ emailError: false }) }
 
-        this.setState({
-          email: email
-        });
+    //     this.setState({
+    //       email: email
+    //     });
         
         
-      }
+    //   }
 
     handleFormSubmit = event => {
         this.checkDate()
@@ -340,7 +340,7 @@ class Signup extends Component {
                                 <input
                                     value={this.state.email}
                                     name="email"
-                                    onChange={this.checkEmail}
+                                    onChange={this.handleInputChange}
                                     type="email"
                                     className="form-control"
                                     id="exampleInputEmail1"
