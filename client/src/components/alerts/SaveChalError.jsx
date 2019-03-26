@@ -15,7 +15,7 @@ class SaveChalError extends Component {
     }
 
     render() {
-        console.log(this.props.saveChalError);
+        // console.log(this.props.saveChalError);
         if (this.props.saveChalError === true) {
             return (
                 <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>

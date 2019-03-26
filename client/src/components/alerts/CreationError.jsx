@@ -15,7 +15,7 @@ class CreationError extends Component {
     }
 
     render() {
-        console.log(this.props.creationError);
+        // console.log(this.props.creationError);
         if (this.props.creationError === true) {
             return (
                 <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>

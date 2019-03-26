@@ -18,7 +18,7 @@ class ExistingAccount extends Component {
     }
 
     render() {
-        console.log(this.props.nameTaken);
+        // console.log(this.props.nameTaken);
         if (this.props.nameTaken === true) {
             return (
                 <Alert color='info' isOpen={this.state.visible} toggle={this.onDismiss}>

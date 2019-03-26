@@ -15,7 +15,7 @@ class DeletionError extends Component {
     }
 
     render() {
-        console.log(this.props.deletionError);
+        // console.log(this.props.deletionError);
         if (this.props.deletionError === true) {
             return (
                 <Alert color='info' isOpen={this.state.visible} toggle={this.onDismiss}>

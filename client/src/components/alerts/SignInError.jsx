@@ -18,7 +18,7 @@ class SignInError extends Component {
     }
 
     render() {
-        console.log(this.props.SignInError);
+        // console.log(this.props.SignInError);
         if (this.props.signInError === true) {
             return (
                 <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>

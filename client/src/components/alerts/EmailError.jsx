@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Alert } from 'reactstrap'
 
-class ExistingChallenge extends Component {
+//import { Link } from 'react-router-dom';
+
+class EmailError extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +18,11 @@ class ExistingChallenge extends Component {
     }
 
     render() {
-        // console.log(this.props.nameTaken);
-        if (this.props.nameTaken === true) {
+        // console.log(this.props.emailError);
+        if (this.props.emailError === true) {
             return (
-                <Alert color='info' isOpen={this.state.visible} toggle={this.onDismiss}>
-                    Sorry, that challenge name is taken already!
+                <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>
+                    Please enter a valid email address!
                 </Alert>
             )
         } else {
@@ -29,4 +31,4 @@ class ExistingChallenge extends Component {
     }
 }
 
-export default ExistingChallenge;
+export default EmailError;

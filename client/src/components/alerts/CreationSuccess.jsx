@@ -15,7 +15,7 @@ class CreationSuccess extends Component {
     }
 
     render() {
-        console.log(this.props.creationSuccess);
+        // console.log(this.props.creationSuccess);
         if (this.props.creationSuccess === true) {
             return (
                 <Alert color='success' isOpen={this.state.visible} toggle={this.onDismiss}>

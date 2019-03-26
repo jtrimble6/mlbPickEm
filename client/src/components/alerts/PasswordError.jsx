@@ -18,7 +18,7 @@ class PasswordError extends Component {
     }
 
     render() {
-        console.log(this.props.passwordError);
+        // console.log(this.props.passwordError);
         if (this.props.passwordError === true) {
             return (
                 <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>

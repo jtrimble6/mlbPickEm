@@ -15,7 +15,7 @@ class DeletionSuccess extends Component {
     }
 
     render() {
-        console.log(this.props.deletionSuccess);
+        // console.log(this.props.deletionSuccess);
         if (this.props.deletionSuccess === true) {
             return (
                 <Alert color='green' isOpen={this.state.visible} toggle={this.onDismiss}>

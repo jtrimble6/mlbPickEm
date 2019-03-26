@@ -130,7 +130,7 @@ class UpcomingChallenges extends Component {
     toggleAllFullChal() {
         this.setState({
             modal: !this.state.modal,
-            fullChalModal: !this.state.toggleFullChal
+            fullChalModal: !this.state.fullChalModal
         })
       }
     
@@ -149,15 +149,16 @@ class UpcomingChallenges extends Component {
             challengeStartDate: this.state.currentChallengeStartDate,
             challengeOpenSignUp: this.state.currentChallengeOpenSignUp
         }
-
-//         if (challengeData.challengeMax !== 0 && challengeData.challengeMax <= challengeData.challengeUsers) {
-//             // console.log('THIS CHALLENGE IS FULL')
-//             this.toggleFullChal()
-//             return
-//           } else {
-//               // console.log('THE CHALLENGE IS NOT FULL')
-//           }
-
+        console.log('CHALLENGE MAX: ', challengeData.challengeMax)
+        console.log('CHALLENGE USERS: ', challengeData.challengeUsers)
+        if (challengeData.challengeMax !== 0 && (challengeData.challengeMax - challengeData.challengeUsers <= 0)) {
+            console.log('THIS CHALLENGE IS FULL')
+            this.toggleFullChal()
+            return
+          } else {
+              console.log('THE CHALLENGE IS NOT FULL')
+          }
+        // debugger;
         let userData = {
             id: user._id,
             firstName: user.firstName,
