@@ -71,7 +71,7 @@ class Signup extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
         this.checkPassword = this.checkPassword.bind(this)
         this.checkUserName = this.checkUserName.bind(this)
-        this.checkDate = this.checkDate.bind(this)
+        // this.checkDate = this.checkDate.bind(this)
         this.checkEmail = this.checkEmail.bind(this)
       }
 
@@ -143,31 +143,31 @@ class Signup extends Component {
         })
       }
 
-    checkDate = event => {
-        if (!event) { 
-            return;
-        }
-        const date = event.target.value;
-        console.log(date);
-        this.setState({
-          birthDate: date
-        });
-        // let date = this.state.birthDate
-        let isAfter = moment(date).isAfter(moment().subtract(115, 'years').format('MM-DD-YYYY'))
-        let isBefore = moment(date).isBefore(moment().subtract(21, 'years').format('MM-DD-YYYY'))
-        if (isBefore && isAfter) { 
-            console.log('VALID DATE: ', date)
-            this.setState({
-                dateError: false
-            })
-        } else {
-            console.log('INVALID DATE: ', date)
-            this.setState({
-                dateError: true
-            })
-            return;
-        }
-      }
+    // checkDate = event => {
+    //     if (!event) { 
+    //         return;
+    //     }
+    //     const date = event.target.value;
+    //     console.log(date);
+    //     this.setState({
+    //       birthDate: date
+    //     });
+    //     // let date = this.state.birthDate
+    //     let isAfter = moment(date).isAfter(moment().subtract(115, 'years').format('MM-DD-YYYY'))
+    //     let isBefore = moment(date).isBefore(moment().subtract(21, 'years').format('MM-DD-YYYY'))
+    //     if (isBefore && isAfter) { 
+    //         console.log('VALID DATE: ', date)
+    //         this.setState({
+    //             dateError: false
+    //         })
+    //     } else {
+    //         console.log('INVALID DATE: ', date)
+    //         this.setState({
+    //             dateError: true
+    //         })
+    //         return;
+    //     }
+    //   }
 
     checkEmail = event => {
         if (!event) {
@@ -215,10 +215,10 @@ class Signup extends Component {
             })
         } 
 
-        if (this.state.dateError) {
-            console.log('ONE OF TWO ERRORS')
-            return;
-        }
+        // if (this.state.dateError) {
+        //     console.log('ONE OF TWO ERRORS')
+        //     return;
+        // }
 
         if (this.state.emailError) {
             console.log('ONE OF ONE ERRORS')
@@ -312,7 +312,7 @@ class Signup extends Component {
                                 <input 
                                 value={this.state.birthDate}
                                 name="birthDate"
-                                onChange={this.checkDate}
+                                onChange={this.handleInputChange}
                                 type="date"
                                 className="form-control"
                                 id="birthDate"
