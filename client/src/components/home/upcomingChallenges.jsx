@@ -150,13 +150,13 @@ class UpcomingChallenges extends Component {
             challengeOpenSignUp: this.state.currentChallengeOpenSignUp
         }
 
-        if (challengeData.challengeMax !== 0 && challengeData.challengeMax <= challengeData.challengeUsers) {
-            // console.log('THIS CHALLENGE IS FULL')
-            this.toggleFullChal()
-            return
-          } else {
-              // console.log('THE CHALLENGE IS NOT FULL')
-          }
+//         if (challengeData.challengeMax !== 0 && challengeData.challengeMax <= challengeData.challengeUsers) {
+//             // console.log('THIS CHALLENGE IS FULL')
+//             this.toggleFullChal()
+//             return
+//           } else {
+//               // console.log('THE CHALLENGE IS NOT FULL')
+//           }
 
         let userData = {
             id: user._id,
