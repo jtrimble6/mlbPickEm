@@ -298,7 +298,7 @@ class UpcomingChallenges extends Component {
                                   Confirm Entry
                               </ModalHeader>
                                   <ModalBody id='modalBody'>
-                                  <Modal className='invPick' isOpen={this.state.dupAddModal} toggle={this.toggleDupAdd} onClosed={this.state.closeAllDupUser ? this.toggle : undefined}>
+                                  <Modal className='invPick' isOpen={this.state.dupAddModal} toggle={this.toggleAllDupUser} onClosed={this.state.closeAllDupUser ? this.toggle : undefined}>
                                     <ModalHeader>Duplicate entry</ModalHeader>
                                       <ModalBody>You are already in this Challenge!</ModalBody>
                                       <ModalFooter>
