@@ -77,7 +77,7 @@ class UpcomingChallenges extends Component {
 
     toggleDupAdd() {
         this.setState({
-            dupAddModal: !this.state.dubAddModal,
+            dupAddModal: !this.state.dupAddModal,
             closeAllDupUser: false
         })
       }
@@ -125,7 +125,7 @@ class UpcomingChallenges extends Component {
     toggleAllDupUser() {
         this.setState({
             modal: !this.state.modal,
-            dubAddModal: !this.state.dupAddModal
+            dupAddModal: !this.state.dupAddModal
         })
       }
 
