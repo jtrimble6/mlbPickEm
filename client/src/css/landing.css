@@ -150,3 +150,10 @@
 #landingPage {
     margin-bottom: 10%;
 }
+
+@media (max-width: 900px) {
+    #landingPage {
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+}

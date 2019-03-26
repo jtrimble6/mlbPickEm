@@ -122,3 +122,10 @@ a {
 #adminPage {
   margin-bottom: 10%;
 }
+
+@media (max-width: 900px) {
+  #adminPage {
+      margin-top: 30%;
+      margin-bottom: 20%;
+  }
+}

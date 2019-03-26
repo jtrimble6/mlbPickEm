@@ -425,3 +425,17 @@
 #homePage {
     margin-bottom: 10%;
 }
+
+.fa-strikethrough {
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    #homePage {
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+    .fa-strikethrough {
+        font-size: 8px;
+    }
+}

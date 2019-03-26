@@ -112,3 +112,10 @@
     margin-top: 7%;
     margin-bottom: 10%;
 }
+
+@media (max-width: 900px) {
+    #nbaGamesPage {
+        margin-top: 15%;
+        margin-bottom: 20%;
+    }
+  }

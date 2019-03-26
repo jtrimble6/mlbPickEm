@@ -75,6 +75,7 @@ class LandingBar extends Component {
                 </div>
                 <footer className="footer">
                   <p>WWW.SPORTHABITS.COM</p>
+                  <small className='disclaimer'>*DISCLAIMER: THIS SITE IS FOR ENTERTAINMENT PURPOSES ONLY*</small>
                 </footer>
             </nav>
         )

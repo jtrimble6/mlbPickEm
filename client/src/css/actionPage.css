@@ -150,3 +150,10 @@
     margin-bottom: 10%;
 }
 
+@media (max-width: 900px) {
+    #actionPage {
+        margin-top: 15%;
+        margin-bottom: 25%;
+    }
+  }
+

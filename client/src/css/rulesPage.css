@@ -111,3 +111,10 @@ hr {
 #rulesPage {
     margin-bottom: 10%;
 }
+
+@media (max-width: 900px) {
+    #rulesPage {
+        margin-top: 20%;
+        margin-bottom: 25%;
+    }
+  }

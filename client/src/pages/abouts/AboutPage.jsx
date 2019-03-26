@@ -31,7 +31,7 @@ class About extends Component {
                 Send us an email at TheChallengeMaster@SportHabits.com. 
                 We want to hear from you and your thoughts on the experience. Whether that is something you particularly enjoy, something you particular don’t enjoy, or anything that can make your user experience better.
                 <br /><br />
-                All in all we want you to enjoy your experience, and hopefully profit from doing so as well!<br />
+                All in all we want you to enjoy your experience and hopefully reap the benefits as well!<br />
                 Enjoy the Challenges!<br />
                 SportHabits
                 </span>

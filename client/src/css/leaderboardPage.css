@@ -90,3 +90,10 @@
     }
 }
 
+
+@media (max-width: 900px) {
+    #leaderboardPage {
+        margin-top: 15%;
+        margin-bottom: 20%;
+    }
+}

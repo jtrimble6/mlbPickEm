@@ -291,7 +291,14 @@
     } */
   }
   
-  
-  
+  .disclaimer {
+    font-size: 10px;
+  }
+
+  @media (max-width: 900px) {
+    .disclaimer {
+      font-size: 6px;
+    }
+  }
   
   

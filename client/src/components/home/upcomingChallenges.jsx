@@ -16,6 +16,7 @@ class UpcomingChallenges extends Component {
             currentChallengeUsers: 0,
             currentChallengeName: '',
             currentChallengeUrl: '',
+            currentChallengeBuyIn: '',
             currentChallengeStartDate: '',
             currentChallengeOpenSignUp: '',
             redirect: false,
@@ -108,6 +109,7 @@ class UpcomingChallenges extends Component {
           currentChallengeUsers: event.target.dataset.users,
           currentChallengeName: event.target.dataset.name,
           currentChallengeUrl: event.target.dataset.url,
+          currentChallengeBuyIn: event.target.dataset.buyin,
           currentChallengeStartDate: event.target.dataset.startDate,
           currentChallengeOpenSignUp: event.target.dataset.signup
         });
@@ -146,6 +148,7 @@ class UpcomingChallenges extends Component {
             challengeUsers: this.state.currentChallengeUsers,
             challengeName: this.state.currentChallengeName,
             challengeUrl: this.state.currentChallengeUrl,
+            challengeBuyIn: this.state.challengeBuyIn,
             challengeStartDate: this.state.currentChallengeStartDate,
             challengeOpenSignUp: this.state.currentChallengeOpenSignUp
         }
@@ -252,11 +255,11 @@ class UpcomingChallenges extends Component {
                           <Card>
                             <CardBody>
                               <CardTitle>{challenge.challengeName}</CardTitle><hr />
-                              <CardLink className='signUp' onClick={this.toggleEvent} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
+                              <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
                                 Sign Up Now
                               </CardLink><hr />
                               <CardSubtitle className='buyIn'>
-                                  Entry Fee: ${challenge.buyIn}
+                                  Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
                               </CardSubtitle>
                               <CardSubtitle className='signUpDate'>
                                   Sign Up Opens: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
@@ -320,9 +323,9 @@ class UpcomingChallenges extends Component {
 
                                       <div className="thisChallenge row">
                                           Are you sure you want to join the
-                                          <strong>{challenge.challengeName}</strong> 
+                                          <strong>{this.state.currentChallengeName}</strong> 
                                           for 
-                                          <strong>${challenge.buyIn}</strong>
+                                          <strong><i className="fas fa-strikethrough"></i>{this.state.currentChallengeBuyIn}</strong>
                                           ?
                                       </div>
                                       {/* <div className="challengeStatus row">
