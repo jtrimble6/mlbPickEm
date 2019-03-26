@@ -6,7 +6,7 @@
     color: blue;
     background-color: gold;
     border-radius: 5%;
-    max-width: 50% !important;
+    /* max-width: 50% !important; */
 }
 
 .status {
@@ -560,6 +560,7 @@ td.fc-event-container a {
     .team.active {
         color: blue;
         background-color: gold;
+        margin: 0 auto !important;
     }
     
     .calBoard {
@@ -903,4 +904,9 @@ td.fc-event-container a {
         white-space: pre-wrap !important;
     }
 
+}
+
+.teamLogo {
+    background-color: gold !important;
+    padding: 1%;
 }

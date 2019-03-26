@@ -704,7 +704,7 @@ class MlbBar extends Component {
                 <div className="col-10 recentPicks picks mainPicks">
                  
                   {
-                    (picks) ? (<table className='table table-hover'><tbody><tr><td>There are no recent picks!</td></tr></tbody></table>) :
+                    (!picks) ? (<table className='table table-hover'><tbody><tr><td>There are no recent picks!</td></tr></tbody></table>) :
 
                       (
                       <table className='table table-hover'>
