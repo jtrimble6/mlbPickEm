@@ -9,6 +9,8 @@ const sessionRoutes = require("./routes/API/sessionAPI");
 const mlbGameRoutes = require('./routes/API/mlbGameAPI')
 const mlbTeamRoutes = require('./routes/API/mlbTeamAPI')
 const nbaGameRoutes = require('./routes/API/nbaGameAPI')
+const nbaPlayoffGameRoutes = require('./routes/API/nbaPlayoffGameAPI')
+const nbaPlayoffTeamRoutes = require('./routes/API/nbaPlayoffTeamAPI')
 const nbaTeamRoutes = require('./routes/API/nbaTeamAPI')
 const challengeRoutes = require('./routes/API/challengeAPI')
 // const mlbPickEmUserRoutes = require("./routes/API/mlbPickEmAPI/mlbPickEmUserAPI");
@@ -39,7 +41,7 @@ app.use(userPassport.initialize());
 app.use(userPassport.session());
 
 // Add routes, both API and view
-app.use(messageBoardRoutes, userRoutes, sessionRoutes, challengeRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaTeamRoutes);
+app.use(messageBoardRoutes, userRoutes, sessionRoutes, challengeRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaPlayoffGameRoutes, nbaPlayoffTeamRoutes, nbaTeamRoutes);
 
 app.use(
   session({

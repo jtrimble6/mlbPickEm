@@ -41,9 +41,14 @@ class HomePage extends Component {
       let self = this
       API.getChallenges()
         .then(res => {
-          // console.log('ACTIVE CHALLENGES: ', res.data[0])
+          console.log('ACTIVE CHALLENGES: ', res.data)
+          let allChals = res.data
+          let findActiveChals = (chals) => {
+            return chals.challengeStatus === 'active'
+          }
+          let activeChallenges = allChals.filter(findActiveChals)
           self.setState({
-            allActiveChallenges: res.data 
+            allActiveChallenges: activeChallenges
           })
           self.getUserData();
         })

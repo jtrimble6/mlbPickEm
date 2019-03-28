@@ -17,10 +17,12 @@ class CreateChallenge extends Component {
         this.state = {
             creationSuccess: false,
             nameTaken: false,
+            nameError: false,
             passwordError: false,
             formError: false,
             allChallenges: [],
             challengeName: '',
+            challengeStatus: '',
             openSignUp: '',
             startDate: '',
             maxEntries: 0,
@@ -66,6 +68,25 @@ class CreateChallenge extends Component {
               { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
               { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
             ],
+            nbaPlayoffTeams: [
+              { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '1' },
+              { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '2' },
+              { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
+              { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary', conf: 'east', seed: '4' },
+              { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
+              { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary', conf: 'east', seed: '6' },
+              { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '7' },
+              { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary', conf: 'east', seed: '8' },
+              { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '1' },
+              { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '2' },
+              { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '3' },
+              { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '4' },
+              { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
+              { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary', conf: 'west', seed: '6' },
+              { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
+              { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary', conf: 'west', seed: '8' },
+
+            ],
             mlbTeams: [
               { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
               { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
@@ -101,6 +122,7 @@ class CreateChallenge extends Component {
           }
 
           this.checkPassword = this.checkPassword.bind(this)
+          this.checkChallengeName = this.checkChallengeName.bind(this)
           this.handleInputChange = this.handleInputChange.bind(this)
           this.handleFormSubmit = this.handleFormSubmit.bind(this)
           this.handleFormError = this.handleFormError.bind(this)
@@ -130,6 +152,40 @@ class CreateChallenge extends Component {
         })
 
 
+    }
+
+    checkChallengeName = event => {
+      let self = this
+      const challengeName = event.target.value;
+      console.log(challengeName);
+      this.setState({
+        challengeName: challengeName
+      });
+      API.getChallenges()
+      .then(res => {
+          let allChallenges = res.data
+          console.log('ALL CHALLENGES: ', allChallenges)
+          let findChalFunc = (challenges) => {
+            return challenges.challengeName.toLowerCase() === challengeName.toLowerCase()
+          }
+          let foundChal = allChallenges.filter(findChalFunc)
+          if (!foundChal[0]) {
+              // console.log("CHALLENGE NAME AVAILABLE");
+              self.setState({
+                nameError: 'CHALLENGE NAME AVAILABLE',
+                nameTaken: false
+              })
+          } else {
+              // console.log("CHALLENGE NAME UNAVAILABLE");
+              self.setState({
+                nameError: 'CHALLENGE NAME UNAVAILABLE',
+                nameTaken: true
+              })
+          }
+      })
+      .catch(error => {
+          console.log(error)
+      })
     }
 
     checkPassword = event => {
@@ -164,14 +220,15 @@ class CreateChallenge extends Component {
 
     handleFormSubmit = event => {
         let self = this
-        this.setState({
-            nameTaken: false,
-        })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.mlbTeams ) 
+        // this.setState({
+        //     nameTaken: false,
+        // })
+        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.nbaPlayoffTeams ) 
         event.preventDefault();
         //console.log(this.state)
         let challengeData = {
             challengeName: this.state.challengeName,
+            challengeStatus: this.state.challengeStatus,
             openSignUp: this.state.openSignUp,
             startDate: this.state.startDate,
             endDate: this.state.endDate,
@@ -193,6 +250,7 @@ class CreateChallenge extends Component {
               self.setState({
                 creationSuccess: true,
                 challengeName: '',
+                challengeStatus: '',
                 openSignUp: '',
                 startDate: '',
                 maxEntries: 0,
@@ -217,7 +275,7 @@ class CreateChallenge extends Component {
 
     render() {
         return (
-            <div id="signupPage">
+            <div id="createChal">
             <AdminBar />
               {/* {this.renderRedirect()} */}
                 <div className="formContainer">    
@@ -229,13 +287,28 @@ class CreateChallenge extends Component {
                                 <input 
                                 value={this.state.challengeName}
                                 name="challengeName"
-                                onChange={this.handleInputChange}
+                                onChange={this.checkChallengeName}
                                 type="text"
                                 className="form-control"
                                 id="challengeName"
                                 placeholder="Name of Challenge"
                             />
-                            <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
+                            <small id="challengeNameError" className="form-text text-muted">{this.state.nameError}</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="challengeStatus">Challenge Status</label>
+                              <select
+                                    name="challengeStatus"
+                                    value={this.state.challengeStatus}
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    id="challengeStatus"                                       
+                                >
+                                <option value=''>Select One</option>
+                                <option value='active'>Active</option>
+                                <option value='inactive'>Inactive</option>
+                              </select>
                         </div>
                         <div className="form-group">
                             <label htmlFor="openSignUp">Open Sign Up Date</label>
@@ -362,6 +435,7 @@ class CreateChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlb'>MLB Teams</option>
                                 <option value='nba'>NBA Teams</option>
+                                <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
                               </select>
                         </div>
                         <div className="form-group">
@@ -377,6 +451,7 @@ class CreateChallenge extends Component {
                                   <option value=''>Select One</option>
                                   <option value='/actionMlb'>MLB Challenge</option>
                                   <option value='/actionNba'>NBA Challenge</option>
+                                  <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
                                 </select>
                         </div>
                         <div className="form-group">
@@ -392,6 +467,7 @@ class CreateChallenge extends Component {
                                   <option value=''>Select One</option>
                                   <option value='/mlbRules'>MLB Rules</option>
                                   <option value='/nbaRules'>NBA Rules</option>
+                                  <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
                               </select>
                         </div>
                         <div className="form-group">

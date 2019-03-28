@@ -1,0 +1,11 @@
+.footer {
+    line-height: .5em;
+    height: 30px;
+    
+    margin-bottom: 0;
+}
+
+.footer p {
+    font-size: 14px;
+    margin-bottom: 0;
+}

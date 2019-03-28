@@ -56,6 +56,10 @@ a {
   margin: 1%;
 }
 
+#futureChals, #adminChals, #adminUsers, #adminActions {
+  margin-top: 10% !important;
+}
+
 #editUsersPage {
   color: gold;
   text-align: center;
@@ -126,6 +130,6 @@ a {
 @media (max-width: 900px) {
   #adminPage {
       margin-top: 30%;
-      margin-bottom: 20%;
+      margin-bottom: 40%;
   }
 }

@@ -1,0 +1,12 @@
+#createChalPage {
+    text-align: center;
+    margin-top: 10%;
+}
+
+@media (max-width: 900px) {
+    #createChalPage h1 {
+        color: gold;
+        font-size: 30px;
+        margin-top: 20%;
+    }
+}

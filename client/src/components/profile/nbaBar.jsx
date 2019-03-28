@@ -7,7 +7,7 @@ import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFoote
 import $ from 'jquery'
 //import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
-class ProfileBar extends Component {
+class NbaBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -691,4 +691,4 @@ class ProfileBar extends Component {
     }
 }
 
-export default ProfileBar
+export default NbaBar

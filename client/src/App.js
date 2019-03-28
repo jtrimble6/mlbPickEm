@@ -21,10 +21,12 @@ import ContactUser from './pages/contacts/ContactPageUser'
 import AboutUser from './pages/abouts/AboutPageUser'
 import Rules from './pages/rules/RulesPage'
 import MlbRules from './pages/rules/MlbRulesPage'
+import NbaPlayoffRules from './pages/rules/NbaPlayoffRulesPage'
 import HomePage from './pages/landings/HomePage'
 import LandingPage from './pages/landings/LandingPage'
 import MlbActionPage from './pages/actions/MlbActionPage'
 import NbaActionPage from './pages/actions/NbaActionPage'
+import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 
 
@@ -206,6 +208,16 @@ class App extends Component {
                   null
                 )}
             />
+            <Route exact path='/nbaPlayoffRules'
+              render={() =>
+                this.state.userLoggedIn === true ? (
+                  <NbaPlayoffRules />
+                ) : this.state.userLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )}
+            />
             <Route exact path='/adminPage' render={() => (
               this.state.adminLoggedIn === true ? (
                 <AdminPage 
@@ -275,6 +287,17 @@ class App extends Component {
             <Route exact path='/mlbGames' render={() => (
               this.state.adminLoggedIn === true ? (
                 <MlbGamesPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nbaPlayoffs' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <NbaPlayoffActionPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (

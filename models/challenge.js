@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const challengeSchema = new Schema({
     challengeName: { type: String, required: true },
+    challengeStatus: { type: String, required: true },
     openSignUp: { type: Date, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true, default: Date.now() + 365*24*60*60000 },

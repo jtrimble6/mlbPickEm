@@ -10,7 +10,7 @@ class AddChallenge extends Component {
 
     render() {
         return(
-            <div id='adminChallengePage'>
+            <div id='createChalPage'>
               <AdminBar />
 
               <h1>Add/Delete Challenges</h1>

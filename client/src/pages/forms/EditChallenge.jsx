@@ -168,7 +168,9 @@ class EditChallenge extends Component {
 
         // API.getChallenge()
         // let thisChallenge = challenge.dataset.name
-        // console.log('CHALLENGE DATA: ', thisChallenge)
+        console.log('CHALLENGE DATA: ', thisChallenge)
+        console.log('CHALLENGE URL: ', chal.url)
+      
       }
 
     checkPassword = event => {
@@ -208,6 +210,7 @@ class EditChallenge extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
+        let editSuccess = false
         let self = this
         this.setState({
             nameTaken: false,
@@ -239,9 +242,7 @@ class EditChallenge extends Component {
         API.saveChallenge(challengeData)
           .then(res => {
               console.log('RESULT: ', res)
-              self.setState({
-                  editSuccess: true
-              })
+              editSuccess = true
           })
           .catch(err => {
               console.log(err)
@@ -252,7 +253,7 @@ class EditChallenge extends Component {
               return;
             })
 
-            if (this.state.editSuccess) {
+            if (editSuccess) {
               API.deleteChallenge(challengeDeletionId)
                 .then(res => {
                     console.log('DELETION RESULT: ', res)
@@ -282,6 +283,8 @@ class EditChallenge extends Component {
                   password: '',
                   confirmPassword: '',
               })
+            } else {
+              console.log('FORM DELETION ERROR')
             }
 
             
@@ -290,6 +293,7 @@ class EditChallenge extends Component {
     render() {
         let uuidv4 = require('uuid/v4')
         let challengeData = this.state.challengeData
+        // let chalUrl = 
         return (
             <div id="editChallengePage">
             <AdminBar />

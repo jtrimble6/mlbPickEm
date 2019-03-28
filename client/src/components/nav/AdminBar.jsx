@@ -51,12 +51,6 @@ class AdminBar extends Component {
                                 <NavLink href="/adminPage">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/addChallenge">Add/Remove Challenge</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/mlbRules">Rules</NavLink>
-                            </NavItem>
-                            <NavItem>
                                 <NavLink href="/signout">Sign Out</NavLink>
                             </NavItem>
                         </Nav>
@@ -67,12 +61,6 @@ class AdminBar extends Component {
                     <ul className="navbar-nav ml-auto">
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/adminPage">Home</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/addChallenge">Add/Remove Challenge</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/signout">Sign Out</a>

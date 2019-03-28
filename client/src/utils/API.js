@@ -97,6 +97,50 @@ export default {
     updateNbaGame: function(date, id, gameResult) {
         return axios.put('/api/nbagames/' + date + '/' + id, gameResult)
     },
+
+    // NBA PLAYOFF API
+    postNbaPlayoffGames: function(data) {
+        return axios.post('/api/nbaPlayoffGames/', data)
+    },
+    getNbaPlayoffGames: function() {
+        return axios.get('/api/nbaPlayoffGames/')
+    },
+    getNbaPlayoffGamesByDate: function(date) {
+        return axios.get('/api/nbaPlayoffGames/' + date)
+    },
+    postNbaPlayoffTeams: function(data) {
+        return axios.post('/api/nbaPlayoffTeams/', data)
+    },
+    addNbaPlayoffGamesByTeam: function(team, game) {
+        return axios.put('/api/nbaPlayoffTeams/' + team, game)
+    },
+    getNbaPlayoffTeam: function(team) {
+        return axios.get('/api/nbaPlayoffTeams/' + team)
+    },
+    getNbaPlayoffTeams: function() {
+        return axios.get('/api/nbaPlayoffTeams/')
+    },
+    getNbaPlayoffGamesById: function(date, id) {
+        return axios.get('/api/nbaPlayoffGames/' + date + '/' + id)
+    },
+    updateNbaPlayoffGame: function(date, id, gameResult) {
+        return axios.put('/api/nbaPlayoffGames/' + date + '/' + id, gameResult)
+    },
+    addNbaPlayoffLoss: function(id, user, newLoss) {
+        return axios.post('/api/challenges/' + id + '/users/' + user, newLoss)
+    },
+    saveNbaPlayoffPick: function(id, user, thisPick) {
+        return axios.put('/api/challenges/' + id + '/users/' + user, thisPick)
+    },
+    deleteNbaPlayoffPick: function(id, user, date) {
+        return axios.delete('/api/challenges/' + id + '/users/' + user + '/' + date)
+    },
+    updateNbaPlayoffPick: function(id, user, date, result) {
+        return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
+    },
+
+
+    // MISC / NOT USED
     addResult: function(game) {
         return axios.post('/api/results/', game)
     },

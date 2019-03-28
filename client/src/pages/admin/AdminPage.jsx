@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
-import moment from 'moment'
+// import moment from 'moment'
 // import { Redirect } from 'react-router-dom'
 // import API from '../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
@@ -62,8 +62,8 @@ renderRedirect = () => {
 }
 
     render() {
-      let activeChallenges = this.state.allChallenges
-      let uuidv4 = require('uuid/v4')
+      // let activeChallenges = this.state.allChallenges
+      // let uuidv4 = require('uuid/v4')
         return(
             <div id='adminPage'>
             {(this.renderRedirect())}
@@ -130,33 +130,23 @@ renderRedirect = () => {
                   <h3>Active Challenges</h3>
                   <Button
                     color='success'
-                    classNames='challengeButtons'
+                    className='challengeButtons'
                     data-url='/challengePage'
                     onClick={this.setRedirect}
                   >
                     Challenge DB
                   </Button>
-                  {/* {
-                    (!activeChallenges[0]) ? <Button color='warning' className='challengeButtons'>No Active Challenges</Button> :
-
-                    activeChallenges.map(activeChallenge => (
-                      <Button
-                        key={uuidv4()}
-                        color='success'
-                        className='challengeButtons'
-                        onClick={this.handleChal}
-                        data-name={activeChallenge.challengeName}
-                        data-id={activeChallenge._id}
-                        data-url={activeChallenge.url}
-                        data-startdate={moment(activeChallenge.challengeStartDate).format('YYYY-MM-DD')}
-                        data-enddate={moment(activeChallenge.challengeEndDate).format('YYYY-MM-DD')}
-                      >
-                        {activeChallenge.challengeName}
-                      </Button>
-                    ))
-                    
-                  } */}
-
+                </div>
+                <div id="futureChals">
+                  <h3>Future Challenges</h3>
+                  <Button
+                    color='success'
+                    className='challengeButtons'
+                    data-url='/nbaPlayoffs'
+                    onClick={this.setRedirect}
+                  >
+                    NBA Playoff Challenge
+                  </Button>
                 </div>
             </div>
         )

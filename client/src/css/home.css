@@ -113,6 +113,7 @@
 
 /* MESSAGE BOARD */
 .messageBoardPage {
+    background-color: #209CEE;
     height: 600px;
     text-align: center;
 }
@@ -437,5 +438,9 @@
     }
     .fa-strikethrough {
         font-size: 8px;
+    }
+    .upcomingChallenges {
+        max-height: 400px;
+        padding-right: 6%;
     }
 }

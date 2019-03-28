@@ -9,7 +9,7 @@ import DateError from '../../components/alerts/DateError';
 import EmailError from '../../components/alerts/EmailError';
 import SignUpError from '../../components/alerts/SignUpError';
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
-import moment from 'moment'
+// import moment from 'moment'
 
 
 class Signup extends Component {

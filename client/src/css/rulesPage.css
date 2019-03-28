@@ -118,3 +118,7 @@ hr {
         margin-bottom: 25%;
     }
   }
+
+  #rulesPage p {
+      color: white;
+  }

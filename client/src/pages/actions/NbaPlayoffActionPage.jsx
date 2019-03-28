@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import MlbActionNav from '../../components/nav/MlbActionNav'
-import NbaBar from '../../components/profile/nbaBar'
-import Calendar from '../../components/calendar/Calendar'
-import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
+// import MlbActionNav from '../../components/nav/MlbActionNav'
+import NbaPlayoffBar from '../../components/profile/nbaPlayoffBar'
+import NbaPlayoffCalendar from '../../components/calendar/NbaPlayoffCalendar'
+// import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
+import NbaPlayoffLeaderboard from '../../components/leaderboards/NbaPlayoffLeaderboard'
 //import Games from '../../components/games/Games'
+import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/actionPage.css'
 
-class NbaActionPage extends Component {
+class NbaPlayoffActionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,8 +23,8 @@ class NbaActionPage extends Component {
       username: '',
       firstName: '',
       lastName: '',
-      wins: [],
-      winsCount: 0,
+      losses: [],
+      lossesCount: 0,
       myPicks: [],
       todaysPick: 'No Pick'
     }
@@ -44,13 +46,14 @@ class NbaActionPage extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = '5c9ba1f709237528c630baa8'
+      // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
       API.getChallenge(challengeId)
         .then(res => {
-          // console.log(res)
+          // console.log('this challenge data: ', res.data)
           self.setState({
             challengeData: res.data[0]
           })
@@ -75,14 +78,14 @@ class NbaActionPage extends Component {
           username: thisUser[0].username,
           firstName: thisUser[0].firstName,
           lastName: thisUser[0].lastName,
-          wins: thisUser[0].wins,
-          winsCount: thisUser[0].wins.length,
+          losses: thisUser[0].wins,
+          lossesCount: thisUser[0].wins.length,
           myPicks: thisUser[0].picks,
         })
 
         this.getTodaysPick()
 
-        // console.log('CURRENT USER PICKS: ', this.state.myPicks)
+        console.log('CURRENT LOSSES: ', this.state.lossesCount)
         // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
     }
 
@@ -101,26 +104,29 @@ class NbaActionPage extends Component {
 
         return (
             <div id='actionPage'>
+              <AdminBar />
               <div className="se-pre-con"></div>
-              <MlbActionNav 
+              {/* <MlbActionNav 
                 challengeName={this.state.challengeData.challengeName}
-              />
+              /> */}
               
-              <NbaBar
+              <NbaPlayoffBar
                   username={this.state.username}
-                  winsCount={this.state.winsCount}
+                  lossesCount={this.state.lossesCount}
                   todaysPick={this.state.todaysPick}
-                />
+                /> 
               
               <div className='row'>
                 <div className='calBoard col-md-9'>
-                  <Calendar 
+                  <NbaPlayoffCalendar 
                     username={this.state.username}
                   />
                 </div>
                 <div className='col-md-3'>
+                {/* <NbaPlayoffGames
+                /> */}
                 <div className="leaders row">
-                  <Leaderboard   
+                  <NbaPlayoffLeaderboard   
                   />
                 </div>
 
@@ -138,4 +144,4 @@ class NbaActionPage extends Component {
 
 }
 
-export default NbaActionPage
+export default NbaPlayoffActionPage
