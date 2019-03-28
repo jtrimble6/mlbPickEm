@@ -89,7 +89,6 @@ class NbaPlayoffCalendar extends Component {
       }
 
     componentDidMount() {
-
       this.getChallengeData()
       this.getTodaysFirstGame()
       // this.checkPrevDatesPicked()
@@ -217,8 +216,13 @@ class NbaPlayoffCalendar extends Component {
       //     console.log('ALL PLAYOFF GAMES STATE: ', this.state.playoffGames)
       //   })
 
+      // TEMP CODE FOR LOCAL TESTING
+      // let challengeId = '5c9ba1f709237528c630baa8'
+
       // TEMP CODE FOR ADMIN TESTING
-      let challengeId = '5c9ba1f709237528c630baa8'
+      let challengeId = '5c9d00af9c45e400175c56a3'
+
+      
 
       // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
