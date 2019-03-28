@@ -513,57 +513,57 @@ class NbaPlayoffCalendar extends Component {
       }
 
     getGames = () => {
-      let self = this
+      // let self = this
 
       // PULL FULL SCHEDULE FROM DATABASE
-      // API.getNbaPlayoffGames()
-      //   .then(res => {
-      //     let games = []
-      //     res.data.forEach((game) => {
-      //       let splitDate = game.gameDate.split('T')
-      //       let gameDate = splitDate[0]
-      //       let homeAlias = game.homeAlias.toLowerCase()
-      //       let awayAlias = game.awayAlias.toLowerCase()
-      //       let gameInfo = {
-      //           id: game.gameId,
-      //           date: gameDate,
-      //           start: game.gameTime,
-      //           status: game.gameStatus,
-      //           homeTeam: game.homeTeam,
-      //           awayTeam: game.awayTeam,
-      //           homeAlias: homeAlias,
-      //           awayAlias: awayAlias,
-      //           title: game.homeAlias + ' vs ' + game.awayAlias,
-      //           color: 'yellow',
-      //           textColor: 'white',
-      //           borderColor: 'blue'
+      API.getNbaPlayoffGames()
+        .then(res => {
+          let games = []
+          res.data.forEach((game) => {
+            let splitDate = game.gameDate.split('T')
+            let gameDate = splitDate[0]
+            let homeAlias = game.homeAlias.toLowerCase()
+            let awayAlias = game.awayAlias.toLowerCase()
+            let gameInfo = {
+                id: game.gameId,
+                date: gameDate,
+                start: game.gameTime,
+                status: game.gameStatus,
+                homeTeam: game.homeTeam,
+                awayTeam: game.awayTeam,
+                homeAlias: homeAlias,
+                awayAlias: awayAlias,
+                title: game.homeAlias + ' vs ' + game.awayAlias,
+                color: 'yellow',
+                textColor: 'white',
+                borderColor: 'blue'
 
-      //         }
-      //         games.push(gameInfo)
-      //       })
-      //       this.setState({ allGames: games })
-      //       console.log('ALL PLAYOFF GAMES: ', games)
-      //   })
-      //     .catch(err => console.log(err))
+              }
+              games.push(gameInfo)
+            })
+            this.setState({ allGames: games })
+            console.log('ALL PLAYOFF GAMES: ', games)
+        })
+          .catch(err => console.log(err))
 
       // PULL ENTIRE SCHEDULE FROM API
 
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
 
       // API CALL TO PULL ENTIRE SEASON SCHEDULE
-      $.ajax({
-        // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2017/PST/schedule.json?api_key=' + nbaKey3,
-        type: 'GET',
-        success: function(data) {
-          self.setState({ fullSchedule: data.games });
-          // POST ENTIRE SCHEDULE
-          self.postGames(data.games)
-          }
-        })
+      // $.ajax({
+      //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
+      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2017/PST/schedule.json?api_key=' + nbaKey3,
+      //   type: 'GET',
+      //   success: function(data) {
+      //     self.setState({ fullSchedule: data.games });
+      //     // POST ENTIRE SCHEDULE
+      //     self.postGames(data.games)
+      //     }
+      //   })
       }
     
     getResults = () => {
