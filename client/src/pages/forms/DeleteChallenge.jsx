@@ -101,7 +101,7 @@ class DeleteChallenge extends Component {
               self.setState({
                   deletionError: true
               })
-              self.handleFormError()
+              // self.handleFormError()
               self.toggle()
             })
 
@@ -143,7 +143,7 @@ class DeleteChallenge extends Component {
                   </div> <hr />
                 </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Confirm Delete" color="primary" className="btn btn-primary footer" onClick={this.handleFormSubmit} />
+                        <input type="submit" value="Confirm Delete" color="primary" className="btn btn-primary" onClick={this.handleFormSubmit} />
                         <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                   </form>

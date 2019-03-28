@@ -7,9 +7,9 @@ router.route('/')
   
 
 router.route('/:id')
-  .put(challengeController.addUser)
+  .post(challengeController.addUser)
   .get(challengeController.findById)
-  .delete(challengeController.remove)
+  .put(challengeController.remove)
 
 // router.route('/:id/games')
 //   .post(challengeController.addGames)

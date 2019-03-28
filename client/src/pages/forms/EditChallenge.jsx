@@ -27,6 +27,7 @@ class EditChallenge extends Component {
             challengeData: '',
             challengeId: '',
             challengeName: '',
+            challengeStatus: '',
             openSignUp: '',
             startDate: '',
             buyIn: 0,
@@ -151,6 +152,7 @@ class EditChallenge extends Component {
         this.setState({
             challengeId: chal._id,
             challengeName: chal.challengeName,
+            challengeStatus: chal.challengeStatus,
             openSignUp: moment(chal.openSignUp).format('YYYY-MM-DD'),
             startDate: moment(chal.startDate).format('YYYY-MM-DD'),
             endDate: moment(chal.endDate).format('YYYY-MM-DD'),
@@ -220,6 +222,7 @@ class EditChallenge extends Component {
         //console.log(this.state)
         let challengeData = {
             challengeName: this.state.challengeName,
+            challengeStatus: this.state.challengeStatus,
             openSignUp: this.state.openSignUp,
             startDate: this.state.startDate,
             endDate: this.state.endDate,
@@ -242,7 +245,6 @@ class EditChallenge extends Component {
         API.saveChallenge(challengeData)
           .then(res => {
               console.log('RESULT: ', res)
-              editSuccess = true
           })
           .catch(err => {
               console.log(err)
@@ -253,8 +255,8 @@ class EditChallenge extends Component {
               return;
             })
 
-            if (editSuccess) {
-              API.deleteChallenge(challengeDeletionId)
+            
+            API.deleteChallenge(challengeDeletionId)
                 .then(res => {
                     console.log('DELETION RESULT: ', res)
                     self.setState({
@@ -270,7 +272,9 @@ class EditChallenge extends Component {
                   })
 
               self.setState({
+                  challengeData: '',
                   challengeName: '',
+                  challengeStatus: '',
                   openSignUp: '',
                   startDate: '',
                   buyIn: 0,
@@ -283,9 +287,7 @@ class EditChallenge extends Component {
                   password: '',
                   confirmPassword: '',
               })
-            } else {
-              console.log('FORM DELETION ERROR')
-            }
+            
 
             
       }
@@ -357,6 +359,21 @@ class EditChallenge extends Component {
                                 placeholder="Name of Challenge"
                             />
                             <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="challengeStatus">Challenge Status</label>
+                              <select
+                                    name="challengeStatus"
+                                    value={this.state.challengeStatus}
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    id="challengeStatus"                                       
+                                >
+                                <option value=''>Select One</option>
+                                <option value='active'>Active</option>
+                                <option value='inactive'>Inactive</option>
+                              </select>
                         </div>
                         <div className="form-group">
                             <label htmlFor="openSignUp">Open Sign Up Date</label>
@@ -483,6 +500,7 @@ class EditChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlb'>MLB Teams</option>
                                 <option value='nba'>NBA Teams</option>
+                                <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -498,6 +516,7 @@ class EditChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='/actionMLB'>MLB Challenge</option>
                                 <option value='/action'>NBA Challenge</option>
+                                <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
                                 </select>
                         </div>
                         <div className="form-group">
@@ -513,6 +532,7 @@ class EditChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='/mlbRules'>MLB Rules</option>
                                 <option value='/rules'>NBA Rules</option>
+                                <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
                             </select>
                         </div>
                         <div className="form-group">

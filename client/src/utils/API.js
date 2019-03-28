@@ -214,10 +214,10 @@ export default {
         return axios.post('/api/challenges', challengeData)
     },
     deleteChallenge: function(id) {
-        return axios.delete('/api/challenges/' + id)
+        return axios.put('/api/challenges/' + id)
     },
     addUserToChallenge: function(id, userData) {   
-        return axios.put('/api/challenges/' + id, userData)
+        return axios.post('/api/challenges/' + id, userData)
     },
 
     // CHALLENGE API CALLS
