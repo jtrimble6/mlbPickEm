@@ -166,12 +166,12 @@ class MlbGamesPage extends Component {
   getResults = () => {
     console.log('GETTING RESULTS')
     let self = this
+    let yesterday = moment(this.state.yesterday).format('YYYY/MM/DD')
     let yesterdayGamesIds = this.state.yesterdayGamesIds
     let gameResults = []
     console.log('GETTING RESULTS: ', yesterdayGamesIds)
-    // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-    // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+    console.log('YESTERDAY: ', yesterday)
+
     const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
 
     // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
@@ -180,15 +180,16 @@ class MlbGamesPage extends Component {
       setTimeout ( 
         function() {
           $.ajax({
-            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-            // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
             type: 'GET',
             success: function(data) {
-              console.log('Game results: ', data)
-              gameResults.push(data)
+              // console.log('Game results: ', data.games[m])
+              // debugger
+              gameResults.push(data.games[m])
               self.setState({
                 gameResults: gameResults
               })
+              // console.log('GAME RESULTS: ', gameResults)
               self.findGameWinners()
             }
           })

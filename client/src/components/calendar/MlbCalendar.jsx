@@ -537,36 +537,36 @@ class MlbCalendar extends Component {
       //   })
       }
     
-    getResults = () => {
-      let self = this
-      let yesterdaysGameIds = self.state.yesterdaysGameIds
-      let gameResults = []
-      
-      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
-
-      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
-      for (let m=0; m<yesterdaysGameIds.length; m++) {
-        let k = m
-        setTimeout ( 
-          function() {
-            $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
-              type: 'GET',
-              success: function(data) {
-                // console.log('Game results: ', data)
-                gameResults.push(data)
-                self.setState({ gameResults: gameResults })
-                self.findGameWinners()
-              }
-            })
-          }, 1500*k)
-
-          self.findUserPicks()
-      
+      getResults = () => {
+        console.log('GETTING RESULTS')
+        let self = this
+        let yesterday = Moment(this.state.yesterday).format('YYYY/MM/DD')
+        let yesterdayGamesIds = this.state.yesterdayGamesIds
+        let gameResults = []
+        console.log('GETTING RESULTS: ', yesterdayGamesIds)
+        console.log('YESTERDAY: ', yesterday)
+    
+        const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+    
+        // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
+        for (let m=0; m<yesterdayGamesIds.length; m++) {
+          let k = m
+          setTimeout ( 
+            function() {
+              $.ajax({
+                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+                type: 'GET',
+                success: function(data) {
+                  gameResults.push(data.games[m])
+                  self.setState({
+                    gameResults: gameResults
+                  })
+                  self.findGameWinners()
+                }
+              })
+            }, 1500*k)
+          }
         }
-      }
 
     findGameWinners = () => {
       // FIND GAME RESULTS FROM YESTERDAY
@@ -597,6 +597,7 @@ class MlbCalendar extends Component {
       }
 
     postGameWinners = (data) => {
+      console.log('MAJOR DATA: ', data)
       for (let y=0; y<data.length; y++) {
         let gameDate = data[y].gameDate
         let gameId = data[y].gameId
