@@ -274,13 +274,21 @@
     }
 
     .playerRow .jumbotron {
-        min-width: 40% !important;
+        max-width: 35% !important;
         margin-left: 5%;
         margin-top: 5%;
         min-height: 220px;
         padding: 7px;
         padding-left: 0;
         background-color: #209CEE;
+    }
+
+    .profilePicks {
+        max-width: 53% !important;
+    }
+
+    .profilePicks .col-10 {
+        padding: 0 !important;
     }
 
     .teamLogos {
