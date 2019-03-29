@@ -554,13 +554,17 @@ class MlbCalendar extends Component {
           setTimeout ( 
             function() {
               $.ajax({
-                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
+                // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
                 type: 'GET',
                 success: function(data) {
-                  gameResults.push(data.games[m])
+                  console.log('Game results: ', data.game)
+                  // debugger
+                  gameResults.push(data.game)
                   self.setState({
                     gameResults: gameResults
                   })
+                  // console.log('GAME RESULTS: ', gameResults)
                   self.findGameWinners()
                 }
               })

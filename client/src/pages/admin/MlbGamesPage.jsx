@@ -180,12 +180,13 @@ class MlbGamesPage extends Component {
       setTimeout ( 
         function() {
           $.ajax({
-            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
+            // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
             type: 'GET',
             success: function(data) {
-              // console.log('Game results: ', data.games[m])
+              console.log('Game results: ', data.game)
               // debugger
-              gameResults.push(data.games[m])
+              gameResults.push(data.game)
               self.setState({
                 gameResults: gameResults
               })
@@ -201,6 +202,7 @@ class MlbGamesPage extends Component {
     // FIND GAME RESULTS FROM YESTERDAY
     let gameResults = this.state.gameResults
     console.log('GAME RESULTS: ', gameResults)
+    // debugger;
     let winningTeams = []
     for (let x=0; x<gameResults.length; x++) {
       let gameId = gameResults[x].id
