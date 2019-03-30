@@ -211,12 +211,13 @@ class Leaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      // console.log('SORTED ARRAY: ', sortedPicks)
-      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      console.log('SORTED ARRAY: ', sortedPicks)
+      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
           todaysPick: todaysUserPick,
-          prevPicks: prevPicks
+          prevPicks: prevPicks,
+          activeUserPrevPicks: prevPicks,
         })
       
       }
