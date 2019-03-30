@@ -675,7 +675,7 @@ class Leaderboard extends Component {
                                     <tbody>
                           
                                       {
-                                        userPicks[0] ? 
+                                        // userPicks[0] ? 
                                         
                                         userPicks.map((newRecentPick, i) => (
                                           <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
@@ -685,10 +685,10 @@ class Leaderboard extends Component {
                                           )
                                         )                                            
 
-                                        : <tr className='loss'>
-                                            <td>--</td>
-                                            <td>No Previous Picks</td>
-                                          </tr>
+                                        // : <tr className='loss'>
+                                        //     <td>--</td>
+                                        //     <td>No Previous Picks</td>
+                                        //   </tr>
                                         
                                       }
                                       
