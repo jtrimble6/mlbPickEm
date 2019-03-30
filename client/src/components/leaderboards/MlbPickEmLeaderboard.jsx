@@ -19,7 +19,38 @@ class Leaderboard extends Component {
           challengeId: '',
           challengeData: {},
           currentUser: {},
-          teams: [],
+          teams: [
+            { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
+            { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
+            { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary' },
+            { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary' },
+            { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary' },
+            { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary' },
+            { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary' },
+            { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary' },
+            { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary' },
+            { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary' },
+            { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary' },
+            { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary' },
+            { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary' },
+            { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary' },
+            { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary' },
+            { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary' },
+            { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary' },
+            { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary' },
+            { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary' },
+            { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary' },
+            { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary' },
+            { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary' },
+            { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary' },
+            { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary' },
+            { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary' },
+            { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary' },
+            { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary' },
+            { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary' },
+            { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
+            { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
+          ],
           isActive: false,
           hover: false,
           allUsers: [],
@@ -86,8 +117,8 @@ class Leaderboard extends Component {
           // console.log(res)
           self.setState({
             challengeData: res.data[0],
-            allUsers: res.data[0].users,
-            teams: res.data[0].teams
+            allUsers: res.data[0].users
+            // teams: res.data[0].teams
           })
           self.getUserData()
   
@@ -121,7 +152,7 @@ class Leaderboard extends Component {
       }
 
     getUser = () => {
-      console.log('ACTIVE USER: ', this.state.activeUser)
+      // console.log('ACTIVE USER: ', this.state.activeUser)
       this.findRecentPicks()
       this.changeLogo()
       this.toggle()
@@ -180,8 +211,8 @@ class Leaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      console.log('SORTED ARRAY: ', sortedPicks)
-      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      // console.log('SORTED ARRAY: ', sortedPicks)
+      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
           todaysPick: todaysUserPick,
@@ -195,7 +226,7 @@ class Leaderboard extends Component {
         let allPicks = this.state.activeUserPicks
         //let matchedTeams = []
         let theseMatchingWins = []
-        let teams = JSON.parse(JSON.stringify(this.state.challengeData.teams))
+        let teams = JSON.parse(JSON.stringify(this.state.teams))
 
         let todaysPickFunc = (picks) => {
           return picks.gameDate === moment().format('YYYY-MM-DD')
@@ -425,13 +456,13 @@ class Leaderboard extends Component {
         let thisPlayer = []
         this.handlePreloader()
         // console.log('THIS IS NOT A NUMBER') 
-        console.log('Player page: ', player)
-        console.log('ALL PLAYERS: ', allUsers)
+        // console.log('Player page: ', player)
+        // console.log('ALL PLAYERS: ', allUsers)
         let thisPlayerFunc = (players) => {
           return players.username === player
         }
         let thisPlayerObj = allUsers.filter(thisPlayerFunc)
-        console.log('THIS PLAYER: ', thisPlayerObj[0])
+        // console.log('THIS PLAYER: ', thisPlayerObj[0])
         thisPlayer.push(thisPlayerObj[0])
         this.setState({
           activeUser: thisPlayer[0],
@@ -498,7 +529,7 @@ class Leaderboard extends Component {
       }
 
     createTimer = (timeDiff) => {
-      console.log('Time until first game: ', timeDiff)
+      // console.log('Time until first game: ', timeDiff)
       let seconds = Moment.duration(timeDiff).asSeconds() * 1000
       //console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
