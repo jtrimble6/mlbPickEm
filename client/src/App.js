@@ -27,6 +27,7 @@ import LandingPage from './pages/landings/LandingPage'
 import MlbActionPage from './pages/actions/MlbActionPage'
 import NbaActionPage from './pages/actions/NbaActionPage'
 import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
+import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 
 
@@ -298,6 +299,17 @@ class App extends Component {
             <Route exact path='/nbaPlayoffs' render={() => (
               this.state.adminLoggedIn === true ? (
                 <NbaPlayoffActionPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/masters' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <MastersActionPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (

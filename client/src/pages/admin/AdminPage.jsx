@@ -147,6 +147,14 @@ renderRedirect = () => {
                   >
                     NBA Playoff Challenge
                   </Button>
+                  <Button
+                    color='success'
+                    className='challengeButtons'
+                    data-url='/masters'
+                    onClick={this.setRedirect}
+                  >
+                    Masters Challenge
+                  </Button>
                 </div>
             </div>
         )

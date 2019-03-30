@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
 // import MastersNav from '../../components/nav/mastersNav'
-import MastersBar from '../../components/profile/nbaPlayoffBar'
+import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
 //import Games from '../../components/games/Games'
@@ -33,7 +33,7 @@ class MastersActionPage extends Component {
   }
 
     componentDidMount() {
-      this.getChallengeData();
+    //   this.getChallengeData();
       // this.getUserData();
     }
 

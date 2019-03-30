@@ -52,7 +52,7 @@ class MastersLeaderboard extends Component {
         this.getUserData = this.getUserData.bind(this);
     }
     componentDidMount() {
-      this.getChallengeData()
+    //   this.getChallengeData()
     //   this.getFirstGame()
         
       }
@@ -402,7 +402,7 @@ class MastersLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar.length}
+                                        <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar}
                                       </div>
                                       {/* <div className="col-md-3">
                                         <h4 className='winsHeader'>Behind</h4> {this.state.activeUserPar.length} - {this.state.activeUserPrevPicks.length}
