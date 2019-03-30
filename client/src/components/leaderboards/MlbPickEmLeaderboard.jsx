@@ -623,7 +623,7 @@ class Leaderboard extends Component {
                                     <h4>Today's Pick</h4>
                                       <div className="userTimer">
 
-                                        {
+                                        {/* {
                                           (!timerDiff) ? <p>No Games Today</p> :
 
                                           <Countdown 
@@ -635,7 +635,7 @@ class Leaderboard extends Component {
                                           >
                                             <EndTimer />
                                           </Countdown> 
-                                        }
+                                        } */}
 
 
 
