@@ -538,23 +538,23 @@ class MlbCalendar extends Component {
       }
     
       getResults = () => {
-        console.log('GETTING RESULTS')
+        // console.log('GETTING RESULTS')
         let self = this
         let yesterday = Moment(this.state.yesterday).format('YYYY/MM/DD')
-        let yesterdayGamesIds = this.state.yesterdayGamesIds
+        let yesterdaysGameIds = this.state.yesterdaysGameIds
         let gameResults = []
-        console.log('GETTING RESULTS: ', yesterdayGamesIds)
+        console.log('GETTING RESULTS: ', yesterdaysGameIds)
         console.log('YESTERDAY: ', yesterday)
     
         const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
     
         // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
-        for (let m=0; m<yesterdayGamesIds.length; m++) {
+        for (let m=0; m<yesterdaysGameIds.length; m++) {
           let k = m
           setTimeout ( 
             function() {
               $.ajax({
-                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
+                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
                 // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
                 type: 'GET',
                 success: function(data) {
@@ -624,7 +624,7 @@ class MlbCalendar extends Component {
       let thisUser = chalUsers.filter(chalFilter)
 
       // console.log('THIS CURRENT USER INFO: ', thisUser)
-      // console.log('ALL USERS DATA: ', chalUsers)
+      console.log('ALL USERS DATA: ', chalUsers)
 
       this.setState({
         userWins: thisUser.wins,

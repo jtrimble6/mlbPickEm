@@ -212,7 +212,7 @@ class EditChallenge extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        let editSuccess = false
+        // let editSuccess = false
         let self = this
         this.setState({
             nameTaken: false,

@@ -66,6 +66,7 @@ class Leaderboard extends Component {
           userWin: '',
           todaysPick: 'No Pick',
           thisDate: '',
+          thisTeam: '',
           userPlace: {},
         }
         this.toggle = this.toggle.bind(this);
@@ -225,6 +226,7 @@ class Leaderboard extends Component {
       changeLogo = () => {
         let wins = this.state.activeUserWins
         let allPicks = this.state.activeUserPicks
+        let thisTeam = ''
         //let matchedTeams = []
         let theseMatchingWins = []
         let teams = JSON.parse(JSON.stringify(this.state.teams))
@@ -244,31 +246,32 @@ class Leaderboard extends Component {
           return teams.name.trim() === todaysPick.trim()
         }
 
+        // FIND MATCHING WINS
+        let matchingWins = (winningTeams) => {
+          return winningTeams.win.trim() === thisTeam.trim()
+        }
+
         for (var j=0; j<teams.length; j++) {
-          //console.log('CURRENT WINS: ', wins)
-          //console.log('CURRENT TEAMS: ', teams)
-          // console.log('CURRENT TEAM: ', teams[j].name)
-          this.setState({
-            thisTeam: teams[j].name.trim()
-          })
+          console.log('CURRENT WINS: ', wins)
+          let thisTeamName = teams[j].name
+          console.log('this team: ', thisTeam)
           
+          thisTeam = thisTeamName
+
           let teamMatched = teams.filter(matchingTeams)
-          if (teamMatched[0]) {
+          if (teamMatched[0] && (this.state.timeDiff <= 0)) {
             if (teamMatched[0].name.trim() === teams[j].name.trim()) {
               // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
               teams[j].status = 'warning'
             } 
           }
 
-          // FIND MATCHING WINS
-          let matchingWins = (wins) => {
-            return wins.win.trim() === this.state.thisTeam
-          }
           theseMatchingWins = wins.filter(matchingWins)
+          console.log('THIS TEAM: ', thisTeam)
           if (theseMatchingWins[0]) {
-            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
             teams[j].status = 'success'
-          }
+          } 
           
           this.setState({
               teams: teams,
@@ -538,6 +541,7 @@ class Leaderboard extends Component {
 
     render() {
         let uuidv4 = require('uuid/v4')
+        let record = (this.state.activeUserPrevPicks.length - this.state.activeUserWins.length)
         let leaderStyle = {
             overflow: 'scroll'
         }
@@ -655,7 +659,7 @@ class Leaderboard extends Component {
                                         <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {this.state.activeUserPrevPicks.length - this.state.activeUserWins.length}
+                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}

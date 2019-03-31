@@ -705,7 +705,7 @@ class NbaPlayoffCalendar extends Component {
       let yesterday = this.state.yesterday
       let userPicks = userData.userPicks
       let schedule = this.state.yesterdaysGames
-      let userLosses = userData.userLosses
+      // let userLosses = userData.userLosses
     
       // FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
