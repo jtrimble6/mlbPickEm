@@ -225,11 +225,43 @@ class Leaderboard extends Component {
 
       changeLogo = () => {
         let wins = this.state.activeUserWins
+        let teams = [
+          { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
+          { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
+          { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary' },
+          { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary' },
+          { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary' },
+          { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary' },
+          { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary' },
+          { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary' },
+          { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary' },
+          { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary' },
+          { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary' },
+          { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary' },
+          { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary' },
+          { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary' },
+          { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary' },
+          { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary' },
+          { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary' },
+          { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary' },
+          { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary' },
+          { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary' },
+          { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary' },
+          { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary' },
+          { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary' },
+          { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary' },
+          { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary' },
+          { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary' },
+          { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary' },
+          { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary' },
+          { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
+          { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
+        ]
         let allPicks = this.state.activeUserPicks
         let thisTeam = ''
         //let matchedTeams = []
         let theseMatchingWins = []
-        let teams = JSON.parse(JSON.stringify(this.state.teams))
+        let allTeams = JSON.parse(JSON.stringify(teams))
 
         let todaysPickFunc = (picks) => {
           return picks.gameDate === moment().format('YYYY-MM-DD')
@@ -242,8 +274,8 @@ class Leaderboard extends Component {
         }
 
         // FIND TODAYS PICK
-        let matchingTeams = (teams) => {
-          return teams.name.trim() === todaysPick.trim()
+        let matchingTeams = (theTeams) => {
+          return theTeams.name.trim() === todaysPick.trim()
         }
 
         // FIND MATCHING WINS
@@ -251,18 +283,18 @@ class Leaderboard extends Component {
           return winningTeams.win.trim() === thisTeam.trim()
         }
 
-        for (var j=0; j<teams.length; j++) {
+        for (var j=0; j<allTeams.length; j++) {
           console.log('CURRENT WINS: ', wins)
-          let thisTeamName = teams[j].name
+          let thisTeamName = allTeams[j].name
           console.log('this team: ', thisTeam)
           
           thisTeam = thisTeamName
 
-          let teamMatched = teams.filter(matchingTeams)
+          let teamMatched = allTeams.filter(matchingTeams)
           if (teamMatched[0] && (this.state.timeDiff <= 0)) {
-            if (teamMatched[0].name.trim() === teams[j].name.trim()) {
+            if (teamMatched[0].name.trim() === allTeams[j].name.trim()) {
               // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
-              teams[j].status = 'warning'
+              allTeams[j].status = 'warning'
             } 
           }
 
@@ -270,11 +302,11 @@ class Leaderboard extends Component {
           console.log('THIS TEAM: ', thisTeam)
           if (theseMatchingWins[0]) {
             console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
-            teams[j].status = 'success'
+            allTeams[j].status = 'success'
           } 
           
           this.setState({
-              teams: teams,
+              teams: allTeams,
               todaysPick: teamMatched
           })
 
@@ -559,15 +591,14 @@ class Leaderboard extends Component {
         let userPicks = this.state.activeUserPrevPicks
         let username = this.state.activeUserUsername
         let timerDiff = this.state.timeDiff
-        // let wins = this.state.activeUser.wins
-        // let winsCount = this.state.activeUser.wins.length
-        // let picks = this.state.activeUser.picks
-        //let pickCount = picks.length
-        // let timerEnded = false;
+        let todaysPick = this.state.todaysPick[0].name
+        
+        let timerEnded = false;
         let EndTimer = () => {
-          // timerEnded = true
+          timerEnded = true
+          // console.log('TODAYS PICK: ', todaysPick)
           return (
-            <span>{this.state.todaysPick}</span>
+            <span>{todaysPick}</span>
           )
         }
 
@@ -625,12 +656,13 @@ class Leaderboard extends Component {
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
-                                    <h4>Today's Pick</h4>
+                                    <h4 className="winsHeader">Today's Pick</h4>
                                       <div className="userTimer">
 
-                                        {/* {
+                                        {
                                           (!timerDiff) ? <p>No Games Today</p> :
 
+                                          <div>
                                           <Countdown 
                                             date={Date.now() + this.state.timeDiff}
                                             zeroPadTime={2} 
@@ -640,7 +672,8 @@ class Leaderboard extends Component {
                                           >
                                             <EndTimer />
                                           </Countdown> 
-                                        } */}
+                                          </div>
+                                        }
 
 
 

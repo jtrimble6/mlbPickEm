@@ -221,7 +221,7 @@ class MlbCalendar extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-
+      console.log('CHALLENGE USERS: ', chalUsers)
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
