@@ -591,7 +591,7 @@ class Leaderboard extends Component {
         let userPicks = this.state.activeUserPrevPicks
         let username = this.state.activeUserUsername
         let timerDiff = this.state.timeDiff
-        let todaysPick = this.state.todaysPick[0].name
+        let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
         
         let timerEnded = false;
         let EndTimer = () => {

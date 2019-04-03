@@ -36,6 +36,7 @@ class CreateChallenge extends Component {
             img: '',
             password: '',
             confirmPassword: '',
+            golfers: [],
             nbaTeams: [
               { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
               { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
@@ -130,7 +131,7 @@ class CreateChallenge extends Component {
     }
 
     componentDidMount() {
-        // this.getAllTeams()
+        this.getAllTeams()
       }
 
     getAllTeams = () => {
@@ -143,13 +144,22 @@ class CreateChallenge extends Component {
           })
         })
 
-        API.getNbaTeams()
+      API.getNbaTeams()
         .then(res => {
           console.log('NBA TEAMS: ', res.data)
           self.setState({
             nbaTeams: res.data
           })
         })
+
+      API.getGolfers()
+        .then(res => {
+          console.log('GOLFERS: ', res.data)
+          self.setState({
+            golfers: res.data
+          })
+        })
+
 
 
     }
@@ -223,7 +233,7 @@ class CreateChallenge extends Component {
         // this.setState({
         //     nameTaken: false,
         // })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.nbaPlayoffTeams ) 
+        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
         event.preventDefault();
         //console.log(this.state)
         let challengeData = {
@@ -420,6 +430,7 @@ class CreateChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlb'>MLB</option>
                                 <option value='nba'>NBA</option>
+                                <option value='golf'>MASTERS</option>
                               </select>
                         </div>
                         <div className="form-group">
@@ -436,6 +447,7 @@ class CreateChallenge extends Component {
                                 <option value='mlb'>MLB Teams</option>
                                 <option value='nba'>NBA Teams</option>
                                 <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
+                                <option value='masters'>PGA 2018-19 MASTERS</option>
                               </select>
                         </div>
                         <div className="form-group">
@@ -452,6 +464,7 @@ class CreateChallenge extends Component {
                                   <option value='/actionMlb'>MLB Challenge</option>
                                   <option value='/actionNba'>NBA Challenge</option>
                                   <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
+                                  <option value='/masters'>MASTERS Challenge</option>
                                 </select>
                         </div>
                         <div className="form-group">
@@ -468,6 +481,7 @@ class CreateChallenge extends Component {
                                   <option value='/mlbRules'>MLB Rules</option>
                                   <option value='/nbaRules'>NBA Rules</option>
                                   <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
+                                  <option value='/mastersRules'>Masters Rules</option>
                               </select>
                         </div>
                         <div className="form-group">
@@ -508,6 +522,7 @@ class CreateChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlbpickemchallenge.jpeg'>MLB</option>
                                 <option value='nbaplayoffchallenge.jpg'>NBA</option>
+                                <option value='masterschallenge.jpg'>MASTERS</option>
                             </select>
                         </div>
                         <div className="form-group">

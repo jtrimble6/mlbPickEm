@@ -98,6 +98,14 @@ export default {
         return axios.put('/api/nbagames/' + date + '/' + id, gameResult)
     },
 
+    // MASTERS API
+    postGolfers: function(data) {
+        return axios.post('/api/masters/', data)
+    },
+    getGolfers: function() {
+        return axios.get('/api/masters/')
+    },
+
     // NBA PLAYOFF API
     postNbaPlayoffGames: function(data) {
         return axios.post('/api/nbaPlayoffGames/', data)

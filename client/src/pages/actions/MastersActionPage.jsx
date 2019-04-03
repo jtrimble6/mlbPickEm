@@ -4,7 +4,8 @@ import API from '../../utils/API'
 import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
-//import Games from '../../components/games/Games'
+// import Masters from '../../components/games/Masters'
+import MastersBoard from '../../components/calendar/mastersBoard'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
@@ -24,7 +25,7 @@ class MastersActionPage extends Component {
       lastName: '',
       par: 0,
       myPicks: [],
-      todaysPick: 'No Pick'
+      todaysPick: 'No Selection'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
     this.getChallengeData = this.getChallengeData.bind(this)
@@ -33,7 +34,7 @@ class MastersActionPage extends Component {
   }
 
     componentDidMount() {
-    //   this.getChallengeData();
+      this.getChallengeData();
       // this.getUserData();
     }
 
@@ -44,14 +45,14 @@ class MastersActionPage extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = '5c9ba1f709237528c630baa8'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
       // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
       API.getChallenge(challengeId)
         .then(res => {
-          // console.log('this challenge data: ', res.data)
+          console.log('this challenge data: ', res.data)
           self.setState({
             challengeData: res.data[0]
           })
@@ -76,14 +77,14 @@ class MastersActionPage extends Component {
           username: thisUser[0].username,
           firstName: thisUser[0].firstName,
           lastName: thisUser[0].lastName,
-          par: thisUser[0].par,
-          parCount: thisUser[0].par,
+          par: thisUser[0].points,
+          parCount: thisUser[0].points,
           myPicks: thisUser[0].picks,
         })
 
         this.getTodaysPick()
 
-        console.log('CURRENT LOSSES: ', this.state.lossesCount)
+        console.log('CURRENT USER: ', this.state.currentUser)
         // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
     }
 
@@ -110,27 +111,34 @@ class MastersActionPage extends Component {
               
               <MastersBar
                   username={this.state.username}
+                  par={this.state.par}
                   parCount={this.state.parCount}
                   todaysPick={this.state.todaysPick}
                 /> 
               
               <div className='row'>
-                <div className='calBoard col-md-9'>
-                 
-                </div>
-                <div className='col-md-3'>
-                {/* <NbaPlayoffGames
-                /> */}
-                <div className="leaders row">
-                  <MastersLeaderboard   
-                  />
+
+                <div className='mastersBoard col-md-9'>
+                  
+                  <MastersBoard />
+                  <MastersBoard />
+                  <MastersBoard />
+                  <MastersBoard />
+
                 </div>
 
-                {/* <div className="winningTeams row">
-                  <Games 
-                    username={this.state.username}
-                  />
-                </div> */}
+                <div className='col-md-3'>
+
+                  <div className="leaders row">
+                    <MastersLeaderboard   
+                    />
+                  </div>
+
+                  {/* <div className="winningTeams row">
+                    <Masters 
+                      username={this.state.username}
+                    />
+                  </div> */}
                   
                 </div>
               </div>

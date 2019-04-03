@@ -168,10 +168,10 @@ class UpcomingChallenges extends Component {
             lastName: user.lastName,
             username: user.username,
             picks: [],
+            points: 0,
             wins: [],
             losses: [],
-            teams: [],
-            challenges: user.challenges
+            teams: []
         }
         // console.log('USER DATA: ', userData)
         let myCurrentChallenges = userData.challenges

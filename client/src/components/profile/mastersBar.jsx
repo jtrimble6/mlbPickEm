@@ -253,13 +253,13 @@ class MastersBar extends Component {
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
+                    <h4 className='winsTitle'>Today's Golfer</h4> {this.props.todaysPick} <br />
                     <div className="row">
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Score</h4> {this.props.parCount}
+                        <h4 className='winsHeader'>Score</h4> {this.props.par}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Score</h4> {this.state.oldPicks.length}
+                        <h4 className='winsHeader'>Back</h4> {this.props.parCount}
                       </div>  
                       { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.parCount}
@@ -275,8 +275,8 @@ class MastersBar extends Component {
                   <table className='table table-hover'>
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>Pick</th>
+                        <th>Name</th>
+                        <th>Today's Starting Score</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -295,7 +295,7 @@ class MastersBar extends Component {
                   </table>
                 </div>
                 <div className="col-1 title">
-                  <h3>My Recent Picks</h3>
+                  <h3>My Golfers</h3>
                 </div>
               </div>
             </div>

@@ -3,7 +3,6 @@ import '../../css/calendar/calendar.css'
 import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
-import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -12,9 +11,9 @@ import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid
 import API from '../../utils/API'
 import $ from 'jquery'
 import Moment from 'moment';
-import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
 
-class MlbCalendar extends Component {
+
+class mastersBoard extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -32,8 +31,8 @@ class MlbCalendar extends Component {
           myPicks: [], 
           myWins: [],
           userId: '',
-          userPicks: [],
-          userWins: [],
+          userGolfers: [],
+          userScore: [],
           fullSchedule: [],
           allGameIds: [],
           yesterdaysGameIds: [],
@@ -74,10 +73,7 @@ class MlbCalendar extends Component {
         this.getSchedule = this.getSchedule.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.getTodaysFirstGame = this.getTodaysFirstGame.bind(this);
-        this.postGames = this.postGames.bind(this);
-        this.getGames = this.getGames.bind(this);
         this.getResults = this.getResults.bind(this);
-        this.findGameWinners = this.findGameWinners.bind(this);
         this.findUserPicks = this.findUserPicks.bind(this);
         this.findUserWins = this.findUserWins.bind(this);
         this.overridePickResult = this.overridePickResult.bind(this);
@@ -87,8 +83,8 @@ class MlbCalendar extends Component {
 
     componentDidMount() {
       this.getChallengeData()
-      this.getTodaysFirstGame()
-      this.checkPrevDatesPicked()
+    //   this.getTodaysFirstGame()
+    //   this.checkPrevDatesPicked()
       }
 
     toggle() {
@@ -185,7 +181,7 @@ class MlbCalendar extends Component {
 
     handleChangeStatus(event) {
       this.setState({ activeDate: '' })
-      let gameTime = Moment(event.start._d).add(5, 'hours').format("MMM Do, h:mmA")
+      let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
       let gameStatus = event.status.toUpperCase()
       let gameId = event._id
       this.setState({ 
@@ -202,7 +198,8 @@ class MlbCalendar extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
+    //   let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -213,7 +210,7 @@ class MlbCalendar extends Component {
             challengeData: res.data[0]
           })
           self.getUserData()
-          self.getSchedule()
+        //   self.getSchedule()
         })
         .catch(err => console.log(err))
       }
@@ -221,7 +218,7 @@ class MlbCalendar extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-      console.log('CHALLENGE USERS: ', chalUsers)
+
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
@@ -233,8 +230,8 @@ class MlbCalendar extends Component {
         username: thisUser[0].username,
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
-        wins: thisUser[0].wins,
-        winsCount: thisUser[0].wins.length,
+        score: thisUser[0].points,
+        winsCount: thisUser[0].points,
         myPicks: thisUser[0].picks,
       })
 
@@ -257,27 +254,24 @@ class MlbCalendar extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
 
         // TODAY'S TIMER STATUS
-        if (this.state.firstGameTime !== '') {
-          let realTime = Moment().format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
-          // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
-          if (timeDiff._milliseconds > 0) {
-            console.log('TIMER STILL RUNNING')
-          } else {
-            // console.log('TIMER HAS ENDED NO MORE PICKS')
-            this.setState({
-              timerEnded: true
-            })
-            // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
-            if (pickDate === Moment().format('YYYY-MM-DD')) {
-              // console.log('THIS IS A LATE PICK FOR TODAY')
-              this.toggleLatePick()
-              return;
-            }
+        let realTime = Moment().format('HH:mm:ss a')
+        let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
+        let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+        // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
+        if (timeDiff._milliseconds > 0) {
+          console.log('TIMER STILL RUNNING')
+        } else {
+          // console.log('TIMER HAS ENDED NO MORE PICKS')
+          this.setState({
+            timerEnded: true
+          })
+          // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
+          if (pickDate === Moment().format('YYYY-MM-DD')) {
+            // console.log('THIS IS A LATE PICK FOR TODAY')
+            this.toggleLatePick()
+            return;
           }
         }
-        
 
         
         //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
@@ -383,7 +377,7 @@ class MlbCalendar extends Component {
       this.getGames()
 
       // PULL GAMES FROM YESTERDAY
-      API.getMlbGamesByDate(date)
+      API.getNbaGamesByDate(date)
         .then(res => {
             let games = []
             let yesterdaysGameIds = []
@@ -415,7 +409,6 @@ class MlbCalendar extends Component {
                 self.getResults()
               } else {
                 //FIND ALL USERS PICKS
-                console.log('finding user picks')
                 self.findUserPicks()
               }
 
@@ -429,7 +422,7 @@ class MlbCalendar extends Component {
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getMlbGamesByDate(date)
+      API.getNbaGamesByDate(date)
         .then (res => {
           let games = res.data
           let now = Moment().format()
@@ -458,160 +451,40 @@ class MlbCalendar extends Component {
       
       }
 
-    postGames = (data) => {
-      for (let i=0; i<data.length; i++) {
-        let gameDateAdj = Moment(data[i].scheduled).subtract(6, 'hours').format()
-        let splitDate = gameDateAdj.split('T')
-        let gameDate = splitDate[0]
-        let homeTeam = data[i].home.market + ' ' + data[i].home.name
-        let awayTeam = data[i].away.market + ' ' + data[i].away.name
-        
-        let gameData = {
-          gameDate: gameDate,
-          gameTime: gameDateAdj,
-          gameStatus: data[i].status,
-          gameId: data[i].id,
-          homeTeam: homeTeam,
-          awayTeam: awayTeam,
-          homeAlias: data[i].home.abbr,
-          awayAlias: data[i].away.abbr,
-          gameResult: 'none'
-        }
     
-        //POST ENTIRE SCHEDULE
-        API.postMlbGames(gameData)
-          .then(res=> console.log(res))
-          .catch(err => console.log(err))
-        }
-      }
-
-    getGames = () => {
-      // let self = this
-
-      // PULL FULL SCHEDULE FROM DATABASE
-      API.getMlbGames()
-        .then(res => {
-          let games = []
-          res.data.forEach((game) => {
-            let splitDate = game.gameDate.split('T')
-            let gameDate = splitDate[0]
-            let homeAlias = game.homeAlias.toLowerCase()
-            let awayAlias = game.awayAlias.toLowerCase()
-            let gameInfo = {
-                id: game.gameId,
-                date: gameDate,
-                start: game.gameTime,
-                status: game.gameStatus,
-                homeTeam: game.homeTeam,
-                awayTeam: game.awayTeam,
-                homeAlias: homeAlias,
-                awayAlias: awayAlias,
-                title: game.homeAlias + ' vs ' + game.awayAlias,
-                color: 'yellow',
-                textColor: 'white',
-                borderColor: 'blue'
-
-              }
-              games.push(gameInfo)
-            })
-            this.setState({ allGames: games })
-        })
-          .catch(err => console.log(err))
-
-      // PULL ENTIRE SCHEDULE FROM API
-
-      // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
+    
+    getResults = () => {
+      let self = this
+      let yesterdaysGameIds = self.state.yesterdaysGameIds
+      let gameResults = []
+      
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
 
-      // API CALL TO PULL ENTIRE SEASON SCHEDULE
-      // $.ajax({
-      //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
-      //   type: 'GET',
-      //   success: function(data) {
-      //     self.setState({ fullSchedule: data.games });
-      //     // POST ENTIRE SCHEDULE
-      //     self.postGames(data.games)
-      //     }
-      //   })
-      }
-    
-      getResults = () => {
-        // console.log('GETTING RESULTS')
-        let self = this
-        let yesterday = Moment(this.state.yesterday).format('YYYY/MM/DD')
-        let yesterdaysGameIds = this.state.yesterdaysGameIds
-        let gameResults = []
-        console.log('GETTING RESULTS: ', yesterdaysGameIds)
-        console.log('YESTERDAY: ', yesterday)
-    
-        const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
-    
-        // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
-        for (let m=0; m<yesterdaysGameIds.length; m++) {
-          let k = m
-          setTimeout ( 
-            function() {
-              $.ajax({
-                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
-                // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
-                type: 'GET',
-                success: function(data) {
-                  console.log('Game results: ', data.game)
-                  // debugger
-                  gameResults.push(data.game)
-                  self.setState({
-                    gameResults: gameResults
-                  })
-                  // console.log('GAME RESULTS: ', gameResults)
-                  self.findGameWinners()
-                }
-              })
-            }, 1500*k)
-          }
+      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
+      for (let m=0; m<yesterdaysGameIds.length; m++) {
+        let k = m
+        setTimeout ( 
+          function() {
+            $.ajax({
+              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+              type: 'GET',
+              success: function(data) {
+                // console.log('Game results: ', data)
+                gameResults.push(data)
+                self.setState({ gameResults: gameResults })
+                self.findGameWinners()
+              }
+            })
+          }, 1500*k)
+
+          self.findUserPicks()
+      
         }
-
-    findGameWinners = () => {
-      // FIND GAME RESULTS FROM YESTERDAY
-      let gameResults = this.state.gameResults
-      let winningTeams = []
-      for (let x=0; x<gameResults.length; x++) {
-        let gameId = gameResults[x].id
-        let gameDate = this.state.yesterday
-        let homeTeam = {
-            team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
-            runs: gameResults[x].home.runs
-          }
-        let awayTeam = {
-            team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
-            runs: gameResults[x].away.runs
-          }
-
-        if (homeTeam.runs > awayTeam.runs) {
-            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team})
-          } else {
-            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
-          }
-          this.setState({ winningTeams: winningTeams })
-        }
-
-      this.postGameWinners(this.state.winningTeams)
-
       }
 
-    postGameWinners = (data) => {
-      console.log('MAJOR DATA: ', data)
-      for (let y=0; y<data.length; y++) {
-        let gameDate = data[y].gameDate
-        let gameId = data[y].gameId
-        let gameResult = { gameResult: data[y].winningTeam }
-        API.updateMlbGame(gameDate, gameId, gameResult)
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
-        } 
-      }
+    
 
     findUserPicks = () => {
       let self = this
@@ -625,11 +498,11 @@ class MlbCalendar extends Component {
       let thisUser = chalUsers.filter(chalFilter)
 
       // console.log('THIS CURRENT USER INFO: ', thisUser)
-      console.log('ALL USERS DATA: ', chalUsers)
+      // console.log('ALL USERS DATA: ', chalUsers)
 
       this.setState({
-        userWins: thisUser.wins,
-        userPicks: thisUser.picks,
+        userScore: thisUser.score,
+        userGolfers: thisUser.picks,
         userId: thisUser.username
       })
 
@@ -637,8 +510,8 @@ class MlbCalendar extends Component {
         let thisUser = chalUsers[u]
         let thisUserObj = {
           userId: thisUser.username,
-          userPicks: thisUser.picks,
-          userWins: thisUser.wins
+          userGolfers: thisUser.picks,
+          userScore: thisUser.score
           }
         // IF USER HAS MADE PICKS FIND THEIR WINS
         if (thisUser.picks[0]) {
@@ -650,8 +523,8 @@ class MlbCalendar extends Component {
       // API.getUser(thisUser)
       //   .then(res => {
       //     self.setState({
-      //       userWins: res.data[0].wins,
-      //       userPicks: res.data[0].picks,
+      //       userScore: res.data[0].score,
+      //       userGolfers: res.data[0].picks,
       //       userId: res.data[0].username
       //     })
       //   })
@@ -664,8 +537,8 @@ class MlbCalendar extends Component {
       //       let thisUser = allUsers[u]
       //       let thisUserObj = {
       //         userId: thisUser.username,
-      //         userPicks: thisUser.picks,
-      //         userWins: thisUser.wins
+      //         userGolfers: thisUser.picks,
+      //         userScore: thisUser.score
       //         }
       //       // IF USER HAS MADE PICKS FIND THEIR WINS
       //       if (thisUser.picks[0]) {
@@ -679,15 +552,15 @@ class MlbCalendar extends Component {
     findUserWins = (userData) => {
       let userId = userData.userId
       let yesterday = this.state.yesterday
-      let userPicks = userData.userPicks
+      let userGolfers = userData.userGolfers
       let schedule = this.state.yesterdaysGames
-      let userWins = userData.userWins
+      let userScore = userData.userScore
     
       // FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
         return picks.gameDate === yesterday
       }
-      let thisPick = userPicks.filter(thisPickDate)
+      let thisPick = userGolfers.filter(thisPickDate)
       let thisPickTeam = ''
 
       // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
@@ -703,7 +576,7 @@ class MlbCalendar extends Component {
         let pickAlreadyWon = (wins) => {
           return wins.win === thisPickTeam
         }
-        let thisPickWinner = userWins.filter(pickAlreadyWon)
+        let thisPickWinner = userScore.filter(pickAlreadyWon)
         // ADD LOSS IF USER HAS ALREADY WON WITH THIS PICK
         if (thisPickWinner[0]) {
           // console.log(userId, 'HAS ALREADY WON WITH ', thisPickWinner[0].win)
@@ -723,7 +596,7 @@ class MlbCalendar extends Component {
           // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
           let newWin = null
           for (let s=0; s<schedule.length; s++) {
-            let winner = schedule[s].gameWinner.trim()
+            let winner = schedule[s].gameWinner
             let thisPick = thisPickTeam.trim()
             if (thisPick === winner) {
               let result = 'win'
@@ -785,110 +658,14 @@ class MlbCalendar extends Component {
       }
 
     createTimer = (timeDiff) => {
-        console.log('First game time: ', this.state.firstGameTime)
+        //console.log('Time until first game: ', timeDiff)
         let seconds = Moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
         // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
       }
 
-    loadLogo = (team) => {
-      switch (true) {
-        case (team === 'atl'):
-          return atl2;
-          
-        case (team === 'bal'):
-          return bal;
-          
-        case (team === 'bos'):
-          return bos2;
-          
-        case (team === 'chc'):
-          return chc;
-          
-        case (team === 'cws'):
-          return cws;
-           
-        case (team === 'cle'):
-          return cle2;
-           
-        case (team === 'cin'):
-          return cin;
-           
-        case (team === 'col'):
-          return col;
-           
-        case (team === 'det'):
-          return det2;
-           
-        case (team === 'mia'):
-          return mia2;
-           
-        case (team === 'hou'):
-          return hou2;
-           
-        case (team === 'kc'):
-          return kc;
-           
-        case (team === 'laa'):
-          return laa;
-           
-        case (team === 'lad'):
-          return lad;
-           
-        case (team === 'nym'):
-          return nym;
-           
-        case (team === 'nyy'):
-          return nyy;
-        
-        case (team === 'mil'):
-          return mil2;
-           
-        case (team === 'min'):
-          return min2;
-           
-        case (team === 'oak'):
-          return oak;
-           
-        case (team === 'pit'):
-          return pit;
-           
-        case (team === 'sd'):
-          return sd;
-           
-        case (team === 'sf'):
-          return sf;
-           
-        case (team === 'phi'):
-          return phi2;
-           
-        case (team === 'sea'):
-          return sea;
-           
-        case (team === 'stl'):
-          return stl;
-           
-        case (team === 'tb'):
-          return tb;
-           
-        case (team === 'tex'):
-          return tex;
-           
-        case (team === 'tor'):
-          return tor2;
-           
-        case (team === 'ari'):
-          return ari;
-           
-        case (team === 'wsh'):
-          return wsh;
-           
-        default:
-          return ari;
-        }  
-
-      }
+    
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
@@ -901,7 +678,7 @@ class MlbCalendar extends Component {
         }
         
         return (
-            <div className='calendar'>
+            <div className='col-3 mastersDayBoard'>
                <Modal 
                  isOpen={this.state.modal} 
                  autoFocus={true}
@@ -940,24 +717,24 @@ class MlbCalendar extends Component {
                         <div className="thisGame row">
                             <span className='col-md-5 team awayTeam' value={this.state.awayTeam} onClick={this.toggleActive}>
                               {this.state.awayTeam} <br />
-                              <img 
+                              {/* <img 
                                 className='teamLogo' 
                                 src={this.loadLogo(this.state.awayAlias)}
                                 alt={this.state.awayAlias} 
                                 fluid='true'
-                              />
+                              /> */}
                             </span>
                             <span className='atSymbol col-md-2'>
                               @
                             </span>
                             <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>
                               {this.state.homeTeam} <br />
-                              <img 
+                              {/* <img 
                                 className='teamLogo' 
                                 src={this.loadLogo(this.state.homeAlias)}
                                 alt={this.state.homeAlias} 
                                 fluid='false'
-                              />
+                              /> */}
                             </span>
                         {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
                         </div> <hr />
@@ -975,62 +752,21 @@ class MlbCalendar extends Component {
               <div className="row countdown">
               <div className="col-3"></div>
               <div className="col-6 timer">
-                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+                <p>Timer goes here</p>
+                {/* TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
-                  </Countdown>
+                  </Countdown> */}
               </div>
               <div className="col-3"></div>
                 
                 
               </div>
               
-              <FullCalendar
-                id = "calendar"
-                header = {{
-                    left: 'prev,next today myCustomButton',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay'
-                }}
               
-                defaultView= 'basicWeek'
-                themeSystem= 'bootstrap4'
-                navLinks= {true} // can click day/week names to navigate views
-                editable= {false}
-                eventLimit= {false} // allow "more" link when too many events
-                displayEventTime= {true}
-                timeFormat= 'h(:mm)A'
-                showNonCurrentDates= {false}
-                events= {this.state.allGames}
-                eventClick= {(calEvent) => {
-                  if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
-                      // console.log('YOU CANT PICK THAT DATE')
-                      // $('#calendar').fullCalendar('unselect');
-                      this.handleChangeTeams(calEvent)
-                      this.handleChangeStatus(calEvent)
-                      this.toggleExpiredPick()
-                      return false;
-                    } 
-                    else if (timerEnded && (Moment(calEvent.date).isBefore(Moment()))) {
-                      this.handleChangeTeams(calEvent)
-                      this.handleChangeStatus(calEvent)
-                      this.toggleExpiredPick()
-                    }
-                    else 
-                    {
-                      this.handleChangeTeams(calEvent)
-                      this.handleChangeStatus(calEvent)
-                      // console.log(calEvent)
-                      this.toggle()
-                    }
-                  //this.handleChangeTitle(calEvent)
-                    }
-                  }
-                
-              />
             </div>
         )
     }
 }
 
-export default MlbCalendar
+export default mastersBoard
 
