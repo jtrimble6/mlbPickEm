@@ -41,7 +41,7 @@ class HomePage extends Component {
       let self = this
       API.getChallenges()
         .then(res => {
-          console.log('ACTIVE CHALLENGES: ', res.data)
+          // console.log('ACTIVE CHALLENGES: ', res.data)
           let allChals = res.data
           let findActiveChals = (chals) => {
             return chals.challengeStatus === 'active'
@@ -92,7 +92,7 @@ class HomePage extends Component {
                 myChallenges: onlyMyChals,
                 favoriteTeam: response.data[0].favoriteTeam
               })
-            console.log('MY REAL DATA: ', response.data[0])
+            // console.log('MY REAL DATA: ', response.data[0])
 
           })
           .catch(err => console.log(err))

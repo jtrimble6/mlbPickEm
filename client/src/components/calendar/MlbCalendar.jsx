@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
-import Moment from 'moment';
+import moment from 'moment-timezone';
 import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
 
 class MlbCalendar extends Component {
@@ -185,7 +185,7 @@ class MlbCalendar extends Component {
 
     handleChangeStatus(event) {
       this.setState({ activeDate: '' })
-      let gameTime = Moment(event.start._d).add(5, 'hours').format("MMM Do, h:mmA")
+      let gameTime = moment(event.start._d).add(5, 'hours').format("MMM Do, h:mmA")
       let gameStatus = event.status.toUpperCase()
       let gameId = event._id
       this.setState({ 
@@ -221,7 +221,7 @@ class MlbCalendar extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-      console.log('CHALLENGE USERS: ', chalUsers)
+      // console.log('CHALLENGE USERS: ', chalUsers)
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
@@ -258,10 +258,10 @@ class MlbCalendar extends Component {
 
         // TODAY'S TIMER STATUS
         if (this.state.firstGameTime !== '') {
-          let realTime = Moment().format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
-          // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+          // console.log('REAL TIME EST: ', realTimeAdj)
           if (timeDiff._milliseconds > 0) {
             console.log('TIMER STILL RUNNING')
           } else {
@@ -270,7 +270,7 @@ class MlbCalendar extends Component {
               timerEnded: true
             })
             // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
-            if (pickDate === Moment().format('YYYY-MM-DD')) {
+            if (pickDate === moment().format('YYYY-MM-DD')) {
               // console.log('THIS IS A LATE PICK FOR TODAY')
               this.toggleLatePick()
               return;
@@ -377,7 +377,7 @@ class MlbCalendar extends Component {
       }
 
     getSchedule = () => {
-      let date = Moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
@@ -415,7 +415,7 @@ class MlbCalendar extends Component {
                 self.getResults()
               } else {
                 //FIND ALL USERS PICKS
-                console.log('finding user picks')
+                // console.log('finding user picks')
                 self.findUserPicks()
               }
 
@@ -424,16 +424,14 @@ class MlbCalendar extends Component {
       }
 
     getTodaysFirstGame = () => {
-      let now = Moment().format()
-      let date = Moment(now).format('YYYY-MM-DD')
+      let date = moment().format('YYYY-MM-DD')
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getMlbGamesByDate(date)
         .then (res => {
           let games = res.data
-          let now = Moment().format()
-          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+          let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
@@ -444,11 +442,12 @@ class MlbCalendar extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
-          let realTime = Moment(now).format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          // console.log('REAL TIME EST: ', realTimeAdj)
+          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           self.setState({
             firstGameTime: realGameTimeAdj
           })
@@ -460,7 +459,7 @@ class MlbCalendar extends Component {
 
     postGames = (data) => {
       for (let i=0; i<data.length; i++) {
-        let gameDateAdj = Moment(data[i].scheduled).subtract(6, 'hours').format()
+        let gameDateAdj = moment(data[i].scheduled).subtract(6, 'hours').format()
         let splitDate = gameDateAdj.split('T')
         let gameDate = splitDate[0]
         let homeTeam = data[i].home.market + ' ' + data[i].home.name
@@ -541,11 +540,11 @@ class MlbCalendar extends Component {
       getResults = () => {
         // console.log('GETTING RESULTS')
         let self = this
-        let yesterday = Moment(this.state.yesterday).format('YYYY/MM/DD')
+        // let yesterday = moment(this.state.yesterday).format('YYYY/MM/DD')
         let yesterdaysGameIds = this.state.yesterdaysGameIds
         let gameResults = []
-        console.log('GETTING RESULTS: ', yesterdaysGameIds)
-        console.log('YESTERDAY: ', yesterday)
+        // console.log('GETTING RESULTS: ', yesterdaysGameIds)
+        // console.log('YESTERDAY: ', yesterday)
     
         const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
     
@@ -602,7 +601,7 @@ class MlbCalendar extends Component {
       }
 
     postGameWinners = (data) => {
-      console.log('MAJOR DATA: ', data)
+      // console.log('MAJOR DATA: ', data)
       for (let y=0; y<data.length; y++) {
         let gameDate = data[y].gameDate
         let gameId = data[y].gameId
@@ -625,7 +624,7 @@ class MlbCalendar extends Component {
       let thisUser = chalUsers.filter(chalFilter)
 
       // console.log('THIS CURRENT USER INFO: ', thisUser)
-      console.log('ALL USERS DATA: ', chalUsers)
+      // console.log('ALL USERS DATA: ', chalUsers)
 
       this.setState({
         userWins: thisUser.wins,
@@ -785,8 +784,8 @@ class MlbCalendar extends Component {
       }
 
     createTimer = (timeDiff) => {
-        console.log('First game time: ', this.state.firstGameTime)
-        let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+        // console.log('First game time: ', this.state.firstGameTime)
+        let seconds = moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
         // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
@@ -1002,7 +1001,7 @@ class MlbCalendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
-                  if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
+                  if(moment(calEvent.date).isBefore(moment().subtract(1, 'day'))) {
                       // console.log('YOU CANT PICK THAT DATE')
                       // $('#calendar').fullCalendar('unselect');
                       this.handleChangeTeams(calEvent)
@@ -1010,7 +1009,7 @@ class MlbCalendar extends Component {
                       this.toggleExpiredPick()
                       return false;
                     } 
-                    else if (timerEnded && (Moment(calEvent.date).isBefore(Moment()))) {
+                    else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
                       this.handleChangeTeams(calEvent)
                       this.handleChangeStatus(calEvent)
                       this.toggleExpiredPick()

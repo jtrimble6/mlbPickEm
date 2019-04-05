@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history'
 import { Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import API from './utils/API';
@@ -40,6 +41,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      viewing: false,
       adminLoggedIn: '',
       userLoggedIn: '',
       userUsername: null,
@@ -83,6 +85,7 @@ class App extends Component {
 
   getUser = () => {
     let self = this
+    console.log('HISTORY: ', window.history)
     let localUser = localStorage.getItem('user')
     let localUserID = localStorage.getItem('userSessionId')
     // console.log('USER ID: ', localUser)
@@ -113,17 +116,18 @@ class App extends Component {
   }
 
   render() {
+    // const history = createBrowserHistory();
+    // const location = history.location;
+    // const unlisten = history.listen((location, action) => {
+    //   // location is an object like window.location
+    //   console.log(action, location.pathname, location.state);
+    // });
+    // history.push('/home', { some: 'state' });
     return (
       <Router>
         <div className="App">
           <Switch>
           <Route exact path='/'
-              render={() =>
-                <LandingPage 
-                />
-              }
-            />
-            <Route exact path='/logout'
               render={() =>
                 <LandingPage 
                 />

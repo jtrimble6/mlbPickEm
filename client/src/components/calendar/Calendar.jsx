@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
-import Moment from 'moment';
+import moment from 'moment-timezone';
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class Calendar extends Component {
@@ -185,7 +185,7 @@ class Calendar extends Component {
 
     handleChangeStatus(event) {
       this.setState({ activeDate: '' })
-      let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
+      let gameTime = moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
       let gameStatus = event.status.toUpperCase()
       let gameId = event._id
       this.setState({ 
@@ -257,9 +257,9 @@ class Calendar extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
 
         // TODAY'S TIMER STATUS
-        let realTime = Moment().format('HH:mm:ss a')
-        let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-        let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+        let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+        let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+        let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
         // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
         if (timeDiff._milliseconds > 0) {
           console.log('TIMER STILL RUNNING')
@@ -269,7 +269,7 @@ class Calendar extends Component {
             timerEnded: true
           })
           // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
-          if (pickDate === Moment().format('YYYY-MM-DD')) {
+          if (pickDate === moment().format('YYYY-MM-DD')) {
             // console.log('THIS IS A LATE PICK FOR TODAY')
             this.toggleLatePick()
             return;
@@ -374,7 +374,7 @@ class Calendar extends Component {
       }
 
     getSchedule = () => {
-      let date = Moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
@@ -420,16 +420,14 @@ class Calendar extends Component {
       }
 
     getTodaysFirstGame = () => {
-      let now = Moment().format()
-      let date = Moment(now).format('YYYY-MM-DD')
+      let date = moment().format('YYYY-MM-DD')
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getNbaGamesByDate(date)
         .then (res => {
           let games = res.data
-          let now = Moment().format()
-          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+          let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
@@ -440,11 +438,11 @@ class Calendar extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
-          let realTime = Moment(now).format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           self.setState({
             firstGameTime: realGameTimeAdj
           })
@@ -456,7 +454,7 @@ class Calendar extends Component {
 
     postGames = (data) => {
       for (let i=0; i<data.length; i++) {
-        let gameDateAdj = Moment(data[i].scheduled).subtract(6, 'hours').format()
+        let gameDateAdj = moment(data[i].scheduled).subtract(6, 'hours').format()
         let splitDate = gameDateAdj.split('T')
         let gameDate = splitDate[0]
         
@@ -775,7 +773,7 @@ class Calendar extends Component {
 
     createTimer = (timeDiff) => {
         //console.log('Time until first game: ', timeDiff)
-        let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+        let seconds = moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
         // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
@@ -991,7 +989,7 @@ class Calendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
-                  if(Moment(calEvent.date).isBefore(Moment().subtract(1, 'day'))) {
+                  if(moment(calEvent.date).isBefore(moment().subtract(1, 'day'))) {
                       // console.log('YOU CANT PICK THAT DATE')
                       // $('#calendar').fullCalendar('unselect');
                       this.handleChangeTeams(calEvent)
@@ -999,7 +997,7 @@ class Calendar extends Component {
                       this.toggleExpiredPick()
                       return false;
                     } 
-                    else if (timerEnded && (Moment(calEvent.date).isBefore(Moment()))) {
+                    else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
                       this.handleChangeTeams(calEvent)
                       this.handleChangeStatus(calEvent)
                       this.toggleExpiredPick()

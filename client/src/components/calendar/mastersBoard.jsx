@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
-import '../../css/calendar/calendar.css'
-import '../../css/calendar/fullcalendar.css'
-import '../../css/calendar/fullcalendar.print.css'
-import '../../css/calendar/fullcalendar.min.css'
-import Countdown from 'react-countdown-now';
+import '../../css/masters.css'
+// import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
-import Moment from 'moment';
+import moment from 'moment-timezone';
 
 
 class mastersBoard extends Component {
@@ -26,7 +23,12 @@ class mastersBoard extends Component {
           closeAllNoPick: false, 
           challengeId: '',
           challengeData: {},
-          allGames: [],
+          allGolfers: [],
+          golfer1: '',
+          golfer2: '',
+          golfer3: '',
+          golfer4: '',
+          golfer5: '',
           yesterdaysGames: [], 
           myPicks: [], 
           myWins: [],
@@ -49,10 +51,6 @@ class mastersBoard extends Component {
           firstGameTime: '',
           timeDiff: '', 
           timerEnded: false,
-          homeTeam: '', 
-          awayTeam: '', 
-          homeAlias: '', 
-          awayAlias: ''
         };
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
@@ -67,6 +65,8 @@ class mastersBoard extends Component {
         this.toggleAll = this.toggleAll.bind(this);
         this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFormSelection = this.handleFormSelection.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         // this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDatesPicked = this.checkPrevDatesPicked.bind(this);
         this.overridePick = this.overridePick.bind(this);
@@ -181,7 +181,7 @@ class mastersBoard extends Component {
 
     handleChangeStatus(event) {
       this.setState({ activeDate: '' })
-      let gameTime = Moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
+      let gameTime = moment(event.start._d).add(6, 'hours').format("MMM Do, h:mmA")
       let gameStatus = event.status.toUpperCase()
       let gameId = event._id
       this.setState({ 
@@ -193,6 +193,20 @@ class mastersBoard extends Component {
       // console.log('Status: ', this.state.status)
       // console.log('Start Time: ', this.state.time)
       // console.log('Game ID: ', this.state.gameId)
+      }
+
+    handleInputChange = event => {
+        const { name, value } = event.target
+        console.log('NAME: ', name)
+        console.log('VALUE: ', value)
+        this.setState({
+            [name]: value
+        })
+        
+      }
+
+    handleFormSelection = (event) => {
+      console.log('TARGET: ', event.target)
       }
 
     getChallengeData = () => {
@@ -207,7 +221,7 @@ class mastersBoard extends Component {
         .then(res => {
           // console.log(res)
           self.setState({
-            challengeData: res.data[0]
+            challengeData: res.data[0],
           })
           self.getUserData()
         //   self.getSchedule()
@@ -218,6 +232,8 @@ class mastersBoard extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
+      let chalGolfers = this.state.challengeData.teams
+      console.log('CHAL GOLFERS: ', chalGolfers)
 
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
@@ -226,6 +242,7 @@ class mastersBoard extends Component {
       let thisUser = chalUsers.filter(chalFilter)
 
       this.setState({
+        allGolfers: chalGolfers,
         currentUser: thisUser[0],
         username: thisUser[0].username,
         firstName: thisUser[0].firstName,
@@ -254,10 +271,10 @@ class mastersBoard extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
 
         // TODAY'S TIMER STATUS
-        let realTime = Moment().format('HH:mm:ss a')
-        let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-        let timeDiff = Moment.duration(this.state.firstGameTime.diff(realTimeAdj))
-        // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
+        let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+        let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+        let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+        // console.log('REAL TIME EST: ', realTimeAdj)
         if (timeDiff._milliseconds > 0) {
           console.log('TIMER STILL RUNNING')
         } else {
@@ -266,7 +283,7 @@ class mastersBoard extends Component {
             timerEnded: true
           })
           // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
-          if (pickDate === Moment().format('YYYY-MM-DD')) {
+          if (pickDate === moment().format('YYYY-MM-DD')) {
             // console.log('THIS IS A LATE PICK FOR TODAY')
             this.toggleLatePick()
             return;
@@ -371,7 +388,7 @@ class mastersBoard extends Component {
       }
 
     getSchedule = () => {
-      let date = Moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
@@ -417,16 +434,14 @@ class mastersBoard extends Component {
       }
 
     getTodaysFirstGame = () => {
-      let now = Moment().format()
-      let date = Moment(now).format('YYYY-MM-DD')
+      let date = moment().format('YYYY-MM-DD')
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getNbaGamesByDate(date)
         .then (res => {
           let games = res.data
-          let now = Moment().format()
-          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+          let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
@@ -437,11 +452,11 @@ class mastersBoard extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
-          let realTime = Moment(now).format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           self.setState({
             firstGameTime: realGameTimeAdj
           })
@@ -659,7 +674,7 @@ class mastersBoard extends Component {
 
     createTimer = (timeDiff) => {
         //console.log('Time until first game: ', timeDiff)
-        let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+        let seconds = moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
         // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
@@ -669,13 +684,14 @@ class mastersBoard extends Component {
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
-      let timerEnded = false;
-      let EndTimer = () => {
-          timerEnded = true
-          return (
-            <span>Today's games have already begun.</span>
-          )
-        }
+      let uuidv4 = require('uuid')
+      // let timerEnded = false;
+      // let EndTimer = () => {
+      //     timerEnded = true
+      //     return (
+      //       <span>Today's games have already begun.</span>
+      //     )
+      //   }
         
         return (
             <div className='col-3 mastersDayBoard'>
@@ -749,16 +765,52 @@ class mastersBoard extends Component {
                 </form>
                 </Modal>
 
-              <div className="row countdown">
-              <div className="col-3"></div>
-              <div className="col-6 timer">
-                <p>Timer goes here</p>
+              <div className="row">
+                <div className="col-12">
+                  <p>Golfer #{this.props.num}</p>
+                </div>
+                <div className="col-12">
+                  <div className="golfContainer">    
+                    <form className="formGolfer" action="index.html">                    
+                      <div id='pickGolfer' className='golferWrap'>
+                        <div className="form-group">
+                          <label htmlFor="golferName">Select Golfer</label>
+                            <select 
+                              value={this.state.myGolfer}
+                              name={"golfer" + this.props.num }
+                              onChange={this.handleInputChange}
+                              type="text"
+                              className="form-control"
+                              id="golferName"
+                            >
+                            <option value=''>--</option>
+                            {
+                              this.state.allGolfers.map((golfer) => (
+                                  <option 
+                                    key={(uuidv4())} 
+                                    value={golfer.name}
+                                    data-data={golfer}
+                                    onClick={this.handleFormSelection}
+                                  //   name={allGolfers}
+                                  //   onClick={this.handleInputChange}
+                                  //   className='challengeSelection'
+                                    
+                                  >
+                                    {golfer.name}
+                                  </option>
+                              ))
+                            }
+                          </select>
+                          <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
                 {/* TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown> */}
-              </div>
-              <div className="col-3"></div>
-                
                 
               </div>
               
