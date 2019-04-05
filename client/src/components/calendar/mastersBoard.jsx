@@ -7,7 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
-import moment from 'moment-timezone';
+import moment from 'moment-timezone'
 
 
 class MastersBoard extends Component {
