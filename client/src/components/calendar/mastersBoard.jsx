@@ -10,7 +10,7 @@ import $ from 'jquery'
 import moment from 'moment-timezone';
 
 
-class mastersBoard extends Component {
+class MastersBoard extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -820,5 +820,5 @@ class mastersBoard extends Component {
     }
 }
 
-export default mastersBoard
+export default MastersBoard
 
