@@ -23,7 +23,7 @@ class Masters extends Component {
     }
 
     componentDidMount() {
-      // this.getGolfers()
+      this.getGolfers()
       // this.getSchedule() 
       }
 
@@ -33,9 +33,9 @@ class Masters extends Component {
         let golferData = {
           id: golfer.id,
           name: golfer.first_name + ' ' + golfer.last_name,
-          position: golfer.position,
-          rounds: golfer.rounds,
-          score: golfer.score
+          position: 0,
+          rounds: [],
+          score: 0
         }
         console.log('GOLFER DATA: ', golferData)
         // debugger;
@@ -53,15 +53,16 @@ class Masters extends Component {
 
       // API CALL TO PULL ENTIRE MASTERS LEADERBOARD
       $.ajax({
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/leaderboard/pga/2018/tournaments/b404a8d5-5e33-4417-ae20-5d4d147042ee/leaderboard.json?api_key=' + golfKey,
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/summary/pga/2019/tournaments/fdf12aec-74d2-4f2e-9e0b-00481a32fd34/summary.json?api_key=' + golfKey,
+        // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/leaderboard/pga/2018/tournaments/b404a8d5-5e33-4417-ae20-5d4d147042ee/leaderboard.json?api_key=' + golfKey,
         type: 'GET',
         success: function(data) {
-          self.setState({ golfers: data.leaderboard });
+          self.setState({ golfers: data.field });
           console.log('ALL DATA: ', data)
-          console.log('LEADERBOARD: ', data.leaderboard)
+          console.log('FIELD: ', data.field)
 
           // POST ENTIRE SCHEDULE
-          self.postGolfers(data.leaderboard)
+          self.postGolfers(data.field)
           }
         })
       }

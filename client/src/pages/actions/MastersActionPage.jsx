@@ -4,7 +4,7 @@ import API from '../../utils/API'
 import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
-// import Masters from '../../components/games/Masters'
+import Masters from '../../components/games/Masters'
 import MastersBoard from '../../components/games/MastersBoard'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
@@ -133,11 +133,11 @@ class MastersActionPage extends Component {
                     />
                   </div>
 
-                  {/* <div className="winningTeams row">
+                  <div className="winningTeams row">
                     <Masters 
                       username={this.state.username}
                     />
-                  </div> */}
+                  </div>
                   
                 </div>
               </div>
