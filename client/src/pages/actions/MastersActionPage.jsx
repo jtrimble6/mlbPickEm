@@ -45,7 +45,13 @@ class MastersActionPage extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = '5ca42756e334ea0fb2e7fffd'
+
+      // PRODUCTION
+      let challengeId = '5caa6602ba5ec50017ed6184'
+
+      // DEVELOPMENT
+      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+
       // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
