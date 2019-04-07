@@ -378,8 +378,13 @@ class MastersBoard extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = '5ca42756e334ea0fb2e7fffd'
-    //   let challengeId = localStorage.getItem('userChallengeId')
+      // PRODUCTION
+      let challengeId = '5caa6602ba5ec50017ed6184'
+
+      // DEVELOPMENT
+      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+
+      //   let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -405,7 +410,7 @@ class MastersBoard extends Component {
       let myGolfers = []
       // let myGolfersFri = []
       // let myGolfersSat = []
-      // console.log('CHAL GOLFERS: ', chalGolfers)
+      console.log('CHAL GOLFERS: ', chalGolfers)
 
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
