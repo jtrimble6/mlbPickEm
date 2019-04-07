@@ -78,8 +78,8 @@ class MastersLeaderboard extends Component {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
 
-      // TEMP CODE FOR ADMIN TESTING
-      let challengeId = '5c9ba1f709237528c630baa8'
+      // PRODUCTION
+      let challengeId = '5caa6602ba5ec50017ed6184'
 
       //let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
@@ -115,7 +115,7 @@ class MastersLeaderboard extends Component {
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
         losses: thisUser[0].par,
-        lossesCount: thisUser[0].wins,
+        lossesCount: thisUser[0].score,
         myPicks: thisUser[0].picks,
       })
 
@@ -136,7 +136,7 @@ class MastersLeaderboard extends Component {
         let users = this.state.challengeData.users
         // console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
-            return { index: i, value: el.wins }
+            return { index: i, value: el.score }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
@@ -340,7 +340,7 @@ class MastersLeaderboard extends Component {
                   <tr className='leaderboardHeader'>
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
-                    <th className='leaderboardHeader'>Losses</th>
+                    <th className='leaderboardHeader'>Score</th>
                     {/* <th>Teams</th> */}
                   </tr>
                 </thead>
@@ -352,7 +352,7 @@ class MastersLeaderboard extends Component {
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                       <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.wins}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.score}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
@@ -407,7 +407,7 @@ class MastersLeaderboard extends Component {
                                         <h4 className='winsHeader'>Behind</h4> {this.state.activeUserPar.length} - {this.state.activeUserPrevPicks.length}
                                       </div>   */}
                                       {/* <div className="col-md-3">
-                                        <h4 className='wins'>Place</h4> {this.state.activeUserPar.length}
+                                        <h4 className='score'>Place</h4> {this.state.activeUserPar.length}
                                       </div>   */}
                                     </div>  
                                   </div>
