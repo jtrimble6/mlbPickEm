@@ -115,7 +115,7 @@ class MastersLeaderboard extends Component {
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
         losses: thisUser[0].par,
-        lossesCount: thisUser[0].score,
+        lossesCount: thisUser[0].points,
         myPicks: thisUser[0].picks,
       })
 
@@ -136,7 +136,7 @@ class MastersLeaderboard extends Component {
         let users = this.state.challengeData.users
         // console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
-            return { index: i, value: el.score }
+            return { index: i, value: el.points }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
@@ -352,7 +352,7 @@ class MastersLeaderboard extends Component {
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                       <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.score}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.points}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
