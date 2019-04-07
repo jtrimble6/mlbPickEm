@@ -6,9 +6,9 @@ router.route('/')
   .post(mastersController.create)
   
 
-// router.route('/:id')
-//   .get(mastersController.findById)
-//   .put(mastersController.findOneAndUpdate)
+router.route('/:id')
+  .get(mastersController.findById)
+  .put(mastersController.findOneAndUpdate)
 
 // router.route('/:id')
 // .get(mastersController.findByTeam)

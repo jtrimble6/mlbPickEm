@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 //import { Link } from 'react-router-dom';
 import '../../css/profileBar.css'
 import API from '../../utils/API';
@@ -16,39 +16,13 @@ class MastersBar extends Component {
             currentUser: {},
             challengeData: {},
             userId: '',
-            userPar: [],
+            userPar: '',
             parCount: '',
-            thisTeam: '',
             userPicks: [],
             todaysPick: this.props.todaysPick,
-            pastPicks: [],
-            activeTeam: {},
-            nextDays: [],
-            pastFutureDates: [],
-            recentDate: '',
-            nextGames: [],
-            matchingGames: [],
-            currentGameDate: '',
-            recentPicks: [],
-            sortedPicks: [],
-            oldPicks: [],
-            allGames: [],
-            homeGames: [],
-            awayGames: [],
-            teams: []
+            mastersDates: [],
         }
-
-        this.toggle = this.toggle.bind(this);
-        this.toggleActive = this.toggleActive.bind(this);
-        // this.findScore = this.findScore.bind(this);
-        // this.changeLogo = this.changeLogo.bind(this);
-        // this.postTeams = this.postTeams.bind(this);
-        // this.findTeamGames = this.findTeamGames.bind(this);
-        // this.findNextGames = this.findNextGames.bind(this);
-        // this.setNextGames = this.setNextGames.bind(this);
-        // this.postTeamGames = this.postTeamGames.bind(this);
-        this.sortUserPicks = this.sortUserPicks.bind(this);
-        this.findRecentPicks = this.findRecentPicks.bind(this);
+        
         this.findNextDays = this.findNextDays.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
@@ -61,127 +35,29 @@ class MastersBar extends Component {
       // this.postTeamGames()
       }
 
-    toggle() {
-        this.setState({
-          modal: !this.state.modal
-        });
-      }
-
-    toggleActive() {
-      let _this = this
-      $('.button').click(function(){
-          $(this).addClass('active');
-          $(this).parent().children('.teamButton').not(this).removeClass('active');
-          let thisTeam = $(this).text()
-          _this.setState({ activeTeam: thisTeam })
-        }); 
-      }
-    
-    sortUserPicks = () => {
-      let userPicks = this.state.userPicks
-      console.log('USER PICKS: ', this.state.userPicks)
-
-      let oldPicksFunc = (picks) => {
-        return picks.gameDate < moment().format('YYYY-MM-DD')
-      }
-      let oldPicks = userPicks.filter(oldPicksFunc)
-      let sortedPicks = userPicks.sort(function(a, b) {
-        if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
-            return -1;
-        }
-        if (moment(a.gameDate).isAfter(moment(b.gameDate))) {
-            return 1;
-        }
-        return 0;
-      })
-
-      this.setState({
-        sortedPicks: sortedPicks,
-        oldPicks: oldPicks
-      })
-      // console.log('THE NEXT PICKS: ', this.state.sortedPicks)
-      //console.log('THE OLD PICKS: ', this.state.oldPicks)
-      this.findRecentPicks()
-    
-      }
-
-    findRecentPicks = () => {
-      let sortedPicks = this.state.sortedPicks
-      let recentDates = this.state.pastFutureDates
-      let recentPicks = []
-      // console.log('SORTED PICKS ARRAY: ', sortedPicks)
-      // console.log('PAST/FUTURE DATES: ', recentDates)
-      let recentPickMatch = (thePicks) => {
-        return moment(thePicks.gameDate).isSame(this.state.recentDate.date) 
-      }
-      for (var t=0; t<recentDates.length; t++) {
-          this.setState({
-            recentDate: recentDates[t]
-          })
-          let dateMatch = sortedPicks.filter(recentPickMatch)
-          if (dateMatch[0]) {
-            // console.log('MATCHING GAMES: ', dateMatch)
-            recentPicks.push(dateMatch[0])
-          } else {
-            recentPicks.push(
-              {
-                team: 'NO PICK',
-                gameDate: recentDates[t].date,
-                gameID: '',
-                // style: (moment().format('YYYY-MM-DD').isAfter(moment(recentDates[t].date)) ? 'loss' : (moment().format('YYYY-MM-DD').isBefore(moment(recentDates[t].date)) ? 'futurePick' : 'todaysPick')),
-                style: ( moment().format('YYYY-MM-DD') === (recentDates[t].date) ? 'todaysPick' : moment().format('YYYY-MM-DD') > (recentDates[t].date) ? 'loss' : 'futurePick' )
-              }
-            )
-          }
-        }
-
-        console.log('RECENT PICKS ARRAY: ', recentPicks)
-        this.setState({
-          recentPicks: recentPicks
-        })
-      }
-
     findNextDays = () => {
-      let today = moment().subtract(2, 'days').format('YYYY-MM-DD')
-      let nextDays = []
-      let pastFutureDates = [
+      let mastersDates = [
         {
-          name: 'past',
-          date: moment().subtract(2, 'days').format('YYYY-MM-DD')
+          name: 'THU',
+          date: '2019-04-11'
         },
         {
-          name: 'past',
-          date: moment().subtract(1, 'day').format('YYYY-MM-DD')
+          name: 'FRI',
+          date: '2019-04-12'
         },
         {
-          name: 'today',
-          date: moment().format('YYYY-MM-DD')
+          name: 'SAT',
+          date: '2019-04-13'
         },
         {
-          name: 'future',
-          date: moment().add(1, 'day').format('YYYY-MM-DD')
-        },
-        {
-          name: 'future',
-          date: moment().add(2, 'days').format('YYYY-MM-DD')
-        },
-        {
-          name: 'future',
-          date: moment().add(3, 'days').format('YYYY-MM-DD')
+          name: 'SUN',
+          date: '2019-04-14'
         }
 
       ]
-      // console.log('GAMES FOR THIS WEEK: ', today)
       
-      for (var c=0; c<14; c++) {
-        let thisDay = moment(today).add(c, 'days').format('YYYY-MM-DD')
-        // console.log('THIS DAY: ', thisDay)
-        nextDays.push(thisDay)
-      }
-
       this.setState({
-        nextDays: nextDays,
-        pastFutureDates: pastFutureDates
+        mastersDates: mastersDates
       })
 
       }
@@ -227,7 +103,7 @@ class MastersBar extends Component {
       this.sortUserPicks()
 
       $(document).ready(function(){
-        $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+        $('.userPicks').animate({scrollTop: '300%'}, 1000);
         return false;
       });
 
@@ -253,10 +129,10 @@ class MastersBar extends Component {
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4 className='winsTitle'>Today's Golfer</h4> {this.props.todaysPick} <br />
+                    <h4 className='winsTitle'>Today's Duo</h4> {this.props.todaysPick} <br />
                     <div className="row">
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Score</h4> {this.props.par}
+                        <h4 className='winsHeader'>Your Score</h4> {this.props.par}
                       </div>
                       <div className="col-md-3">
                         <h4 className='winsHeader'>Back</h4> {this.props.parCount}
@@ -271,21 +147,22 @@ class MastersBar extends Component {
             </div>
             <div className="col-4">
               <div className='row recentPicksRow'>
-                <div className="col-10 recentPicks picks">
+                <div className="col-10 userPicks picks">
                   <table className='table table-hover'>
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Today's Starting Score</th>
+                        <th>Day</th>
+                        <th>Golfer's Selected</th>
                       </tr>
                     </thead>
                     <tbody>
                       {
-                        this.state.recentPicks.map((recentPick, i) => (
-                          <tr key={uuidv4()} className= {(recentPick.gameDate === moment().format('YYYY-MM-DD')) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
-                          {/* <tr key={uuidv4()} className={recentPick.result}> */}
-                            <td>{moment(recentPick.gameDate).format('MM-DD')}</td>
-                            <td>{recentPick.team}</td>
+                        this.state.mastersDates.map((mastersDate, i) => (
+                          <tr key={uuidv4()} className='golfPicks'>
+                          {/* <tr key={uuidv4()} className={mastersDate.result}> */}
+                            <td>{mastersDate.name}</td>
+                            <td>{mastersDate.golfer1}</td>
+                            <td>{mastersDate.golfer2}</td>
                           </tr> 
                             )
                           )     

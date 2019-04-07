@@ -59,6 +59,13 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
+    addGolfers: function (req, res) {
+      db.Challenge
+        .find({ _id: req.params.id },
+          $set({ teams: req.body }))
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err))
+    },
     addWinner: function(req, res) {
         db.Challenge
           .update({ username: req.params.id }, 

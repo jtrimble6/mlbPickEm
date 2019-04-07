@@ -1,3 +1,63 @@
 .mastersDayBoard {
-    float: left;
+    margin: 0 auto;
+    border: dashed 3px white;
+}
+
+.golfContainer {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0;
+    padding: 5%;
+}
+
+.mastersBoard {
+    color: white;
+    text-align: center;
+}
+
+.golfSubmit {
+    margin-top: 5%;
+}
+
+.golferDaySubmit {
+    max-width: 50% !important;
+    margin: 0 auto;
+    margin-top: 2%;
+}
+
+.dupGolfer {
+    font-size: 8px;
+    margin: 0 auto;
+    margin-top: 1%;
+}
+
+.golfPicks {
+    margin-bottom: 5%;
+}
+
+.golfersHeader {
+    color: gold;
+    margin-bottom: 2%;
+    font-weight: bolder;
+}
+
+.myGolfers {
+    margin-top: 2%;
+}
+
+.golferButtons {
+    margin: 5%;
+}
+
+.myGolferButtons {
+    margin: 2%;
+    white-space: pre-wrap;
+}
+
+.formGolfer h3 {
+    background-color: gold;
+    color: #209CEE;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    padding: 2%;
 }

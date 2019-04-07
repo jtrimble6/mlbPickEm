@@ -5,7 +5,7 @@ import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
 // import Masters from '../../components/games/Masters'
-import MastersBoard from '../../components/calendar/MastersBoard'
+import MastersBoard from '../../components/games/MastersBoard'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
@@ -121,21 +121,9 @@ class MastersActionPage extends Component {
                 <div className='mastersBoard col-md-9'>
                   
                   <MastersBoard 
-                    num={1}
+          
                   />
-                  <MastersBoard 
-                    num={2}
-                  />
-                  <MastersBoard 
-                    num={3}
-                  />
-                  <MastersBoard 
-                    num={4}
-                  />
-                  <MastersBoard 
-                    num={5}
-                  />
-
+                  
                 </div>
 
                 <div className='col-md-3'>

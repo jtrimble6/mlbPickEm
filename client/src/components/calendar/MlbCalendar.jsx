@@ -722,7 +722,7 @@ class MlbCalendar extends Component {
           // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
           let newWin = null
           for (let s=0; s<schedule.length; s++) {
-            let winner = schedule[s].gameWinner.trim()
+            let winner = schedule[s].gameWinner
             let thisPick = thisPickTeam.trim()
             if (thisPick === winner) {
               let result = 'win'
@@ -770,12 +770,17 @@ class MlbCalendar extends Component {
 
     overridePickResult(userId, date, newPick) {
       // console.log(date)
-      API.deleteNbaPick(this.state.challengeId, userId, date)
+      // API.updateMlbPick(this.state.challengeId, userId, date, newPickResult)
+      //   .then(res => {
+      //     console.log(res)
+      //   })
+      //   .catch(err => {console.log(err)})
+      API.deleteMlbPick(this.state.challengeId, userId, date)
         .then(res => {
             console.log(res)
         })
         .catch(err => {console.log(err)})
-      API.saveNbaPick(this.state.challengeId, userId, newPick)
+      API.saveMlbPick(this.state.challengeId, userId, newPick)
         .then(res => { 
           console.log(res)
           })

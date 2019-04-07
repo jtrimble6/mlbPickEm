@@ -4,7 +4,7 @@ import moment from 'moment'
 import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
-import Moment from 'moment'
+import Moment from 'moment-timezone'
 import Countdown from 'react-countdown-now';
 import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
@@ -479,7 +479,6 @@ class NbaPlayoffLeaderboard extends Component {
       API.getMlbGamesByDate(date)
         .then (res => {
           let games = res.data
-          let now = Moment().format()
           let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
@@ -493,7 +492,7 @@ class NbaPlayoffLeaderboard extends Component {
           let firstGameTime = firstGame.gameTime
           let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
           let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
-          let realTime = Moment(now).format('HH:mm:ss a')
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
           let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
           this.createTimer(timeDiff)

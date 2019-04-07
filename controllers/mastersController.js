@@ -8,15 +8,15 @@ module.exports = {
     },
     findById: function(req, res) {
         db.Golfer
-          .find({gameId: req.params.id})
+          .find({name: req.params.id})
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
     findOneAndUpdate: function(req, res) {
         db.Golfer
         .update(
-            { teamAlias: req.params.abbr },
-            { $push: { homeGames: req.body }})
+            { name: req.params.id },
+            { $push: { rounds: req.body }})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
     },

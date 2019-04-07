@@ -880,10 +880,10 @@ class NbaPlayoffCalendar extends Component {
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
-      let timerEnded = false;
+      // let timerEnded = false;
       let lastDate = this.state.lastDate
       let EndTimer = () => {
-          timerEnded = true
+          // timerEnded = true
           return (
             <span>Today's games have already begun.</span>
           )

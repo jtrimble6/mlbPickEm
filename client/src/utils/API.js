@@ -102,8 +102,23 @@ export default {
     postGolfers: function(data) {
         return axios.post('/api/masters/', data)
     },
+    getGolfer: function(id) {
+        return axios.get('/api/masters/' + id)
+    },
     getGolfers: function() {
         return axios.get('/api/masters/')
+    },
+    saveMastersGolfers: function(id, user, theGolfers) {
+        return axios.put('/api/challenges/' + id + '/users/' + user, theGolfers)
+    },
+    deleteMastersGolfers: function(id, user, date) {
+        return axios.delete('/api/challenges/' + id + '/users/' + user + '/' + date)
+    },
+    updateMastersGolfer: function(id, roundResult) {
+        return axios.put('/api/masters/' + id, roundResult)
+    },
+    updateMastersPick: function(id, user, date, result) {
+        return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
     },
 
     // NBA PLAYOFF API

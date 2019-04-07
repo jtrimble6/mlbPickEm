@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import LoadingOverlay from 'react-loading-overlay';
-import moment from 'moment'
 import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
-import Moment from 'moment'
+import moment from 'moment-timezone'
 import Countdown from 'react-countdown-now';
 import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
@@ -534,15 +533,14 @@ class Leaderboard extends Component {
       }
 
     getFirstGame = () => {
-      let now = Moment().format()
-      let date = Moment(now).format('YYYY-MM-DD')
+      let now = moment().format()
+      let date = moment(now).format('YYYY-MM-DD')
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getMlbGamesByDate(date)
         .then (res => {
           let games = res.data
-          let now = Moment().format()
-          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+          let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
@@ -553,11 +551,11 @@ class Leaderboard extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
-          let realTime = Moment(now).format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))
@@ -566,7 +564,7 @@ class Leaderboard extends Component {
 
     createTimer = (timeDiff) => {
       // console.log('Time until first game: ', timeDiff)
-      let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+      let seconds = moment.duration(timeDiff).asSeconds() * 1000
       //console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
       }
@@ -593,9 +591,9 @@ class Leaderboard extends Component {
         let timerDiff = this.state.timeDiff
         let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
         
-        let timerEnded = false;
+        // let timerEnded = false;
         let EndTimer = () => {
-          timerEnded = true
+          // timerEnded = true
           // console.log('TODAYS PICK: ', todaysPick)
           return (
             <span>{todaysPick}</span>
