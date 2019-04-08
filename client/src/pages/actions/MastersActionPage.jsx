@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-// import MastersNav from '../../components/nav/mastersNav'
+import MastersNav from '../../components/nav/MastersNav'
 import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
-import Masters from '../../components/games/Masters'
+// import Masters from '../../components/games/Masters'
 import MastersBoard from '../../components/games/MastersBoard'
-import AdminBar from '../../components/nav/AdminBar'
+// import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/actionPage.css'
@@ -51,9 +51,9 @@ class MastersActionPage extends Component {
       // let challengeId = localStorage.getItem('userChallengeId')
 
       // DEVELOPMENT
-      let challengeId = '5ca42756e334ea0fb2e7fffd'
+      // let challengeId = '5ca42756e334ea0fb2e7fffd'
 
-      // let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -111,11 +111,11 @@ class MastersActionPage extends Component {
 
         return (
             <div id='actionPage'>
-              <AdminBar />
+              {/* <AdminBar /> */}
               <div className="se-pre-con"></div>
-              {/* <MastersNav 
+              <MastersNav 
                 challengeName={this.state.challengeData.challengeName}
-              /> */}
+              />
               
               <MastersBar
                   username={this.state.username}
