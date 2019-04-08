@@ -442,7 +442,7 @@ class MlbCalendar extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
+          let realGameTime = moment(firstGameTime).add(8, 'hours').format('HH:mm:ss a')
           let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
@@ -1015,11 +1015,11 @@ class MlbCalendar extends Component {
                       this.toggleExpiredPick()
                       return false;
                     } 
-                    // else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
-                    //   this.handleChangeTeams(calEvent)
-                    //   this.handleChangeStatus(calEvent)
-                    //   this.toggleExpiredPick()
-                    // }
+                    else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      this.toggleExpiredPick()
+                    }
                     else 
                     {
                       this.handleChangeTeams(calEvent)
