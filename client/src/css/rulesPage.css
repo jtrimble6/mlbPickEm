@@ -122,3 +122,12 @@ hr {
   #rulesPage p {
       color: white;
   }
+
+.mastersRules em {
+    font-weight: bolder;
+    color: gold;
+}
+
+.mastersRules h2 {
+    font-size: 30px;
+}

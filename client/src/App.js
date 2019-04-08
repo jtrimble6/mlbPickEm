@@ -33,6 +33,7 @@ import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 
 
 import './App.css';
+import MastersRules from './pages/rules/MastersRulesPage';
 
 
 
@@ -217,6 +218,16 @@ class App extends Component {
               render={() =>
                 this.state.userLoggedIn === true ? (
                   <NbaPlayoffRules />
+                ) : this.state.userLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )}
+            />
+            <Route exact path='/mastersRules'
+              render={() =>
+                this.state.userLoggedIn === true ? (
+                  <MastersRules />
                 ) : this.state.userLoggedIn === false ? (
                   <Redirect to='/login' />
                 ) : (

@@ -217,7 +217,7 @@ class EditChallenge extends Component {
         this.setState({
             nameTaken: false,
         })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.mlbTeams ) 
+        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
         let challengeDeletionId = this.state.challengeId
         //console.log(this.state)
         let challengeData = {
@@ -485,6 +485,7 @@ class EditChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlb'>MLB</option>
                                 <option value='nba'>NBA</option>
+                                <option value='golf'>MASTERS</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -501,6 +502,7 @@ class EditChallenge extends Component {
                                 <option value='mlb'>MLB Teams</option>
                                 <option value='nba'>NBA Teams</option>
                                 <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
+                                <option value='masters'>PGA 2018-19 MASTERS</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -517,6 +519,7 @@ class EditChallenge extends Component {
                                 <option value='/actionMLB'>MLB Challenge</option>
                                 <option value='/action'>NBA Challenge</option>
                                 <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
+                                <option value='/masters'>MASTERS Challenge</option>
                                 </select>
                         </div>
                         <div className="form-group">
@@ -533,6 +536,7 @@ class EditChallenge extends Component {
                                 <option value='/mlbRules'>MLB Rules</option>
                                 <option value='/rules'>NBA Rules</option>
                                 <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
+                                <option value='/mastersRules'>Masters Rules</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -573,6 +577,7 @@ class EditChallenge extends Component {
                                 <option value=''>Select One</option>
                                 <option value='mlbpickemchallenge.jpeg'>MLB</option>
                                 <option value='nbaplayoffchallenge.jpg'>NBA</option>
+                                <option value='masterschallenge.jpg'>MASTERS</option>
                             </select>
                         </div>
                         <div className="form-group">
