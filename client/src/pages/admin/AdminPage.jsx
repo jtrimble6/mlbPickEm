@@ -48,7 +48,7 @@ getAllChallenges = () => {
 setRedirect = (event) => {
   console.log('THIS EVENT: ', event.target.dataset.url)
   let url = event.target.dataset.url
-  let challengeId = event.target.dataset.id
+  let challengeId = event.target.dataset.challengeid
   localStorage.setItem('userChallengeId', challengeId)
   this.setState({
     url: url,

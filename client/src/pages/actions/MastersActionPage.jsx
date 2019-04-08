@@ -4,7 +4,7 @@ import API from '../../utils/API'
 import MastersBar from '../../components/profile/mastersBar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import MastersLeaderboard from '../../components/leaderboards/MastersLeaderboard'
-// import Masters from '../../components/games/Masters'
+import Masters from '../../components/games/Masters'
 import MastersBoard from '../../components/games/MastersBoard'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
@@ -48,10 +48,10 @@ class MastersActionPage extends Component {
 
       // PRODUCTION
       // let challengeId = '5caa6602ba5ec50017ed6184'
-      let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = localStorage.getItem('userChallengeId')
 
       // DEVELOPMENT
-      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
 
       // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
@@ -144,8 +144,8 @@ class MastersActionPage extends Component {
                     <Masters 
                       username={this.state.username}
                     />
-                  </div>
-                   */}
+                  </div> */}
+                  
                 </div>
               </div>
             </div>

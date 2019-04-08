@@ -17,13 +17,18 @@ class Masters extends Component {
       };
       this.postGolfers = this.postGolfers.bind(this);
       this.getGolfers = this.getGolfers.bind(this);
+      this.getSatGolfers = this.getSatGolfers.bind(this);
+      this.postSatGolfers = this.postSatGolfers.bind(this);
+      this.pullSatGolfers = this.pullSatGolfers.bind(this);
       this.findUserPicks = this.findUserPicks.bind(this);
       this.findUserWins = this.findUserWins.bind(this);
       this.overridePickResult = this.overridePickResult.bind(this);
     }
 
     componentDidMount() {
-      this.getGolfers()
+      // this.getGolfers()
+      // this.getSatGolfers()
+      // this.pullSatGolfers()
       // this.getSchedule() 
       }
 
@@ -47,14 +52,70 @@ class Masters extends Component {
         }
       }
 
+    postSatGolfers = (data) => {
+      for (let i=0; i<data.length; i++) {
+        let golfer = data[i]
+        let golferData = {
+          id: golfer.id,
+          name: golfer.first_name + ' ' + golfer.last_name,
+          position: golfer.position,
+          rounds: golfer.rounds,
+          score: golfer.score
+        }
+        console.log('GOLFER DATA: ', golferData)
+        // debugger;
+
+        //POST ENTIRE SCHEDULE
+        API.postGolfers(golferData)
+          .then(res=> console.log(res))
+          .catch(err => console.log(err))
+        }
+      }
+
+    pullSatGolfers = () => {
+        // let self = this
+        API.getGolfers()
+          .then(res => {
+            console.log('ALL SATURDAY GOLFERS: ', res.data )
+          })
+          .catch(err => console.log(err))
+
+      }
+
+    getSatGolfers = () => {
+      let self = this
+      const golfKey = 'm8rjy4udu5y27hnysddq6ecu'
+      let top20 = []
+      // API CALL TO PULL MASTERS LEADERBOARD AFTER FRIDAY
+      $.ajax({
+        // 2018 LEADERBOARD
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/leaderboard/pga/2018/tournaments/b404a8d5-5e33-4417-ae20-5d4d147042ee/leaderboard.json?api_key=' + golfKey,
+        // 2019 LEADERBOARD
+        // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/leaderboard/pga/2019/tournaments/fdf12aec-74d2-4f2e-9e0b-00481a32fd34/leaderboard.json?api_key=' + golfKey,
+        type: 'GET',
+        success: function(data) {
+          self.setState({ golfers: data.leaderboard });
+          console.log('ALL DATA: ', data)
+          console.log('LEADERBOARD: ', data.leaderboard)
+
+          for (var l=0; l<20; l++) {
+            let golfer = data.leaderboard[l]
+            top20.push(golfer)
+          }
+
+          // POST ENTIRE SCHEDULE
+          self.postSatGolfers(top20)
+          }
+        })
+      }
+
     getGolfers = () => {
       let self = this
       const golfKey = 'm8rjy4udu5y27hnysddq6ecu'
 
-      // API CALL TO PULL ENTIRE MASTERS LEADERBOARD
+      // API CALL TO PULL ENTIRE MASTERS FIELD
       $.ajax({
         url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/summary/pga/2019/tournaments/fdf12aec-74d2-4f2e-9e0b-00481a32fd34/summary.json?api_key=' + golfKey,
-        // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/golf-t2/leaderboard/pga/2018/tournaments/b404a8d5-5e33-4417-ae20-5d4d147042ee/leaderboard.json?api_key=' + golfKey,
         type: 'GET',
         success: function(data) {
           self.setState({ golfers: data.field });

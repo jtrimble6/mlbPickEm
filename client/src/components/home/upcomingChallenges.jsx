@@ -167,6 +167,7 @@ class UpcomingChallenges extends Component {
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,
+            challenges: user.challenges,
             picks: [],
             points: 0,
             wins: [],

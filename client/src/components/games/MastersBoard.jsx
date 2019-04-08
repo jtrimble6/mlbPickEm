@@ -379,15 +379,16 @@ class MastersBoard extends Component {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
       // PRODUCTION
-      let challengeId = '5caa6602ba5ec50017ed6184'
+      // let challengeId = '5caa6602ba5ec50017ed6184'
 
       // DEVELOPMENT
-      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
 
-      //   let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
+      console.log('CHALLENGE ID: ', challengeId)
       API.getChallenge(challengeId)
         .then(res => {
           // console.log(res)
@@ -402,10 +403,12 @@ class MastersBoard extends Component {
 
     getUserData = () => {
       let localUser = localStorage.getItem('user')
+      
       this.setState({
         userId: localUser
       })
       let chalUsers = this.state.challengeData.users
+      console.log('THIS CHALLENGE: ', chalUsers)
       let chalGolfers = this.state.challengeData.teams
       let myGolfers = []
       // let myGolfersFri = []
