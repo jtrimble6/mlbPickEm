@@ -52,7 +52,7 @@ class MastersLeaderboard extends Component {
         this.getUserData = this.getUserData.bind(this);
     }
     componentDidMount() {
-    //   this.getChallengeData()
+      this.getChallengeData()
     //   this.getFirstGame()
         
       }
@@ -82,9 +82,9 @@ class MastersLeaderboard extends Component {
       // let challengeId = '5caa6602ba5ec50017ed6184'
 
       // DEVELOPMENT
-      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
 
-      let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -137,7 +137,7 @@ class MastersLeaderboard extends Component {
 
     createLeaderboard = () => {
         let users = this.state.challengeData.users
-        // console.log('Create leaderboard with this data: ', users)
+        console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
             return { index: i, value: el.points }
         })

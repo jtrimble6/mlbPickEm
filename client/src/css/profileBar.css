@@ -445,3 +445,7 @@ h2 {
 .recentPicks td {
   border-top: none;
 }
+
+.btn-success {
+  background-color: lightgreen;
+}

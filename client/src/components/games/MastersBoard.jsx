@@ -382,9 +382,9 @@ class MastersBoard extends Component {
       // let challengeId = '5caa6602ba5ec50017ed6184'
 
       // DEVELOPMENT
-      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
 
-      let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -563,16 +563,16 @@ class MastersBoard extends Component {
         let duplicateEntry = checkGolfersFunc(myGolfers)
         console.log('DUPLICATES? ', duplicateEntry)
 
-        if (duplicateEntry) {
+        if (golfer1 === '' || golfer2 === '' || golfer3 === '' || golfer4 === '' || golfer5 === '' ) {
           self.setState({
-            duplicateGolfer: true
+            underLimitGolfers: true
           })
           return;
         }
 
-        if (golfer1 === '' || golfer2 === '' || golfer3 === '' || golfer4 === '' || golfer5 === '' ) {
+        if (duplicateEntry) {
           self.setState({
-            underLimitGolfers: true
+            duplicateGolfer: true
           })
           return;
         }

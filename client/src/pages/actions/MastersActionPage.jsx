@@ -51,9 +51,9 @@ class MastersActionPage extends Component {
       // let challengeId = localStorage.getItem('userChallengeId')
 
       // DEVELOPMENT
-      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+      let challengeId = '5ca42756e334ea0fb2e7fffd'
 
-      let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -72,6 +72,7 @@ class MastersActionPage extends Component {
       window.addEventListener('load', this.handlePreloader());
         let localUser = localStorage.getItem('user')
         let chalUsers = this.state.challengeData.users
+        console.log('CHALLENGE: ', this.state.challengeData)
 
         // FILTER OUT THIS USER AND SET STATE
         let chalFilter = (challengers) => {
@@ -137,6 +138,7 @@ class MastersActionPage extends Component {
 
                   <div className="leaders row">
                     <MastersLeaderboard   
+                    
                     />
                   </div>
 
