@@ -261,7 +261,7 @@ class MlbCalendar extends Component {
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
-          // console.log('REAL TIME EST: ', realTimeAdj)
+          console.log('REAL TIME EST: ', realTimeAdj)
           if (timeDiff._milliseconds > 0) {
             console.log('TIMER STILL RUNNING')
           } else {

@@ -21,6 +21,7 @@ class MastersRules extends Component {
                 </p>
                 <hr />
                 <h2>Daily Picks: </h2>
+                <em>PICKS ARE DUE DAILY BY 9AM</em>
                 <h3>Thursday/Friday</h3>
                 <p>
                 Each day you will pick 2 golfers. You are picking golfers based on the amount of strokes that they will get that day. <br />

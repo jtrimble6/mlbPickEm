@@ -312,22 +312,22 @@ class App extends Component {
               )
             )} />
             <Route exact path='/nbaPlayoffs' render={() => (
-              this.state.adminLoggedIn === true ? (
+              this.state.userLoggedIn === true ? (
                 <NbaPlayoffActionPage 
                   username={this.state.userUsername}
                 />
-              ) : this.state.adminLoggedIn === false ? (
+              ) : this.state.userLoggedIn === false ? (
                 <Redirect to='/login' />
               ) : (
                 null
               )
             )} />
             <Route exact path='/masters' render={() => (
-              this.state.adminLoggedIn === true ? (
+              this.state.userLoggedIn === true ? (
                 <MastersActionPage 
                   username={this.state.userUsername}
                 />
-              ) : this.state.adminLoggedIn === false ? (
+              ) : this.state.userLoggedIn === false ? (
                 <Redirect to='/login' />
               ) : (
                 null
