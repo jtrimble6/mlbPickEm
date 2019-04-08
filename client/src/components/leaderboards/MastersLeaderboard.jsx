@@ -79,9 +79,9 @@ class MastersLeaderboard extends Component {
       let self = this
 
       // PRODUCTION
-      let challengeId = '5caa6602ba5ec50017ed6184'
+      // let challengeId = '5caa6602ba5ec50017ed6184'
 
-      //let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })

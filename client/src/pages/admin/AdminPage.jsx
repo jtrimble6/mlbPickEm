@@ -48,8 +48,11 @@ getAllChallenges = () => {
 setRedirect = (event) => {
   console.log('THIS EVENT: ', event.target.dataset.url)
   let url = event.target.dataset.url
+  let challengeId = event.target.dataset.id
+  localStorage.setItem('userChallengeId', challengeId)
   this.setState({
     url: url,
+    challengeId: challengeId,
     redirect: true
   })
 }
@@ -143,6 +146,7 @@ renderRedirect = () => {
                     color='success'
                     className='challengeButtons'
                     data-url='/nbaPlayoffs'
+                    data-challengeid='5c9d00af9c45e400175c56a3'
                     onClick={this.setRedirect}
                   >
                     NBA Playoff Challenge
@@ -151,6 +155,7 @@ renderRedirect = () => {
                     color='success'
                     className='challengeButtons'
                     data-url='/masters'
+                    data-challengeid='5caa6602ba5ec50017ed6184'
                     onClick={this.setRedirect}
                   >
                     Masters Challenge

@@ -47,7 +47,8 @@ class MastersActionPage extends Component {
       let self = this
 
       // PRODUCTION
-      let challengeId = '5caa6602ba5ec50017ed6184'
+      // let challengeId = '5caa6602ba5ec50017ed6184'
+      let challengeId = localStorage.getItem('userChallengeId')
 
       // DEVELOPMENT
       // let challengeId = '5ca42756e334ea0fb2e7fffd'

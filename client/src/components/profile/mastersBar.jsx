@@ -66,8 +66,8 @@ class MastersBar extends Component {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
       // let challengeId = '5c9ba1f709237528c630baa8'
-      let challengeId = '5c9d00af9c45e400175c56a3'
-      // let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = '5c9d00af9c45e400175c56a3'
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
