@@ -63,7 +63,7 @@ class MastersBar extends Component {
                         <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
+                        <a className="nav-link js-scroll-trigger" href="/mastersRules">Rules</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/signout">Sign Out</a>
