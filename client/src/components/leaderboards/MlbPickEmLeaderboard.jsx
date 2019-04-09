@@ -64,6 +64,7 @@ class Leaderboard extends Component {
           thisRecentPick: '',
           userWin: '',
           todaysPick: 'No Pick',
+          firstGameTime: '',
           thisDate: '',
           thisTeam: '',
           userPlace: {},
@@ -551,11 +552,15 @@ class Leaderboard extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          
           let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          this.setState({
+            firstGameTime: firstGameTimeAdj
+          })
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))

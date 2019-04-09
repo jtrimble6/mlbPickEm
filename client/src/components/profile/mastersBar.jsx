@@ -137,7 +137,7 @@ class MastersBar extends Component {
                         <h4 className='winsHeader'>Your Score</h4> {this.props.par}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Back</h4> {this.props.parCount}
+                        <h4 className='winsHeader'>Strokes Back</h4> {this.props.parCount}
                       </div>  
                       { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.parCount}

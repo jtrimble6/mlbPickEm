@@ -270,11 +270,15 @@ class MastersLeaderboard extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = Moment(firstGameTime).add(6, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = Moment(realGameTime, 'HH:mm:ss a')
+          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
-          let realTimeAdj = Moment(realTime, 'HH:mm:ss a')
-          let timeDiff = Moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
+          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          
+          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          // self.setState({
+          //   firstGameTime: firstGameTimeAdj
+          // })
           this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))

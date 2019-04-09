@@ -442,15 +442,14 @@ class MlbCalendar extends Component {
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
-          let realGameTime = moment(firstGameTime).add(8, 'hours').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(realGameTime, 'HH:mm:ss a')
+          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           
-          // console.log('REAL TIME EST: ', realTimeAdj)
           let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           self.setState({
-            firstGameTime: realGameTimeAdj
+            firstGameTime: firstGameTimeAdj
           })
           this.createTimer(timeDiff)
         })
@@ -497,10 +496,11 @@ class MlbCalendar extends Component {
             let gameDate = splitDate[0]
             let homeAlias = game.homeAlias.toLowerCase()
             let awayAlias = game.awayAlias.toLowerCase()
+            let startTime = moment(game.gameTime).add(6, 'hours')
             let gameInfo = {
                 id: game.gameId,
                 date: gameDate,
-                start: game.gameTime,
+                start: startTime,
                 status: game.gameStatus,
                 homeTeam: game.homeTeam,
                 awayTeam: game.awayTeam,
@@ -983,6 +983,7 @@ class MlbCalendar extends Component {
                 TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown>
+                  <small id="est" className="form-text text-muted">All times shown in EST</small>
               </div>
               <div className="col-3"></div>
                 
@@ -1003,7 +1004,7 @@ class MlbCalendar extends Component {
                 editable= {false}
                 eventLimit= {false} // allow "more" link when too many events
                 displayEventTime= {true}
-                timeFormat= 'h(:mm)A'
+                timeFormat= 'h(:mm)A' 
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
