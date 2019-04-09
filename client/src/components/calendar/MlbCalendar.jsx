@@ -255,12 +255,14 @@ class MlbCalendar extends Component {
         let gameId = this.state.gameId
         let toggle = true
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
-
+        let firstGameTime = this.state.firstGameTime
         // TODAY'S TIMER STATUS
-        if (this.state.firstGameTime !== '') {
+        console.log('FIRST GAME TIME: ', firstGameTime)
+        if (firstGameTime !== '') {
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
+          
+          let timeDiff = moment.duration(firstGameTime.diff(realTimeAdj))
           console.log('REAL TIME EST: ', realTimeAdj)
           if (timeDiff._milliseconds > 0) {
             console.log('TIMER STILL RUNNING')
@@ -449,7 +451,7 @@ class MlbCalendar extends Component {
           
           let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
           self.setState({
-            firstGameTime: firstGameTimeAdj
+            firstGameTime: realGameTimeAdj
           })
           this.createTimer(timeDiff)
         })
