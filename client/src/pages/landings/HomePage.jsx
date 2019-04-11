@@ -21,7 +21,9 @@ class HomePage extends Component {
       wins: [],
       winsCount: 0,
       myChallenges: [],
-      allActiveChallenges: []
+      allActiveChallenges: [],
+      allRecentChallenges: []
+
     }
     this.handlePreloader = this.handlePreloader.bind(this)
     this.getActiveChallenges = this.getActiveChallenges.bind(this)
@@ -48,10 +50,15 @@ class HomePage extends Component {
           let findActiveChals = (chals) => {
             return (chals.challengeStatus === 'active')
           }
+          let findRecentChals = (chals) => {
+            return (chals.challengeStatus === 'active' && chals.startDate >= recentDate)
+          }
           let activeChallenges = allChals.filter(findActiveChals)
-          console.log('RECENT CHALS: ', activeChallenges)
+          let recentChallenges = allChals.filter(findRecentChals)
+          console.log('RECENT CHALS: ', recentChallenges)
           self.setState({
             allActiveChallenges: activeChallenges,
+            allRecentChallenges: recentChallenges
           })
           self.getUserData();
         })
@@ -63,7 +70,7 @@ class HomePage extends Component {
       window.addEventListener('load', this.handlePreloader());
         let localUser = localStorage.getItem('user')
         let allChallenges = this.state.allActiveChallenges
-        // console.log('ALL CHALLENGES: ', allChallenges)
+        console.log('ALL CHALLENGES: ', allChallenges)
         // console.log('USER: ', localUser)
         let onlyMyChals = []
         let myChalFunc = (users) => {
@@ -73,6 +80,7 @@ class HomePage extends Component {
         for (var t=0; t<allChallenges.length; t++) {
           // let myChal = false
           let thisChalUsers = allChallenges[t].users
+          console.log('THIS CHAL USERS: ', thisChalUsers)
           let myChalMatch = thisChalUsers.filter(myChalFunc)
           if(myChalMatch[0]) {
             onlyMyChals.push(allChallenges[t])
@@ -125,7 +133,7 @@ class HomePage extends Component {
                   </h1>
                   <UpcomingChallenges 
                     username={this.state.username}
-                    challenges={this.state.allActiveChallenges}
+                    challenges={this.state.allRecentChallenges}
                   />
                 </div>
                 <div className="col-3 messageBoardPage">
