@@ -329,3 +329,15 @@
     width: 100% !important;
 }
 
+.golferButton {
+    background-color: darkgreen !important;
+    margin: 0 auto;
+}
+
+.userHeader {
+    text-align: center;
+    color: #209CEE;
+    font-weight: bolder;
+    margin-bottom: 3%;
+}
+

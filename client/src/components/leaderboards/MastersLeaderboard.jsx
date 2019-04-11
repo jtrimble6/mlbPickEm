@@ -28,6 +28,7 @@ class MastersLeaderboard extends Component {
           activeUserUsername: '',
           activeUserPar: 0,
           activeUserPicks: [],
+          allUsersGolfers: [],
           activeUserPrevPicks: [],
           prevPicks: [],
           thisRecentPick: '',
@@ -163,6 +164,16 @@ class MastersLeaderboard extends Component {
 
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
+      let allGolfersObj = userPicks[0]
+      
+      let allGolfersArr = [
+        allGolfersObj.golfer1,
+        allGolfersObj.golfer2,
+        allGolfersObj.golfer3,
+        allGolfersObj.golfer4,
+        allGolfersObj.golfer5,
+      ]
+      console.log('ALL GOLFERS ARRAY: ', allGolfersArr)
       // let today = moment().format('YYYY-MM-DD')
       
       
@@ -206,6 +217,7 @@ class MastersLeaderboard extends Component {
       console.log('TODAYS PICK: ', todaysUserPick)
 
       this.setState({
+          allUsersGolfers: allGolfersArr,
           todaysPick: todaysUserPick,
           prevPicks: prevPicks
         })
@@ -387,8 +399,9 @@ class MastersLeaderboard extends Component {
                               <Jumbotron className='playerJumbo'>
                                 <Container fluid>
                                   <div className="display-4">
-                                    <h2>{username}</h2> <hr />
-                                    <h4 className='winsHeader'>Today's Pick</h4>
+                                    <h2>{username}</h2> <hr /> 
+
+                                    <h4 className='winsHeader'>Today's Duo</h4>
                                       <div className="userTimer">
 
                                         {
@@ -459,32 +472,26 @@ class MastersLeaderboard extends Component {
                             </div>
 
                             <span className="col-md"> 
-                              {/* <div className="row teamLogos">
-                                
+                            <h5 className='userHeader'>All {username.toUpperCase()}'s Golfers</h5>
+                              <div className="row teamLogos">
+                              
                                 {
-                                  this.state.teams.map((team, i) => (
+                                  this.state.allUsersGolfers.map((userGolfer, i) => (
                                   
                                     <Button 
                                       key={uuidv4()}
-                                      onClick={this.findTeamGames}
-                                      color={team.status} 
-                                      className='teamButton'
-                                      data={team.abbr}
+                                      // onClick={this.findTeamGames}
+                                      color='success' 
+                                      className='golferButton'
+                                      // data={team.abbr}
                                     >
-                                      <img
-                                        className='profLogo'
-                                        src={this.loadLogo(team.abbr)}
-                                        alt={team.abbr}
-                                        fluid='true'
-                                      />
-                                      <br />
-                                      {team.abbr.toUpperCase()}
+                                      {userGolfer}
                                     </Button>
                             
                                   ))
                                 }
                                 
-                              </div> */}
+                              </div>
                             </span>
                           </ModalBody>
                           <ModalFooter>
