@@ -70,23 +70,22 @@ class CreateChallenge extends Component {
               { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
             ],
             nbaPlayoffTeams: [
-              { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '1' },
-              { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '2' },
+              { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
+              { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
               { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
-              { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary', conf: 'east', seed: '4' },
+              { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '4' },
               { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
-              { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary', conf: 'east', seed: '6' },
-              { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '7' },
-              { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary', conf: 'east', seed: '8' },
-              { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '1' },
-              { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '2' },
-              { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '3' },
-              { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '4' },
+              { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '6' },
+              { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '7' },
+              { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary', conf: 'east', seed: '8' },
+              { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '1' },
+              { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '2' },
+              { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '3' },
+              { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '4' },
               { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
-              { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary', conf: 'west', seed: '6' },
+              { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '6' },
               { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
-              { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary', conf: 'west', seed: '8' },
-
+              { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
             ],
             mlbTeams: [
               { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
@@ -159,9 +158,6 @@ class CreateChallenge extends Component {
             golfers: res.data
           })
         })
-
-
-
     }
 
     checkChallengeName = event => {

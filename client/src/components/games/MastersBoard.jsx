@@ -530,7 +530,7 @@ class MastersBoard extends Component {
         else {
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
-
+        document.location.reload()
       }
 
     handleFridayGolfersSelection(event) {
@@ -577,7 +577,7 @@ class MastersBoard extends Component {
           
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
-
+        document.location.reload()
       }
 
     handleSaturdayGolfersSelection(event) {
@@ -623,7 +623,7 @@ class MastersBoard extends Component {
         else {
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
-
+        document.location.reload()
       }
 
     handleSundayGolfersSelection(event) {
@@ -649,7 +649,7 @@ class MastersBoard extends Component {
         else {
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
-
+        document.location.reload()
       }
 
     checkPrevDatesPicked() {

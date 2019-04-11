@@ -42,6 +42,7 @@ class EditChallenge extends Component {
             img: '',
             password: '',
             confirmPassword: '',
+            golfers: [],
             nbaTeams: [
                 { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
                 { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
@@ -73,6 +74,25 @@ class EditChallenge extends Component {
                 { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
                 { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
                 { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
+              ],
+              nbaPlayoffTeams: [
+                { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
+                { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
+                { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
+                { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '4' },
+                { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
+                { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '6' },
+                { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '7' },
+                { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary', conf: 'east', seed: '8' },
+                 
+                { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '1' },
+                { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '2' },
+                { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '3' },
+                { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '4' },
+                { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
+                { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '6' },
+                { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
+                { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
               ],
               mlbTeams: [
                 { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
@@ -117,7 +137,35 @@ class EditChallenge extends Component {
 
     componentDidMount() {
         this.getChallenges()
+        this.getAllTeams()
         // this.getChallengeData()
+      }
+
+      getAllTeams = () => {
+        let self = this
+        API.getMlbTeams()
+          .then(res => {
+            console.log('MLB TEAMS: ', res.data)
+            self.setState({
+              mlbTeams: res.data
+            })
+          })
+  
+        API.getNbaTeams()
+          .then(res => {
+            console.log('NBA TEAMS: ', res.data)
+            self.setState({
+              nbaTeams: res.data
+            })
+          })
+  
+        API.getGolfers()
+          .then(res => {
+            console.log('GOLFERS: ', res.data)
+            self.setState({
+              golfers: res.data
+            })
+          })
       }
 
     getChallenges = () => {
