@@ -12,7 +12,7 @@ import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone';
-import { mil, tor, phi, ind, bos, bkn, det, mia, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nbaLogos'
+import { mil, tor, phi, ind, bos, bkn, det, orl, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nbaLogos'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class NbaPlayoffCalendar extends Component {
@@ -220,11 +220,11 @@ class NbaPlayoffCalendar extends Component {
       // let challengeId = '5c9ba1f709237528c630baa8'
 
       // TEMP CODE FOR ADMIN TESTING
-      let challengeId = '5c9d00af9c45e400175c56a3'
+      // let challengeId = '5c9d00af9c45e400175c56a3'
 
       
 
-      // let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -406,7 +406,7 @@ class NbaPlayoffCalendar extends Component {
       }
 
     getSchedule = () => {
-      let date = moment().subtract(301, 'days').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'days').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
@@ -849,8 +849,8 @@ class NbaPlayoffCalendar extends Component {
         case (team === 'lac'):
           return lac;
            
-        case (team === 'mia'):
-          return mia;
+        case (team === 'orl'):
+          return orl;
         
         case (team === 'mil'):
           return mil;

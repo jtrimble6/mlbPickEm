@@ -80,9 +80,9 @@ class NbaPlayoffLeaderboard extends Component {
       let self = this
 
       // TEMP CODE FOR ADMIN TESTING
-      let challengeId = '5c9ba1f709237528c630baa8'
+      // let challengeId = '5c9ba1f709237528c630baa8'
 
-      //let challengeId = localStorage.getItem('userChallengeId')
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })

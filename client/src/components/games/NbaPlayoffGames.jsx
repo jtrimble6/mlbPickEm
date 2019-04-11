@@ -31,7 +31,7 @@ class NbaPlayoffGames extends Component {
     }
 
     componentDidMount() {
-      // this.getGames()
+      this.getGames()
       // this.getSchedule() 
       }
 
@@ -73,11 +73,11 @@ class NbaPlayoffGames extends Component {
       // API CALL TO PULL ENTIRE SEASON SCHEDULE
       $.ajax({
         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2017/PST/schedule.json?api_key=' + nbaKey3,
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/PST/schedule.json?api_key=' + nbaKey3,
         type: 'GET',
         success: function(data) {
           self.setState({ fullSchedule: data.games });
-          console.log('ALL 2018 NBA PLAYOFF GAMES: ', data.games)
+          console.log('ALL 2019 NBA PLAYOFF GAMES: ', data.games)
 
           // POST ENTIRE SCHEDULE
           self.postGames(data.games)

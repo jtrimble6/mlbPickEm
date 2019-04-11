@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-// import MlbActionNav from '../../components/nav/MlbActionNav'
+import MlbActionNav from '../../components/nav/MlbActionNav'
 import NbaPlayoffBar from '../../components/profile/nbaPlayoffBar'
 import NbaPlayoffCalendar from '../../components/calendar/NbaPlayoffCalendar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
 import NbaPlayoffLeaderboard from '../../components/leaderboards/NbaPlayoffLeaderboard'
 //import Games from '../../components/games/Games'
-import AdminBar from '../../components/nav/AdminBar'
+// import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/actionPage.css'
@@ -46,8 +46,8 @@ class NbaPlayoffActionPage extends Component {
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
-      let challengeId = '5c9ba1f709237528c630baa8'
-      // let challengeId = localStorage.getItem('userChallengeId')
+      // let challengeId = '5c9ba1f709237528c630baa8' 
+      let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
       })
@@ -104,11 +104,11 @@ class NbaPlayoffActionPage extends Component {
 
         return (
             <div id='actionPage'>
-              <AdminBar />
+              {/* <AdminBar /> */}
               <div className="se-pre-con"></div>
-              {/* <MlbActionNav 
+              <MlbActionNav 
                 challengeName={this.state.challengeData.challengeName}
-              /> */}
+              />
               
               <NbaPlayoffBar
                   username={this.state.username}

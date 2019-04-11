@@ -12,6 +12,7 @@ import EditChallengePage from './pages/admin/EditChallengePage'
 import ChallengePage from './pages/admin/ChallengePage';
 import UsersPage from './pages/admin/UsersPage'
 import NbaGamesPage from './pages/admin/NbaGamesPage'
+import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
@@ -292,6 +293,17 @@ class App extends Component {
             <Route exact path='/nbaGames' render={() => (
               this.state.adminLoggedIn === true ? (
                 <NbaGamesPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nbaPlayoffGames' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <NbaPlayoffGamesPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (

@@ -116,6 +116,14 @@ renderRedirect = () => {
                     >
                     MLB Games DB
                   </Button>
+                  <Button
+                      color='warning'
+                      className='nbaGamesButton'
+                      data-url='/nbaPlayoffGames'
+                      onClick={this.setRedirect}
+                    >
+                    NBA Playoff Games (2019)
+                  </Button>
                 </div>
                 <div id="adminUsers">
                   <h3>Users DB</h3>
