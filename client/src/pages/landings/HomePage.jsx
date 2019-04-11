@@ -46,12 +46,12 @@ class HomePage extends Component {
           // console.log('ACTIVE CHALLENGES: ', res.data)
           let allChals = res.data
           let findActiveChals = (chals) => {
-            return (chals.challengeStatus === 'active' && chals.startDate >= recentDate)
+            return (chals.challengeStatus === 'active')
           }
           let activeChallenges = allChals.filter(findActiveChals)
           console.log('RECENT CHALS: ', activeChallenges)
           self.setState({
-            allActiveChallenges: activeChallenges
+            allActiveChallenges: activeChallenges,
           })
           self.getUserData();
         })
@@ -92,7 +92,7 @@ class HomePage extends Component {
                 profPic: response.data[0].img,
                 wins: response.data[0].wins,
                 winsCount: winsCount,
-                myChallenges: response.data[0].challenges,
+                myChallenges: onlyMyChals,
                 favoriteTeam: response.data[0].favoriteTeam
               })
             console.log('MY REAL DATA: ', response.data[0])
