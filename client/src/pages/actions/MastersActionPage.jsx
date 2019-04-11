@@ -99,7 +99,7 @@ class MastersActionPage extends Component {
     }
 
     getTodaysPick = () => {
-        let today = moment().add(1, 'day').format('YYYY-MM-DD')
+        let today = moment().format('YYYY-MM-DD')
         let myPicks = this.state.myPicks
         for (var j=0; j<myPicks.length; j++) {
             let golfers = myPicks[j]

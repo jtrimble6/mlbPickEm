@@ -178,6 +178,10 @@ h2 {
   h4.winsHeader {
     margin-top: 2%;
   }
+  .golfHeader {
+    white-space: nowrap !important;
+    width: 120px !important;
+  }
 }
 
 @media (min-width: 805px) and (max-width: 949px) {
@@ -449,3 +453,4 @@ h2 {
 .btn-success {
   background-color: lightgreen;
 }
+

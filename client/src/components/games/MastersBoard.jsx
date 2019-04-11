@@ -1227,7 +1227,6 @@ class MastersBoard extends Component {
                                 {
                                   this.state.myGolfers.map((golfer) => (
                                       <option 
-
                                         key={(uuidv4())} 
                                         value={golfer}
                                         data-data={golfer}
@@ -1267,11 +1266,11 @@ class MastersBoard extends Component {
                                   
                                   <button 
                                     disabled
-                                    type='warning'
+                                    type='secondary'
                                     className="btn btn-success submit golferDaySubmit"
                                     onClick={this.handleRepickThurs}
                                   >
-                                    Reselect Golfers
+                                    Picks Locked
                                   </button>
                                   
 

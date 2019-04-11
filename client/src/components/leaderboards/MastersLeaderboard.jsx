@@ -26,13 +26,15 @@ class MastersLeaderboard extends Component {
           modal: false,
           activeUser: {},
           activeUserUsername: '',
-          activeUserPar: [],
+          activeUserPar: 0,
           activeUserPicks: [],
           activeUserPrevPicks: [],
           prevPicks: [],
           thisRecentPick: '',
           userWin: '',
           todaysPick: 'No Pick',
+          todaysPick1: '',
+          todaysPick2: '',
           thisDate: '',
           userPlace: {},
         }
@@ -129,7 +131,6 @@ class MastersLeaderboard extends Component {
     getUser = () => {
       // console.log('ACTIVE USER: ', this.state.activeUser)
       this.findRecentPicks()
-    //   this.changeLogo()
       this.toggle()
       
       }
@@ -162,6 +163,20 @@ class MastersLeaderboard extends Component {
 
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
+      // let today = moment().format('YYYY-MM-DD')
+      
+      
+      // for (var j=0; j<userPicks.length; j++) {
+      //     let golfers = userPicks[j]
+      //     let pickDate = golfers.gameDate
+      //     if (pickDate === today) {
+      //       this.setState({
+      //         todaysPick1: golfers.golfer1,
+      //         todaysPick2: golfers.golfer2,
+      //       })
+      //     }
+      //   }
+
       let sortedPicks = userPicks.sort(function(a, b) {
           if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
               return -1;
@@ -179,15 +194,16 @@ class MastersLeaderboard extends Component {
       let prevPicksFunc = (userPrevPicks) => {
         return (moment(userPrevPicks.gameDate).isBefore(moment().format('YYYY-MM-DD')))
       }
-      let todaysUserPick = 'NO PICK'
+      let todaysUserPick = 'NO SELECTION'
       let userPick = sortedPicks.filter(todaysPickFunc)
       if (userPick[0]) {
-        todaysUserPick = userPick[0].team
+        todaysUserPick = userPick[0].golfer1 + ' & ' + userPick[0].golfer2 
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
       console.log('SORTED ARRAY: ', sortedPicks)
       console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      console.log('TODAYS PICK: ', todaysUserPick)
 
       this.setState({
           todaysPick: todaysUserPick,
@@ -219,7 +235,7 @@ class MastersLeaderboard extends Component {
         this.setState({
           activeUser: thisPlayer[0],
           activeUserUsername: thisPlayer[0].username,
-          activeUserPar: thisPlayer[0].par,
+          activeUserPar: thisPlayer[0].points,
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
@@ -395,7 +411,7 @@ class MastersLeaderboard extends Component {
                                         <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Strokes Back</h4> {this.state.activeUserPar}
+                                        <h4 className='winsHeader golfHeader'>Strokes Back</h4> {this.state.activeUserPar}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='score'>Place</h4> {this.state.activeUserPar.length}
