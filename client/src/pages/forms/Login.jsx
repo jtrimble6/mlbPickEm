@@ -130,11 +130,11 @@ class Login extends Component {
                                 className="form-control"
                                 placeholder="Password (case sensitive)"
                             />
-                            <label className="checkbox">
+                            {/* <label className="checkbox">
                                 <span className="pull-right">
                                     <a data-toggle="modal" href="login.html#myModal">Forgot Password?</a>               
                                 </span>
-                            </label>
+                            </label> */}
                             <SignInError
                                 signInError={this.state.signInError}
                             />

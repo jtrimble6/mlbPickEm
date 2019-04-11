@@ -1147,14 +1147,14 @@ class MastersBoard extends Component {
 
                       <div>
 
-                        <button
+                        {/* <button
                           type="cancel"
                           className='btn btn-warning cancel'
                           onClick={this.handleRepick}
                         >
                           Reselect Your Golfers
                         </button>
-                        <small id="usernameError" className="form-text text-muted">DISABLED AFTER 9AM THURSDAY</small>
+                        <small id="usernameError" className="form-text text-muted">DISABLED AFTER 9AM THURSDAY</small> */}
 
 
                         <h2 className='myGolfers'>My Selected Golfers</h2>
@@ -1185,7 +1185,8 @@ class MastersBoard extends Component {
                               <h3>Thursday</h3>
                               <label htmlFor="golferName">Select Golfer #1</label>
                                 <select 
-                                  disabled={(!golfersPickedThurs) ? false : true}
+                                  disabled
+                                  // disabled={(!golfersPickedThurs) ? false : true}
                                   value={this.state.golfer1a}
                                   name={"golfer1a"}
                                   onChange={this.handleInputChange}
@@ -1213,7 +1214,8 @@ class MastersBoard extends Component {
                               </select>
                               <label htmlFor="golferName">Select Golfer #2</label>
                                 <select 
-                                  disabled={(!golfersPickedThurs) ? false : true}
+                                  disabled
+                                  // disabled={(!golfersPickedThurs) ? false : true}
                                   value={this.state.golfer1b}
                                   name={"golfer1b"}
                                   onChange={this.handleInputChange}
@@ -1225,6 +1227,7 @@ class MastersBoard extends Component {
                                 {
                                   this.state.myGolfers.map((golfer) => (
                                       <option 
+
                                         key={(uuidv4())} 
                                         value={golfer}
                                         data-data={golfer}
@@ -1252,6 +1255,7 @@ class MastersBoard extends Component {
                                   (!golfersPickedThurs) ? 
 
                                   <button
+                                    disabled
                                     type="submit"
                                     className="btn btn-success submit golferDaySubmit"
                                     onClick={this.handleThursdayGolfersSelection}
@@ -1262,6 +1266,7 @@ class MastersBoard extends Component {
                                   : 
                                   
                                   <button 
+                                    disabled
                                     type='warning'
                                     className="btn btn-success submit golferDaySubmit"
                                     onClick={this.handleRepickThurs}
