@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import '../../css/masters.css'
 // import Countdown from 'react-countdown-now';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import DuplicateGolfer from '../alerts/DuplicateGolfer'
 import UnderLimitGolfers from '../alerts/underLimitGolfers'
+// import Countdown from 'react-countdown-now';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
@@ -29,6 +30,10 @@ class MastersBoard extends Component {
           friday: '2019-04-12',
           saturday: '2019-04-13',
           sunday: '2019-04-14',
+          thursTeeTime: '',
+          friTeeTime: '',
+          satTeeTime: '',
+          sunTeeTime: '',
           allGolfers: [],
           myGolfers: [],
           myGolfersFri: [],
@@ -84,18 +89,7 @@ class MastersBoard extends Component {
           timerEnded: false,
           myScore: 0
         };
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
-        this.handleChangeTeams = this.handleChangeTeams.bind(this);
-        this.handleChangeStatus = this.handleChangeStatus.bind(this);
-        this.toggle = this.toggle.bind(this);
-        this.toggleActive = this.toggleActive.bind(this);
-        this.toggleInvalidPick = this.toggleInvalidPick.bind(this);
-        this.toggleNoPick = this.toggleNoPick.bind(this);
-        this.toggleAllNoPick = this.toggleAllNoPick.bind(this);
-        this.toggleExpiredPick = this.toggleExpiredPick.bind(this);
-        this.toggleLatePick = this.toggleLatePick.bind(this);
-        this.toggleAll = this.toggleAll.bind(this);
-        this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
+        
         this.handleAllGolfersSelection = this.handleAllGolfersSelection.bind(this);
         this.handleThursdayGolfersSelection = this.handleThursdayGolfersSelection.bind(this);
         this.handleFridayGolfersSelection = this.handleFridayGolfersSelection.bind(this);
@@ -111,6 +105,7 @@ class MastersBoard extends Component {
         // this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDatesPicked = this.checkPrevDatesPicked.bind(this);
         this.overridePick = this.overridePick.bind(this);
+        this.getTeeTime = this.getTeeTime.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.getResults = this.getResults.bind(this);
         this.findUserPicks = this.findUserPicks.bind(this);
@@ -123,100 +118,8 @@ class MastersBoard extends Component {
 
     componentDidMount() {
       this.getChallengeData()
-    //   this.getTodaysFirstGame()
+      // this.getTeeTime()
     //   this.checkPrevDatesPicked()
-      }
-
-    toggle() {
-        this.getTodaysFirstGame()
-        this.setState({
-          modal: !this.state.modal,
-        });
-      }
-
-    toggleActive() {
-      let _this = this
-      $('.modal-open #modalBody .thisGame .team').click(function(){
-          $(this).addClass('active');
-          $(this).parent().children('.team').not(this).removeClass('active');
-          let myPick = $(this).text()
-          _this.setState({ activePick: myPick })
-        }); 
-      }
-
-    toggleInvalidPick() {
-      this.setState({
-        nestedModal: !this.state.nestedModal,
-        closeAll: false
-      });
-      let invPickAlert = <div className='row invalidPick'>Sorry, you have already won with this team!</div>
-      $('.modal-open .modal-header').prepend(invPickAlert)
-      }
-
-    toggleNoPick() {
-      this.setState({
-        nestedModalNoPick: !this.state.nestedModalNoPick,
-        closeAllNoPick: false
-      });
-       let noPickAlert = <div className='row invalidPick'>Sorry, you have to pick a team!</div>
-       $('.modal-open .modal-header').prepend(noPickAlert)
-      }
-
-    toggleLatePick() {
-      this.setState({
-        nestedModalExpPick: !this.state.nestedModalExpPick,
-        closeAllExpPick: false
-      });
-      let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game, but nice try!</div>
-      $('.modal-open .modal-header').prepend(expPickAlert)
-      }
-    
-    toggleExpiredPick() {
-      this.toggleActive()
-      this.toggle()
-      this.setState({
-        nestedModalExpPick: !this.state.nestedModalExpPick,
-        closeAllExpPick: false
-      });
-      let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
-      $('.modal-open .modal-header').prepend(expPickAlert)
-      }
-
-    toggleAll() {
-      this.setState({
-        nestedModal: !this.state.nestedModal,
-        closeAll: true
-      });
-      }
-
-    toggleAllExpPick() {
-      this.setState({
-        nestedModalExpPick: !this.state.nestedModalExpPick,
-        closeAllExpPick: true
-      });
-      }
-
-    toggleAllNoPick() {
-      this.setState({
-        nestedModalNoPick: !this.state.nestedModalNoPick,
-        closeAllNoPick: true
-      });
-      }
-
-    handleChangeTitle(event) {
-        this.setState({title: event.target.value})
-        // console.log('Title: ', this.state.title)
-      }
-
-    handleChangeTeams(event) {
-        this.setState({
-          homeTeam: event.homeTeam, 
-          awayTeam: event.awayTeam,
-          homeAlias: event.homeAlias,
-          awayAlias: event.awayAlias
-        });
-        // console.log('Home team: ', this.state.homeTeam)
-        // console.log('Away team: ', this.state.awayTeam)
       }
 
     handleChangeStatus(event) {
@@ -388,7 +291,7 @@ class MastersBoard extends Component {
       this.setState({
         challengeId: challengeId
       })
-      console.log('CHALLENGE ID: ', challengeId)
+      // console.log('CHALLENGE ID: ', challengeId)
       API.getChallenge(challengeId)
         .then(res => {
           // console.log(res)
@@ -408,12 +311,12 @@ class MastersBoard extends Component {
         userId: localUser
       })
       let chalUsers = this.state.challengeData.users
-      console.log('THIS CHALLENGE: ', chalUsers)
+      // console.log('THIS CHALLENGE: ', chalUsers)
       let chalGolfers = this.state.challengeData.teams
       let myGolfers = []
       // let myGolfersFri = []
       // let myGolfersSat = []
-      console.log('CHAL GOLFERS: ', chalGolfers)
+      // console.log('CHAL GOLFERS: ', chalGolfers)
 
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
@@ -446,8 +349,8 @@ class MastersBoard extends Component {
           thursPicks.golfer1,
           thursPicks.golfer2
         ]
-        console.log('ALL GOLFERS: ', allGolfers)
-        console.log('THURSDAYS PICKS: ', thursdaysPicks)
+        // console.log('ALL GOLFERS: ', allGolfers)
+        // console.log('THURSDAYS PICKS: ', thursdaysPicks)
 
         let myFriGolfersFunc = (golfers) => {
           return golfers !== this.state.thisPick
@@ -455,7 +358,7 @@ class MastersBoard extends Component {
         for (var p=0; p<thursdaysPicks.length; p++) {
           self.setState({ thisPick: thursdaysPicks[p] })
           allGolfers = allGolfers.filter(myFriGolfersFunc)
-          console.log('FRIDAYS PICKS: ', allGolfers)
+          // console.log('FRIDAYS PICKS: ', allGolfers)
         }
         
         this.setState({
@@ -475,8 +378,8 @@ class MastersBoard extends Component {
           friPicks.golfer1,
           friPicks.golfer2
         ]
-        console.log('ALL GOLFERS: ', allGolfers)
-        console.log('FRIDAYS PICKS: ', fridaysPicks)
+        // console.log('ALL GOLFERS: ', allGolfers)
+        // console.log('FRIDAYS PICKS: ', fridaysPicks)
 
         let mySatGolfersFunc = (golfers) => {
           return golfers !== this.state.thisPick
@@ -484,7 +387,7 @@ class MastersBoard extends Component {
         for (var v=0; v<fridaysPicks.length; v++) {
           self.setState({ thisPick: fridaysPicks[v] })
           allGolfers = allGolfers.filter(mySatGolfersFunc)
-          console.log('SATURDAY PICKS: ', allGolfers)
+          // console.log('SATURDAY PICKS: ', allGolfers)
         }
         
         this.setState({
@@ -506,20 +409,20 @@ class MastersBoard extends Component {
         myPicks: thisUser[0].picks,
       })
 
-      console.log('GOLFERS PICKED? ', this.state.golfersPicked)
-      console.log('MY GOLFERS: ', this.state.myGolfers)
+      // console.log('GOLFERS PICKED? ', this.state.golfersPicked)
+      // console.log('MY GOLFERS: ', this.state.myGolfers)
       // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
       this.getUserScore(this.state.username, this.state.myPicks)
       }
 
     getUserScore = (user, picks) => {
-      console.log(user, 's PICKS', picks)
+      // console.log(user, 's PICKS', picks)
       let roundPicks = []
         for (var j=picks.length -1; j>0; j--) {
-          console.log('ROUND ' + [j] + ' PICKS: ', picks[j])
+          // console.log('ROUND ' + [j] + ' PICKS: ', picks[j])
           roundPicks.push(picks[j])
         } 
-      console.log('ROUND PICKS: ', roundPicks)
+      // console.log('ROUND PICKS: ', roundPicks)
 
 
 
@@ -550,18 +453,18 @@ class MastersBoard extends Component {
           golfer5: golfer5,
           gameDate: '2019-04-10'
         }
-        console.log(
-          'USER: ', myId,
-          'CHALLENGE: ', challengeId,
-          'MY GOLFERS: ', myGolfers
-        )
+        // console.log(
+        //   'USER: ', myId,
+        //   'CHALLENGE: ', challengeId,
+        //   'MY GOLFERS: ', myGolfers
+        // )
 
         let checkGolfersFunc = (myGolfers) => {
           return (new Set(myGolfers)).size !== myGolfers.length; 
         }
 
         let duplicateEntry = checkGolfersFunc(myGolfers)
-        console.log('DUPLICATES? ', duplicateEntry)
+        // console.log('DUPLICATES? ', duplicateEntry)
 
         if (golfer1 === '' || golfer2 === '' || golfer3 === '' || golfer4 === '' || golfer5 === '' ) {
           self.setState({
@@ -578,7 +481,7 @@ class MastersBoard extends Component {
         }
 
         else {
-          console.log('BIG DATE: ', myGolfersObj.gameDate)
+          // console.log('BIG DATE: ', myGolfersObj.gameDate)
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
 
@@ -981,15 +884,52 @@ class MastersBoard extends Component {
         
       }
 
-    createTimer = (timeDiff) => {
-        //console.log('Time until first game: ', timeDiff)
+    getTeeTime = () => {
+        let dateThu = moment().add(1, 'day').hours(9).minutes(0).seconds(0)
+        
+          console.log('TEE TIME TOMM: ', dateThu);
+          let teeTimeThu = moment(dateThu).format('HH:mm:ss a')
+          // let teeTimeFri = moment(dateFri).format('HH:mm:ss a')
+          // let teeTimeSat = moment(dateSat).format('HH:mm:ss a')
+          // let teeTimeSun = moment(dateSun).format('HH:mm:ss a')
+        // let thursTeeTime = teeOff.gameTime
+        // let teeOffTimeAdj = moment(thursTeeTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
+        // let firstTeeTimeAdj = moment(teeTimeThu).format('HH:mm:ss a')
+        // let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+        let realTime = moment().format('HH:mm:ss a')
+        // let realTeeTimeAdj = moment(firstTeeTimeAdj, 'HH:mm:ss a')
+        // let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+          
+        
+        // let realTeeTimeThu = moment(realTeeTimeAdj, 'HH:mm:ss a')
+        // let realTeeTimeFri = moment(teeTimeFri, 'HH:mm:ss a')
+        // let realTeeTimeSat = moment(teeTimeSat, 'HH:mm:ss a')
+        // let realTeeTimeSun = moment(teeTimeSun, 'HH:mm:ss a')
+        // let realTimeAdj = moment(now, 'HH:mm:ss a')
+        // console.log('TEE TIME: ', teeTimeThu)
+        let timeDiff = moment.duration(dateThu.diff(realTime))
+        console.log('TIME DIFFFFF: ', timeDiff)
+        // let thursTimeDiff = moment.duration(realTeeTimeThu.diff(realTimeAdj))
+        // let friTimeDiff = moment.duration(realTimeAdj.diff(realTeeTimeFri))
+        // let satTimeDiff = moment.duration(realTimeAdj.diff(realTeeTimeSat))
+        // let sunTimeDiff = moment.duration(realTimeAdj.diff(realTeeTimeSun))
+        this.setState({
+          // thursTeeTime: realTeeTimeThu,
+          // friTeeTime: realTeeTimeFri,
+          // satTeeTime: realTeeTimeSat,
+          // sunTeeTime: realTeeTimeSun
+        })
+
+        this.createTimer(timeDiff)
+          
+        }
+  
+      createTimer = (timeDiff) => {
+        console.log('Time until tee off: ', timeDiff)
         let seconds = moment.duration(timeDiff).asSeconds() * 1000
         //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
-        // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
-      }
-
-    
+        }
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
@@ -999,7 +939,7 @@ class MastersBoard extends Component {
       let golfersPickedFri = this.state.golfersPickedFri
       // let timerEnded = false;
       // let EndTimer = () => {
-      //     timerEnded = true
+      //     // timerEnded = true
       //     return (
       //       <span>Today's games have already begun.</span>
       //     )
@@ -1007,75 +947,10 @@ class MastersBoard extends Component {
         
         return (
             <div className='col-12 mastersDayBoard'>
-               <Modal 
-                 isOpen={this.state.modal} 
-                 autoFocus={true}
-                 centered={true}
-                 size='lg'
-                 className='fullCalModal'
-               >
-                <form onSubmit={this.handleAllGolfersSelection}>
-                  <ModalHeader id='modalTitle'>
-                    Make Your Pick
-                  </ModalHeader>
-                    <ModalBody id='modalBody'>
-                    <Modal className='invPick' isOpen={this.state.nestedModalNoPick} toggle={this.toggleNoPick} onClosed={this.state.closeAllNoPick ? this.toggle : undefined}>
-                      <ModalHeader>No Pick</ModalHeader>
-                      <ModalBody>You must pick a team!</ModalBody>
-                      <ModalFooter>
-                        <Button color="primary" onClick={this.toggleNoPick}>Close</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleAllNoPick}>Close All</Button>
-                      </ModalFooter>
-                    </Modal>
-                    <Modal className='invPick' isOpen={this.state.nestedModal} toggle={this.toggleInvalidPick} onClosed={this.state.closeAll ? this.toggle : undefined}>
-                      <ModalHeader>Invalid Pick</ModalHeader>
-                      <ModalBody>You have already won with the {this.state.activePick}!</ModalBody>
-                      <ModalFooter>
-                        <Button color="primary" onClick={this.toggleInvalidPick}>Close</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleAll}>Close All</Button>
-                      </ModalFooter>
-                    </Modal>
-                    <Modal className='invPick' isOpen={this.state.nestedModalExpPick} toggle={this.toggleExpiredPick} onClosed={this.state.closeAllExpPick ? this.toggle : undefined}>
-                      <ModalHeader>Invalid Pick</ModalHeader>
-                      <ModalBody>This is an old game!</ModalBody>
-                      <ModalFooter>
-                        <Button color="secondary" onClick={this.toggleAllExpPick}>Close All</Button>
-                      </ModalFooter>
-                    </Modal>
-                        <div className="thisGame row">
-                            <span className='col-md-5 team awayTeam' value={this.state.awayTeam} onClick={this.toggleActive}>
-                              {this.state.awayTeam} <br />
-                              {/* <img 
-                                className='teamLogo' 
-                                src={this.loadLogo(this.state.awayAlias)}
-                                alt={this.state.awayAlias} 
-                                fluid='true'
-                              /> */}
-                            </span>
-                            <span className='atSymbol col-md-2'>
-                              @
-                            </span>
-                            <span className='col-md-5 team homeTeam' value={this.state.homeTeam} onClick={this.toggleActive}>
-                              {this.state.homeTeam} <br />
-                              {/* <img 
-                                className='teamLogo' 
-                                src={this.loadLogo(this.state.homeAlias)}
-                                alt={this.state.homeAlias} 
-                                fluid='false'
-                              /> */}
-                            </span>
-                        {/* <input type="text" value={this.state.teams} onChange={this.handleChangeTeams} className="form-control" /> */}
-                        </div> <hr />
-                        <div className="status row">
-                          {this.state.time} 
-                        </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleAllGolfersSelection} />
-                        <Button color="danger" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
-                </form>
-                </Modal>
+            PICKS ARE DUE DAILY BY 9AM EST
+                  {/* <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+                    <EndTimer />
+                  </Countdown> */}
 
               <div className="row">
                   <div className="golfContainer">    
@@ -1279,6 +1154,7 @@ class MastersBoard extends Component {
                         >
                           Reselect Your Golfers
                         </button>
+                        <small id="usernameError" className="form-text text-muted">DISABLED AFTER 9AM THURSDAY</small>
 
 
                         <h2 className='myGolfers'>My Selected Golfers</h2>
@@ -1626,9 +1502,7 @@ class MastersBoard extends Component {
                   </div>
                 
                 
-                {/* TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
-                    <EndTimer />
-                  </Countdown> */}
+                
                 
               </div>
               

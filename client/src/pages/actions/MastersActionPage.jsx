@@ -25,7 +25,9 @@ class MastersActionPage extends Component {
       lastName: '',
       par: 0,
       myPicks: [],
-      todaysPick: 'No Selection'
+      todaysPick: 'No Selection',
+      todaysPick1: '',
+      todaysPick2: ''
     }
     this.handlePreloader = this.handlePreloader.bind(this)
     this.getChallengeData = this.getChallengeData.bind(this)
@@ -59,7 +61,7 @@ class MastersActionPage extends Component {
       })
       API.getChallenge(challengeId)
         .then(res => {
-          console.log('this challenge data: ', res.data)
+          // console.log('this challenge data: ', res.data)
           self.setState({
             challengeData: res.data[0]
           })
@@ -72,7 +74,7 @@ class MastersActionPage extends Component {
       window.addEventListener('load', this.handlePreloader());
         let localUser = localStorage.getItem('user')
         let chalUsers = this.state.challengeData.users
-        console.log('CHALLENGE: ', this.state.challengeData)
+        // console.log('CHALLENGE: ', this.state.challengeData)
 
         // FILTER OUT THIS USER AND SET STATE
         let chalFilter = (challengers) => {
@@ -92,18 +94,25 @@ class MastersActionPage extends Component {
 
         this.getTodaysPick()
 
-        console.log('CURRENT USER: ', this.state.currentUser)
+        // console.log('CURRENT USER: ', this.state.currentUser)
         // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
     }
 
     getTodaysPick = () => {
-        let today = moment().format('YYYY-MM-DD')
+        let today = moment().add(1, 'day').format('YYYY-MM-DD')
         let myPicks = this.state.myPicks
         for (var j=0; j<myPicks.length; j++) {
-            let pickDate = myPicks[j].gameDate
+            let golfers = myPicks[j]
+            let pickDate = golfers.gameDate
             if (pickDate === today) {
-              this.setState({todaysPick: myPicks[j].team})
+              this.setState({
+                todaysPick1: golfers.golfer1,
+                todaysPick2: golfers.golfer2,
+              })
             }
+            // this.setState({todaysPick: myPicks[j]})
+            // console.log('MY GOLFER #1: ', this.state.todaysPick1)
+            // console.log('MY GOLFER #2: ', this.state.todaysPick2)
         }
       }
 
@@ -121,7 +130,11 @@ class MastersActionPage extends Component {
                   username={this.state.username}
                   par={this.state.par}
                   parCount={this.state.parCount}
+                  userPicks={this.state.myPicks}
                   todaysPick={this.state.todaysPick}
+                  todaysPicks={this.state.todaysPick1 + ' & ' + this.state.todaysPick2}
+                  todaysPick1={this.state.todaysPick1}
+                  todaysPick2={this.state.todaysPick2}
                 /> 
               
               <div className='row'>

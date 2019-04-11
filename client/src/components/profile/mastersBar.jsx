@@ -19,6 +19,7 @@ class MastersBar extends Component {
             userPar: '',
             parCount: '',
             userPicks: [],
+            userPickedDate: '',
             todaysPick: this.props.todaysPick,
             mastersDates: [],
         }
@@ -29,8 +30,8 @@ class MastersBar extends Component {
       }
 
     componentDidMount() {
-    //   this.getChallengeData()
-    //   this.findNextDays()
+      this.getChallengeData()
+      // this.findNextDays()
       // this.postTeams()
       // this.postTeamGames()
       }
@@ -39,26 +40,54 @@ class MastersBar extends Component {
       let mastersDates = [
         {
           name: 'THU',
-          date: '2019-04-11'
+          date: '2019-04-11',
+          golfer1: '',
+          golfer2: '',
+          score: ''
         },
         {
           name: 'FRI',
-          date: '2019-04-12'
+          date: '2019-04-12',
+          golfer1:'',
+          golfer2: '',
+          score: ''
         },
         {
           name: 'SAT',
-          date: '2019-04-13'
+          date: '2019-04-13',
+          golfer1: '',
+          golfer2: '',
+          score: ''
         },
         {
           name: 'SUN',
-          date: '2019-04-14'
+          date: '2019-04-14',
+          golfer1: '',
+          golfer2: '',
+          score: ''
         }
 
       ]
       
+      // this.setState({
+      //   mastersDates: mastersDates
+      // })
+      
+      let userPicks = this.state.userPicks
+      console.log('USER PICKS: ', userPicks)
+      for (var k=1; k<userPicks.length; k++) {
+        if (userPicks[k]) {
+          mastersDates[k-1].golfer1 = userPicks[k].golfer1
+          mastersDates[k-1].golfer2 = userPicks[k].golfer2
+          mastersDates[k-1].score = userPicks[k].result
+        }
+      }
+
       this.setState({
         mastersDates: mastersDates
       })
+
+      console.log('MY RECENT PICKS AREA: ', mastersDates)
 
       }
  
@@ -102,12 +131,12 @@ class MastersBar extends Component {
         userPicks: thisUser[0].picks,
       })
       // this.changeLogo()
-      this.sortUserPicks()
+      this.findNextDays()
 
-      $(document).ready(function(){
-        $('.userPicks').animate({scrollTop: '300%'}, 1000);
-        return false;
-      });
+      // $(document).ready(function(){
+      //   $('.userPicks').animate({scrollTop: '300%'}, 1000);
+      //   return false;
+      // });
 
       // console.log('CURRENT USER: ', this.state.currentUser)
       // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
@@ -131,7 +160,7 @@ class MastersBar extends Component {
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4 className='winsTitle'>Today's Duo</h4> {this.props.todaysPick} <br />
+                    <h4 className='winsTitle'>Today's Duo</h4> {this.props.todaysPicks} <br />
                     <div className="row">
                       <div className="col-md-3">
                         <h4 className='winsHeader'>Your Score</h4> {this.props.par}
@@ -149,12 +178,13 @@ class MastersBar extends Component {
             </div>
             <div className="col-4">
               <div className='row recentPicksRow'>
-                <div className="col-10 userPicks picks">
+                <div className="col-10 recentPicks userPicks picks">
                   <table className='table table-hover'>
                     <thead>
                       <tr>
                         <th>Day</th>
-                        <th>Golfer's Selected</th>
+                        <th>My Golfer(s)</th>
+                        <th>Score</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -163,8 +193,16 @@ class MastersBar extends Component {
                           <tr key={uuidv4()} className='golfPicks'>
                           {/* <tr key={uuidv4()} className={mastersDate.result}> */}
                             <td>{mastersDate.name}</td>
-                            <td>{mastersDate.golfer1}</td>
-                            <td>{mastersDate.golfer2}</td>
+                            <td>
+                              {
+                                mastersDate.golfer2 !== '' || undefined ? mastersDate.golfer1 + ' & ' + mastersDate.golfer2 : mastersDate.golfer1 !== '' ? mastersDate.golfer1 : ''
+                              }
+                            </td>
+                            <td>
+                              {
+                                mastersDate.score !== '' ? mastersDate.score : ''
+                              }
+                            </td>
                           </tr> 
                             )
                           )     

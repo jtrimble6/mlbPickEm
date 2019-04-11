@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import LoadingOverlay from 'react-loading-overlay';
-import moment from 'moment'
 import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
-import Moment from 'moment-timezone'
+import moment from 'moment-timezone'
 import Countdown from 'react-countdown-now';
 import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
@@ -41,7 +40,7 @@ class MastersLeaderboard extends Component {
         // this.toggleHover = this.toggleHover.bind(this);
         this.handlePreloader = this.handlePreloader.bind(this);
         this.getUser = this.getUser.bind(this);
-        this.getFirstGame = this.getFirstGame.bind(this);
+        this.getTeeTime = this.getTeeTime.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         // this.changeLogo = this.changeLogo.bind(this);
@@ -53,7 +52,7 @@ class MastersLeaderboard extends Component {
     }
     componentDidMount() {
       this.getChallengeData()
-    //   this.getFirstGame()
+      this.getTeeTime()
         
       }
 
@@ -128,7 +127,7 @@ class MastersLeaderboard extends Component {
       }
 
     getUser = () => {
-      console.log('ACTIVE USER: ', this.state.activeUser)
+      // console.log('ACTIVE USER: ', this.state.activeUser)
       this.findRecentPicks()
     //   this.changeLogo()
       this.toggle()
@@ -137,7 +136,7 @@ class MastersLeaderboard extends Component {
 
     createLeaderboard = () => {
         let users = this.state.challengeData.users
-        console.log('Create leaderboard with this data: ', users)
+        // console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
             return { index: i, value: el.points }
         })
@@ -157,7 +156,7 @@ class MastersLeaderboard extends Component {
         // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
 
-        console.log('NEW LEADERBOARD: ', this.state.allUsers)
+        // console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
       }
 
@@ -251,43 +250,39 @@ class MastersLeaderboard extends Component {
         }
       }
 
-    getFirstGame = () => {
-      let now = Moment().format()
-      let date = Moment(now).format('YYYY-MM-DD')
+    getTeeTime = () => {
+      // let date = moment().format('HH:mm a')
+      // let teeOff = date
+      let dateStr = '2019-04-11',
+        timeStr = '09:00',
+        date = moment(dateStr),
+        time = moment(timeStr, 'HH:mm');
 
-      // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getMlbGamesByDate(date)
-        .then (res => {
-          let games = res.data
-          let sortedGames = games.sort((a,b) => new Moment(a.gameTime) - new Moment (b.gameTime))
+        date.set({
+            hour:   time.get('hour'),
+            minute: time.get('minute'),
+            second: time.get('second')
+        });
 
-          // CHECK TO SEE IF THERE ARE NO GAMES TODAY
-          if (!sortedGames[0]) {
-            // console.log('THERE MUST BE NO GAMES TODAY')
-            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
-            return;
-          }
-
-          let firstGame = sortedGames[0]
-          let firstGameTime = firstGame.gameTime
-          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
-          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          
-          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
-          // self.setState({
-          //   firstGameTime: firstGameTimeAdj
-          // })
-          this.createTimer(timeDiff)
-        })
-        .catch(err => console.log(err))
-      
+        console.log('TEE TIME: ', date);
+        let teeTime = moment(date).format('HH:mm:ss a')
+      // let teeOffTime = teeOff.gameTime
+      // let teeOffTimeAdj = moment(teeOffTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
+      let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+      let realTeeTimeAdj = moment(teeTime, 'HH:mm:ss a')
+      let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+      // console.log('TEE TIME: ', teeTime)
+      let timeDiff = moment.duration(realTeeTimeAdj.diff(realTimeAdj))
+      this.setState({
+        teeOffTime: realTeeTimeAdj
+      })
+      this.createTimer(timeDiff)
+        
       }
 
     createTimer = (timeDiff) => {
-      console.log('Time until first game: ', timeDiff)
-      let seconds = Moment.duration(timeDiff).asSeconds() * 1000
+      // console.log('Time until tee off: ', timeDiff)
+      let seconds = moment.duration(timeDiff).asSeconds() * 1000
       //console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
       }
@@ -377,11 +372,11 @@ class MastersLeaderboard extends Component {
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
-                                    <h4>Today's Pick</h4>
+                                    <h4 className='winsHeader'>Today's Pick</h4>
                                       <div className="userTimer">
 
                                         {
-                                          (!timerDiff) ? <p>No Games Today</p> :
+                                          (!timerDiff) ? <p>No Action Today</p> :
 
                                           <Countdown 
                                             date={Date.now() + this.state.timeDiff}
@@ -394,25 +389,14 @@ class MastersLeaderboard extends Component {
                                           </Countdown> 
                                         }
 
-
-
-                                        {/* <Countdown 
-                                          date={Date.now() + this.state.timeDiff}
-                                          zeroPadTime={2} 
-                                          daysInHours={true} 
-                                          renderer={this.timerRender}
-                                          className='userTimer'
-                                        >
-                                          <EndTimer />
-                                        </Countdown> */}
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
                                         <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar}
                                       </div>
-                                      {/* <div className="col-md-3">
-                                        <h4 className='winsHeader'>Behind</h4> {this.state.activeUserPar.length} - {this.state.activeUserPrevPicks.length}
-                                      </div>   */}
+                                      <div className="col-md-3">
+                                        <h4 className='winsHeader'>Strokes Back</h4> {this.state.activeUserPar}
+                                      </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='score'>Place</h4> {this.state.activeUserPar.length}
                                       </div>   */}
