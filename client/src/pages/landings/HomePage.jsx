@@ -4,7 +4,7 @@ import HomeBar from '../../components/nav/HomeBar'
 import MyChallenges from '../../components/home/myChallenges'
 import UpcomingChallenges from '../../components/home/upcomingChallenges'
 import MessageBoard from '../../components/home/messageBoard'
-// import moment from 'moment';
+import moment from 'moment';
 import $ from 'jquery'
 import '../../css/home.css'
 
@@ -39,14 +39,17 @@ class HomePage extends Component {
 
     getActiveChallenges() {
       let self = this
+      let recentDate = moment().subtract(3, 'days').format('YYYY-MM-DDT00:00:00.000Z')
+      console.log('RECENT DATE: ', recentDate)
       API.getChallenges()
         .then(res => {
           // console.log('ACTIVE CHALLENGES: ', res.data)
           let allChals = res.data
           let findActiveChals = (chals) => {
-            return chals.challengeStatus === 'active'
+            return (chals.challengeStatus === 'active' && chals.startDate >= recentDate)
           }
           let activeChallenges = allChals.filter(findActiveChals)
+          console.log('RECENT CHALS: ', activeChallenges)
           self.setState({
             allActiveChallenges: activeChallenges
           })
