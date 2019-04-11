@@ -135,6 +135,14 @@ renderRedirect = () => {
                   >
                     Active Users
                   </Button>
+                  <Button
+                    color='danger'
+                    className='challengeButtons'
+                    data-url='/challengePage'
+                    onClick={this.setRedirect}
+                  >
+                    Challenge Users 
+                  </Button>
 
                 </div>
                 <div id="adminChals">
@@ -142,18 +150,15 @@ renderRedirect = () => {
                   <Button
                     color='success'
                     className='challengeButtons'
-                    data-url='/challengePage'
+                    data-url='/mlbPickEmDB'
                     onClick={this.setRedirect}
                   >
-                    Challenge DB
+                    MLB Pick Em Challenge 
                   </Button>
-                </div>
-                <div id="futureChals">
-                  <h3>Future Challenges</h3>
                   <Button
                     color='success'
                     className='challengeButtons'
-                    data-url='/nbaPlayoffs'
+                    data-url='/nbaPlayoffsDB'
                     data-challengeid='5c9d00af9c45e400175c56a3'
                     onClick={this.setRedirect}
                   >
@@ -162,11 +167,21 @@ renderRedirect = () => {
                   <Button
                     color='success'
                     className='challengeButtons'
-                    data-url='/masters'
+                    data-url='/mastersDB'
                     data-challengeid='5caa6602ba5ec50017ed6184'
                     onClick={this.setRedirect}
                   >
                     Masters Challenge
+                  </Button>
+                </div>
+                <div id="futureChals">
+                  <h3>Future Challenges</h3>
+                  <Button
+                    disabled
+                    color='secondary'
+                    className='challengeButtons'
+                  >
+                    Future Challenges Will Appear Here
                   </Button>
                 </div>
             </div>

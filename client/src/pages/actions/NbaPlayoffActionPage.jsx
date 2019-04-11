@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import MlbActionNav from '../../components/nav/MlbActionNav'
+import NbaActionNav from '../../components/nav/NbaActionNav'
 import NbaPlayoffBar from '../../components/profile/nbaPlayoffBar'
 import NbaPlayoffCalendar from '../../components/calendar/NbaPlayoffCalendar'
 // import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
@@ -106,7 +106,7 @@ class NbaPlayoffActionPage extends Component {
             <div id='actionPage'>
               {/* <AdminBar /> */}
               <div className="se-pre-con"></div>
-              <MlbActionNav 
+              <NbaActionNav 
                 challengeName={this.state.challengeData.challengeName}
               />
               
