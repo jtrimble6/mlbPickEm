@@ -80,7 +80,7 @@ class HomePage extends Component {
           }
 
         }
-        
+        console.log('MY CHALLENGES: ', onlyMyChals)
         API.getUser(localUser)
           .then(response => {
             let winsCount = response.data[0].wins.length
@@ -92,10 +92,10 @@ class HomePage extends Component {
                 profPic: response.data[0].img,
                 wins: response.data[0].wins,
                 winsCount: winsCount,
-                myChallenges: onlyMyChals,
+                myChallenges: response.data[0].challenges,
                 favoriteTeam: response.data[0].favoriteTeam
               })
-            // console.log('MY REAL DATA: ', response.data[0])
+            console.log('MY REAL DATA: ', response.data[0])
 
           })
           .catch(err => console.log(err))
