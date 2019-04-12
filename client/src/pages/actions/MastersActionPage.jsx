@@ -16,6 +16,7 @@ class MastersActionPage extends Component {
     super(props)
     this.state = {
       redirect: false,
+      userId: '',
       challengeId: '',
       challengeData: {},
       challengeUsers: [],
@@ -85,6 +86,7 @@ class MastersActionPage extends Component {
 
         this.setState({
           currentUser: thisUser[0],
+          userId: thisUser[0].username,
           username: thisUser[0].username,
           firstName: thisUser[0].firstName,
           lastName: thisUser[0].lastName,
@@ -142,7 +144,8 @@ class MastersActionPage extends Component {
                 <div className='mastersBoard col-md-9'>
                   
                   <MastersBoard 
-          
+                    userId={this.state.userId}
+                    challengeId={this.state.challengeId}
                   />
                   
                 </div>

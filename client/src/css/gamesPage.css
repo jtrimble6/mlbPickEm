@@ -27,6 +27,19 @@
     color: gold;
   }
 
+.mastersPage {
+    margin-top: 10%;
+    
+}
+
+.mastersPage h1 {
+    text-align: center;
+    color: gold;
+}
+.pullRandoms {
+    margin: 0 auto;
+}
+
 @media (min-width: 200px) and (max-width: 900px) {
     #nbaGames {
       margin-top: 20% !important;

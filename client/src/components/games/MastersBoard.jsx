@@ -115,6 +115,7 @@ class MastersBoard extends Component {
         this.findUserWins = this.findUserWins.bind(this);
         this.overridePickResult = this.overridePickResult.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
+        this.getJustChallengeData = this.getJustChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.getUserScore = this.getUserScore.bind(this);
         // this.getAllUsersPicks = this.getAllUsersPicks.bind(this);
@@ -189,7 +190,7 @@ class MastersBoard extends Component {
         golfer5: '',
         myGolfers: []
       })
-      this.getChallengeData()
+      document.location.reload()
       }
 
     handleRepickThurs = (event) => {
@@ -219,28 +220,34 @@ class MastersBoard extends Component {
         myGolfersThurs: [],
         myGolfersFri: []
       })
-      this.getChallengeData()
+      document.location.reload()
       }
 
     handleRepickFri = (event) => {
-      let challengeId = this.state.challengeId
-      let username = this.state.userId
+      event.preventDefault()
+      let self = this
+      let challengeId = this.props.challengeId
+      let username = this.props.userId
       let gameDate = '2019-04-12'
       console.log('INFO: ', challengeId, username, gameDate)
       API.deleteMastersGolfers(challengeId, username, gameDate)
           .then(res => {
               console.log(res)
+              self.setState({
+                golfersPickedFri: false,
+                golfer2a: '',
+                golfer2b: '',
+                myGolfersFri: []
+              })
+              // debugger;
+              document.location.reload()
           })
         .catch(err => {console.log(err)})
-      let self = this
-      event.preventDefault()
-      self.setState({
-        golfersPickedFri: false,
-        golfer2a: '',
-        golfer2b: '',
-        myGolfersFri: []
-      })
-      this.getChallengeData()
+      
+      
+      
+      
+      
       }
 
     handleRepickSat = (event) => {
@@ -260,7 +267,7 @@ class MastersBoard extends Component {
         golfer3b: '',
         myGolfersSat: []
       })
-      this.getChallengeData()
+      document.location.reload()
       }
 
     handleRepickSun = (event) => {
@@ -279,7 +286,35 @@ class MastersBoard extends Component {
         golfer4a: '',
         myGolfersSun: []
       })
-      this.getChallengeData()
+      document.location.reload()
+      }
+
+    getJustChallengeData = () => {
+      // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
+      let self = this
+      // PRODUCTION
+      // let challengeId = '5caa6602ba5ec50017ed6184'
+
+      // DEVELOPMENT
+      // let challengeId = '5ca42756e334ea0fb2e7fffd'
+
+      let challengeId = localStorage.getItem('userChallengeId')
+      this.setState({
+        challengeId: challengeId
+      })
+      // console.log('CHALLENGE ID: ', challengeId)
+      API.getChallenge(challengeId)
+        .then(res => {
+          // console.log(res)
+          self.setState({
+            challengeData: res.data[0],
+            allUsers: res.data[0].users
+          })
+          self.getUserData()
+          // self.getResults()
+        //   self.getSchedule()
+        })
+        .catch(err => console.log(err))
       }
 
     getChallengeData = () => {
