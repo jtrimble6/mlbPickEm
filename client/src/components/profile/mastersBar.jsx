@@ -203,7 +203,7 @@ class MastersBar extends Component {
                             </td>
                             <td>
                               {
-                                mastersDate.score !== '' ? mastersDate.score : mastersDate.score > 0 ? '+' + mastersDate.score : mastersDate.score
+                                mastersDate.score > 0 ? '+' + mastersDate.score : mastersDate.score !== '' ? mastersDate.score : 0
                               }
                             </td>
                           </tr> 
