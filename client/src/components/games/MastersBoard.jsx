@@ -48,6 +48,8 @@ class MastersBoard extends Component {
           golfersPicked: false,
           golfersPickedThurs: false,
           golfersPickedFri: false,
+          golfersPickedSat: false,
+          golfersPickedSun: false,
           thisPick: '',
           golfer1: '',
           golfer2: '',
@@ -261,8 +263,7 @@ class MastersBoard extends Component {
               self.setState({
                 golfersPickedSat: false,
                 golfer3a: '',
-                golfer3b: '',
-                myGolfersFri: []
+                golfer3b: ''
               })
               document.location.reload()
           })
@@ -436,6 +437,34 @@ class MastersBoard extends Component {
           golfer2a: userPicks[2].golfer1,
           golfer2b: userPicks[2].golfer2,
           myRemainingGolfer: allGolfers
+        }) 
+      }
+
+      if(userPicks[3]) {
+        let self = this
+        let allGolfers = this.state.myGolfersSat
+        let satPicks = userPicks[3]
+
+        let fridaysPicks = [
+          satPicks.golfer1,
+          satPicks.golfer2
+        ]
+        // console.log('ALL GOLFERS: ', allGolfers)
+        // console.log('FRIDAYS PICKS: ', fridaysPicks)
+
+        let mySatGolfersFunc = (golfers) => {
+          return golfers !== this.state.thisPick
+        }
+        for (var w=0; w<fridaysPicks.length; w++) {
+          self.setState({ thisPick: fridaysPicks[w] })
+          allGolfers = allGolfers.filter(mySatGolfersFunc)
+          // console.log('SATURDAY PICKS: ', allGolfers)
+        }
+        
+        this.setState({
+          golfersPickedSat: true,
+          golfer3a: userPicks[3].golfer1,
+          golfer3b: userPicks[3].golfer2
         }) 
       }
 
@@ -666,10 +695,11 @@ class MastersBoard extends Component {
           return;
         }
 
-        else {
+        else { 
           self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
         }
-        document.location.reload()
+        // debugger;
+        // document.location.reload()
       }
 
     handleSundayGolfersSelection(event) {
@@ -711,7 +741,7 @@ class MastersBoard extends Component {
       }
     
     overridePick(challengeId, username, gameDate, newPick) {
-        console.log(gameDate)
+        console.log(challengeId, username, gameDate)
         API.deleteMastersGolfers(challengeId, username, gameDate)
           .then(res => {
               console.log(res)
@@ -722,8 +752,8 @@ class MastersBoard extends Component {
             console.log(res)
            })
           .catch(err => { console.log(err) } )  
-        
-          // document.location.reload()
+          // debugger;
+          document.location.reload()
           this.getChallengeData()
         
       }
@@ -1393,7 +1423,6 @@ class MastersBoard extends Component {
                                     disabled
                                     type='secondary'
                                     className="btn btn-success submit golferDaySubmit"
-                                    onClick={this.handleRepickThurs}
                                   >
                                     Picks Locked
                                   </button>
@@ -1497,7 +1526,6 @@ class MastersBoard extends Component {
                                     disabled
                                     type='secondary'
                                     className="btn btn-success submit golferDaySubmit"
-                                    onClick={this.handleRepickThurs}
                                   >
                                     Picks Locked
                                   </button>
@@ -1511,7 +1539,7 @@ class MastersBoard extends Component {
                               <h3>Saturday</h3>
                               <label htmlFor="golferName">Select Golfer #1</label>
                                 <select 
-                                  disabled={!enableSatPicks ? true : false}
+                                  disabled={!enableSatPicks || this.state.golfersPickedSat ? true : false}
                                   // disabled
                                   value={this.state.golfer3a}
                                   name={"golfer3a"}
@@ -1540,7 +1568,7 @@ class MastersBoard extends Component {
                               </select>
                               <label htmlFor="golferName">Select Golfer #2</label>
                                 <select 
-                                  disabled={!enableSatPicks ? true : false}
+                                  disabled={!enableSatPicks || this.state.golfersPickedSat ? true : false}
                                   value={this.state.golfer3b}
                                   name={"golfer3b"}
                                   onChange={this.handleInputChange}
@@ -1573,14 +1601,40 @@ class MastersBoard extends Component {
                                 <UnderLimitGolfers 
                                   underLimitGolfers={this.state.underLimitGolfers3}
                                 />
+                               {
+
+                                (!this.state.golfersPickedSat && !enableSunPicks) ? 
+
                                 <button
-                                  disabled={!enableSatPicks ? true : false}
                                   type="submit"
-                                  className="btn btn-success submit  golferDaySubmit"
+                                  className="btn btn-success submit golferDaySubmit"
                                   onClick={this.handleSaturdayGolfersSelection}
                                 >
                                   Submit My Golfers
                                 </button>
+
+                                : !enableSunPicks ? 
+
+                                <button 
+                                  type='warning'
+                                  className="btn btn-success submit golferDaySubmit"
+                                  onClick={this.handleRepickSat}
+                                >
+                                  Reselect Golfers
+                                </button>
+
+                                :
+
+                                <button 
+                                  disabled
+                                  type='secondary'
+                                  className="btn btn-success submit golferDaySubmit"
+                                >
+                                  Picks Locked
+                                </button>
+
+
+                                }
 
                               </div>
                               </div>
