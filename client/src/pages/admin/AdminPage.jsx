@@ -73,116 +73,123 @@ renderRedirect = () => {
               <AdminBar />
               
                 <h1>Welcome Admin!</h1>
-
-                <div id='adminActions'>
-                  <h3>Controls</h3>
-                  <Button
-                      color='warning'
-                      className='adminSignup'
-                      data-url='/adminSignup'
-                      onClick={this.setRedirect}
-                    >
-                    Add Admin
-                  </Button>
-                  <Button
-                      color='warning'
-                      className='addChallengeButton'
-                      data-url='/addDeleteChallenge'
-                      onClick={this.setRedirect}
-                    >
-                    Add/Delete Challenges
-                  </Button>
-                  <Button
-                      color='warning'
-                      className='editChallengeButton'
-                      data-url='/editChallenge'
-                      onClick={this.setRedirect}
-                    >
-                    Edit Challenges
-                  </Button>
-                  <Button
-                      color='warning'
-                      className='nbaGamesButton'
-                      data-url='/nbaGames'
-                      onClick={this.setRedirect}
-                    >
-                    NBA Games DB
-                  </Button>
-                  <Button
-                      color='warning'
+                <div className="row">
+                  <div id='adminActions' className='col-6' >
+                    <h3>Controls</h3>
+                    <Button
+                        color='warning'
+                        className='adminSignup'
+                        data-url='/adminSignup'
+                        onClick={this.setRedirect}
+                      >
+                      Add Admin
+                    </Button>
+                    <Button
+                        color='warning'
+                        className='addChallengeButton'
+                        data-url='/addDeleteChallenge'
+                        onClick={this.setRedirect}
+                      >
+                      Add/Delete Challenges
+                    </Button>
+                    <Button
+                        color='warning'
+                        className='editChallengeButton'
+                        data-url='/editChallenge'
+                        onClick={this.setRedirect}
+                      >
+                      Edit Challenges
+                    </Button>
+                    </div>
+                    <div id='adminActions' className='col-6' >
+                    <h3>Databases</h3>
+                    <Button
+                        color='primary'
+                        className='nbaGamesButton'
+                        data-url='/nbaGames'
+                        onClick={this.setRedirect}
+                      >
+                      NBA Games DB
+                    </Button>
+                    <Button
+                        color='primary'
+                        className='challengeButtons'
+                        data-url='/mlbGames'
+                        onClick={this.setRedirect}
+                      >
+                      MLB Games DB
+                    </Button>
+                    <Button
+                        color='primary'
+                        className='nbaGamesButton'
+                        data-url='/nbaPlayoffGames'
+                        onClick={this.setRedirect}
+                      >
+                      NBA Playoff Games (2019)
+                    </Button>
+                  </div>
+                </div>
+                <div className="row">
+                  <div id='adminActions' className='col-6' >
+                    <h3>Users DB</h3>
+                      <Button
+                        color='danger'
+                        className='userButtons'
+                        data-url='/usersPage'
+                        onClick={this.setRedirect}
+                      >
+                        Active Users
+                      </Button>
+                      <Button
+                        color='danger'
+                        className='challengeButtons'
+                        data-url='/challengePage'
+                        onClick={this.setRedirect}
+                      >
+                        Challenge Users 
+                      </Button>
+                  </div>
+                  <div id='adminActions' className='col-6'> 
+                    <h3>Active Challenges</h3>
+                    <Button
+                      color='success'
                       className='challengeButtons'
-                      data-url='/mlbGames'
+                      data-url='/mlbPickEmDB'
                       onClick={this.setRedirect}
                     >
-                    MLB Games DB
-                  </Button>
-                  <Button
-                      color='warning'
-                      className='nbaGamesButton'
-                      data-url='/nbaPlayoffGames'
+                      MLB Pick Em Challenge 
+                    </Button>
+                    <Button
+                      color='success'
+                      className='challengeButtons'
+                      data-url='/nbaPlayoffsDB'
+                      data-challengeid='5c9d00af9c45e400175c56a3'
                       onClick={this.setRedirect}
                     >
-                    NBA Playoff Games (2019)
-                  </Button>
+                      NBA Playoff Challenge
+                    </Button>
+                    <Button
+                      color='success'
+                      className='challengeButtons'
+                      data-url='/mastersDB'
+                      data-challengeid='5caa6602ba5ec50017ed6184'
+                      onClick={this.setRedirect}
+                    >
+                      Masters Challenge
+                    </Button>
+                  </div>
                 </div>
-                <div id="adminUsers">
-                  <h3>Users DB</h3>
-                  <Button
-                    color='danger'
-                    className='userButtons'
-                    data-url='/usersPage'
-                    onClick={this.setRedirect}
-                  >
-                    Active Users
-                  </Button>
-                  <Button
-                    color='danger'
-                    className='challengeButtons'
-                    data-url='/challengePage'
-                    onClick={this.setRedirect}
-                  >
-                    Challenge Users 
-                  </Button>
-
-                </div>
-                <div id="adminChals">
-                  <h3>Active Challenges</h3>
-                  <Button
-                    color='success'
-                    className='challengeButtons'
-                    data-url='/mlbPickEmDB'
-                    onClick={this.setRedirect}
-                  >
-                    MLB Pick Em Challenge 
-                  </Button>
-                  <Button
-                    color='success'
-                    className='challengeButtons'
-                    data-url='/nbaPlayoffsDB'
-                    data-challengeid='5c9d00af9c45e400175c56a3'
-                    onClick={this.setRedirect}
-                  >
-                    NBA Playoff Challenge
-                  </Button>
-                  <Button
-                    color='success'
-                    className='challengeButtons'
-                    data-url='/mastersDB'
-                    data-challengeid='5caa6602ba5ec50017ed6184'
-                    onClick={this.setRedirect}
-                  >
-                    Masters Challenge
-                  </Button>
-                </div>
-                <div id="futureChals">
-                  <h3>Future Challenges</h3>
-                  <Button
-                    disabled
-                    color='secondary'
-                    className='challengeButtons'
-                  >
-                    Future Challenges Will Appear Here
-                  </Button>
+                <div id='adminActions' className='col-6'> 
+                  <div id="futureChals">
+                    <h3>Future Challenges</h3>
+                    <Button
+                      disabled
+                      color='secondary'
+                      className='challengeButtons'
+                    >
+                      Future Challenges Will Appear Here
+                    </Button>
+                  </div>
                 </div>
             </div>
         )

@@ -5,7 +5,7 @@ import '../../css/profileBar.css'
 import API from '../../utils/API';
 // import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { Jumbotron, Container } from 'reactstrap'
-import $ from 'jquery'
+// import $ from 'jquery'
 //import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class MastersBar extends Component {
@@ -166,10 +166,10 @@ class MastersBar extends Component {
                       } <br />
                     <div className="row">
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Your Score</h4> {this.props.par}
+                        <h4 className='winsHeader'>Your Score</h4> {this.props.par > 0 ? '+' + this.props.par : this.props.par}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Strokes Back</h4> {this.props.parCount}
+                        <h4 className='winsHeader'>Strokes Back</h4> {this.props.par - this.props.parLeader}
                       </div>  
                       { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.parCount}
@@ -203,7 +203,7 @@ class MastersBar extends Component {
                             </td>
                             <td>
                               {
-                                mastersDate.score !== '' ? mastersDate.score : ''
+                                mastersDate.score !== '' ? mastersDate.score : mastersDate.score > 0 ? '+' + mastersDate.score : mastersDate.score
                               }
                             </td>
                           </tr> 

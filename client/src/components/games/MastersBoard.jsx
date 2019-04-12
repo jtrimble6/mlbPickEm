@@ -9,7 +9,7 @@ import UnderLimitGolfers from '../alerts/underLimitGolfers'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
-import $ from 'jquery'
+// import $ from 'jquery'
 import moment from 'moment-timezone'
 
 
@@ -26,6 +26,9 @@ class MastersBoard extends Component {
           closeAllNoPick: false, 
           challengeId: '',
           challengeData: {},
+          allUsers: [],
+          allUserPicks: [],
+          dayOfMasters: 1,
           thursday: '2019-04-11',
           friday: '2019-04-12',
           saturday: '2019-04-13',
@@ -114,12 +117,13 @@ class MastersBoard extends Component {
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.getUserScore = this.getUserScore.bind(this);
+        // this.getAllUsersPicks = this.getAllUsersPicks.bind(this);
       }
 
     componentDidMount() {
       this.getChallengeData()
       // this.getTeeTime()
-    //   this.checkPrevDatesPicked()
+      // this.checkPrevDatesPicked()
       }
 
     handleChangeStatus(event) {
@@ -297,8 +301,10 @@ class MastersBoard extends Component {
           // console.log(res)
           self.setState({
             challengeData: res.data[0],
+            allUsers: res.data[0].users
           })
           self.getUserData()
+          self.getResults()
         //   self.getSchedule()
         })
         .catch(err => console.log(err))
@@ -417,9 +423,12 @@ class MastersBoard extends Component {
 
     getUserScore = (user, picks) => {
       // console.log(user, 's PICKS', picks)
+      let allUsers = this.state.allUsers
+      console.log('ALL USERS PICKS: ', allUsers)
+
       let roundPicks = []
         for (var j=picks.length -1; j>0; j--) {
-          // console.log('ROUND ' + [j] + ' PICKS: ', picks[j])
+          console.log('ROUND ' + [j] + ' PICKS: ', picks[j])
           roundPicks.push(picks[j])
         } 
       // console.log('ROUND PICKS: ', roundPicks)
@@ -684,33 +693,34 @@ class MastersBoard extends Component {
  
     getResults = () => {
       let self = this
-      let yesterdaysGameIds = self.state.yesterdaysGameIds
-      let gameResults = []
+      // let yesterdaysGameIds = self.state.yesterdaysGameIds
+      // let gameResults = []
       
-      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      // // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
+      // // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
+      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
 
-      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
-      for (let m=0; m<yesterdaysGameIds.length; m++) {
-        let k = m
-        setTimeout ( 
-          function() {
-            $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
-              type: 'GET',
-              success: function(data) {
-                // console.log('Game results: ', data)
-                gameResults.push(data)
-                self.setState({ gameResults: gameResults })
-                self.findGameWinners()
-              }
-            })
-          }, 1500*k)
+      // // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
+      // for (let m=0; m<yesterdaysGameIds.length; m++) {
+      //   let k = m
+      //   setTimeout ( 
+      //     function() {
+      //       $.ajax({
+      //         url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+      //         type: 'GET',
+      //         success: function(data) {
+      //           // console.log('Game results: ', data)
+      //           gameResults.push(data)
+      //           self.setState({ gameResults: gameResults })
+      //           self.findGameWinners()
+      //         }
+      //       })
+      //     }, 1500*k)
 
+      //     self.findUserPicks()
+      
+      //   }
           self.findUserPicks()
-      
-        }
       }
 
     findUserPicks = () => {
@@ -733,18 +743,18 @@ class MastersBoard extends Component {
         userId: thisUser.username
       })
 
-      for(var u=0; u<chalUsers.length; u++) {
-        let thisUser = chalUsers[u]
-        let thisUserObj = {
-          userId: thisUser.username,
-          userGolfers: thisUser.picks,
-          userScore: thisUser.points
-          }
-        // IF USER HAS MADE PICKS FIND THEIR WINS
-        if (thisUser.picks[0]) {
-          self.findUserWins(thisUserObj)
-          }
-        }
+      // for(var u=0; u<chalUsers.length; u++) {
+      //   let thisUser = chalUsers[u]
+      //   let thisUserObj = {
+      //     userId: thisUser.username,
+      //     userGolfers: thisUser.picks,
+      //     userScore: thisUser.points
+      //     }
+      //   // IF USER HAS MADE PICKS FIND THEIR WINS
+      //   // if (thisUser.picks[0]) {
+      //   //   self.findUserWins(thisUserObj)
+      //   //   }
+      //   }
 
       // FIND USER WINS
       // API.getUser(thisUser)
@@ -778,94 +788,117 @@ class MastersBoard extends Component {
 
     findUserWins = (userData) => {
       let userId = userData.userId
-      let yesterday = this.state.yesterday
+      let today = moment().format('YYYY-MM-DD')
       let userGolfers = userData.userGolfers
-      let schedule = this.state.yesterdaysGames
       let userScore = userData.userScore
-    
-      // FIND THIS USER'S PICK FOR TODAY
-      let thisPickDate = (picks) => {
-        return picks.gameDate === yesterday
-      }
-      let thisPick = userGolfers.filter(thisPickDate)
-      let thisPickTeam = ''
+      console.log('USER INFO: ',
+        userId,
+        today,
+        userGolfers,
+        userScore
+      )
 
-      // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
-      if (thisPick[0]) {
-        thisPickTeam = thisPick[0].team
-        // console.log('THIS PICK RESULT: ', userId, thisPickTeam,thisPick[0].result)
-
-        // ONLY CHECKING GAMES WITH 'PENDING' RESULT
-        if (thisPick[0].result === 'pending') {
-          // console.log('THESE GAMES ARE STILL PENDING')
-
-        // CHECK IF THE USER HAS ALREADY WON WITH THIS TEAM
-        let pickAlreadyWon = (wins) => {
-          return wins.win === thisPickTeam
+      let allUsersPicks = []
+      
+      if (today === this.state.thursday) {
+        for (var b=0; b<userGolfers.length; b++) {
+          let allGolfers = userGolfers[0]
+          let thursGolfers = userGolfers[1]
+          allUsersPicks.push({
+            allGolfers: allGolfers,
+            thursGolfers: thursGolfers
+          })
         }
-        let thisPickWinner = userScore.filter(pickAlreadyWon)
-        // ADD LOSS IF USER HAS ALREADY WON WITH THIS PICK
-        if (thisPickWinner[0]) {
-          // console.log(userId, 'HAS ALREADY WON WITH ', thisPickWinner[0].win)
-          let result = 'loss'
-          let newPick = {
-            team: thisPick[0].team,
-            gameDate: thisPick[0].gameDate,
-            gameId: thisPick[0].gameId,
-            result: result
-          }
-            // console.log('THIS IS A LOSS: ', thisPick)
-            // console.log('RESULT: ', newPick)
-            this.overridePickResult(userId, yesterday, newPick) 
-            return;
-          }
+      }
 
-          // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
-          let newWin = null
-          for (let s=0; s<schedule.length; s++) {
-            let winner = schedule[s].gameWinner
-            let thisPick = thisPickTeam.trim()
-            if (thisPick === winner) {
-              let result = 'win'
-              // console.log('THIS IS A WINNER: ', thisPick)
-              newWin = { win: thisPickTeam }
+      console.log('ALL USERS PICKS: ', allUsersPicks)
+      
 
-              // CHANGE PICK RESULT IF WIN
-              let newPick = {
-                team: schedule[s].gameWinner,
-                gameDate: schedule[s].gameDate,
-                gameId: schedule[s].id,
-                result: result
-              }
-              // console.log('NEW PICK: ', newPick)
-              this.overridePickResult(userId, yesterday, newPick) 
+
+
+      // FIND THIS USER'S PICK FOR TODAY
+      // let thisPickDate = (picks) => {
+      //   return picks.gameDate === yesterday
+      // }
+      // let thisPick = userGolfers.filter(thisPickDate)
+      // let thisPickTeam = ''
+
+      // // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
+      // if (thisPick[0]) {
+      //   thisPickTeam = thisPick[0].team
+      //   // console.log('THIS PICK RESULT: ', userId, thisPickTeam,thisPick[0].result)
+
+      //   // ONLY CHECKING GAMES WITH 'PENDING' RESULT
+      //   if (thisPick[0].result === 'pending') {
+      //     // console.log('THESE GAMES ARE STILL PENDING')
+
+      //   // CHECK IF THE USER HAS ALREADY WON WITH THIS TEAM
+      //   let pickAlreadyWon = (wins) => {
+      //     return wins.win === thisPickTeam
+      //   }
+      //   let thisPickWinner = userScore.filter(pickAlreadyWon)
+      //   // ADD LOSS IF USER HAS ALREADY WON WITH THIS PICK
+      //   if (thisPickWinner[0]) {
+      //     // console.log(userId, 'HAS ALREADY WON WITH ', thisPickWinner[0].win)
+      //     let result = 'loss'
+      //     let newPick = {
+      //       team: thisPick[0].team,
+      //       gameDate: thisPick[0].gameDate,
+      //       gameId: thisPick[0].gameId,
+      //       result: result
+      //     }
+      //       // console.log('THIS IS A LOSS: ', thisPick)
+      //       // console.log('RESULT: ', newPick)
+      //       this.overridePickResult(userId, yesterday, newPick) 
+      //       return;
+      //     }
+
+      //     // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
+      //     let newWin = null
+      //     for (let s=0; s<schedule.length; s++) {
+      //       let winner = schedule[s].gameWinner
+      //       let thisPick = thisPickTeam.trim()
+      //       if (thisPick === winner) {
+      //         let result = 'win'
+      //         // console.log('THIS IS A WINNER: ', thisPick)
+      //         newWin = { win: thisPickTeam }
+
+      //         // CHANGE PICK RESULT IF WIN
+      //         let newPick = {
+      //           team: schedule[s].gameWinner,
+      //           gameDate: schedule[s].gameDate,
+      //           gameId: schedule[s].id,
+      //           result: result
+      //         }
+      //         // console.log('NEW PICK: ', newPick)
+      //         this.overridePickResult(userId, yesterday, newPick) 
               
-              // ADD NEW WINS TO USER DB
-              API.addNbaWin(this.state.challengeId, userId, newWin)
-                .then (res => {
-                  console.log(res)
-                })
-                .catch(err => console.log(err))
+      //         // ADD NEW WINS TO USER DB
+      //         API.addNbaWin(this.state.challengeId, userId, newWin)
+      //           .then (res => {
+      //             console.log(res)
+      //           })
+      //           .catch(err => console.log(err))
             
-              }
-            }
+      //         }
+      //       }
     
-            // CHANGE PICK RESULT IF LOSS
-            if (newWin === null && thisPick[0]) {
-              let result = 'loss'
-              let newPick = {
-                team: thisPick[0].team,
-                gameDate: thisPick[0].gameDate,
-                gameId: thisPick[0].gameId,
-                result: result
-              }
-              // console.log('THIS IS A LOSS: ', thisPick)
-              // console.log('RESULT: ', newPick)
-              this.overridePickResult(userId, yesterday, newPick) 
-              return;
-            }
-          } else { return }
-        } else { return }
+      //       // CHANGE PICK RESULT IF LOSS
+      //       if (newWin === null && thisPick[0]) {
+      //         let result = 'loss'
+      //         let newPick = {
+      //           team: thisPick[0].team,
+      //           gameDate: thisPick[0].gameDate,
+      //           gameId: thisPick[0].gameId,
+      //           result: result
+      //         }
+      //         // console.log('THIS IS A LOSS: ', thisPick)
+      //         // console.log('RESULT: ', newPick)
+      //         this.overridePickResult(userId, yesterday, newPick) 
+      //         return;
+      //       }
+      //     } else { return }
+      //   } else { return }
 
       }
 
@@ -887,11 +920,11 @@ class MastersBoard extends Component {
     getTeeTime = () => {
         let dateThu = moment().add(1, 'day').hours(9).minutes(0).seconds(0)
         
-          console.log('TEE TIME TOMM: ', dateThu);
-          let teeTimeThu = moment(dateThu).format('HH:mm:ss a')
-          // let teeTimeFri = moment(dateFri).format('HH:mm:ss a')
-          // let teeTimeSat = moment(dateSat).format('HH:mm:ss a')
-          // let teeTimeSun = moment(dateSun).format('HH:mm:ss a')
+        console.log('TEE TIME TOMM: ', dateThu);
+        // let teeTimeThu = moment(dateThu).format('HH:mm:ss a')
+        // let teeTimeFri = moment(dateFri).format('HH:mm:ss a')
+        // let teeTimeSat = moment(dateSat).format('HH:mm:ss a')
+        // let teeTimeSun = moment(dateSun).format('HH:mm:ss a')
         // let thursTeeTime = teeOff.gameTime
         // let teeOffTimeAdj = moment(thursTeeTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
         // let firstTeeTimeAdj = moment(teeTimeThu).format('HH:mm:ss a')

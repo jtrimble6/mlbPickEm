@@ -5,7 +5,7 @@ import API from '../../utils/API'
 import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
 import Countdown from 'react-countdown-now';
-import $ from 'jquery'
+// import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 // import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
@@ -382,7 +382,7 @@ class MastersLeaderboard extends Component {
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                       <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.points}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.points > 0 ? '+' + leader.points : leader.points}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
@@ -421,10 +421,10 @@ class MastersLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar}
+                                        <h4 className='winsHeader'>Score</h4> {this.state.activeUserPar > 0 ? '+' + this.state.activeUserPar : this.state.activeUserPar}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader golfHeader'>Strokes Back</h4> {this.state.activeUserPar}
+                                        <h4 className='winsHeader golfHeader'>Strokes Back</h4> {this.state.activeUserPar - this.props.parLeader}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='score'>Place</h4> {this.state.activeUserPar.length}

@@ -7,7 +7,7 @@ import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import '../../css/adminPage.css'
 
-class ChallengePage extends Component {
+class MlbPickEmDBPage extends Component {
     constructor(props) {
         super(props) 
         this.state = {
@@ -79,12 +79,15 @@ class ChallengePage extends Component {
             matchSorter(rows, filter.value, { keys: ["username"] }),
             filterAll: true
           },
-        {
-          Header: 'Score',
-          headerClassName: 'gamesHeaders',
-          accessor: 'wins',
-          Cell: props => <span className='points'>{props.value}</span>,
-        }
+        // {
+        //   Header: 'Email',
+        //   headerClassName: 'gamesHeaders',
+        //   accessor: 'email',
+        //   Cell: props => <span className='email'>{props.value}</span>,
+        //   filterMethod: (filter, rows) =>
+        //     matchSorter(rows, filter.value, { keys: ["email"] }),
+        //     filterAll: true
+        // }
       
       ]
 
@@ -144,4 +147,4 @@ class ChallengePage extends Component {
     }
 }
 
-export default ChallengePage
+export default MlbPickEmDBPage

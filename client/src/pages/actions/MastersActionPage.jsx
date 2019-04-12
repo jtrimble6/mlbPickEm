@@ -24,6 +24,7 @@ class MastersActionPage extends Component {
       firstName: '',
       lastName: '',
       par: 0,
+      parLeader: -9,
       myPicks: [],
       todaysPick: 'No Selection',
       todaysPick1: '',
@@ -88,7 +89,6 @@ class MastersActionPage extends Component {
           firstName: thisUser[0].firstName,
           lastName: thisUser[0].lastName,
           par: thisUser[0].points,
-          parCount: thisUser[0].points,
           myPicks: thisUser[0].picks,
         })
 
@@ -129,7 +129,7 @@ class MastersActionPage extends Component {
               <MastersBar
                   username={this.state.username}
                   par={this.state.par}
-                  parCount={this.state.parCount}
+                  parLeader={this.state.parLeader}
                   userPicks={this.state.myPicks}
                   todaysPick={this.state.todaysPick}
                   todaysPicks={this.state.todaysPick1 + ' & ' + this.state.todaysPick2}
@@ -151,7 +151,7 @@ class MastersActionPage extends Component {
 
                   <div className="leaders row">
                     <MastersLeaderboard   
-                    
+                      parLeader={this.state.parLeader}
                     />
                   </div>
 
