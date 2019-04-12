@@ -165,6 +165,37 @@ class MastersLeaderboard extends Component {
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
       let allGolfersObj = userPicks[0]
+      let userRealPicks = []
+      let thursPicks
+      let friPicks
+      let satPicks
+      let sunPicks
+
+      let currentTime = moment().tz('America/New_York').format()
+      let friTimer = moment().tz('America/New_York').format('2019-04-12T09:00:00Z')
+      let satTimer = moment().tz('America/New_York').format('2019-04-13T09:00:00Z')
+      let enableSatPicks = (moment(currentTime).isAfter(friTimer))
+      let enableSunPicks = (moment(currentTime).isAfter(satTimer))
+
+      if (userPicks[1]) {
+        thursPicks = userPicks[1]
+        userRealPicks.push(userPicks[1])
+      }
+
+      if (userPicks[2] && enableSunPicks) {
+        friPicks = userPicks[2]
+        userRealPicks.push(userPicks[2])
+      }
+
+      if (userPicks[3]) {
+        satPicks = userPicks[3]
+        userRealPicks.push(userPicks[3])
+      }
+
+      if (userPicks[4]) {
+        sunPicks = userPicks[4]
+        userRealPicks.push(userPicks[4])
+      }
       
       let allGolfersArr = [
         allGolfersObj.golfer1,
@@ -173,7 +204,8 @@ class MastersLeaderboard extends Component {
         allGolfersObj.golfer4,
         allGolfersObj.golfer5,
       ]
-      console.log('ALL GOLFERS ARRAY: ', allGolfersArr)
+      // console.log('ALL GOLFERS ARRAY: ', allGolfersArr)
+      // console.log('ALL PICKS ARR: ', userRealPicks)
       // let today = moment().format('YYYY-MM-DD')
       
       
@@ -212,14 +244,19 @@ class MastersLeaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      console.log('SORTED ARRAY: ', sortedPicks)
-      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
-      console.log('TODAYS PICK: ', todaysUserPick)
+      // console.log('SORTED ARRAY: ', sortedPicks)
+      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      // console.log('TODAYS PICK: ', todaysUserPick)
+      console.log('THURSDAY PICKS: ', thursPicks)
+      console.log('FRIDAYS PICKS: ', friPicks)
+      console.log('SATURDAY PICKS: ', satPicks)
+      console.log('SUNDAY PICKS: ', sunPicks)
 
       this.setState({
           allUsersGolfers: allGolfersArr,
           todaysPick: todaysUserPick,
-          prevPicks: prevPicks
+          prevPicks: prevPicks,
+          activeUserPrevPicks: userRealPicks
         })
       
       }
@@ -438,8 +475,9 @@ class MastersLeaderboard extends Component {
                                   <table className='table table-hover'>
                                     <thead>
                                       <tr>
-                                        <th>Date</th>
-                                        <th>Pick</th>
+                                        <th>Day</th>
+                                        <th>Golfer(s)</th>
+                                        <th>Score</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -448,10 +486,20 @@ class MastersLeaderboard extends Component {
                                         userPicks[0] ? 
                                         
                                         userPicks.map((newRecentPick, i) => (
-                                          <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
-                                            <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
-                                            <td>{newRecentPick.team}</td>
-                                          </tr> 
+                                          <tr key={uuidv4()} className='golfPicks'>
+                                          {/* <tr key={uuidv4()} className={mastersDate.result}> */}
+                                            <td>{newRecentPick.gameDate === '2019-04-11' ? 'THU' : newRecentPick.gameDate === '2019-04-12' ? 'FRI' : newRecentPick.gameDate === '2019-04-13' ? 'SAT' : 'SUN'}</td>
+                                            <td>
+                                              {
+                                                newRecentPick.golfer2 !== '' || undefined ? newRecentPick.golfer1 + ' & ' + newRecentPick.golfer2 : newRecentPick.golfer1 !== '' ? newRecentPick.golfer1 : ''
+                                              }
+                                            </td>
+                                            <td>
+                                              {
+                                                newRecentPick.result > 0 ? '+' + newRecentPick.result : newRecentPick.result
+                                              }
+                                            </td>
+                                          </tr>  
                                           )
                                         )                                            
 
@@ -461,6 +509,7 @@ class MastersLeaderboard extends Component {
                                           </tr>
                                         
                                       }
+                                      
                                       
                                     </tbody>
                                   </table>

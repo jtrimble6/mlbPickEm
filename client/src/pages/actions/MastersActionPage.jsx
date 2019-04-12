@@ -78,6 +78,16 @@ class MastersActionPage extends Component {
         let chalUsers = this.state.challengeData.users
         // console.log('CHALLENGE: ', this.state.challengeData)
 
+        // FIND LEADING SCORE
+        let chalPoints = []
+        for (var t=0; t<chalUsers.length; t++) {
+          let points = parseInt(chalUsers[t].points)
+          console.log('THIS POINT: ', points)
+          chalPoints.push(points)
+        }
+        let leadingScore = Math.min.apply('Math', chalPoints)
+        console.log('CHALLENGE LEADER POINTS: ', leadingScore)
+
         // FILTER OUT THIS USER AND SET STATE
         let chalFilter = (challengers) => {
           return challengers.username === localUser
@@ -92,6 +102,7 @@ class MastersActionPage extends Component {
           lastName: thisUser[0].lastName,
           par: thisUser[0].points,
           myPicks: thisUser[0].picks,
+          parLeader: leadingScore
         })
 
         this.getTodaysPick()

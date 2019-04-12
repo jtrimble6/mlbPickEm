@@ -32,6 +32,7 @@ class MastersBoard extends Component {
           thursday: '2019-04-11',
           friday: '2019-04-12',
           saturday: '2019-04-13',
+          satSelections: false,
           sunday: '2019-04-14',
           thursTeeTime: '',
           friTeeTime: '',
@@ -40,7 +41,9 @@ class MastersBoard extends Component {
           allGolfers: [],
           myGolfers: [],
           myGolfersFri: [],
-          myGolfersSat: [],
+          myRemainingGolfer: [],
+          myGolfersSat: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
+          myGolfersSatOG: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
           myGolfersSun: [],
           golfersPicked: false,
           golfersPickedThurs: false,
@@ -118,6 +121,7 @@ class MastersBoard extends Component {
         this.getJustChallengeData = this.getJustChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.getUserScore = this.getUserScore.bind(this);
+        this.getSatGolfers = this.getSatGolfers.bind(this);
         // this.getAllUsersPicks = this.getAllUsersPicks.bind(this);
       }
 
@@ -239,54 +243,50 @@ class MastersBoard extends Component {
                 golfer2b: '',
                 myGolfersFri: []
               })
-              // debugger;
               document.location.reload()
           })
         .catch(err => {console.log(err)})
-      
-      
-      
-      
-      
       }
 
     handleRepickSat = (event) => {
-      let challengeId = this.state.challengeId
-      let username = this.state.userId
+      event.preventDefault()
+      let self = this
+      let challengeId = this.props.challengeId
+      let username = this.props.userId
       let gameDate = '2019-04-13'
+      console.log('INFO: ', challengeId, username, gameDate)
       API.deleteMastersGolfers(challengeId, username, gameDate)
           .then(res => {
               console.log(res)
+              self.setState({
+                golfersPickedSat: false,
+                golfer3a: '',
+                golfer3b: '',
+                myGolfersFri: []
+              })
+              document.location.reload()
           })
         .catch(err => {console.log(err)})
-      let self = this
-      event.preventDefault()
-      self.setState({
-        golfersPickedSat: false,
-        golfer3a: '',
-        golfer3b: '',
-        myGolfersSat: []
-      })
-      document.location.reload()
       }
 
     handleRepickSun = (event) => {
-      let challengeId = this.state.challengeId
-      let username = this.state.userId
+      event.preventDefault()
+      let self = this
+      let challengeId = this.props.challengeId
+      let username = this.props.userId
       let gameDate = '2019-04-14'
+      console.log('INFO: ', challengeId, username, gameDate)
       API.deleteMastersGolfers(challengeId, username, gameDate)
           .then(res => {
               console.log(res)
+              self.setState({
+                golfersPickedSun: false,
+                golfer4a: '',
+                myGolfersFri: []
+              })
+              document.location.reload()
           })
         .catch(err => {console.log(err)})
-      let self = this
-      event.preventDefault()
-      self.setState({
-        golfersPickedSun: false,
-        golfer4a: '',
-        myGolfersSun: []
-      })
-      document.location.reload()
       }
 
     getJustChallengeData = () => {
@@ -435,8 +435,8 @@ class MastersBoard extends Component {
           golfersPickedFri: true,
           golfer2a: userPicks[2].golfer1,
           golfer2b: userPicks[2].golfer2,
-          myGolfersSat: allGolfers
-        })
+          myRemainingGolfer: allGolfers
+        }) 
       }
 
       this.setState({
@@ -449,6 +449,8 @@ class MastersBoard extends Component {
         winsCount: thisUser[0].points,
         myPicks: thisUser[0].picks,
       })
+
+      this.getSatGolfers()
 
       // console.log('GOLFERS PICKED? ', this.state.golfersPicked)
       // console.log('MY GOLFERS: ', this.state.myGolfers)
@@ -992,12 +994,23 @@ class MastersBoard extends Component {
           
         }
   
-      createTimer = (timeDiff) => {
-        console.log('Time until tee off: ', timeDiff)
-        let seconds = moment.duration(timeDiff).asSeconds() * 1000
-        //console.log('In seconds milliseconds: ', seconds)
-        this.setState({ timeDiff: seconds })
-        }
+    createTimer = (timeDiff) => {
+      console.log('Time until tee off: ', timeDiff)
+      let seconds = moment.duration(timeDiff).asSeconds() * 1000
+      //console.log('In seconds milliseconds: ', seconds)
+      this.setState({ timeDiff: seconds })
+      }
+    
+    getSatGolfers = () => {
+      let myRemainingGolfer = this.state.myRemainingGolfer
+      let golfersSat = this.state.myGolfersSat
+      console.log('MY REMAINING GOLFER: ', myRemainingGolfer[0])
+      if (myRemainingGolfer !== undefined) {
+        golfersSat.push(myRemainingGolfer[0])
+        console.log('GOLFERS SAT: ', golfersSat)
+      }
+      
+    }
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
@@ -1005,6 +1018,14 @@ class MastersBoard extends Component {
       let golfersPicked = this.state.golfersPicked
       let golfersPickedThurs = this.state.golfersPickedThurs
       let golfersPickedFri = this.state.golfersPickedFri
+      let currentTime = moment().tz('America/New_York').format()
+      let friTimer = moment().tz('America/New_York').format('2019-04-12T09:00:00Z')
+      let satTimer = moment().tz('America/New_York').format('2019-04-13T09:00:00Z')
+      let enableSatPicks = (moment(currentTime).isAfter(friTimer))
+      let enableSunPicks = (moment(currentTime).isAfter(satTimer))
+      // console.log('FRI TIMER: ', friTimer)
+      // console.log('CURRENT TIME: ', currentTime)
+      console.log('TIME TO PICK FOR SATURDAY? ', enableSatPicks)
       // let timerEnded = false;
       // let EndTimer = () => {
       //     // timerEnded = true
@@ -1244,6 +1265,42 @@ class MastersBoard extends Component {
                           
                         </div> <hr />
                         
+                        
+                        
+                       { (enableSatPicks) ? 
+                       
+                      <div>
+
+                        <h2 className='myGolfers'>Random Golfers Pool (SAT)</h2>
+
+                          <div className="row golferButtons og">
+
+                            {
+                              
+                              this.state.myGolfersSatOG.map((golfer) => (
+                                <div key={(uuidv4())} className="col-md-3">
+                                  <button 
+                                    key={(uuidv4())} 
+                                    className='btn btn-success randomGolferButtons'
+                                  >
+                                    {golfer}
+                                  </button>
+                                </div>
+                              ))
+
+                            }
+
+                          </div>
+                          <hr />
+                        </div>
+
+        
+                        :
+
+                        <div></div>
+
+                       }
+                        
                         <form className="formGolfer" action="index.html">  
                         <div id='pickGolfer' className='golferWrap'>
                           <div className="form-group">
@@ -1351,7 +1408,7 @@ class MastersBoard extends Component {
                               <h3>Friday</h3>
                               <label htmlFor="golferName">Select Golfer #1</label>
                                 <select 
-                                  disabled={(golfersPickedThurs && !golfersPickedFri) ? false : true}
+                                  disabled={(golfersPickedThurs && !golfersPickedFri && !enableSatPicks) ? false : true}
                                   value={this.state.golfer2a}
                                   name={"golfer2a"}
                                   onChange={this.handleInputChange}
@@ -1379,7 +1436,7 @@ class MastersBoard extends Component {
                               </select>
                               <label htmlFor="golferName">Select Golfer #2</label>
                                 <select 
-                                  disabled={(golfersPickedThurs && !golfersPickedFri) ? false : true}
+                                  disabled={(golfersPickedThurs && !golfersPickedFri && !enableSatPicks) ? false : true}
                                   value={this.state.golfer2b}
                                   name={"golfer2b"}
                                   onChange={this.handleInputChange}
@@ -1414,7 +1471,7 @@ class MastersBoard extends Component {
                                 />
                                 {
 
-                                  (!golfersPickedFri) ? 
+                                  (!golfersPickedFri && !enableSatPicks) ? 
 
                                   <button
                                     type="submit"
@@ -1424,7 +1481,7 @@ class MastersBoard extends Component {
                                     Submit My Golfers
                                   </button>
 
-                                  : 
+                                  : !enableSatPicks ? 
 
                                   <button 
                                     type='warning'
@@ -1432,6 +1489,17 @@ class MastersBoard extends Component {
                                     onClick={this.handleRepickFri}
                                   >
                                     Reselect Golfers
+                                  </button>
+
+                                  :
+
+                                  <button 
+                                    disabled
+                                    type='secondary'
+                                    className="btn btn-success submit golferDaySubmit"
+                                    onClick={this.handleRepickThurs}
+                                  >
+                                    Picks Locked
                                   </button>
 
 
@@ -1443,7 +1511,8 @@ class MastersBoard extends Component {
                               <h3>Saturday</h3>
                               <label htmlFor="golferName">Select Golfer #1</label>
                                 <select 
-                                  disabled={(moment().isSameOrAfter('2019-04-13') && (golfersPickedFri)) ? false : true}
+                                  disabled={!enableSatPicks ? true : false}
+                                  // disabled
                                   value={this.state.golfer3a}
                                   name={"golfer3a"}
                                   onChange={this.handleInputChange}
@@ -1471,7 +1540,7 @@ class MastersBoard extends Component {
                               </select>
                               <label htmlFor="golferName">Select Golfer #2</label>
                                 <select 
-                                  disabled={(moment().isSameOrAfter('2019-04-13') && (golfersPickedFri)) ? false : true}
+                                  disabled={!enableSatPicks ? true : false}
                                   value={this.state.golfer3b}
                                   name={"golfer3b"}
                                   onChange={this.handleInputChange}
@@ -1505,7 +1574,7 @@ class MastersBoard extends Component {
                                   underLimitGolfers={this.state.underLimitGolfers3}
                                 />
                                 <button
-                                  disabled={(moment().isSameOrAfter('2019-04-13') && (golfersPickedFri)) ? false : true}
+                                  disabled={!enableSatPicks ? true : false}
                                   type="submit"
                                   className="btn btn-success submit  golferDaySubmit"
                                   onClick={this.handleSaturdayGolfersSelection}
@@ -1520,7 +1589,7 @@ class MastersBoard extends Component {
                                 <h3>Sunday</h3>
                                 <label htmlFor="golferName">Select Golfer #1</label>
                                   <select 
-                                    disabled={(moment().isSameOrAfter('2019-04-14')) ? false : true}
+                                    disabled={!enableSunPicks ? true : false}
                                     value={this.state.golfer4a}
                                     name={"golfer4a"}
                                     onChange={this.handleInputChange}
@@ -1551,7 +1620,7 @@ class MastersBoard extends Component {
                                       underLimitGolfers={this.state.underLimitGolfers4}
                                     />
                                   <button
-                                    disabled={(moment().isSameOrAfter('2019-04-14')) ? false : true}
+                                    disabled={!enableSunPicks ? true : false}
                                     type="submit"
                                     className="btn btn-success submit  golferDaySubmit"
                                     onClick={this.handleSundayGolfersSelection}

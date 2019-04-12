@@ -15,6 +15,7 @@ class MastersPage extends Component {
         userScore: '',
         golfers: [],
         golferPool: ['Brooks Koepka', 'Justin Harding', 'Tiger Woods', 'Dustin Johnson', 'Jon Rahm', 'Kiradech Aphibarnrat', 'Rickie Fowler', 'Jason Day', 'Tony Finau', 'Patton Kizzire', 'Rory Mcllroy', 'Charley Hoffman', 'Tommy Fleetwood', 'Phil Mickelson', 'Matt Kuchar'],
+        satPool: [],
         today: ''
       };
       this.pullRandoms = this.pullRandoms.bind(this);
@@ -272,6 +273,18 @@ class MastersPage extends Component {
 
     pullRandoms = () => {
         console.log('RANDOM POOL: ', this.state.golferPool)
+        let golferPool = this.state.golferPool
+        let randomPool = []
+        for(var g = 3;g>=0;g--){
+            let num = Math.floor(Math.random()*golferPool.length)
+            let golfer = golferPool[num]
+            randomPool.push(golfer)
+            golferPool.splice(num, 1)
+          }
+        console.log('RANDOM POOL: ', randomPool)
+        this.setState({
+            satPool: randomPool
+        })
     }
 
     render() {
@@ -280,15 +293,6 @@ class MastersPage extends Component {
         <div className='mastersPage'>
           <AdminBar />
           <h1>Masters Admin Page</h1> <br />
-          <div className="row golfersPool">
-            {
-                this.state.golferPool.map((pool) => (
-                    <button key={uuidv4()} className="btn btn-primary allGolfers">
-                        {pool}
-                    </button>
-                ))
-            }
-          </div> <br />
           <div className="options row">
             <button
                 type="submit"
@@ -298,6 +302,16 @@ class MastersPage extends Component {
               Pull Randoms
             </button>
           </div>
+          <br />
+          <div className="row golfersPool">
+            {
+                this.state.satPool.map((pool) => (
+                    <button key={uuidv4()} className="btn btn-primary pullRandoms">
+                        {pool}
+                    </button>
+                ))
+            }
+          </div> 
 
         </div>
       )
