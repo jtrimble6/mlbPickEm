@@ -44,7 +44,8 @@ class MastersBoard extends Component {
           myRemainingGolfer: [],
           myGolfersSat: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
           myGolfersSatOG: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
-          myGolfersSun: [],
+          myGolfersSun: ['Adam Scott', 'Ian Poulter', 'Jordan Spieth', 'Francesco Molinari'],
+          myGolfersSunOG: ['Adam Scott', 'Ian Poulter', 'Jordan Spieth', 'Francesco Molinari'],
           golfersPicked: false,
           golfersPickedThurs: false,
           golfersPickedFri: false,
@@ -124,6 +125,7 @@ class MastersBoard extends Component {
         this.getUserData = this.getUserData.bind(this);
         this.getUserScore = this.getUserScore.bind(this);
         this.getSatGolfers = this.getSatGolfers.bind(this);
+        this.getSunGolfers = this.getSunGolfers.bind(this);
         // this.getAllUsersPicks = this.getAllUsersPicks.bind(this);
       }
 
@@ -468,6 +470,13 @@ class MastersBoard extends Component {
         }) 
       }
 
+      if(userPicks[4]) {
+        this.setState({
+          golfersPickedSun: true,
+          golfer4a: userPicks[4].golfer1
+        }) 
+      }
+
       this.setState({
         allGolfers: chalGolfers,
         currentUser: thisUser[0],
@@ -480,6 +489,7 @@ class MastersBoard extends Component {
       })
 
       this.getSatGolfers()
+      this.getSunGolfers()
 
       // console.log('GOLFERS PICKED? ', this.state.golfersPicked)
       // console.log('MY GOLFERS: ', this.state.myGolfers)
@@ -709,6 +719,9 @@ class MastersBoard extends Component {
         let challengeId = this.state.challengeId
         let golfer4a = this.state.golfer4a
 
+        console.log('GOLFER 4: ', golfer4a)
+        // debugger
+
         let myGolfersObj = {
           golfer1: golfer4a,  
           gameDate: '2019-04-14',
@@ -716,6 +729,8 @@ class MastersBoard extends Component {
         }
 
         if (golfer4a === '') {
+          // console.log('UNDER LIMIT SELECTION')
+          // debugger;
           self.setState({
             underLimitGolfers4: true
           })
@@ -723,7 +738,15 @@ class MastersBoard extends Component {
         }
 
         else {
-          self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
+          // console.log('SAVING GOLFER')
+          // debugger;
+          API.saveMastersGolfers(challengeId, myId, myGolfersObj)
+          .then(res => { 
+            console.log(res)
+           })
+          .catch(err => { console.log(err) } )  
+          // self.overridePick(challengeId, myId, myGolfersObj.gameDate, myGolfersObj)
+          // debugger;
         }
         document.location.reload()
       }
@@ -1022,7 +1045,7 @@ class MastersBoard extends Component {
 
         this.createTimer(timeDiff)
           
-        }
+      }
   
     createTimer = (timeDiff) => {
       console.log('Time until tee off: ', timeDiff)
@@ -1040,7 +1063,18 @@ class MastersBoard extends Component {
         console.log('GOLFERS SAT: ', golfersSat)
       }
       
-    }
+      }
+
+    getSunGolfers = () => {
+      let myRemainingGolfer = this.state.myRemainingGolfer
+      let golfersSun = this.state.myGolfersSun
+      console.log('MY REMAINING GOLFER: ', myRemainingGolfer[0])
+      if (myRemainingGolfer !== undefined) {
+        golfersSun.push(myRemainingGolfer[0])
+        console.log('GOLFERS Sun: ', golfersSun)
+      }
+      
+      }
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
@@ -1055,7 +1089,7 @@ class MastersBoard extends Component {
       let enableSunPicks = (moment(currentTime).isAfter(satTimer))
       // console.log('FRI TIMER: ', friTimer)
       // console.log('CURRENT TIME: ', currentTime)
-      console.log('TIME TO PICK FOR SATURDAY? ', enableSatPicks)
+      // console.log('TIME TO PICK FOR SATURDAY? ', enableSatPicks)
       // let timerEnded = false;
       // let EndTimer = () => {
       //     // timerEnded = true
@@ -1295,32 +1329,60 @@ class MastersBoard extends Component {
                           
                         </div> <hr />
                         
-                        
-                        
                        { (enableSatPicks) ? 
                        
-                      <div>
+                        <div>
+                          <h2 className='myGolfers'>Random Golfers Pool (SAT)</h2>
+                            <div className="row golferButtons og">
 
-                        <h2 className='myGolfers'>Random Golfers Pool (SAT)</h2>
+                              {
+                                
+                                this.state.myGolfersSatOG.map((golfer) => (
+                                  <div key={(uuidv4())} className="col-md-3">
+                                    <button 
+                                      key={(uuidv4())} 
+                                      className='btn btn-success randomGolferButtons'
+                                    >
+                                      {golfer}
+                                    </button>
+                                  </div>
+                                ))
 
-                          <div className="row golferButtons og">
+                              }
 
-                            {
-                              
-                              this.state.myGolfersSatOG.map((golfer) => (
-                                <div key={(uuidv4())} className="col-md-3">
-                                  <button 
-                                    key={(uuidv4())} 
-                                    className='btn btn-success randomGolferButtons'
-                                  >
-                                    {golfer}
-                                  </button>
-                                </div>
-                              ))
+                            </div>
+                          <hr />
+                        </div>
 
-                            }
+        
+                        :
 
-                          </div>
+                        <div></div>
+
+                       }
+
+                       { (enableSunPicks) ? 
+                       
+                        <div>
+                          <h2 className='myGolfers'>Random Golfers Pool (SUN)</h2>
+                            <div className="row golferButtons og">
+
+                              {
+                                
+                                this.state.myGolfersSunOG.map((golfer) => (
+                                  <div key={(uuidv4())} className="col-md-3">
+                                    <button 
+                                      key={(uuidv4())} 
+                                      className='btn btn-success randomGolferButtons'
+                                    >
+                                      {golfer}
+                                    </button>
+                                  </div>
+                                ))
+
+                              }
+
+                            </div>
                           <hr />
                         </div>
 
@@ -1643,7 +1705,7 @@ class MastersBoard extends Component {
                                 <h3>Sunday</h3>
                                 <label htmlFor="golferName">Select Golfer #1</label>
                                   <select 
-                                    disabled={!enableSunPicks ? true : false}
+                                    disabled={(this.state.golfersPickedSun || !enableSunPicks)}
                                     value={this.state.golfer4a}
                                     name={"golfer4a"}
                                     onChange={this.handleInputChange}
@@ -1653,7 +1715,7 @@ class MastersBoard extends Component {
                                   >
                                   <option value=''>--</option>
                                   {
-                                    this.state.myGolfers.map((golfer) => (
+                                    this.state.myGolfersSun.map((golfer) => (
                                         <option 
                                           key={(uuidv4())} 
                                           value={golfer}
@@ -1673,14 +1735,40 @@ class MastersBoard extends Component {
                                     <UnderLimitGolfers 
                                       underLimitGolfers={this.state.underLimitGolfers4}
                                     />
-                                  <button
-                                    disabled={!enableSunPicks ? true : false}
-                                    type="submit"
-                                    className="btn btn-success submit  golferDaySubmit"
-                                    onClick={this.handleSundayGolfersSelection}
-                                  >
-                                    Submit My Golfers
-                                  </button>
+                                  {
+
+                                    (!this.state.golfersPickedSun && enableSunPicks) ? 
+
+                                    <button
+                                      type="submit"
+                                      className="btn btn-success submit golferDaySubmit"
+                                      onClick={this.handleSundayGolfersSelection}
+                                    >
+                                      Submit My Golfers
+                                    </button>
+
+                                    : this.state.golfersPickedSun && enableSunPicks ? 
+
+                                    <button 
+                                      type='warning'
+                                      className="btn btn-success submit golferDaySubmit"
+                                      onClick={this.handleRepickSun}
+                                    >
+                                      Reselect Golfers
+                                    </button>
+
+                                    :
+
+                                    <button 
+                                      disabled
+                                      type='secondary'
+                                      className="btn btn-success submit golferDaySubmit"
+                                    >
+                                      Picks Locked
+                                    </button>
+
+
+                                    }
 
                                 </div>
                               </div>

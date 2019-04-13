@@ -64,9 +64,10 @@
 }
 
 .golferButtons .btn {
+    white-space: pre-wrap;
     background-color: darkgreen !important;
 }
 
 .og {
-    margin: 1% !important;
+    margin: 5% !important;
 }
