@@ -568,7 +568,7 @@ class NbaPlayoffLeaderboard extends Component {
                   <tr className='leaderboardHeader'>
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
-                    <th className='leaderboardHeader'>Losses</th>
+                    <th className='leaderboardHeader'>Strikes</th>
                     {/* <th>Teams</th> */}
                   </tr>
                 </thead>
@@ -629,7 +629,7 @@ class NbaPlayoffLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Losses</h4> {this.state.activeUserWins.length}
+                                        <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserWins.length}
                                       </div>
                                       <div className="col-md-3">
                                         <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {this.state.activeUserPrevPicks.length}
