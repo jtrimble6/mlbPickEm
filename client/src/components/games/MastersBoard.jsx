@@ -42,6 +42,7 @@ class MastersBoard extends Component {
           myGolfers: [],
           myGolfersFri: [],
           myRemainingGolfer: [],
+          myRemainingGolferSun: [],
           myGolfersSat: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
           myGolfersSatOG: ['Brooks Koepka', 'Tommy Fleetwood', 'Kiradech Aphibarnrat', 'Phil Mickelson'],
           myGolfersSun: ['Jason Day', 'Matt Kuchar', 'Rory Mcllroy', 'Francesco Molinari'],
@@ -422,6 +423,7 @@ class MastersBoard extends Component {
           friPicks.golfer1,
           friPicks.golfer2
         ]
+
         // console.log('ALL GOLFERS: ', allGolfers)
         // console.log('FRIDAYS PICKS: ', fridaysPicks)
 
@@ -445,28 +447,39 @@ class MastersBoard extends Component {
       if(userPicks[3]) {
         let self = this
         let allGolfers = this.state.myGolfersSat
+        let remainingGolfer = this.state.myRemainingGolfer
         let satPicks = userPicks[3]
 
-        let fridaysPicks = [
+        let satsPicks = [
           satPicks.golfer1,
           satPicks.golfer2
         ]
-        // console.log('ALL GOLFERS: ', allGolfers)
-        // console.log('FRIDAYS PICKS: ', fridaysPicks)
 
-        let mySatGolfersFunc = (golfers) => {
+        let myRemainingGolferFunc = (golfers) => {
+          return golfers === remainingGolfer[0]
+        }
+        let remainingGolferBool = satsPicks.filter(myRemainingGolferFunc)
+        if (remainingGolferBool[0]) {
+          remainingGolfer = ''
+        }
+        console.log('MY REMAINING GOLFER: ', remainingGolferBool)
+        // console.log('ALL GOLFERS: ', allGolfers)
+        // console.log('FRIDAYS PICKS: ', satsPicks)
+
+        let mySunGolfersFunc = (golfers) => {
           return golfers !== this.state.thisPick
         }
-        for (var w=0; w<fridaysPicks.length; w++) {
-          self.setState({ thisPick: fridaysPicks[w] })
-          allGolfers = allGolfers.filter(mySatGolfersFunc)
+        for (var w=0; w<satsPicks.length; w++) {
+          self.setState({ thisPick: satsPicks[w] })
+          allGolfers = allGolfers.filter(mySunGolfersFunc)
           // console.log('SATURDAY PICKS: ', allGolfers)
         }
         
         this.setState({
           golfersPickedSat: true,
           golfer3a: userPicks[3].golfer1,
-          golfer3b: userPicks[3].golfer2
+          golfer3b: userPicks[3].golfer2,
+          myRemainingGolferSun: remainingGolfer
         }) 
       }
 
@@ -476,6 +489,7 @@ class MastersBoard extends Component {
           golfer4a: userPicks[4].golfer1
         }) 
       }
+
 
       this.setState({
         allGolfers: chalGolfers,
@@ -1066,7 +1080,7 @@ class MastersBoard extends Component {
       }
 
     getSunGolfers = () => {
-      let myRemainingGolfer = this.state.myRemainingGolfer
+      let myRemainingGolfer = this.state.myRemainingGolferSun
       let golfersSun = this.state.myGolfersSun
       console.log('MY REMAINING GOLFER: ', myRemainingGolfer[0])
       if (myRemainingGolfer !== undefined) {
