@@ -165,36 +165,54 @@ class MastersLeaderboard extends Component {
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
       let allGolfersObj = userPicks[0]
+      console.log('USER PICKS: ', userPicks)
       let userRealPicks = []
-      let thursPicks
-      let friPicks
-      let satPicks
-      let sunPicks
+      let thursPicks = ''
+      let friPicks = ''
+      let satPicks = ''
+      let sunPicks = ''
 
       let currentTime = moment().tz('America/New_York').format()
       let friTimer = moment().tz('America/New_York').format('2019-04-12T09:00:00Z')
       let satTimer = moment().tz('America/New_York').format('2019-04-13T09:00:00Z')
+      let sunTimer = moment().tz('America/New_York').format('2019-04-14T09:00:00Z')
       let enableSatPicks = (moment(currentTime).isAfter(friTimer))
       let enableSunPicks = (moment(currentTime).isAfter(satTimer))
+      let enableResults = (moment(currentTime).isAfter(sunTimer))
 
-      if (userPicks[1]) {
-        thursPicks = userPicks[1]
-        userRealPicks.push(userPicks[1])
-      }
+      // if (userPicks[1]) {
+      //   thursPicks = userPicks[1]
+      //   userRealPicks.push(userPicks[1])
+      // }
 
-      if (userPicks[2] && enableSunPicks) {
-        friPicks = userPicks[2]
-        userRealPicks.push(userPicks[2])
-      }
+      // if (userPicks[2] && enableSatPicks) {
+      //   friPicks = userPicks[2]
+      //   userRealPicks.push(userPicks[2])
+      // }
 
-      if (userPicks[3]) {
-        satPicks = userPicks[3]
-        userRealPicks.push(userPicks[3])
-      }
+      // if (userPicks[3] && enableSunPicks) {
+      //   satPicks = userPicks[3]
+      //   userRealPicks.push(userPicks[3])
+      // }
 
-      if (userPicks[4]) {
+      if (userPicks[4] && enableResults) {
         sunPicks = userPicks[4]
-        userRealPicks.push(userPicks[4])
+        satPicks = userPicks[3]
+        friPicks = userPicks[2]
+        thursPicks = userPicks[1]
+        userRealPicks.push(thursPicks, friPicks, satPicks, sunPicks)
+      } else if (userPicks[3] && enableSunPicks) {
+        satPicks = userPicks[3]
+        friPicks = userPicks[2]
+        thursPicks = userPicks[1]
+        userRealPicks.push(thursPicks, friPicks, satPicks)
+      } else if (userPicks[2] && enableSatPicks) {
+        friPicks = userPicks[2]
+        thursPicks = userPicks[1]
+        userRealPicks.push(thursPicks, friPicks)
+      } else if (userPicks[1]) {
+        thursPicks = userPicks[1]
+        userRealPicks.push(thursPicks)
       }
       
       let allGolfersArr = [

@@ -14,7 +14,7 @@ class MastersPage extends Component {
         userPicks: [],
         userScore: '',
         golfers: [],
-        golferPool: ['Brooks Koepka', 'Justin Harding', 'Tiger Woods', 'Dustin Johnson', 'Jon Rahm', 'Kiradech Aphibarnrat', 'Rickie Fowler', 'Jason Day', 'Tony Finau', 'Patton Kizzire', 'Rory Mcllroy', 'Charley Hoffman', 'Tommy Fleetwood', 'Phil Mickelson', 'Matt Kuchar'],
+        golferPool: ['Justin Harding', 'Tiger Woods', 'Dustin Johnson', 'Jon Rahm', 'Rickie Fowler', 'Jason Day', 'Tony Finau', 'Patton Kizzire', 'Rory Mcllroy', 'Charley Hoffman', 'Matt Kuchar', 'Adam Scott', 'Ian Poulter', 'Jordan Spieth', 'Francesco Molinari'],
         satPool: [],
         today: ''
       };
