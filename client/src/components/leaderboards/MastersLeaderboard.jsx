@@ -257,9 +257,11 @@ class MastersLeaderboard extends Component {
       }
       let todaysUserPick = 'NO SELECTION'
       let userPick = sortedPicks.filter(todaysPickFunc)
-      if (userPick[0]) {
+      if (userPick[0] && userPick[0].golfer2 !== '') {
+        todaysUserPick = userPick[0].golfer1 
+      } else if (userPick[0]) {
         todaysUserPick = userPick[0].golfer1 + ' & ' + userPick[0].golfer2 
-      } 
+      }
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
       // console.log('SORTED ARRAY: ', sortedPicks)
@@ -334,10 +336,10 @@ class MastersLeaderboard extends Component {
       }
 
     getTeeTime = () => {
-      // let date = moment().format('HH:mm a')
+      let dateToday = moment().format('YYYY-MM-DD')
       // let teeOff = date
-      let dateStr = '2019-04-11',
-        timeStr = '09:00',
+      let dateStr = dateToday,
+        timeStr = '07:30',
         date = moment(dateStr),
         time = moment(timeStr, 'HH:mm');
 
@@ -456,7 +458,8 @@ class MastersLeaderboard extends Component {
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr /> 
 
-                                    <h4 className='winsHeader'>Today's Duo</h4>
+                                    {/* <h4 className='winsHeader'>Today's Duo</h4> */}
+                                    <h4 className='winsHeader'>Final Golfer</h4>
                                       <div className="userTimer">
 
                                         {

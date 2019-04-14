@@ -456,7 +456,7 @@ class MastersBoard extends Component {
         ]
 
         let myRemainingGolferFunc = (golfers) => {
-          return golfers === remainingGolfer[0]
+          return golfers === remainingGolfer[0] 
         }
         let remainingGolferBool = satsPicks.filter(myRemainingGolferFunc)
         if (remainingGolferBool[0]) {

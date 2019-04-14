@@ -160,9 +160,10 @@ class MastersBar extends Component {
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4 className='winsTitle'>Today's Duo</h4> 
+                    {/* <h4 className='winsTitle'>Today's Duo</h4> */}
+                    <h4 className='winsTitle'>Final Golfer</h4> 
                       {
-                        this.props.todaysPicks !== ' & ' ? this.props.todaysPicks : 'No Selection'
+                        this.props.todaysPicks !== ' & ' && this.props.todaysPick2 !== undefined ? this.props.todaysPicks : this.props.todaysPick1 ? this.props.todaysPick1 : 'No Selection'
                       } <br />
                     <div className="row">
                       <div className="col-md-3">
