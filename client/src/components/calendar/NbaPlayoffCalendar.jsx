@@ -883,10 +883,10 @@ class NbaPlayoffCalendar extends Component {
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
-      // let timerEnded = false;
+      let timerEnded = false;
       let lastDate = this.state.lastDate
       let EndTimer = () => {
-          // timerEnded = true
+          timerEnded = true
           return (
             <span>Today's games have already begun.</span>
           )
@@ -994,26 +994,26 @@ class NbaPlayoffCalendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
-                  // if(moment(calEvent.date).isBefore(moment().subtract(1, 'day'))) {
-                  //     // console.log('YOU CANT PICK THAT DATE')
-                  //     // $('#calendar').fullCalendar('unselect');
-                  //     this.handleChangeTeams(calEvent)
-                  //     this.handleChangeStatus(calEvent)
-                  //     this.toggleExpiredPick()
-                  //     return false;
-                  //   } 
-                  //   else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
-                  //     this.handleChangeTeams(calEvent)
-                  //     this.handleChangeStatus(calEvent)
-                  //     this.toggleExpiredPick()
-                  //   }
-                  //   else 
-                  //   {
+                  if(moment(calEvent.date).isBefore(moment().subtract(1, 'day'))) {
+                      // console.log('YOU CANT PICK THAT DATE')
+                      // $('#calendar').fullCalendar('unselect');
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      this.toggleExpiredPick()
+                      return false;
+                    } 
+                    else if (timerEnded && (moment(calEvent.date).isBefore(moment()))) {
+                      this.handleChangeTeams(calEvent)
+                      this.handleChangeStatus(calEvent)
+                      this.toggleExpiredPick()
+                    }
+                    else 
+                    {
                       this.handleChangeTeams(calEvent)
                       this.handleChangeStatus(calEvent)
                       // console.log(calEvent)
                       this.toggle()
-                    // }
+                    }
                       //this.handleChangeTitle(calEvent)
                     }
                   }
