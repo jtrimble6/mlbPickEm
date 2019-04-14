@@ -71,3 +71,8 @@
 .og {
     margin: 5% !important;
 }
+
+.important {
+    color: gold;
+    font-weight: bolder;
+}

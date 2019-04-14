@@ -1099,8 +1099,10 @@ class MastersBoard extends Component {
       let currentTime = moment().tz('America/New_York').format()
       let friTimer = moment().tz('America/New_York').format('2019-04-12T09:00:00Z')
       let satTimer = moment().tz('America/New_York').format('2019-04-13T09:00:00Z')
+      let sunTimer = moment().tz('America/New_York').format('2019-04-14T07:30:00Z')
       let enableSatPicks = (moment(currentTime).isAfter(friTimer))
       let enableSunPicks = (moment(currentTime).isAfter(satTimer))
+      let enableResults = (moment(currentTime).isAfter(sunTimer))
       // console.log('FRI TIMER: ', friTimer)
       // console.log('CURRENT TIME: ', currentTime)
       // console.log('TIME TO PICK FOR SATURDAY? ', enableSatPicks)
@@ -1114,7 +1116,8 @@ class MastersBoard extends Component {
         
         return (
             <div className='col-12 mastersDayBoard'>
-            PICKS ARE DUE DAILY BY 9AM EST
+            PICKS ARE DUE DAILY BY 9AM EST <br />
+            <small className='important'>** SUNDAY PICKS ARE DUE BY 7:30AM EST **</small>
                   {/* <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown> */}
@@ -1761,7 +1764,7 @@ class MastersBoard extends Component {
                                       Submit My Golfers
                                     </button>
 
-                                    : this.state.golfersPickedSun && enableSunPicks ? 
+                                    : this.state.golfersPickedSun && enableSunPicks && !enableResults ? 
 
                                     <button 
                                       type='warning'

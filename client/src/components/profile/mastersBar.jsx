@@ -198,7 +198,7 @@ class MastersBar extends Component {
                             <td>{mastersDate.name}</td>
                             <td>
                               {
-                                mastersDate.golfer2 !== '' || undefined ? mastersDate.golfer1 + ' & ' + mastersDate.golfer2 : mastersDate.golfer1 !== '' ? mastersDate.golfer1 : ''
+                                mastersDate.golfer2 !== '' && mastersDate.golfer2 !== undefined ? mastersDate.golfer1 + ' & ' + mastersDate.golfer2 : mastersDate.golfer1 !== '' ? mastersDate.golfer1 : ''
                               }
                             </td>
                             <td>

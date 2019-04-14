@@ -175,7 +175,7 @@ class MastersLeaderboard extends Component {
       let currentTime = moment().tz('America/New_York').format()
       let friTimer = moment().tz('America/New_York').format('2019-04-12T09:00:00Z')
       let satTimer = moment().tz('America/New_York').format('2019-04-13T09:00:00Z')
-      let sunTimer = moment().tz('America/New_York').format('2019-04-14T09:00:00Z')
+      let sunTimer = moment().tz('America/New_York').format('2019-04-14T07:30:00Z')
       let enableSatPicks = (moment(currentTime).isAfter(friTimer))
       let enableSunPicks = (moment(currentTime).isAfter(satTimer))
       let enableResults = (moment(currentTime).isAfter(sunTimer))

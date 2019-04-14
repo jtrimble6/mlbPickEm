@@ -212,8 +212,8 @@ class Leaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      console.log('SORTED ARRAY: ', sortedPicks)
-      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      // console.log('SORTED ARRAY: ', sortedPicks)
+      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
           todaysPick: todaysUserPick,
@@ -678,17 +678,6 @@ class Leaderboard extends Component {
                                           </div>
                                         }
 
-
-
-                                        {/* <Countdown 
-                                          date={Date.now() + this.state.timeDiff}
-                                          zeroPadTime={2} 
-                                          daysInHours={true} 
-                                          renderer={this.timerRender}
-                                          className='userTimer'
-                                        >
-                                          <EndTimer />
-                                        </Countdown> */}
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
