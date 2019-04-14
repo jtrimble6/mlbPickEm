@@ -25,7 +25,8 @@ class NbaPlayoffLeaderboard extends Component {
           modal: false,
           activeUser: {},
           activeUserUsername: '',
-          activeUserWins: [],
+          activeUserLosses: [],
+          activeUserLossesCount: 0,
           activeUserPicks: [],
           activeUserPrevPicks: [],
           prevPicks: [],
@@ -424,7 +425,8 @@ class NbaPlayoffLeaderboard extends Component {
         this.setState({
           activeUser: thisPlayer[0],
           activeUserUsername: thisPlayer[0].username,
-          activeUserWins: thisPlayer[0].wins,
+          activeUserLosses: thisPlayer[0].wins,
+          activeUserLossesCount: thisPlayer[0].wins.length,
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
@@ -498,7 +500,7 @@ class NbaPlayoffLeaderboard extends Component {
 
     render() {
       let uuidv4 = require('uuid/v4')
-      let record = (this.state.activeUserPrevPicks.length - this.state.activeUserWins.length)
+      let record = (this.state.activeUserPrevPicks.length + ' - ' + this.state.activeUserLossesCount)
       let leaderStyle = {
           overflow: 'scroll'
       }
@@ -601,10 +603,10 @@ class NbaPlayoffLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserWins.length}
+                                        <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserLossesCount}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {this.state.activeUserPrevPicks.length}
+                                        <h4 className='winsHeader'>Record</h4> {record}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
