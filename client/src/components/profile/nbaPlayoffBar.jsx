@@ -374,8 +374,8 @@ class NbaPlayoffBar extends Component {
       this.setState({
         currentUser: thisUser[0],
         userId: thisUser[0].username,
-        userLosses: thisUser[0].wins,
-        lossesCount: thisUser[0].wins.length,
+        userLosses: thisUser[0].points,
+        lossesCount: thisUser[0].points,
         userPicks: thisUser[0].picks,
       })
       // this.changeLogo()
@@ -555,7 +555,7 @@ class NbaPlayoffBar extends Component {
                         <h4 className='winsHeader'>Losses</h4> {this.props.lossesCount}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Record</h4> {this.state.oldPicks.length} - {this.props.lossesCount}
+                        <h4 className='winsHeader'>Record</h4> {this.props.winsLength} - {this.props.lossesCount}
                       </div>  
                       { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.lossesCount}

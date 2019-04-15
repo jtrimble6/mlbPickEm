@@ -25,6 +25,7 @@ class NbaPlayoffActionPage extends Component {
       lastName: '',
       losses: [],
       lossesCount: 0,
+      winsLength: 0,
       myPicks: [],
       todaysPick: 'No Pick'
     }
@@ -78,9 +79,10 @@ class NbaPlayoffActionPage extends Component {
           username: thisUser[0].username,
           firstName: thisUser[0].firstName,
           lastName: thisUser[0].lastName,
-          losses: thisUser[0].wins,
-          lossesCount: thisUser[0].wins.length,
-          myPicks: thisUser[0].picks,
+          losses: thisUser[0].points,
+          lossesCount: thisUser[0].points,
+          winsLength: thisUser[0].wins.length,
+          myPicks: thisUser[0].picks
         })
 
         this.getTodaysPick()
@@ -113,6 +115,7 @@ class NbaPlayoffActionPage extends Component {
               <NbaPlayoffBar
                   username={this.state.username}
                   lossesCount={this.state.lossesCount}
+                  winsLength={this.state.winsLength}
                   todaysPick={this.state.todaysPick}
                 /> 
               

@@ -132,8 +132,8 @@ class NbaPlayoffLeaderboard extends Component {
         username: thisUser[0].username,
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
-        losses: thisUser[0].wins,
-        lossesCount: thisUser[0].wins.length,
+        losses: thisUser[0].points,
+        lossesCount: thisUser[0].points,
         myPicks: thisUser[0].picks,
       })
 
@@ -154,7 +154,7 @@ class NbaPlayoffLeaderboard extends Component {
         let users = this.state.challengeData.users
         // console.log('Create leaderboard with this data: ', users)
         let placedUsers = users.map(function(el, i) {
-            return { index: i, value: el.wins.length }
+            return { index: i, value: el.points }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
@@ -427,8 +427,8 @@ class NbaPlayoffLeaderboard extends Component {
         this.setState({
           activeUser: thisPlayer[0],
           activeUserUsername: thisPlayer[0].username,
-          activeUserLosses: thisPlayer[0].wins,
-          activeUserLossesCount: thisPlayer[0].wins.length,
+          activeUserLosses: thisPlayer[0].points,
+          activeUserLossesCount: thisPlayer[0].points,
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
@@ -568,7 +568,7 @@ class NbaPlayoffLeaderboard extends Component {
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                       <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.wins.length}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.points}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
