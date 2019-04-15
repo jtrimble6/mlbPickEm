@@ -178,6 +178,7 @@ class NbaPlayoffLeaderboard extends Component {
 
       findRecentPicks = () => {
         let userPicks = this.state.activeUserPicks
+        console.log('USER USER USER PICKS: ', userPicks)
         let sortedPicks = userPicks.sort(function(a, b) {
             if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
                 return -1;
@@ -199,8 +200,9 @@ class NbaPlayoffLeaderboard extends Component {
         let userPick = sortedPicks.filter(todaysPickFunc)
         
         if (userPick[0]) {
+          console.log('GOTTA PICK', userPick)
           todaysUserPick = userPick[0].team
-        } 
+        } else (console.log('nada here brudda'))
   
         let prevPicks = sortedPicks.filter(prevPicksFunc)
         // console.log('SORTED ARRAY: ', sortedPicks)
@@ -430,10 +432,11 @@ class NbaPlayoffLeaderboard extends Component {
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
+          // this.findRecentPicks()
           this.handlePreloader()
         })
         
-        // this.findRecentPicks()
+        
         // this.changeLogo()
         // self.toggle()
         // API.getUser(player)
@@ -518,7 +521,7 @@ class NbaPlayoffLeaderboard extends Component {
       let userPicks = this.state.activeUserPrevPicks
       let username = this.state.activeUserUsername
       let timerDiff = this.state.timeDiff
-      let todaysPick = (this.state.todaysPick !== 'No Pick' ? this.state.todaysPick[0].name : 'No Pick' )
+      let todaysPick = (this.state.todaysPick !== 'No Pick' ? this.state.todaysPick : 'No Pick' )
       console.log('THIS USERS PICK TODAY: ', this.state.todaysPick)
       // let timerEnded = false;
       let EndTimer = () => {
@@ -583,7 +586,7 @@ class NbaPlayoffLeaderboard extends Component {
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
-                                    <h4>Today's Pick</h4>
+                                    <h4 className="winsHeader">Today's Pick</h4>
                                       <div className="userTimer">
 
                                         {
