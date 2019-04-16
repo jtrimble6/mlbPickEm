@@ -172,7 +172,7 @@ class NbaPlayoffLeaderboard extends Component {
         // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
 
-        // console.log('NEW LEADERBOARD: ', this.state.allUsers)
+        console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
       }
 
