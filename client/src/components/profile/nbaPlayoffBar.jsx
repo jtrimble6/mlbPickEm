@@ -552,7 +552,7 @@ class NbaPlayoffBar extends Component {
                     <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
                     <div className="row">
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Losses</h4> {this.props.lossesCount}
+                        <h4 className='winsHeader'>Strikes</h4> {this.props.lossesCount}
                       </div>
                       <div className="col-md-3">
                         <h4 className='winsHeader'>Record</h4> {this.props.winsLength} - {this.props.lossesCount}
