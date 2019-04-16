@@ -27,6 +27,7 @@ class NbaPlayoffLeaderboard extends Component {
           activeUserUsername: '',
           activeUserLosses: [],
           activeUserLossesCount: 0,
+          activeUserWinsCount: 0,
           activeUserPicks: [],
           activeUserPrevPicks: [],
           prevPicks: [],
@@ -429,6 +430,7 @@ class NbaPlayoffLeaderboard extends Component {
           activeUserUsername: thisPlayer[0].username,
           activeUserLosses: thisPlayer[0].points,
           activeUserLossesCount: thisPlayer[0].points,
+          activeUserWinsCount: thisPlayer[0].wins.length,
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
@@ -503,7 +505,7 @@ class NbaPlayoffLeaderboard extends Component {
 
     render() {
       let uuidv4 = require('uuid/v4')
-      let record = (this.state.activeUserPrevPicks.length + ' - ' + this.state.activeUserLossesCount)
+      let record = (this.state.activeUserWinsCount + ' - ' + this.state.activeUserLossesCount)
       let leaderStyle = {
           overflow: 'scroll'
       }
