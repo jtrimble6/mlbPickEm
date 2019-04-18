@@ -87,13 +87,17 @@ class Login extends Component {
                         }).catch(error => {
                             console.log('Login Error: ', error)
                             this.setState({
-                                signInError: true
+                                signInError: true,
+                                username: '',
+                                password: ''
                             })
                       })
                 } else {
                     console.log('THIS IS NOT AN ADMIN')
                     this.setState({
-                        signInError: true
+                        signInError: true,
+                        username: '',
+                        password: ''
                     })
                 }
               })
@@ -101,7 +105,9 @@ class Login extends Component {
               }
         }).catch(error => {
             this.setState({
-                signInError: true
+                signInError: true,
+                username: '',
+                password: ''
             })
             console.log('Login Error: ', error)
         })

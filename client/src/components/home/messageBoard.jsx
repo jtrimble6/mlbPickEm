@@ -127,15 +127,15 @@ class MessageBoard extends Component {
         // let uuidv4 = require('uuid/v4')
         
         return(
-            <div className="messageBoard">
-              <div className="messageList">
+            <div className="row messageBoard">
+              <div className="row messageList">
                 <MessageList
                     className='messageList'
                     dataSource={this.state.recentMessageData}
                 />
               </div>
               
-              <div className="form-group messageBox">
+              <div className="row form-group messageBox">
 
                 {/* <label htmlFor="messageType" className='messageType'>Message Type</label>
                   <select
@@ -158,7 +158,7 @@ class MessageBoard extends Component {
                     type="text"
                     className="form-control"
                     id="messageText"
-                    placeholder="Send a message to all Challengers!"
+                    placeholder=""
                 />
                                 
                 <button

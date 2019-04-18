@@ -149,7 +149,7 @@ export default {
     updateNbaPlayoffGame: function(date, id, gameResult) {
         return axios.put('/api/nbaPlayoffGames/' + date + '/' + id, gameResult)
     },
-    addNbaPlayoffLoss: function(id, user, newLoss) {
+    addNbaPlayoffWin: function(id, user, newLoss) {
         return axios.post('/api/challenges/' + id + '/users/' + user, newLoss)
     },
     saveNbaPlayoffPick: function(id, user, thisPick) {

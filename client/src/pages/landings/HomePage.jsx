@@ -129,7 +129,7 @@ class HomePage extends Component {
                 </div>
                 <div className="col-6 upcomingChallenges">
                   <h1>
-                      Upcoming Challenges
+                      Open Challenges
                   </h1>
                   <UpcomingChallenges 
                     username={this.state.username}

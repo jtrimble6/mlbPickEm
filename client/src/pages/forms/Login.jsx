@@ -32,21 +32,21 @@ class Login extends Component {
         this.setState({
             redirect: true
         })
-    }
+      }
 
     renderRedirect = () => {
         if (this.state.redirect === true) {
           return <Redirect to='/home' />
         }
         else {}
-    }
+      }
 
     handleInputChange = event => {
         const { name, value } = event.target
         this.setState({
             [name]: value
         })
-    }
+      }
 
     handleFormSubmit = event => {
         event.preventDefault()
@@ -84,9 +84,11 @@ class Login extends Component {
                     userSessionId: response.data._id
                 })
             }).catch(error => {
-                // console.log('Login Error: ', error)
+                console.log('Login Error: ', error)
                 this.setState({
-                    signInError: true
+                  signInError: true,
+                  username: '',
+                  password: '',
                 })
             })
             API.getUser(thisUser)
@@ -97,7 +99,9 @@ class Login extends Component {
               }
           }).catch(error => {
               this.setState({
-                  signInError: true
+                signInError: true,
+                username: '',
+                password: ''
               })
             //   console.log('Login Error: ', error)
           })

@@ -250,98 +250,102 @@ class UpcomingChallenges extends Component {
             <div className="upcomingChallenges">
             {this.renderRedirect()}
               {/* <div className="col-5 challengeCardMain"> */}
-                {
-                  this.props.challenges.map(challenge => (
-                      <div key={uuidv4()} className='challengeCard' data={challenge.url}>
-                          <Card>
-                            <CardBody>
-                              <CardTitle>{challenge.challengeName}</CardTitle><hr />
-                              <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
-                                Sign Up Now
-                              </CardLink><hr />
-                              <CardSubtitle className='buyIn'>
-                                  Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
-                              </CardSubtitle>
-                              <CardSubtitle className='signUpDate'>
-                                  Sign Up Opens: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
-                              </CardSubtitle>
-                              <CardSubtitle className='signUpDate'>
-                                  Challenge Begins: ({moment(challenge.startDate).add(8, 'hours').format('MM-DD')})
-                              </CardSubtitle>
-                              <CardSubtitle className='maxEntries'>
-                                  Max Entries: {
-                                      (challenge.maxEntries > 0) ? challenge.maxEntries : noMax
-                                    }
-                              </CardSubtitle>
-                              <CardSubtitle className='remainingSpots'>
-                                  Remaining Spots: {
-                                      (challenge.maxEntries > 0) ? (challenge.maxEntries - challenge.users.length) : noMax
-                                    }
-                              </CardSubtitle>
-                              </CardBody>
-                                <img width="100%" src={require('../../css/images/' + challenge.img.toLowerCase() + '')} alt={challenge.name} />
-                              <CardBody>
-                              <CardText className='challengeInfo'><em>{challenge.info}</em></CardText>
-                              {/* <CardLink href="#">Bookmark Challenge</CardLink><br /> */}
-                              <CardLink className='rulesLink' href={challenge.rulesUrl}>Checkout The Rules</CardLink><br />
-                              
-                            </CardBody>
-                          </Card>
-                          <Modal 
-                              isOpen={this.state.modal} 
-                              autoFocus={true}
-                              centered={true}
-                              size='lg'
-                              className='challengeModal'
-                          >
-                              <form onSubmit={this.handleSubmit}>
-                              <ModalHeader id='modalTitle'>
-                                  Confirm Entry
-                              </ModalHeader>
-                                  <ModalBody id='modalBody'>
-                                  <Modal className='invPick' isOpen={this.state.dupAddModal} toggle={this.toggleAllDupUser} onClosed={this.state.closeAllDupUser ? this.toggle : undefined}>
-                                    <ModalHeader>Duplicate entry</ModalHeader>
-                                      <ModalBody>You are already in this Challenge!</ModalBody>
-                                      <ModalFooter>
-                                        <Button color="secondary" onClick={this.toggleAllDupUser}>Close All</Button>
-                                      </ModalFooter>
-                                  </Modal>
-                                  <Modal className='invPick' isOpen={this.state.adminModal} toggle={this.toggleAdmin} onClosed={this.state.closeAllAdmin ? this.toggle : undefined}>
-                                    <ModalHeader>Forbidden entry</ModalHeader>
-                                      <ModalBody>You are an admin!</ModalBody>
-                                      <ModalFooter>
-                                        <Button color="secondary" onClick={this.toggleAllAdmin}>Close All</Button>
-                                      </ModalFooter>
-                                  </Modal>
-                                  <Modal className='invPick' isOpen={this.state.fullChalModal} toggle={this.toggleAllFullChal} onClosed={this.state.closeAllFullChal ? this.toggle : undefined}>
-                                    <ModalHeader>Challenge is full</ModalHeader>
-                                      <ModalBody>Sorry, this challenge is already full!</ModalBody>
-                                      <ModalFooter>
-                                        <Button color="secondary" onClick={this.toggleAllFullChal}>Close All</Button>
-                                      </ModalFooter>
-                                  </Modal>
+
+            {
+              (!this.props.challenges[0]) ? <Button className='challengeButton' color='warning'>Open Challenges Will Appear Here!</Button> :
+
+              this.props.challenges.map(challenge => (
+                <div key={uuidv4()} className='challengeCard' data={challenge.url}>
+                    <Card>
+                      <CardBody>
+                        <CardTitle>{challenge.challengeName}</CardTitle><hr />
+                        <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
+                          Sign Up Now
+                        </CardLink><hr />
+                        <CardSubtitle className='buyIn'>
+                            Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
+                        </CardSubtitle>
+                        <CardSubtitle className='signUpDate'>
+                            Sign Up Opens: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
+                        </CardSubtitle>
+                        <CardSubtitle className='signUpDate'>
+                            Challenge Begins: ({moment(challenge.startDate).add(8, 'hours').format('MM-DD')})
+                        </CardSubtitle>
+                        <CardSubtitle className='maxEntries'>
+                            Max Entries: {
+                                (challenge.maxEntries > 0) ? challenge.maxEntries : noMax
+                              }
+                        </CardSubtitle>
+                        <CardSubtitle className='remainingSpots'>
+                            Remaining Spots: {
+                                (challenge.maxEntries > 0) ? (challenge.maxEntries - challenge.users.length) : noMax
+                              }
+                        </CardSubtitle>
+                        </CardBody>
+                          <img width="100%" src={require('../../css/images/' + challenge.img.toLowerCase() + '')} alt={challenge.name} />
+                        <CardBody>
+                        <CardText className='challengeInfo'><em>{challenge.info}</em></CardText>
+                        {/* <CardLink href="#">Bookmark Challenge</CardLink><br /> */}
+                        <CardLink className='rulesLink' href={challenge.rulesUrl}>Checkout The Rules</CardLink><br />
+                        
+                      </CardBody>
+                    </Card>
+                    <Modal 
+                        isOpen={this.state.modal} 
+                        autoFocus={true}
+                        centered={true}
+                        size='lg'
+                        className='challengeModal'
+                    >
+                        <form onSubmit={this.handleSubmit}>
+                        <ModalHeader id='modalTitle'>
+                            Confirm Entry
+                        </ModalHeader>
+                            <ModalBody id='modalBody'>
+                            <Modal className='invPick' isOpen={this.state.dupAddModal} toggle={this.toggleAllDupUser} onClosed={this.state.closeAllDupUser ? this.toggle : undefined}>
+                              <ModalHeader>Duplicate entry</ModalHeader>
+                                <ModalBody>You are already in this Challenge!</ModalBody>
+                                <ModalFooter>
+                                  <Button color="secondary" onClick={this.toggleAllDupUser}>Close All</Button>
+                                </ModalFooter>
+                            </Modal>
+                            <Modal className='invPick' isOpen={this.state.adminModal} toggle={this.toggleAdmin} onClosed={this.state.closeAllAdmin ? this.toggle : undefined}>
+                              <ModalHeader>Forbidden entry</ModalHeader>
+                                <ModalBody>You are an admin!</ModalBody>
+                                <ModalFooter>
+                                  <Button color="secondary" onClick={this.toggleAllAdmin}>Close All</Button>
+                                </ModalFooter>
+                            </Modal>
+                            <Modal className='invPick' isOpen={this.state.fullChalModal} toggle={this.toggleAllFullChal} onClosed={this.state.closeAllFullChal ? this.toggle : undefined}>
+                              <ModalHeader>Challenge is full</ModalHeader>
+                                <ModalBody>Sorry, this challenge is already full!</ModalBody>
+                                <ModalFooter>
+                                  <Button color="secondary" onClick={this.toggleAllFullChal}>Close All</Button>
+                                </ModalFooter>
+                            </Modal>
 
 
-                                      <div className="thisChallenge row">
-                                          Are you sure you want to join the
-                                          <strong>{this.state.currentChallengeName}</strong> 
-                                          for 
-                                          <strong><i className="fas fa-strikethrough"></i>{this.state.currentChallengeBuyIn}</strong>
-                                          ?
-                                      </div>
-                                      {/* <div className="challengeStatus row">
-                                          Start Date: {moment(challenge.startDate).format('YYYY-MM-DD')}
-                                      </div> */}
-                                  </ModalBody>
-                                  <ModalFooter>
-                                      <input type="submit" value="Confirm Entry" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
-                                      <Button color="danger" onClick={this.toggle}>Cancel</Button>
-                                  </ModalFooter>
-                              </form>
-                              </Modal>
+                                <div className="thisChallenge row">
+                                    Are you sure you want to join the
+                                    <strong>{this.state.currentChallengeName}</strong> 
+                                    for 
+                                    <strong><i className="fas fa-strikethrough"></i>{this.state.currentChallengeBuyIn}</strong>
+                                    ?
+                                </div>
+                                {/* <div className="challengeStatus row">
+                                    Start Date: {moment(challenge.startDate).format('YYYY-MM-DD')}
+                                </div> */}
+                            </ModalBody>
+                            <ModalFooter>
+                                <input type="submit" value="Confirm Entry" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
+                                <Button color="danger" onClick={this.toggle}>Cancel</Button>
+                            </ModalFooter>
+                        </form>
+                        </Modal>
                       </div>
-                  ))
-                }
+                    ))
+
+                  }
               {/* </div> */}
             </div>
               

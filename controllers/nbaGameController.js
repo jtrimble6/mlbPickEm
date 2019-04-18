@@ -31,7 +31,7 @@ module.exports = {
     },
     findOneAndUpdate: function (req, res) {
         db.NbaGame
-          .update(
+          .updateOne(
               { gameDate: req.params.date, gameId: req.params.id }, 
               { $set: { gameResult: req.body } }
             )

@@ -3,6 +3,7 @@ import '../../css/calendar/calendar.css'
 import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
+import LoadingOverlay from 'react-loading-overlay';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -18,6 +19,7 @@ class MlbCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+          isActive: false,
           modal: false, 
           nestedModal: false, 
           nestedModalExpPick: false, 
@@ -55,6 +57,7 @@ class MlbCalendar extends Component {
           homeAlias: '', 
           awayAlias: ''
         };
+        this.handlePreloader = this.handlePreloader.bind(this);
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
@@ -89,6 +92,12 @@ class MlbCalendar extends Component {
       this.getChallengeData()
       this.getTodaysFirstGame()
       this.checkPrevDatesPicked()
+      }
+
+    handlePreloader() {
+        this.setState({
+          isActive: !this.state.isActive
+        });
       }
 
     toggle() {
@@ -221,7 +230,7 @@ class MlbCalendar extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-      // console.log('CHALLENGE USERS: ', chalUsers)
+      
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
@@ -257,15 +266,15 @@ class MlbCalendar extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
         let firstGameTime = this.state.firstGameTime
         // TODAY'S TIMER STATUS
-        console.log('FIRST GAME TIME: ', firstGameTime)
+        // console.log('FIRST GAME TIME: ', firstGameTime)
         if (firstGameTime !== '') {
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           
           let timeDiff = moment.duration(firstGameTime.diff(realTimeAdj))
-          console.log('REAL TIME EST: ', realTimeAdj)
+          // console.log('REAL TIME EST: ', realTimeAdj)
           if (timeDiff._milliseconds > 0) {
-            console.log('TIMER STILL RUNNING')
+            // console.log('TIMER STILL RUNNING')
           } else {
             // console.log('TIMER HAS ENDED NO MORE PICKS')
             this.setState({
@@ -321,7 +330,6 @@ class MlbCalendar extends Component {
         API.saveNbaPick(challengeId, myId, thisPick)
           .then(res => { 
             console.log(res)
-           
            })
           .catch(err => { console.log(err) } )  
 
@@ -332,21 +340,6 @@ class MlbCalendar extends Component {
         }
 
       }
-
-    // checkPrevPicks() {
-    //   let localUser = localStorage.getItem('user')
-    //     API.getUser(localUser)
-    //       .then(res => {
-    //         this.setState({myPicks: res.data[0].picks})
-    //         this.setState({myWins: res.data[0].wins})
-    //         // console.log('CURRENT DATA: ', res.data)
-    //         console.log('Current picks: ', this.state.myPicks)
-    //         // console.log('Current Wins: ', this.state.myWins)
-    //         this.checkPrevDatesPicked()
-    //       })
-    //       .catch(err => {console.log(err)
-    //     })
-    //   }
 
     checkPrevDatesPicked() {
         let currentPicks = this.state.myPicks
@@ -379,7 +372,7 @@ class MlbCalendar extends Component {
       }
 
     getSchedule = () => {
-      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'days').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
@@ -413,13 +406,13 @@ class MlbCalendar extends Component {
 
             // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
             // console.log('THESE GAMES: ', this.state.yesterdaysGames)
-            if(this.state.yesterdaysGames[0].gameWinner === undefined) {
+            // if(this.state.yesterdaysGames[0].gameWinner === undefined) {
                 self.getResults()
-              } else {
-                //FIND ALL USERS PICKS
-                // console.log('finding user picks')
-                self.findUserPicks()
-              }
+              // } else {
+              //   //FIND ALL USERS PICKS
+              //   // console.log('finding user picks')
+              //   self.findUserPicks()
+              // }
 
         })
           .catch(err => console.log(err))
@@ -543,52 +536,89 @@ class MlbCalendar extends Component {
       getResults = () => {
         // console.log('GETTING RESULTS')
         let self = this
-        // let yesterday = moment(this.state.yesterday).format('YYYY/MM/DD')
+        let yesterdaysGames = this.state.yesterdaysGames
         let yesterdaysGameIds = this.state.yesterdaysGameIds
-        let gameResults = []
-        // console.log('GETTING RESULTS: ', yesterdaysGameIds)
-        // console.log('YESTERDAY: ', yesterday)
+        let lastGame = yesterdaysGames.length - 1
+        let yesterdaysGameResultFunc = (games) => {
+          return games.gameWinner === undefined
+        }
+        let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
     
-        const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+        if (yesterdaysGameResultUndefined[0]) {
+          this.handlePreloader()
+          // console.log('NO FOUND RESULTS FOR YESTERDAY')
+          // console.log('ALL THE GAMES: ', yesterdaysGames)
+          // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
+          // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+  
+          let gameResults = []
+  
+          const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+  
+          yesterdaysGameIds.forEach(function(gameId, k) {
+            setTimeout ( 
+              function() {
+                $.ajax({
+                  url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + gameId + "/boxscore.json?api_key=" + mlbKey,
+                  type: 'GET',
+                  success: function(data) {
+                    // console.log('Game results: ', data.game)
+                    gameResults.push(data.game)
+                    self.setState({ gameResults: gameResults })
+                    if (gameResults.length === yesterdaysGameIds.length) {
+                      self.findGameWinners()
+                    }
+                  }
+                })
+              }, 1500*k)
+            })
+          } else {
+            // console.log('FOUND RESULTS FOR YESTERDAY')
+            // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+            return
+          }
+
+        
     
         // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
-        for (let m=0; m<yesterdaysGameIds.length; m++) {
-          let k = m
-          setTimeout ( 
-            function() {
-              $.ajax({
-                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
-                // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
-                type: 'GET',
-                success: function(data) {
-                  console.log('Game results: ', data.game)
-                  // debugger
-                  gameResults.push(data.game)
-                  self.setState({
-                    gameResults: gameResults
-                  })
-                  // console.log('GAME RESULTS: ', gameResults)
-                  self.findGameWinners()
-                }
-              })
-            }, 1500*k)
-          }
+        // // for (let m=0; m<yesterdaysGameIds.length; m++) {
+        // //   let k = m
+        // //   setTimeout ( 
+        // //     function() {
+        // //       $.ajax({
+        // //         url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
+        // //         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+        // //         type: 'GET',
+        // //         success: function(data) {
+        // //           console.log('Game results: ', data.game)
+        // //           // debugger
+        // //           gameResults.push(data.game)
+        // //           self.setState({
+        // //             gameResults: gameResults
+        // //           })
+        // //           // console.log('GAME RESULTS: ', gameResults)
+        // //           self.findGameWinners()
+        // //         }
+        // //       })
+        // //     }, 1500*k)
+        //   }
         }
 
     findGameWinners = () => {
       // FIND GAME RESULTS FROM YESTERDAY
       let gameResults = this.state.gameResults
       let winningTeams = []
-      for (let x=0; x<gameResults.length; x++) {
-        let gameId = gameResults[x].id
+
+      gameResults.forEach((gameResult) => {
+        let gameId = gameResult.id
         let gameDate = this.state.yesterday
         let homeTeam = {
-            team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
-            runs: gameResults[x].home.runs
+            team: gameResult.home.market + ' ' + gameResult.home.name ,
+            runs: gameResult.home.runs
           }
         let awayTeam = {
-            team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
-            runs: gameResults[x].away.runs
+            team: gameResult.away.market + ' ' + gameResult.away.name,
+            runs: gameResult.away.runs
           }
 
         if (homeTeam.runs > awayTeam.runs) {
@@ -596,57 +626,195 @@ class MlbCalendar extends Component {
           } else {
             winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
           }
-          this.setState({ winningTeams: winningTeams })
-        }
+        
+        })
 
-      this.postGameWinners(this.state.winningTeams)
+        this.setState({ winningTeams: winningTeams })
+        if (winningTeams.length === gameResults.length) {
+          this.postGameWinners(this.state.winningTeams)
+          }
+
+      // for (let x=0; x<gameResults.length; x++) {
+      //   let gameId = gameResults[x].id
+      //   let gameDate = this.state.yesterday
+      //   let homeTeam = {
+      //       team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
+      //       runs: gameResults[x].home.runs
+      //     }
+      //   let awayTeam = {
+      //       team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
+      //       runs: gameResults[x].away.runs
+      //     }
+
+      //   if (homeTeam.runs > awayTeam.runs) {
+      //       winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team})
+      //     } else {
+      //       winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
+      //     }
+      //     this.setState({ winningTeams: winningTeams })
+      //   }
+
+      // this.postGameWinners(this.state.winningTeams)
 
       }
 
     postGameWinners = (data) => {
-      // console.log('MAJOR DATA: ', data)
-      for (let y=0; y<data.length; y++) {
-        let gameDate = data[y].gameDate
-        let gameId = data[y].gameId
-        let gameResult = { gameResult: data[y].winningTeam }
+      let self = this
+      let gameNum = 0
+
+      let dataLen = data.length - 1
+      data.forEach((game, g) => {
+        gameNum++
+        let gameDate = game.gameDate
+        let gameId = game.gameId
+        let gameResult = { gameResult: game.winningTeam }
         API.updateMlbGame(gameDate, gameId, gameResult)
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res)
+            if (g === dataLen) {
+              // console.log('ALL DONE', g)
+              // console.log('GAME NUM: ', gameNum)
+              // console.log('DATA LEN: ', dataLen)
+              self.findUserPicks()
+              // console.log()
+              // setTimeout(function() {
+              //   self.handlePreloader()
+              //   // document.location.reload()
+              // }, 1500)
+              
+              } else {
+                // console.log('NO DICE', g)
+                // console.log('ALL DONE', g)
+                // console.log('GAME NUM: ', gameNum)
+                // console.log('DATA LEN: ', dataLen)
+              }
+          })
           .catch(err => console.log(err))
-        } 
+        })
+
+      // console.log('MAJOR DATA: ', data)
+      // for (let y=0; y<data.length; y++) {
+      //   let gameDate = data[y].gameDate
+      //   let gameId = data[y].gameId
+      //   let gameResult = { gameResult: data[y].winningTeam }
+      //   API.updateMlbGame(gameDate, gameId, gameResult)
+      //     .then(res => console.log(res))
+      //     .catch(err => console.log(err))
+      //   } 
       }
 
     findUserPicks = () => {
       let self = this
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
+      let date = moment().subtract(1, 'days').format('YYYY-MM-DD')
+
+      API.getMlbGamesByDate(date)
+        .then(res => {
+            let games = []
+            let yesterdaysGameIds = []
+            res.data.forEach((game) => {
+              let splitDate = game.gameDate.split('T')
+              let gameDate = splitDate[0]
+              let gameInfo = {
+                  id: game.gameId,
+                  date: gameDate,
+                  start: game.gameDate,
+                  status: game.gameStatus,
+                  homeTeam: game.homeTeam,
+                  awayTeam: game.awayTeam,
+                  gameWinner: game.gameResult.gameResult,
+                  title: game.homeAlias + ' vs ' + game.awayAlias,
+                  color: 'yellow',
+                  textColor: 'black',
+                  borderColor: 'blue'
+                }
+                games.push(gameInfo)
+                yesterdaysGameIds.push(gameInfo.id)
+                self.setState({ yesterdaysGames: games })
+                self.setState({ yesterdaysGameIds: yesterdaysGameIds })
+
+                if (games.length === res.data.length) {
+                  // FILTER OUT THIS USER AND SET STATE
+                  let chalFilter = (challengers) => {
+                    return challengers.username === localUser
+                  }
+                  let thisUser = chalUsers.filter(chalFilter)
+  
+                  // console.log('THIS CURRENT USER INFO: ', thisUser)
+                  // console.log('ALL USERS DATA: ', chalUsers)
+  
+                  this.setState({
+                    userWins: thisUser.wins,
+                    userPicks: thisUser.picks,
+                    userId: thisUser.username
+                  })
+                  
+                  let users = []
+                  chalUsers.forEach((chalUser) => {
+                    users.push(chalUser)
+                    let thisUserObj = {
+                      userId: chalUser.username,
+                      userPicks: chalUser.picks,
+                      userWins: chalUser.wins
+                      }
+                    // IF USER HAS MADE PICKS FIND THEIR WINS
+                    if (chalUser.picks[0]) {
+                      self.findUserWins(thisUserObj)
+                      }
+    
+                  })
+  
+                  if (users.length === chalUsers.length) {
+                    setTimeout(function() {
+                      self.handlePreloader()
+                      document.location.reload()
+                    }, 2000)
+                  }
+  
+                }
+              })
+
+            // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
+            // console.log('THESE GAMES: ', this.state.yesterdaysGames)
+            // if(this.state.yesterdaysGames[0].gameWinner === undefined) {
+                self.getResults()
+              // } else {
+              //   //FIND ALL USERS PICKS
+              //   // console.log('finding user picks')
+              //   self.findUserPicks()
+              // }
+
+        })
+          .catch(err => console.log(err))
 
       // FILTER OUT THIS USER AND SET STATE
-      let chalFilter = (challengers) => {
-        return challengers.username === localUser
-      }
-      let thisUser = chalUsers.filter(chalFilter)
+      // let chalFilter = (challengers) => {
+      //   return challengers.username === localUser
+      // }
+      // let thisUser = chalUsers.filter(chalFilter)
 
-      // console.log('THIS CURRENT USER INFO: ', thisUser)
-      // console.log('ALL USERS DATA: ', chalUsers)
+      // // console.log('THIS CURRENT USER INFO: ', thisUser)
+      // // console.log('ALL USERS DATA: ', chalUsers)
 
-      this.setState({
-        userWins: thisUser.wins,
-        userPicks: thisUser.picks,
-        userId: thisUser.username
-      })
+      // this.setState({
+      //   userWins: thisUser.wins,
+      //   userPicks: thisUser.picks,
+      //   userId: thisUser.username
+      // })
 
-      for(var u=0; u<chalUsers.length; u++) {
-        let thisUser = chalUsers[u]
-        let thisUserObj = {
-          userId: thisUser.username,
-          userPicks: thisUser.picks,
-          userWins: thisUser.wins
-          }
-        // IF USER HAS MADE PICKS FIND THEIR WINS
-        if (thisUser.picks[0]) {
-          self.findUserWins(thisUserObj)
-          }
-        }
+      // for(var u=0; u<chalUsers.length; u++) {
+      //   let thisUser = chalUsers[u]
+      //   let thisUserObj = {
+      //     userId: thisUser.username,
+      //     userPicks: thisUser.picks,
+      //     userWins: thisUser.wins
+      //     }
+      //   // IF USER HAS MADE PICKS FIND THEIR WINS
+      //   if (thisUser.picks[0]) {
+      //     self.findUserWins(thisUserObj)
+      //     }
+      //   }
 
       // FIND USER WINS
       // API.getUser(thisUser)
@@ -724,37 +892,39 @@ class MlbCalendar extends Component {
 
           // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
           let newWin = null
-          for (let s=0; s<schedule.length; s++) {
-            let winner = schedule[s].gameWinner
-            let thisPick = thisPickTeam.trim()
-            if (thisPick === winner) {
-              let result = 'win'
-              // console.log('THIS IS A WINNER: ', thisPick)
-              newWin = { win: thisPickTeam }
 
-              // CHANGE PICK RESULT IF WIN
-              let newPick = {
-                team: schedule[s].gameWinner,
-                gameDate: schedule[s].date,
-                gameId: schedule[s].id,
-                result: result
-              }
-              // console.log('NEW PICK: ', newPick)
-              this.overridePickResult(userId, yesterday, newPick) 
-              
-              // ADD NEW WINS TO USER DB
-              API.addNbaWin(this.state.challengeId, userId, newWin)
-                .then (res => {
-                  console.log(res)
-                })
-                .catch(err => console.log(err))
-            
-              }
+          let findWinFunc = (games) => {
+            return games.gameWinner === thisPickTeam.trim()
+          }
+
+          let foundWinner = schedule.filter(findWinFunc)
+
+          // console.log('FOUND WINNER? ', foundWinner)
+
+          if (foundWinner[0]) {
+            let result = 'win'
+            // console.log('THIS IS A WINNER: ', thisPick)
+            newWin = { win: thisPickTeam }
+
+            // CHANGE PICK RESULT IF WIN
+            let newPick = {
+              team: foundWinner[0].gameWinner,
+              gameDate: foundWinner[0].date,
+              gameId: foundWinner[0].id,
+              result: result
             }
-    
-            // CHANGE PICK RESULT IF LOSS
-            if (newWin === null && thisPick[0]) {
+            // console.log('NEW PICK: ', newPick)
+            API.addMlbWin(this.state.challengeId, userId, newWin)
+              .then (res => {
+                console.log(res)
+                this.overridePickResult(userId, yesterday, newPick) 
+                // debugger;
+              })
+              .catch(err => console.log(err))
+
+            } else {
               let result = 'loss'
+              // let newLoss = { loss: thisPickTeam }
               let newPick = {
                 team: thisPick[0].team,
                 gameDate: thisPick[0].gameDate,
@@ -764,10 +934,55 @@ class MlbCalendar extends Component {
               // console.log('THIS IS A LOSS: ', thisPick)
               // console.log('RESULT: ', newPick)
               this.overridePickResult(userId, yesterday, newPick) 
-              return;
+
             }
           } else { return }
         } else { return }
+
+        //   for (let s=0; s<schedule.length; s++) {
+        //     let winner = schedule[s].gameWinner
+        //     let thisPick = thisPickTeam.trim()
+        //     if (thisPick === winner) {
+        //       let result = 'win'
+        //       // console.log('THIS IS A WINNER: ', thisPick)
+        //       newWin = { win: thisPickTeam }
+
+        //       // CHANGE PICK RESULT IF WIN
+        //       let newPick = {
+        //         team: schedule[s].gameWinner,
+        //         gameDate: schedule[s].date,
+        //         gameId: schedule[s].id,
+        //         result: result
+        //       }
+        //       // console.log('NEW PICK: ', newPick)
+        //       this.overridePickResult(userId, yesterday, newPick) 
+              
+        //       // ADD NEW WINS TO USER DB
+        //       API.addNbaWin(this.state.challengeId, userId, newWin)
+        //         .then (res => {
+        //           console.log(res)
+        //         })
+        //         .catch(err => console.log(err))
+            
+        //       }
+        //     }
+    
+        //     // CHANGE PICK RESULT IF LOSS
+        //     if (newWin === null && thisPick[0]) {
+        //       let result = 'loss'
+        //       let newPick = {
+        //         team: thisPick[0].team,
+        //         gameDate: thisPick[0].gameDate,
+        //         gameId: thisPick[0].gameId,
+        //         result: result
+        //       }
+        //       // console.log('THIS IS A LOSS: ', thisPick)
+        //       // console.log('RESULT: ', newPick)
+        //       this.overridePickResult(userId, yesterday, newPick) 
+        //       return;
+        //     }
+        //   } else { return }
+        // } else { return }
 
       }
 
@@ -781,13 +996,18 @@ class MlbCalendar extends Component {
       API.deleteMlbPick(this.state.challengeId, userId, date)
         .then(res => {
             console.log(res)
-        })
-        .catch(err => {console.log(err)})
-      API.saveMlbPick(this.state.challengeId, userId, newPick)
-        .then(res => { 
-          console.log(res)
+            API.saveMlbPick(this.state.challengeId, userId, newPick)
+              .then(res => { 
+                console.log(res)
+                })
+              .catch(err => { console.log(err) } )  
           })
-        .catch(err => { console.log(err) } )  
+        .catch(err => {console.log(err)})
+      // API.saveMlbPick(this.state.challengeId, userId, newPick)
+      //   .then(res => { 
+      //     console.log(res)
+      //     })
+      //   .catch(err => { console.log(err) } )  
         
       }
 
@@ -909,6 +1129,21 @@ class MlbCalendar extends Component {
         
         return (
             <div className='calendar'>
+            <LoadingOverlay
+                active={this.state.isActive}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '150px',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Loading Results... (this should take less than 30 seconds)'
+                >
+              </LoadingOverlay>
                <Modal 
                  isOpen={this.state.modal} 
                  autoFocus={true}

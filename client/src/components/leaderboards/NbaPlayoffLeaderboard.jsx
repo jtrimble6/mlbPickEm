@@ -173,13 +173,13 @@ class NbaPlayoffLeaderboard extends Component {
         // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
 
-        console.log('NEW LEADERBOARD: ', this.state.allUsers)
+        // console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
       }
 
       findRecentPicks = () => {
         let userPicks = this.state.activeUserPicks
-        console.log('USER USER USER PICKS: ', userPicks)
+        // console.log('USER USER USER PICKS: ', userPicks)
         let sortedPicks = userPicks.sort(function(a, b) {
             if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
                 return -1;
@@ -201,14 +201,14 @@ class NbaPlayoffLeaderboard extends Component {
         let userPick = sortedPicks.filter(todaysPickFunc)
         
         if (userPick[0]) {
-          console.log('GOTTA PICK', userPick)
+          // console.log('GOTTA PICK', userPick)
           todaysUserPick = userPick[0].team
         } else (console.log('nada here brudda'))
   
         let prevPicks = sortedPicks.filter(prevPicksFunc)
         // console.log('SORTED ARRAY: ', sortedPicks)
         // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
-        console.log('TODAYS USER PICK: ', todaysUserPick)
+        // console.log('TODAYS USER PICK: ', todaysUserPick)
         this.setState({
             todaysPick: todaysUserPick,
             prevPicks: prevPicks,
@@ -474,7 +474,7 @@ class NbaPlayoffLeaderboard extends Component {
 
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
-            console.log('THERE MUST BE NO GAMES TODAY')
+            // console.log('THERE MUST BE NO GAMES TODAY')
             $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
           }
@@ -497,7 +497,7 @@ class NbaPlayoffLeaderboard extends Component {
       }
 
     createTimer = (timeDiff) => {
-      console.log('Time until first game: ', timeDiff)
+      // console.log('Time until first game: ', timeDiff)
       let seconds = moment.duration(timeDiff).asSeconds() * 1000
       //console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
@@ -524,7 +524,7 @@ class NbaPlayoffLeaderboard extends Component {
       let username = this.state.activeUserUsername
       let timerDiff = this.state.timeDiff
       let todaysPick = (this.state.todaysPick !== 'No Pick' ? this.state.todaysPick : 'No Pick' )
-      console.log('THIS USERS PICK TODAY: ', this.state.todaysPick)
+      // console.log('THIS USERS PICK TODAY: ', this.state.todaysPick) 
       // let timerEnded = false;
       let EndTimer = () => {
         // timerEnded = true

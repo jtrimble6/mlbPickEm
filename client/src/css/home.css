@@ -1,6 +1,7 @@
 #homePage {
     width: 90%;
     margin: 0 auto;
+    margin-top: 8%;
     margin-bottom: 10%;
     font-family: 'Audiowide', cursive;
     /* font-family: 'Special Elite', cursive; */
@@ -123,8 +124,9 @@
 }
 
 .messageList {
-    max-height: 300px;
-    overflow-y: scroll;
+    max-height: 100%;
+    overflow: auto;
+    text-align: center !important;
 }
 
 .messageBox {
@@ -132,9 +134,15 @@
     position: absolute;
     bottom: 0;
     color: white;
-    margin-top: 10%;
+    margin: 0 auto;
+    /* margin-top: 10%; */
     padding-top: 5%;
     border-top: solid 3px gold;
+    text-align: center !important;
+}
+
+.messageBox label {
+    margin: 0 auto !important;
 }
 
 #messageType {

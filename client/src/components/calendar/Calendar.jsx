@@ -194,13 +194,9 @@ class Calendar extends Component {
         activeDate: event.date, 
         gameId: gameId 
       });
-      // console.log('Status: ', this.state.status)
-      // console.log('Start Time: ', this.state.time)
-      // console.log('Game ID: ', this.state.gameId)
       }
 
     getChallengeData = () => {
-      // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
       let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
@@ -208,7 +204,6 @@ class Calendar extends Component {
       })
       API.getChallenge(challengeId)
         .then(res => {
-          // console.log(res)
           self.setState({
             challengeData: res.data[0]
           })
@@ -262,7 +257,7 @@ class Calendar extends Component {
         let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
         // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
         if (timeDiff._milliseconds > 0) {
-          console.log('TIMER STILL RUNNING')
+          // console.log('TIMER STILL RUNNING')
         } else {
           // console.log('TIMER HAS ENDED NO MORE PICKS')
           this.setState({
@@ -296,7 +291,7 @@ class Calendar extends Component {
               if (pickHasWon !== undefined) {
                 toggle = false
                 self.toggleInvalidPick()
-                console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
+                // console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
                 } 
               }

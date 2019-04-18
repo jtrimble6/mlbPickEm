@@ -3,6 +3,7 @@ import '../../css/calendar/calendar.css'
 import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
+import LoadingOverlay from 'react-loading-overlay';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -19,6 +20,7 @@ class NbaPlayoffCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+          isActive: false,
           modal: false, 
           nestedModal: false, 
           nestedModalExpPick: false, 
@@ -58,6 +60,7 @@ class NbaPlayoffCalendar extends Component {
           homeAlias: '', 
           awayAlias: ''
         };
+        this.handlePreloader = this.handlePreloader.bind(this);
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
         this.handleChangeStatus = this.handleChangeStatus.bind(this);
@@ -82,7 +85,7 @@ class NbaPlayoffCalendar extends Component {
         this.getResults = this.getResults.bind(this);
         this.findGameWinners = this.findGameWinners.bind(this);
         this.findUserPicks = this.findUserPicks.bind(this);
-        this.findUserLosses = this.findUserLosses.bind(this);
+        this.findUserWins = this.findUserWins.bind(this);
         this.overridePickResult = this.overridePickResult.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
@@ -91,7 +94,14 @@ class NbaPlayoffCalendar extends Component {
     componentDidMount() {
       this.getChallengeData()
       this.getTodaysFirstGame()
+      
       // this.checkPrevDatesPicked()
+      }
+
+    handlePreloader() {
+        this.setState({
+          isActive: !this.state.isActive
+        });
       }
 
     toggle() {
@@ -207,23 +217,6 @@ class NbaPlayoffCalendar extends Component {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
 
-      // API.getNbaPlayoffGames()
-      //   .then(res => {
-      //     console.log('ALL PLAYOFF GAMES: ', res.data)
-      //     self.setState({
-      //       playoffGames: res.data
-      //     })
-      //     console.log('ALL PLAYOFF GAMES STATE: ', this.state.playoffGames)
-      //   })
-
-      // TEMP CODE FOR LOCAL TESTING
-      // let challengeId = '5c9ba1f709237528c630baa8'
-
-      // TEMP CODE FOR ADMIN TESTING
-      // let challengeId = '5c9d00af9c45e400175c56a3'
-
-      
-
       let challengeId = localStorage.getItem('userChallengeId')
       this.setState({
         challengeId: challengeId
@@ -260,19 +253,14 @@ class NbaPlayoffCalendar extends Component {
         myPicks: thisUser[0].picks,
       })
 
-      console.log('CURRENT USER: ', this.state.currentUser)
+      // console.log('CURRENT USER: ', this.state.currentUser)
       // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
       }
 
     handleSubmit(event) {
         event.preventDefault();
         let self = this
-        // let myId = this.props.username
-
-        // TEMP TEST CODE 
-        let myId = this.state.username
-
-
+        let myId = this.props.username
         let challengeId = this.state.challengeId
         let myPicks = this.state.myPicks
         // let myLosses = this.state.myLosses
@@ -284,15 +272,15 @@ class NbaPlayoffCalendar extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
         let firstGameTime = this.state.firstGameTime
         // TODAY'S TIMER STATUS
-        console.log('FIRST GAME TIME: ', firstGameTime)
+        // console.log('FIRST GAME TIME: ', firstGameTime)
         if (firstGameTime !== '') {
           let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           
           let timeDiff = moment.duration(firstGameTime.diff(realTimeAdj))
-          console.log('REAL TIME EST: ', realTimeAdj)
+          // console.log('REAL TIME EST: ', realTimeAdj)
           if (timeDiff._milliseconds > 0) {
-            console.log('TIMER STILL RUNNING')
+            // console.log('TIMER STILL RUNNING')
           } else {
             // console.log('TIMER HAS ENDED NO MORE PICKS')
             this.setState({
@@ -308,12 +296,6 @@ class NbaPlayoffCalendar extends Component {
         }
 
         
-        //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
-        // let pickAlreadyWon = (wins) => {
-        //   return wins.win.trim() === teamPick.trim()
-        //   }
-        // let thisPickWinner = myLosses.filter(pickAlreadyWon)
-
         // CHECK TO SEE IF ALREADY A WINNING TEAM OR DATE PICKED
         if(teamPick === '') {
           self.toggleNoPick()
@@ -321,21 +303,8 @@ class NbaPlayoffCalendar extends Component {
           }
         if (myPicks.length) {
           for (var j=0; j<myPicks.length; j++) {
-            // if (thisPickWinner.length) {
-            //   let pickHasWon = thisPickWinner[0]
-            //   // console.log('PICK HAS WON: ', pickHasWon)
-            //   if (pickHasWon !== undefined) {
-            //     toggle = false
-            //     self.toggleInvalidPick()
-            //     console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
-            //     return;
-            //     } 
-            //   }
             if (thisPick.gameDate === myPicks[j].gameDate) {
               let newPick = thisPick
-              // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
-              // console.log('Prev Dates Picked: ', prevDates)
-              // console.log('These dates match', pickDate, prevDates[j])
               this.overridePick(pickDate, newPick) 
               return;
               }   
@@ -343,14 +312,14 @@ class NbaPlayoffCalendar extends Component {
           }
         
         // console.log('THIS PICK DATA: ', thisPick)
+
         // SAVE PICK TO DATABASE
-        console.log('challenge id: ', challengeId)
-        console.log('myId: ', myId)
-        console.log('this pick: ', thisPick)
+        // console.log('challenge id: ', challengeId)
+        // console.log('myId: ', myId)
+        // console.log('this pick: ', thisPick)
         API.saveNbaPlayoffPick(challengeId, myId, thisPick)
           .then(res => { 
             console.log(res)
-           
            })
           .catch(err => { console.log(err) } )  
 
@@ -361,21 +330,6 @@ class NbaPlayoffCalendar extends Component {
         }
 
       }
-
-    // checkPrevPicks() {
-    //   let localUser = localStorage.getItem('user')
-    //     API.getUser(localUser)
-    //       .then(res => {
-    //         this.setState({myPicks: res.data[0].picks})
-    //         this.setState({myLosses: res.data[0].losses})
-    //         // console.log('CURRENT DATA: ', res.data)
-    //         console.log('Current picks: ', this.state.myPicks)
-    //         // console.log('Current Losses: ', this.state.myLosses)
-    //         this.checkPrevDatesPicked()
-    //       })
-    //       .catch(err => {console.log(err)
-    //     })
-    //   }
 
     checkPrevDatesPicked() {
         let currentPicks = this.state.myPicks
@@ -390,7 +344,7 @@ class NbaPlayoffCalendar extends Component {
       }
     
     overridePick(date, newPick) {
-        console.log(date)
+        // console.log(date)
         API.deleteNbaPlayoffPick(this.state.challengeId, this.props.username, date)
           .then(res => {
               console.log(res)
@@ -408,8 +362,9 @@ class NbaPlayoffCalendar extends Component {
       }
 
     getSchedule = () => {
-      let date = moment().subtract(1, 'days').format('YYYY-MM-DD')
+      let date = moment().subtract(4, 'days').format('YYYY-MM-DD')
       let self = this
+      
       self.setState({ yesterday: date })
       this.getGames()
 
@@ -442,21 +397,21 @@ class NbaPlayoffCalendar extends Component {
 
             // GET RESULTS FROM YESTERDAY IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
             // console.log('THESE GAMES: ', this.state.yesterdaysGames[0].gameWinner)
-            let gameWinner = this.state.yesterdaysGames[0].gameWinner
-            if(gameWinner === undefined || gameWinner === 'none') {
-                self.getResults()
-              } else {
-                // FIND ALL USERS PICKS
-                self.findUserPicks()
-              }
+            // if(this.state.yesterdaysGames[0].gameWinner === undefined) {
+              self.getResults()
+            // } 
+            // else {
+              //FIND ALL USERS PICKS
+              // console.log('finding user picks')
+              // self.findUserPicks()
+            // }
 
         })
           .catch(err => console.log(err))
       }
 
     getTodaysFirstGame = () => {
-      let now = moment().format()
-      let date = moment(now).format('YYYY-MM-DD')
+      let date = moment().format('YYYY-MM-DD')
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
@@ -548,71 +503,68 @@ class NbaPlayoffCalendar extends Component {
         })
           .catch(err => console.log(err))
 
-      // PULL ENTIRE SCHEDULE FROM API
-
-      // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
-      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
-
-      // API CALL TO PULL ENTIRE SEASON SCHEDULE
-      // $.ajax({
-      //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2017/PST/schedule.json?api_key=' + nbaKey3,
-      //   type: 'GET',
-      //   success: function(data) {
-      //     self.setState({ fullSchedule: data.games });
-      //     // POST ENTIRE SCHEDULE
-      //     self.postGames(data.games)
-      //     }
-      //   })
       }
     
     getResults = () => {
       let self = this
-      let yesterdaysGameIds = self.state.yesterdaysGameIds
-      let gameResults = []
-      
-      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      let yesterdaysGames = this.state.yesterdaysGames
+      let yesterdaysGameIds = this.state.yesterdaysGameIds
+      let lastGame = yesterdaysGames.length - 1
+      let yesterdaysGameResultFunc = (games) => {
+        return games.gameWinner === undefined
+      }
+      let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
 
-      // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
-      for (let m=0; m<yesterdaysGameIds.length; m++) {
-        let k = m
-        setTimeout ( 
-          function() {
-            $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
-              type: 'GET',
-              success: function(data) {
-                // console.log('Game results: ', data)
-                gameResults.push(data)
-                self.setState({ gameResults: gameResults })
-                self.findGameWinners()
-              }
-            })
-          }, 1500*k)
+      if (yesterdaysGameResultUndefined[0]) {
+        this.handlePreloader()
+        // console.log('NO FOUND RESULTS FOR YESTERDAY')
+        // console.log('ALL THE GAMES: ', yesterdaysGames)
+        // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
+        // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
 
-          self.findUserPicks()
-      
+        let gameResults = []
+
+        const nbaKey = 'pucmd9ehjna2p25aa2qzkvn3'
+
+        yesterdaysGameIds.forEach(function(gameId, k) {
+          setTimeout ( 
+            function() {
+              $.ajax({
+                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameId + '/boxscore.json?api_key=' + nbaKey,
+                type: 'GET',
+                success: function(data) {
+                  // console.log('Game results: ', data)
+                  gameResults.push(data)
+                  self.setState({ gameResults: gameResults })
+                  if (gameResults.length === yesterdaysGameIds.length) {
+                    self.findGameWinners()
+                  }
+                }
+              })
+            }, 1500*k)
+          })
+        } else {
+        // console.log('FOUND RESULTS FOR YESTERDAY')
+        // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+        return
         }
       }
 
     findGameWinners = () => {
       // FIND GAME RESULTS FROM YESTERDAY
       let gameResults = this.state.gameResults
+      // console.log('ALL THE RESULTS: ', gameResults)
       let winningTeams = []
-      for (let x=0; x<gameResults.length; x++) {
-        let gameId = gameResults[x].id
+      gameResults.forEach((gameResult) => {
+        let gameId = gameResult.id
         let gameDate = this.state.yesterday
         let homeTeam = {
-            team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
-            points: gameResults[x].home.points
+            team: gameResult.home.market + ' ' + gameResult.home.name ,
+            points: gameResult.home.points
           }
         let awayTeam = {
-            team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
-            points: gameResults[x].away.points
+            team: gameResult.away.market + ' ' + gameResult.away.name,
+            points: gameResult.away.points
           }
 
         if (homeTeam.points > awayTeam.points) {
@@ -620,94 +572,171 @@ class NbaPlayoffCalendar extends Component {
           } else {
             winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
           }
-          this.setState({ winningTeams: winningTeams })
+        
+      })
+
+      this.setState({ winningTeams: winningTeams })
+      if (winningTeams.length === gameResults.length) {
+        this.postGameWinners(this.state.winningTeams)
         }
-      console.log('WINNING TEAM: ', this.state.winningTeams)
       
-      this.postGameWinners(this.state.winningTeams)
 
       }
 
     postGameWinners = (data) => {
-      for (let y=0; y<data.length; y++) {
-        let gameDate = data[y].gameDate
-        let gameId = data[y].gameId
-        let gameResult = { gameResult: data[y].winningTeam }
+      let self = this
+      let gameNum = 0
+
+      let dataLen = data.length - 1
+      data.forEach((game, g) => {
+        gameNum++
+        let gameDate = game.gameDate
+        let gameId = game.gameId
+        let gameResult = { gameResult: game.winningTeam }
         API.updateNbaPlayoffGame(gameDate, gameId, gameResult)
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res)
+            if (g === dataLen) {
+              self.findUserPicks()
+              // console.log('ALL DONE', g)
+              // console.log('GAME NUM: ', gameNum)
+              // console.log('DATA LEN: ', dataLen)
+              // console.log()
+              // setTimeout(function() {
+              //   self.handlePreloader()
+              //   // document.location.reload()
+              // }, 1500)
+              
+              } else {
+                // console.log('NO DICE', g)
+                // console.log('ALL DONE', g)
+                // console.log('GAME NUM: ', gameNum)
+                // console.log('DATA LEN: ', dataLen)
+              }
+          })
           .catch(err => console.log(err))
-        } 
+        })
+      
       }
 
     findUserPicks = () => {
       let self = this
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
+      let date = moment().subtract(4, 'days').format('YYYY-MM-DD')
 
-      // FILTER OUT THIS USER AND SET STATE
-      let chalFilter = (challengers) => {
-        return challengers.username === localUser
-      }
-      let thisUser = chalUsers.filter(chalFilter)
+      API.getNbaPlayoffGamesByDate(date)
+        .then(res => {
+            let games = []
+            let yesterdaysGameIds = []
+            res.data.forEach((game) => {
+              let splitDate = game.gameDate.split('T')
+              let gameDate = splitDate[0]
+              let gameInfo = {
+                  id: game.gameId,
+                  date: gameDate,
+                  start: game.gameDate,
+                  status: game.gameStatus,
+                  homeTeam: game.homeTeam,
+                  awayTeam: game.awayTeam,
+                  gameWinner: game.gameResult.gameResult,
+                  title: game.homeAlias + ' vs ' + game.awayAlias,
+                  color: 'yellow',
+                  textColor: 'black',
+                  borderColor: 'blue'
+                }
+              games.push(gameInfo)
+              yesterdaysGameIds.push(gameInfo.id)
+              self.setState({ yesterdaysGames: games })
+              self.setState({ yesterdaysGameIds: yesterdaysGameIds })
+              
+              if (games.length === res.data.length) {
+                // FILTER OUT THIS USER AND SET STATE
+                let chalFilter = (challengers) => {
+                  return challengers.username === localUser
+                }
+                let thisUser = chalUsers.filter(chalFilter)
 
-      // console.log('THIS CURRENT USER INFO: ', thisUser)
-      // console.log('ALL USERS DATA: ', chalUsers)
+                // console.log('THIS CURRENT USER INFO: ', thisUser)
+                // console.log('ALL USERS DATA: ', chalUsers)
 
-      this.setState({
-        userLosses: thisUser.wins,
-        userPicks: thisUser.picks,
-        userId: thisUser.username
-      })
+                this.setState({
+                  userLosses: thisUser.wins,
+                  userPicks: thisUser.picks,
+                  userId: thisUser.username
+                })
+                
+                let users = []
+                chalUsers.forEach((chalUser) => {
+                  users.push(chalUser)
+                  let thisUserObj = {
+                    userId: chalUser.username,
+                    userPicks: chalUser.picks,
+                    userLosses: chalUser.wins
+                    }
+                  // IF USER HAS MADE PICKS FIND THEIR WINS
+                  if (chalUser.picks[0]) {
+                    self.findUserWins(thisUserObj)
+                    }
+  
+                })
 
-      for(var u=0; u<chalUsers.length; u++) {
-        let thisUser = chalUsers[u]
-        let thisUserObj = {
-          userId: thisUser.username,
-          userPicks: thisUser.picks,
-          userLosses: thisUser.wins
-          }
-        // IF USER HAS MADE PICKS FIND THEIR WINS
-        if (thisUser.picks[0]) {
-          self.findUserLosses(thisUserObj)
-          }
-        }
+                if (users.length === chalUsers.length) {
+                  setTimeout(function() {
+                    self.handlePreloader()
+                    document.location.reload()
+                  }, 2000)
+                }
 
-      // FIND USER WINS
-      // API.getUser(thisUser)
-      //   .then(res => {
-      //     self.setState({
-      //       userLosses: res.data[0].losses,
-      //       userPicks: res.data[0].picks,
-      //       userId: res.data[0].username
-      //     })
-      //   })
+              }
 
-      // FIND ALL USERS PICKS 
-      // API.getUsers()
-      //   .then(res => {
-      //     let allUsers = res.data
-      //     for(var u=0; u<allUsers.length; u++) {
-      //       let thisUser = allUsers[u]
-      //       let thisUserObj = {
-      //         userId: thisUser.username,
-      //         userPicks: thisUser.picks,
-      //         userLosses: thisUser.losses
-      //         }
-      //       // IF USER HAS MADE PICKS FIND THEIR WINS
-      //       if (thisUser.picks[0]) {
-      //         self.findUserLosses(thisUserObj)
-      //       }
+            })
+
+          // FILTER OUT THIS USER AND SET STATE
+          // // let chalFilter = (challengers) => {
+          // //   return challengers.username === localUser
+          // // }
+          // // let thisUser = chalUsers.filter(chalFilter)
+
+          // // // console.log('THIS CURRENT USER INFO: ', thisUser)
+          // // // console.log('ALL USERS DATA: ', chalUsers)
+
+          // // this.setState({
+          // //   userLosses: thisUser.wins,
+          // //   userPicks: thisUser.picks,
+          // //   userId: thisUser.username
+          // // })
+          // // let allUsers = 0
+          // // chalUsers.forEach((chalUser) => {
+          // //   allUsers++
+          // //   let thisUserObj = {
+          // //     userId: chalUser.username,
+          // //     userPicks: chalUser.picks,
+          // //     userLosses: chalUser.wins
+          // //     }
+          // //   // IF USER HAS MADE PICKS FIND THEIR WINS
+          // //   if (chalUser.picks[0]) {
+          // //     self.findUserWins(thisUserObj)
+          // //     }
             
-      //     }
-      //   })
+          // //   if (allUsers.length === chalUsers.length) {
+          // //     // debugger;
+          // //     self.handlePreloader()
+          // //   }
+            
+          //   })
+
+          })
+          .catch(err => console.log(err))
       }
 
-    findUserLosses = (userData) => {
+    findUserWins = (userData) => {
       let userId = userData.userId
       let yesterday = this.state.yesterday
       let userPicks = userData.userPicks
       let schedule = this.state.yesterdaysGames
       // let userLosses = userData.userLosses
+      // console.log('DA SCHEDULE: ', schedule)
     
       // FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
@@ -719,83 +748,55 @@ class NbaPlayoffCalendar extends Component {
       // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
       if (thisPick[0]) {
         thisPickTeam = thisPick[0].team
-        console.log('THIS PICK RESULT: ', userId, thisPickTeam, thisPick[0].result)
+        // console.log('THIS PICK RESULT: ', userId, thisPickTeam, thisPick[0].result)
 
         // ONLY CHECKING GAMES WITH 'PENDING' RESULT
         if (thisPick[0].result === 'pending') {
-          // console.log('THESE GAMES ARE STILL PENDING')
-
-        // CHECK IF THE USER HAS ALREADY WON WITH THIS TEAM
-        // let pickAlreadyWon = (wins) => {
-        //   return wins.win === thisPickTeam
-        // }
-        // let thisPickWinner = userLosses.filter(pickAlreadyWon)
-
-
-        // ADD LOSS IF USER HAS ALREADY WON WITH THIS PICK
-        // if (thisPickWinner[0]) {
-        //   // console.log(userId, 'HAS ALREADY WON WITH ', thisPickWinner[0].win)
-        //   let result = 'loss'
-        //   let newPick = {
-        //     team: thisPick[0].team,
-        //     gameDate: thisPick[0].gameDate,
-        //     gameId: thisPick[0].gameId,
-        //     result: result
-        //   }
-        //     // console.log('THIS IS A LOSS: ', thisPick)
-        //     // console.log('RESULT: ', newPick)
-        //     this.overridePickResult(userId, yesterday, newPick) 
-        //     return;
-        //   }
-
+        
           // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
           let newWin = null
-          for (let s=0; s<schedule.length; s++) {
-            console.log('SCHEDULE: ', schedule)
-            let winner = schedule[s].gameWinner.trim()
-            console.log('WINNER: ', winner)
-            let thisPick = thisPickTeam.trim()
-            console.log('PICK: ', thisPick)
-            // debugger
-            if (thisPick === winner) {
-              let result = 'win'
-              console.log('THIS IS A WINNER: ', thisPick)
-              newWin = { win: thisPickTeam }
 
-              // CHANGE PICK RESULT IF WIN
-              let newPick = {
-                team: schedule[s].gameWinner,
-                gameDate: schedule[s].date,
-                gameId: schedule[s].id,
-                result: result
-              }
-              console.log('NEW PICK: ', newPick)
-              this.overridePickResult(userId, yesterday, newPick) 
-            
-              }
-              // debugger;
+          let findWinFunc = (games) => {
+            return games.gameWinner === thisPickTeam.trim()
+          }
+
+          let foundWinner = schedule.filter(findWinFunc)
+
+          // console.log('FOUND WINNER? ', foundWinner)
+
+          if (foundWinner[0]) {
+            let result = 'win'
+            // console.log('THIS IS A WINNER: ', thisPick)
+            newWin = { win: thisPickTeam }
+
+            // CHANGE PICK RESULT IF WIN
+            let newPick = {
+              team: foundWinner[0].gameWinner,
+              gameDate: foundWinner[0].date,
+              gameId: foundWinner[0].id,
+              result: result
             }
-    
-            // CHANGE PICK RESULT IF LOSS
-            if (newWin === null) {
+            
+            API.addNbaPlayoffWin(this.state.challengeId, userId, newWin)
+              .then (res => {
+                console.log(res)
+                this.overridePickResult(userId, yesterday, newPick) 
+                // debugger;
+              })
+              .catch(err => console.log(err))
+
+            } else {
               let result = 'loss'
-              let newLoss = { loss: thisPickTeam }
+              // let newLoss = { loss: thisPickTeam }
               let newPick = {
                 team: thisPick[0].team,
                 gameDate: thisPick[0].gameDate,
                 gameId: thisPick[0].gameId,
                 result: result
               }
-              console.log('THIS IS A LOSS: ', thisPick)
-              console.log('RESULT: ', newPick)
+            
               this.overridePickResult(userId, yesterday, newPick) 
-              // ADD NEW WINS TO USER DB
-              API.addNbaPlayoffLoss(this.state.challengeId, userId, newLoss)
-                .then (res => {
-                  console.log(res)
-                })
-                .catch(err => console.log(err))
-              return;
+
             }
           } else { return }
         } else { return }
@@ -807,13 +808,18 @@ class NbaPlayoffCalendar extends Component {
       API.deleteNbaPlayoffPick(this.state.challengeId, userId, date)
         .then(res => {
             console.log(res)
+            API.saveNbaPlayoffPick(this.state.challengeId, userId, newPick)
+              .then(res => { 
+                console.log(res)
+                })
+              .catch(err => { console.log(err) } )
         })
         .catch(err => {console.log(err)})
-      API.saveNbaPlayoffPick(this.state.challengeId, userId, newPick)
-        .then(res => { 
-          console.log(res)
-          })
-        .catch(err => { console.log(err) } )  
+      // API.saveNbaPlayoffPick(this.state.challengeId, userId, newPick)
+      //   .then(res => { 
+      //     console.log(res)
+      //     })
+      //   .catch(err => { console.log(err) } )  
         
       }
 
@@ -894,6 +900,21 @@ class NbaPlayoffCalendar extends Component {
         
         return (
             <div className='calendar'>
+              <LoadingOverlay
+                active={this.state.isActive}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '150px',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... LOADING YESTERDAYS RESULTS... (this should take less than 30 seconds)'
+                >
+              </LoadingOverlay>
                <Modal 
                  isOpen={this.state.modal} 
                  autoFocus={true}
@@ -970,6 +991,7 @@ class NbaPlayoffCalendar extends Component {
                 TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown>
+                  <small id="est" className="form-text text-muted">All times shown in EST</small>
               </div>
               <div className="col-3"></div>
                 

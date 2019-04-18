@@ -284,9 +284,9 @@ class Leaderboard extends Component {
         }
 
         for (var j=0; j<allTeams.length; j++) {
-          console.log('CURRENT WINS: ', wins)
+          // console.log('CURRENT WINS: ', wins)
           let thisTeamName = allTeams[j].name
-          console.log('this team: ', thisTeam)
+          // console.log('this team: ', thisTeam)
           
           thisTeam = thisTeamName
 
@@ -299,9 +299,9 @@ class Leaderboard extends Component {
           }
 
           theseMatchingWins = wins.filter(matchingWins)
-          console.log('THIS TEAM: ', thisTeam)
+          // console.log('THIS TEAM: ', thisTeam)
           if (theseMatchingWins[0]) {
-            console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
             allTeams[j].status = 'success'
           } 
           
