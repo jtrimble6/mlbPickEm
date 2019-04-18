@@ -4,6 +4,7 @@ import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
 import LoadingOverlay from 'react-loading-overlay';
+import PickError from "../../components/alerts/PickError";
 import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -19,6 +20,7 @@ class MlbCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+          pickError: false,
           isActive: false,
           modal: false, 
           nestedModal: false, 
@@ -289,8 +291,6 @@ class MlbCalendar extends Component {
           }
         }
         
-
-        
         //FIND OUT IF USER HAS ALREADY WON WITH THIS PICK
         let pickAlreadyWon = (wins) => {
           return wins.win.trim() === teamPick.trim()
@@ -327,17 +327,23 @@ class MlbCalendar extends Component {
         
         // console.log('THIS PICK DATA: ', thisPick)
         // SAVE PICK TO DATABASE
-        API.saveNbaPick(challengeId, myId, thisPick)
+        API.saveMlbPick(challengeId, myId, thisPick)
           .then(res => { 
             console.log(res)
+            this.toggle()
+            document.location.reload()
            })
-          .catch(err => { console.log(err) } )  
+          .catch(err => { 
+            console.log(err) 
+            this.setState({
+              pickError: true
+            })
+          })  
 
-        // CLOSE MODAL IF VALID PICK
-        if (toggle) {
-          this.toggle()
-          document.location.reload()
-        }
+        // // CLOSE MODAL IF VALID PICK
+        // if (toggle) {
+          
+        // }
 
       }
 
@@ -354,21 +360,29 @@ class MlbCalendar extends Component {
       }
     
     overridePick(date, newPick) {
-        console.log(date)
-        API.deleteNbaPick(this.state.challengeId, this.props.username, date)
-          .then(res => {
-              console.log(res)
-          })
-          .catch(err => {console.log(err)})
-        API.saveNbaPick(this.state.challengeId, this.props.username, newPick)
+      console.log(date)
+      API.deleteMlbPick(this.state.challengeId, this.props.username, date)
+        .then(res => {
+        console.log(res)
+        API.saveMlbPick(this.state.challengeId, this.props.username, newPick)
           .then(res => { 
             console.log(res)
-           })
-          .catch(err => { console.log(err) } )  
-        
-          this.toggle()
-          document.location.reload()
-        
+            document.location.reload()
+            this.toggle()
+          })
+          .catch(err => { 
+            console.log(err) 
+            this.setState({
+              pickError: true
+            })
+          })  
+        })
+        .catch(err => {
+          console.log(err)
+          this.setState({
+            pickError: true
+          })
+        })
       }
 
     getSchedule = () => {
@@ -577,31 +591,6 @@ class MlbCalendar extends Component {
             // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
             return
           }
-
-        
-    
-        // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
-        // // for (let m=0; m<yesterdaysGameIds.length; m++) {
-        // //   let k = m
-        // //   setTimeout ( 
-        // //     function() {
-        // //       $.ajax({
-        // //         url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
-        // //         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
-        // //         type: 'GET',
-        // //         success: function(data) {
-        // //           console.log('Game results: ', data.game)
-        // //           // debugger
-        // //           gameResults.push(data.game)
-        // //           self.setState({
-        // //             gameResults: gameResults
-        // //           })
-        // //           // console.log('GAME RESULTS: ', gameResults)
-        // //           self.findGameWinners()
-        // //         }
-        // //       })
-        // //     }, 1500*k)
-        //   }
         }
 
     findGameWinners = () => {
@@ -1144,6 +1133,7 @@ class MlbCalendar extends Component {
                 text='PLEASE WAIT... Loading Results... (this should take less than 30 seconds)'
                 >
               </LoadingOverlay>
+              
                <Modal 
                  isOpen={this.state.modal} 
                  autoFocus={true}
@@ -1208,8 +1198,11 @@ class MlbCalendar extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
-                        <Button color="danger" onClick={this.toggle}>Cancel</Button>
+                      <PickError
+                        pickError={this.state.pickError}
+                      />
+                      <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
+                      <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </form>
                 </Modal>

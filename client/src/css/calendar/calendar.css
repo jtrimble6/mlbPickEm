@@ -35,7 +35,10 @@
     border: none !important; 
 }
 
-
+.fc-content {
+    white-space: pre-wrap !important;
+    text-align: center;
+}
 
 td.fc-event-container {
     border: none !important;
@@ -106,7 +109,7 @@ td.fc-event-container a {
 
 .fc-view-container {
     max-height: 100% !important;
-    overflow: scroll;
+    overflow: auto !important;
     border-radius: 1%;
     margin-bottom: 5px;
 }
@@ -235,6 +238,7 @@ td.fc-event-container a {
     .fc-view-container .fc-view {
         max-height: 100% !important;
         overflow: hidden !important;
+        /* overflow: auto !important; */
     } 
 
     /* .fc-event-container {
@@ -364,7 +368,7 @@ td.fc-event-container a {
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-        overflow: scroll;
+        overflow: auto !important;
     }
 
     /* .fc-event-container {
@@ -496,7 +500,7 @@ td.fc-event-container a {
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-        overflow: scroll;
+        overflow: auto !important;
     }
     
     .fc-day-header {
@@ -627,7 +631,7 @@ td.fc-event-container a {
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-        overflow: scroll;
+        overflow: auto !important;
     }
     
     .fc-day-header {
@@ -693,7 +697,7 @@ td.fc-event-container a {
 
     .fc-event, .fc-content{
         width: 90% !important;
-        word-wrap: break-word !important;
+        /* word-wrap: pre-wrap !important; */
     }
 
     .fullCalModal {
@@ -803,7 +807,7 @@ td.fc-event-container a {
     
     .fc-view-container .fc-view {
         max-height: 100% !important;
-        overflow: scroll;
+        overflow: auto !important;
 
     }
     
@@ -876,7 +880,7 @@ td.fc-event-container a {
 
     .fc-event, .fc-content{
         width: 90% !important;
-        word-wrap: break-word !important;
+        /* word-wrap: break-word !important; */
     }
 
     .fullCalModal {
@@ -898,6 +902,12 @@ td.fc-event-container a {
     .fc-time {
         box-sizing: border-box !important;
         white-space: pre-wrap !important;
+        min-width: 100% !important;
+    }
+
+    .fc-title {
+        white-space: pre-wrap !important;
+        color: gold !important;
     }
 
     .fc-day-header {

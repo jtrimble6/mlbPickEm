@@ -4,6 +4,7 @@ import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
 import LoadingOverlay from 'react-loading-overlay';
+import PickError from "../../components/alerts/PickError";
 import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -20,6 +21,7 @@ class NbaPlayoffCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+          pickError: false,
           isActive: false,
           modal: false, 
           nestedModal: false, 
@@ -311,23 +313,18 @@ class NbaPlayoffCalendar extends Component {
             }
           }
         
-        // console.log('THIS PICK DATA: ', thisPick)
-
-        // SAVE PICK TO DATABASE
-        // console.log('challenge id: ', challengeId)
-        // console.log('myId: ', myId)
-        // console.log('this pick: ', thisPick)
         API.saveNbaPlayoffPick(challengeId, myId, thisPick)
           .then(res => { 
             console.log(res)
+            this.toggle()
+            document.location.reload()
            })
-          .catch(err => { console.log(err) } )  
-
-        // CLOSE MODAL IF VALID PICK
-        if (toggle) {
-          this.toggle()
-          document.location.reload()
-        }
+          .catch(err => { 
+            console.log(err) 
+            this.setState({
+              pickError: true
+            })
+          })
 
       }
 
@@ -343,23 +340,31 @@ class NbaPlayoffCalendar extends Component {
         // console.log('Official dates picked: ', this.state.myDatesPicked)
       }
     
-    overridePick(date, newPick) {
-        // console.log(date)
+      overridePick(date, newPick) {
+        console.log(date)
         API.deleteNbaPlayoffPick(this.state.challengeId, this.props.username, date)
           .then(res => {
+          console.log(res)
+          API.saveNbaPlayoffPick(this.state.challengeId, this.props.username, newPick)
+            .then(res => { 
               console.log(res)
+              document.location.reload()
+              this.toggle()
+            })
+            .catch(err => { 
+              console.log(err) 
+              this.setState({
+                pickError: true
+              })
+            })  
           })
-          .catch(err => {console.log(err)})
-        API.saveNbaPlayoffPick(this.state.challengeId, this.props.username, newPick)
-          .then(res => { 
-            console.log(res)
-           })
-          .catch(err => { console.log(err) } )  
-        
-          this.toggle()
-          document.location.reload()
-        
-      }
+          .catch(err => {
+            console.log(err)
+            this.setState({
+              pickError: true
+            })
+          })
+        }
 
     getSchedule = () => {
       let date = moment().subtract(4, 'days').format('YYYY-MM-DD')
@@ -979,8 +984,11 @@ class NbaPlayoffCalendar extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
-                        <Button color="danger" onClick={this.toggle}>Cancel</Button>
+                      <PickError
+                        pickError={this.state.pickError}
+                      />
+                      <input type="submit" value="Submit" color="primary" className="btn btn-primary" onClick={this.handleSubmit} />
+                      <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </form>
                 </Modal>

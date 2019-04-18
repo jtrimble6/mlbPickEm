@@ -32,6 +32,9 @@
     overflow: auto !important;
     height: 500px;
 }
+.upcomingChallenges .challengeButton {
+    white-space: pre-wrap
+}
 .upcomingChallenges .card {
     border: none;
 }
@@ -125,6 +128,7 @@
 
 .messageList {
     max-height: 100%;
+    min-width: 100%;
     overflow: auto;
     text-align: center !important;
 }
@@ -150,6 +154,7 @@
 }
 
 .messageBox .submit {
+    margin: 0 auto;
     margin-top: 2%;
 }
 
@@ -178,7 +183,7 @@
         width: 100%; 
         max-height: 100% !important; 
         height: 300px;
-        overflow: scroll;
+        overflow: auto !important;
     }
     .challengeCard .card-subtitle {
         font-size: 14px;
@@ -206,7 +211,7 @@
         width: 100%; 
         max-height: 100% !important; 
         height: 200px;
-        overflow: scroll;
+        overflow: auto !important;
     }
 
     .challengeCard .card-title {
@@ -282,7 +287,7 @@
         width: 90% !important; 
         /* max-height: 100% !important;  */
         height: 200px;
-        overflow: scroll;
+        overflow: auto !important;
     }
 
     .challengeCard .card-title {
@@ -365,7 +370,7 @@
         width: 90% !important; 
         /* max-height: 100% !important;  */
         height: 200px;
-        overflow: scroll;
+        overflow: auto !important;
     }
 
     .challengeCard .card-title {
