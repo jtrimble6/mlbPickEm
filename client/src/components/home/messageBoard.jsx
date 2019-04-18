@@ -127,6 +127,7 @@ class MessageBoard extends Component {
         // let uuidv4 = require('uuid/v4')
         
         return(
+          <div className="row">
             <div className="row messageBoard">
                 <MessageList
                     className='messageList'
@@ -134,20 +135,6 @@ class MessageBoard extends Component {
                 />
               
               <div className="row form-group messageBox">
-
-                {/* <label htmlFor="messageType" className='messageType'>Message Type</label>
-                  <select
-                    name="messageType"
-                    value={this.state.messageType}
-                    onChange={this.handleInputChange}
-                    type="text"
-                    className="form-control"
-                    id="messageType"                                       
-                  >
-                    <option value='text'>Text</option>
-                    <option value='photo'>Photo</option>
-                  </select> */}
-
                 <label htmlFor="messageText">Send a Message</label>
                   <textarea 
                     value={this.state.messageText}
@@ -168,6 +155,7 @@ class MessageBoard extends Component {
                 </button>
               </div>
                 
+            </div>
             </div>
               
         )

@@ -124,6 +124,7 @@
 .messageBoard {
     max-height: 400px !important;
     text-align: center;
+    margin-bottom: 5% !important;
 }
 
 .messageList {
@@ -135,10 +136,11 @@
 
 .messageBox {
     width: 90%;
-    position: absolute;
+    position: relative;
     bottom: 0;
     color: white;
     margin: 0 auto;
+    margin-top: 10%;
     /* margin-top: 10%; */
     padding-top: 5%;
     border-top: solid 3px gold;
