@@ -367,7 +367,7 @@ class NbaPlayoffCalendar extends Component {
         }
 
     getSchedule = () => {
-      let date = moment().subtract(4, 'days').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       
       self.setState({ yesterday: date })
@@ -628,7 +628,7 @@ class NbaPlayoffCalendar extends Component {
       let self = this
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-      let date = moment().subtract(4, 'days').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
 
       API.getNbaPlayoffGamesByDate(date)
         .then(res => {
