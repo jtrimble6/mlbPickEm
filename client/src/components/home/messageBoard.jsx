@@ -128,12 +128,10 @@ class MessageBoard extends Component {
         
         return(
             <div className="row messageBoard">
-              <div className="row messageList">
                 <MessageList
                     className='messageList'
                     dataSource={this.state.recentMessageData}
                 />
-              </div>
               
               <div className="row form-group messageBox">
 
