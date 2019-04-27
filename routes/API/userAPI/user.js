@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const userController = require("../../../controllers/userController");
 const passport = require("../../../server/userPassport");
-const express = require("express");
+// const express = require("express");
 
 router.route("/")
   .post(userController.create)
@@ -41,6 +41,7 @@ router.get('/', (req, res, next) => {
 
 router.route('/:id')
   .get(userController.findById)
+  // .post(userController.addToken)
   .put(userController.addChallenge)
   
 //   .delete(userController.findOneAndDelete)

@@ -22,7 +22,7 @@ class EmailError extends Component {
         if (this.props.emailError === true) {
             return (
                 <Alert color='danger' isOpen={this.state.visible} toggle={this.onDismiss}>
-                    Please enter a valid email address!
+                    That email address was not found!
                 </Alert>
             )
         } else {

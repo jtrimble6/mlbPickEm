@@ -15,6 +15,13 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
     },
+    // addToken: function(req, res) {
+    //     db.User
+    //       .update({ username: req.params.id },
+    //         { $set: { resetPasswordToken: req.body }})
+    //       .then(dbModel => res.json(dbModel))
+    //       .catch(err => res.status(422).json(err))
+    // },
     addChallenge: function (req, res) {
         db.User
           .update({ username: req.params.id }, 

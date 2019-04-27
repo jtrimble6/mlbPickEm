@@ -7,6 +7,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "fullcalendar-reactwrapper": "^1.0.7",
     "jquery": "^3.3.1",
     "mongoose": "^5.4.0",

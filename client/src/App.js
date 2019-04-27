@@ -17,6 +17,7 @@ import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
+import PasswordReset from './pages/forms/PasswordReset'
 import Signup from './pages/forms/Signup'
 import About from './pages/abouts/AboutPage'
 import Contact from './pages/contacts/ContactPage'
@@ -145,14 +146,21 @@ class App extends Component {
             <Route exact path='/admin'
               render={() =>
                 <AdminLogin 
-                updateUser={this.updateUser}
+                  updateUser={this.updateUser}
                 />
               }
             />
             <Route exact path='/login'
               render={() =>
                 <Login 
-                updateUser={this.updateUser}
+                  updateUser={this.updateUser}
+                />
+              }
+            />
+            <Route exact path='/passwordReset'
+              render={() =>
+                <PasswordReset
+                  updateUser={this.updateUser}
                 />
               }
             />
@@ -160,19 +168,22 @@ class App extends Component {
               render={() =>
                 <AdminSignup
                   updateUser={this.updateUser}
-                />}
+                />
+              }
             />
             <Route exact path='/signup'
               render={() =>
                 <Signup
                   updateUser={this.updateUser}
-                />}
+                />
+              }
             />
             <Route exact path='/contact'
               render={() =>
                 <Contact
                   updateUser={this.updateUser}
-                />}
+                />
+              }
             />
             <Route exact path='/contactUser'
               render={() =>
@@ -188,7 +199,8 @@ class App extends Component {
               render={() =>
                 <About
                   updateUser={this.updateUser}
-                />}
+                />
+              }
             />
             <Route exact path='/aboutUser'
               render={() =>
@@ -204,7 +216,8 @@ class App extends Component {
               render={() =>
                 <Rules
                   updateUser={this.updateUser}
-                />}
+                />
+              }
             />
             <Route exact path='/mlbRules'
               render={() =>
@@ -214,7 +227,8 @@ class App extends Component {
                   <Redirect to='/login' />
                 ) : (
                   null
-                )}
+                )
+              }
             />
             <Route exact path='/nbaPlayoffRules'
               render={() =>
@@ -224,7 +238,8 @@ class App extends Component {
                   <Redirect to='/login' />
                 ) : (
                   null
-                )}
+                )
+              }
             />
             <Route exact path='/mastersRules'
               render={() =>
@@ -234,19 +249,22 @@ class App extends Component {
                   <Redirect to='/login' />
                 ) : (
                   null
-                )}
+                )
+              }
             />
             <Route exact path='/adminPage' render={() => (
               this.state.adminLoggedIn === true ? (
                 <AdminPage 
                   username={this.state.userUsername}
                 />
-              ) : this.state.adminLoggedIn === false ? (
-                <Redirect to='/login' />
-              ) : (
-                null
+                ) : this.state.adminLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )
               )
-            )} />
+            } 
+            />
             <Route exact path='/challengePage' render={() => (
               this.state.adminLoggedIn === true ? (
                 <ChallengePage 

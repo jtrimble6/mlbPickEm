@@ -52,8 +52,12 @@ export default {
     deleteUser: function(id) {
         return axios.delete('/api/users/' + id)
     },
-    
 
+    // PASSWORD RESET API CALLS
+    updatePassToken: function(username) {
+        return axios.put('/api/passwordReset/' + username)
+    },
+    
     // MESSAGE BOARD API CALLS
     saveMessageBoard: function(userData) {
         return axios.post('/api/messageBoard', userData)
