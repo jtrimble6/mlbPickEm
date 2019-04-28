@@ -26,7 +26,7 @@ class MlbActionNav extends Component {
 
     render() {                                                                  
         return (
-          <div className="div">
+          <div className="mlbNav">
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
                     <a className="navbar-brand" href="/">
@@ -76,7 +76,7 @@ class MlbActionNav extends Component {
                   <small className='disclaimer'>*DISCLAIMER: THIS SITE IS FOR ENTERTAINMENT PURPOSES ONLY*</small>
                 </footer>
             </nav>
-            <div className="row">
+            <div className="row nameRow">
               <h2 className="navbar-brand js-scroll-trigger username">{this.props.challengeName}</h2>
             </div>
             

@@ -34,8 +34,8 @@ class NbaPlayoffGamesPage extends Component {
     }
 
   componentDidMount() {
-      this.getAllGames()
-    //   this.getGames()
+      // this.getAllGames()
+      this.getGames()
     }
 
   getAllGames = () => {
@@ -117,25 +117,30 @@ class NbaPlayoffGamesPage extends Component {
       let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
       let splitDate = gameDateAdj.split('T')
       let gameDate = splitDate[0]
-      
-      let gameData = {
-        gameDate: gameDate,
-        gameTime: gameDateAdj,
-        gameStatus: data[i].status,
-        gameId: data[i].id,
-        homeTeam: data[i].home.name,
-        awayTeam: data[i].away.name,
-        homeAlias: data[i].home.alias,
-        awayAlias: data[i].away.alias,
-        gameResult: 'none'
-      }
-      console.log('GAME DATA: ', gameData)
-      // debugger;
 
-      //POST ENTIRE SCHEDULE
-      API.postNbaPlayoffGames(gameData)
-        .then(res=> console.log(res))
-        .catch(err => console.log(err))
+      if (moment(gameDate).isBefore(moment().format())) {
+        console.log('OLD GAME')
+      
+      } else {
+        let gameData = {
+          gameDate: gameDate,
+          gameTime: gameDateAdj,
+          gameStatus: data[i].status,
+          gameId: data[i].id,
+          homeTeam: data[i].home.name,
+          awayTeam: data[i].away.name,
+          homeAlias: data[i].home.alias,
+          awayAlias: data[i].away.alias,
+          gameResult: 'none'
+        }
+        console.log('GAME DATA: ', gameData)
+        // debugger;
+  
+        //POST ENTIRE SCHEDULE
+        API.postNbaPlayoffGames(gameData)
+          .then(res=> console.log(res))
+          .catch(err => console.log(err))
+        }
       }
     }
 

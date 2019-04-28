@@ -6,8 +6,10 @@ router.route("/")
   .put(passwordResetController.addToken)
 //   .get(passwordResetController.findAll)
 
-router.route('/:id')
+router.route('/:username')
   .put(passwordResetController.addToken)
+
+router.route('/:username/:token')
   .get(passwordResetController.getToken)
   
 

@@ -300,5 +300,11 @@
       font-size: 6px;
     }
   }
+
+  .navbar {
+    max-width: 100% !important;
+  }
+
+  
   
   

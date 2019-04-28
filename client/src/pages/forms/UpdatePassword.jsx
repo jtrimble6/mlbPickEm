@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
 import LoginBar from '../../components/nav/LoginBar'
-import EmailNotFound from "../../components/alerts/EmailNotFound";
-import EmailFound from "../../components/alerts/EmailFound";
+import PasswordError from "../../components/alerts/PasswordError";
+// import EmailFound from "../../components/alerts/EmailFound";
 import crypto from 'crypto'
 // import nodemailer from 'nodemailer'
 import '../../css/login.css'
@@ -13,7 +13,7 @@ import '../../css/login.css'
 require('dotenv').config();
 
 
-class PasswordReset extends Component {
+class UpdatePassword extends Component {
   constructor(props) {
       super(props) 
       this.state = {
@@ -122,15 +122,24 @@ class PasswordReset extends Component {
                 <div className="formContainer">    
                     <form className="formLogin" action="index.html">
                         
-                      <h2 className="formLoginHeading">Password Reset</h2> <br />
+                      <h2 className="formLoginHeading">Update Password</h2> <br />
                         <div className="loginWrap">
                             <input
                                 value={this.state.email.toLowerCase()}
-                                name="email"
+                                name="password"
                                 onChange={this.handleInputChange}
                                 type="text"
                                 className="form-control"
-                                placeholder="Email address"
+                                placeholder="New Password"
+                                autoFocus
+                            />
+                            <input
+                                value={this.state.email.toLowerCase()}
+                                name="passwordConf"
+                                onChange={this.handleInputChange}
+                                type="text"
+                                className="form-control"
+                                placeholder="Re-enter Password"
                                 autoFocus
                             />
                             <label className="checkbox">
@@ -138,12 +147,12 @@ class PasswordReset extends Component {
                                     <a href="/login">Back to login</a>               
                                 </span>
                             </label>
-                            <EmailNotFound
+                            <PasswordError
                                 emailError={this.state.emailError}
                             />
-                            <EmailFound
+                            {/* <EmailFound
                                 emailError={this.state.emailSuccess}
-                            />
+                            /> */}
                             <hr/>
                             <button
                                 className="btn btn-primary btn-block"
@@ -151,7 +160,7 @@ class PasswordReset extends Component {
                                 type="submit"
                                 onClick={this.handleFormSubmit}
                                 >
-                                <i className="fa fa-lock"></i> Reset Password
+                                <i className="fa fa-lock"></i> Change Password
                             </button>         
                         </div>
 
@@ -162,7 +171,7 @@ class PasswordReset extends Component {
     }
 }
 
-export default PasswordReset;
+export default UpdatePassword;
        
 
 

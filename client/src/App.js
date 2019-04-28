@@ -18,6 +18,7 @@ import MlbGamesPage from './pages/admin/MlbGamesPage'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
 import PasswordReset from './pages/forms/PasswordReset'
+import UpdatePassword from './pages/forms/UpdatePassword'
 import Signup from './pages/forms/Signup'
 import About from './pages/abouts/AboutPage'
 import Contact from './pages/contacts/ContactPage'
@@ -160,6 +161,13 @@ class App extends Component {
             <Route exact path='/passwordReset'
               render={() =>
                 <PasswordReset
+                  updateUser={this.updateUser}
+                />
+              }
+            />
+             <Route exact path='/updatePassword'
+              render={() =>
+                <UpdatePassword
                   updateUser={this.updateUser}
                 />
               }
