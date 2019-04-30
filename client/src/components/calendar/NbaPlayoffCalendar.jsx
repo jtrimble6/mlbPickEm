@@ -270,7 +270,7 @@ class NbaPlayoffCalendar extends Component {
         let pickDate = this.state.activeDate
         // let prevDates = this.state.myDatesPicked
         let gameId = this.state.gameId
-        let toggle = true
+        // let toggle = true
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
         let firstGameTime = this.state.firstGameTime
         // TODAY'S TIMER STATUS
@@ -514,7 +514,7 @@ class NbaPlayoffCalendar extends Component {
       let self = this
       let yesterdaysGames = this.state.yesterdaysGames
       let yesterdaysGameIds = this.state.yesterdaysGameIds
-      let lastGame = yesterdaysGames.length - 1
+      // let lastGame = yesterdaysGames.length - 1
       let yesterdaysGameResultFunc = (games) => {
         return games.gameWinner === undefined
       }
@@ -590,11 +590,11 @@ class NbaPlayoffCalendar extends Component {
 
     postGameWinners = (data) => {
       let self = this
-      let gameNum = 0
+      // let gameNum = 0
 
       let dataLen = data.length - 1
       data.forEach((game, g) => {
-        gameNum++
+        // gameNum++
         let gameDate = game.gameDate
         let gameId = game.gameId
         let gameResult = { gameResult: game.winningTeam }

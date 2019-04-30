@@ -114,8 +114,7 @@ class Signup extends Component {
                 passwordError: 'PASSWORDS MATCH'
             })
         }
-
-    }
+      }
 
     checkUserName = event => {
         const username = event.target.value;
@@ -124,7 +123,7 @@ class Signup extends Component {
           username: username.toLowerCase()
         });
         API.getUser(username)
-        .then(res => {
+          .then(res => {
             console.log(res)
             if (!res.data[0]) {
                 // console.log("USERNAME AVAILABLE");
@@ -138,7 +137,7 @@ class Signup extends Component {
                 })
             }
         })
-        .catch(error => {
+          .catch(error => {
             console.log(error)
         })
       }

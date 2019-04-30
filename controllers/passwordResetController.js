@@ -1,7 +1,7 @@
 const db = require('../models')
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const token = crypto.randomBytes(20).toString('hex');
+// const crypto = require('crypto');
+// const token = crypto.randomBytes(20).toString('hex');
 require('dotenv').config();
 
 
@@ -12,8 +12,8 @@ module.exports = {
         .findOneAndUpdate(
             { username: req.params.username },
             { $set: { 
-                passwordResetToken: token,
-                passwordResetExp: Date.now() + 360000, 
+                passwordResetToken: req.body.passwordResetToken,
+                passwordResetExp: req.body.passwordResetExp, 
               }}
             )
         .then((user) => {
@@ -35,7 +35,8 @@ module.exports = {
                 text:
                 'You are receiving this because you (or someone else) have requested to reset the password for your account.\n\n'
                 + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-                + `http://sporthabits.com/updatePassword/${req.body.username}/${req.body.passwordResetToken}\n\n`
+                // + `http://sporthabits.com/updatePassword/${req.body.username}/${req.body.passwordResetToken}\n\n`
+                + `http://sporthabits.com/updatePassword?username=${req.body.username}&token=${req.body.passwordResetToken}\n\n`
                 + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
               };
 
@@ -55,6 +56,14 @@ module.exports = {
             //     emailError: true,
             //     messageFromServer: '',
             // })
+        })
+        .catch(err => res.status(422).json(err))
+    },
+    updatePassword: function(req, res) {
+      db.User
+        .updateOne(
+          { username: req.params.username },
+          { $set: { password: req.body.newPassword }
         })
         .catch(err => res.status(422).json(err))
     },

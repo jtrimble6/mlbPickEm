@@ -57,6 +57,10 @@ export default {
     updatePassToken: function(username, passInfo) {
         return axios.put('/api/passwordReset/' + username, passInfo)
     },
+    updatePassword: function(username, newPassword) {
+        return axios.put('/api/updatePassword/' + username, newPassword)
+    },
+    
     
     // MESSAGE BOARD API CALLS
     saveMessageBoard: function(userData) {

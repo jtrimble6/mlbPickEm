@@ -381,13 +381,13 @@ class MastersLeaderboard extends Component {
           backgroundColor: 'gold',
           color: 'darkblue'
         }       
-        let hoverStyle
-        if (this.state.hover) {
-          hoverStyle = {
-            backgroundColor: 'gold !important',
-            color: 'darkblue !important'
-            }
-          }
+        // let hoverStyle
+        // if (this.state.hover) {
+        //   hoverStyle = {
+        //     backgroundColor: 'gold !important',
+        //     color: 'darkblue !important'
+        //     }
+        //   }
         let userPicks = this.state.activeUserPrevPicks
         let username = this.state.activeUserUsername
         let timerDiff = this.state.timeDiff

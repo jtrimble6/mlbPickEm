@@ -14,7 +14,7 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     passwordResetToken: { type: String, required: true, default: ''},
-    passwordResetExp: { type: String, required: true, default: ''},
+    passwordResetExp: { type: Date, required: true, default: ''},
     date: { type: Date, default: Date.now },
     challenges: { type: Array, default: [] },
     wins: { type: Array, default: [] }
@@ -30,6 +30,8 @@ userSchema.methods = {
 };
 
 userSchema.pre('save', function (next) {
+
+    // HASH PASSWORD WHEN NEW USER CREATED
     if (!this.password) {
         console.log('models/user.js ***NO PASSWORD PROVIDED***')
         next()
@@ -39,6 +41,41 @@ userSchema.pre('save', function (next) {
         next()
     }
 });
+
+userSchema.pre('findOneAndUpdate', function (next) {
+
+    // HASH PASSWORD IF MODIFIED
+    const password = this.getUpdate().$set.password;
+        if (!password) {
+            return next();
+        }
+        try {
+            const salt = bcrypt.genSaltSync();
+            const hash = bcrypt.hashSync(password, salt);
+            this.getUpdate().$set.password = hash;
+            next();
+        } catch (error) {
+            return next(error);
+        }
+
+});
+
+// userSchema.pre('findOneAndUpdate', function(next) {
+//     const user = this
+//     if (!user.isModified('password')) return next();
+//     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+//         if (err) return next(err);
+
+//         // hash the password using our new salt
+//         bcrypt.hash(user.password, salt, function(err, hash) {
+//             if (err) return next(err);
+
+//             // override the cleartext password with the hashed one
+//             user.password = hash;
+//             next();
+//         });
+//     });
+// })
 
 const User = mongoose.model('User', userSchema)
 

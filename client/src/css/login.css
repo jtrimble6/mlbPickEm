@@ -6,6 +6,7 @@
     color: gold;
     max-width: 60%;
     margin-left: 20%;
+    text-align: center !important;
 }
 
 .formLoginHeading {
@@ -23,4 +24,11 @@ a {
 .btnMaster {
     color: #209CEE;
     background-color: gold !important;
+}
+
+.invalidToken {
+    color: red;
+    font-weight: bolder;
+    font-size: 110%;
+    text-align: center !important;
 }

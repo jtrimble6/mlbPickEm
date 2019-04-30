@@ -5,6 +5,7 @@ import LoginBar from '../../components/nav/LoginBar'
 import EmailNotFound from "../../components/alerts/EmailNotFound";
 import EmailFound from "../../components/alerts/EmailFound";
 import crypto from 'crypto'
+import moment from 'moment-timezone'
 // import nodemailer from 'nodemailer'
 import '../../css/login.css'
 
@@ -82,10 +83,11 @@ class PasswordReset extends Component {
                   })
                 const token = crypto.randomBytes(20).toString('hex');
                 let username = emailMatch[0].username
+                let realTime = moment().tz('America/New_York').add(1, 'hour').format('YYYY-MM-DDTHH:mm:ss')
                 let passInfo = {
                     username: username,
                     passwordResetToken: token,
-                    passwordResetExp: Date.now() + 360000,
+                    passwordResetExp: realTime,
                   }
                 
                 API.updatePassToken(username, passInfo)
@@ -97,7 +99,9 @@ class PasswordReset extends Component {
                         email: '',
                         messageFromServer: '',
                       })
-                      this.renderRedirect()
+                      this.setState({
+                          redirect: true
+                      })
                     })
                   .catch(err => console.log(err))                
                 } else {

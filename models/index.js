@@ -4,7 +4,6 @@ module.exports = {
     AdminSession: require('./adminSession'),
     User: require('./user'),
     UserSession: require('./session'),
-    PasswordReset: require('./passwordReset'),
     MlbGame: require('./mlbGame'),
     MlbTeam: require('./mlbTeam'),
     NbaGame: require('./nbaGame'),

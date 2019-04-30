@@ -828,7 +828,7 @@ class MastersBoard extends Component {
       }
 
     findUserPicks = () => {
-      let self = this
+      // let self = this
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
 
