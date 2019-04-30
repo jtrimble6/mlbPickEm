@@ -73,7 +73,7 @@ class PasswordReset extends Component {
         } else {
             API.getUsers()
               .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 let currentUsers = res.data
                 let emailMatch = currentUsers.filter(findEmailFunc)
                 if(emailMatch[0]) {
