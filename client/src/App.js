@@ -165,7 +165,7 @@ class App extends Component {
                 />
               }
             />
-             <Route exact path='/updatePassword'
+             <Route path='/updatePassword'
               render={() =>
                 <UpdatePassword
                   updateUser={this.updateUser}
