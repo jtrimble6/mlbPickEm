@@ -54,9 +54,9 @@ class UpdatePassword extends Component {
         // let username = (new URL(document.location)).searchParams
         // let token = this.props.match.params.token
 
-        // console.log('PARAMS: ', params)
-        // console.log('USERNAME: ', username)
-        // console.log('TOKEN: ', token)
+        console.log('PARAMS: ', params)
+        console.log('USERNAME: ', username)
+        console.log('TOKEN: ', token)
         this.setState({
             username: username,
             token: token
@@ -76,13 +76,13 @@ class UpdatePassword extends Component {
             //   console.log('TOKEN DATE EXP: ', tokenDate)
             //   console.log('REAL TIME: ', realTime)
               if (userToken === user.passwordResetToken && moment(tokenDate).isAfter(moment(realTime))) {
-                //   console.log('VALID TOKEN')
+                  console.log('VALID TOKEN')
                   this.setState({
                     error: false,
                     loadingUser: true
                 })
               } else {
-                //   console.log('INVALID TOKEN')
+                  console.log('INVALID TOKEN')
                   this.setState({
                       error: true,
                       loadingUser: false
