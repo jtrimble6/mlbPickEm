@@ -71,11 +71,11 @@ class UpdatePassword extends Component {
               let tokenDate = moment(userTokenExp).format('YYYY-MM-DDTHH:mm:ss')
               let realTime = moment().tz('America/New_York').format('YYYY-MM-DDTHH:mm:ss')
             //   let expDate = new Date(userTokenExp*1000);
-            //   console.log('RESET TOKEN: ', userToken)
-            //   console.log('RESET TOKEN EXP: ', userTokenExp)
-            //   console.log('TOKEN DATE EXP: ', tokenDate)
-            //   console.log('REAL TIME: ', realTime)
-              if (userToken === user.passwordResetToken && moment(tokenDate).isAfter(moment(realTime))) {
+              console.log('USER TOKEN: ', userToken)
+              console.log('RESET TOKEN EXP: ', userTokenExp)
+              console.log('TOKEN DATE EXP: ', tokenDate)
+              console.log('REAL TIME: ', realTime)
+              if (token === user.passwordResetToken && moment(tokenDate).isAfter(moment(realTime))) {
                   console.log('VALID TOKEN')
                   this.setState({
                     error: false,
