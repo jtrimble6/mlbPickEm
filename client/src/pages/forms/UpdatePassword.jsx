@@ -71,6 +71,7 @@ class UpdatePassword extends Component {
               let tokenDate = moment(userTokenExp).format('YYYY-MM-DDTHH:mm:ss')
               let realTime = moment().tz('America/New_York').format('YYYY-MM-DDTHH:mm:ss')
             //   let expDate = new Date(userTokenExp*1000);
+              console.log('URL TOKEN: ', token)
               console.log('USER TOKEN: ', userToken)
               console.log('RESET TOKEN EXP: ', userTokenExp)
               console.log('TOKEN DATE EXP: ', tokenDate)
