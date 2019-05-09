@@ -244,7 +244,7 @@ class MlbCalendar extends Component {
         username: thisUser[0].username,
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
-        wins: thisUser[0].wins,
+        myWins: thisUser[0].wins,
         winsCount: thisUser[0].wins.length,
         myPicks: thisUser[0].picks,
       })
@@ -255,6 +255,8 @@ class MlbCalendar extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log('HANDLE SUBMIT')
+        
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId
@@ -296,7 +298,7 @@ class MlbCalendar extends Component {
           return wins.win.trim() === teamPick.trim()
           }
         let thisPickWinner = myWins.filter(pickAlreadyWon)
-
+        
         // CHECK TO SEE IF ALREADY A WINNING TEAM OR DATE PICKED
         if(teamPick === '') {
           self.toggleNoPick()
@@ -319,6 +321,7 @@ class MlbCalendar extends Component {
               // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
               // console.log('Prev Dates Picked: ', prevDates)
               // console.log('These dates match', pickDate, prevDates[j])
+              debugger;
               this.overridePick(pickDate, newPick) 
               return;
               }   
@@ -327,6 +330,7 @@ class MlbCalendar extends Component {
         
         // console.log('THIS PICK DATA: ', thisPick)
         // SAVE PICK TO DATABASE
+        debugger;
         API.saveMlbPick(challengeId, myId, thisPick)
           .then(res => { 
             console.log(res)

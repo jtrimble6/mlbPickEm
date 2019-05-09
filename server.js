@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const session = require('express-session');
 const messageBoardRoutes = require('./routes/API/messageBoardAPI')
 const userRoutes = require('./routes/API/userAPI')
+const userTestRoutes = require('./routes/API/userTestAPI')
 const passwordResetRoutes = require('./routes/API/passwordResetAPI')
 const updatePasswordRoutes = require('./routes/API/updatePasswordAPI')
 const sessionRoutes = require("./routes/API/sessionAPI");
@@ -30,8 +31,8 @@ const PORT = process.env.PORT || 3001;
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+// app.use(bodyParser.json({limit: '50mb'}));
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -44,7 +45,7 @@ app.use(userPassport.initialize());
 app.use(userPassport.session());
 
 // Add routes, both API and view
-app.use(messageBoardRoutes, userRoutes, passwordResetRoutes, updatePasswordRoutes, sessionRoutes, challengeRoutes, mastersRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaPlayoffGameRoutes, nbaPlayoffTeamRoutes, nbaTeamRoutes);
+app.use(messageBoardRoutes, userRoutes, userTestRoutes, passwordResetRoutes, updatePasswordRoutes, sessionRoutes, challengeRoutes, mastersRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaPlayoffGameRoutes, nbaPlayoffTeamRoutes, nbaTeamRoutes);
 
 app.use(
   session({
