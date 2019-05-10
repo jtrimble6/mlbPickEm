@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 import ReactTable from "react-table";
 import matchSorter from 'match-sorter'
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 // import moment from 'moment'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
@@ -11,12 +12,14 @@ class MlbPickEmDBPage extends Component {
     constructor(props) {
         super(props) 
         this.state = {
+          dropdownOpen: false,
           username: localStorage.getItem('user'),
           allChallenges: [],
           currentChalName: 'N/A',
           currentChalUsers: []
+
           }
-        
+          this.toggle = this.toggle.bind(this)
           this.getChallenges = this.getChallenges.bind(this)
           this.handleInputChange = this.handleInputChange.bind(this)
           this.createTable = this.createTable.bind(this)
@@ -25,7 +28,13 @@ class MlbPickEmDBPage extends Component {
     componentDidMount() {
         this.getChallenges()
       }
-    
+
+    toggle() {
+      this.setState(prevState => ({
+        dropdownOpen: !prevState.dropdownOpen
+      }));
+      }
+
     getChallenges = () => {
         let self = this
         API.getChallenges()
@@ -35,7 +44,7 @@ class MlbPickEmDBPage extends Component {
                   allChallenges: res.data
               })
           })
-    }
+      }
 
     handleInputChange = event => {
       const { name, value } = event.target
@@ -49,7 +58,7 @@ class MlbPickEmDBPage extends Component {
       //   this.createForm(value)
       // }
       
-    }
+      }
 
     createTable = (challenge) => {
       let allChallenges = this.state.allChallenges
@@ -63,7 +72,7 @@ class MlbPickEmDBPage extends Component {
         currentChalUsers: thisChal[0].users
       })
       console.log('CURRENT CHAL USERS: ', this.state.currentChalUsers)
-    }
+      }
       
     
 
@@ -79,15 +88,32 @@ class MlbPickEmDBPage extends Component {
             matchSorter(rows, filter.value, { keys: ["username"] }),
             filterAll: true
           },
-        // {
-        //   Header: 'Email',
-        //   headerClassName: 'gamesHeaders',
-        //   accessor: 'email',
-        //   Cell: props => <span className='email'>{props.value}</span>,
-        //   filterMethod: (filter, rows) =>
-        //     matchSorter(rows, filter.value, { keys: ["email"] }),
-        //     filterAll: true
-        // }
+        {
+          Header: 'Wins',
+          headerClassName: 'gamesHeaders',
+          accessor: 'wins',
+          Cell: props => 
+            <span>
+              {props.value.map(win => (
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle caret>
+                  Dropdown
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem header>Header</DropdownItem>
+                  <DropdownItem>Some Action</DropdownItem>
+                  <DropdownItem disabled>Action (disabled)</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem key={uuidv4()}>{win.win}</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              ))}
+              
+            </span>,
+          filterMethod: (filter, rows) =>
+            matchSorter(rows, filter.value, { keys: ["wins"] }),
+            filterAll: true
+        }
       
       ]
 

@@ -5,6 +5,7 @@ import SignupBar from '../../components/nav/SignupBar'
 import '../../css/signup.css'
 import ExistingAccount from "../../components/alerts/ExistingAccount";
 import PasswordError from '../../components/alerts/PasswordError';
+import SignUpError from '../../components/alerts/SignUpError';
 //import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 
@@ -25,7 +26,8 @@ class Signup extends Component {
         img: '',
         redirect: false,
         nameTaken: false,
-        passwordError: false
+        passwordError: false,
+        signUpError: false
 
       }
 
@@ -134,15 +136,17 @@ class Signup extends Component {
                 API.saveUser(userData)
                 .then(res => {
                     console.log(res)
-                    if (res.data) {
-                        console.log("Successful signup!")
-                        this.setRedirect();
-                    } else {
-                        console.log("Signup error")
-                    }
+                    console.log("Successful signup!")
+                    this.setState({
+                        signUpError: false
+                    })
+                    this.setRedirect();
                 })
                 .catch(error => {
                     console.log(error)
+                    this.setState({
+                        signUpError: true
+                    })
                 })
             } else {
                 console.log("Username taken");
@@ -154,8 +158,7 @@ class Signup extends Component {
         .catch(error => {
             console.log(error)
         })
-        }
-        
+      }
     };
 
     render() {
@@ -310,6 +313,9 @@ class Signup extends Component {
                         />
                         <PasswordError
                           passwordError={this.state.passwordError}
+                        />
+                        <SignUpError
+                          signUpError={this.state.signUpError}
                         />
                         <button
                             type="submit"

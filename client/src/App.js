@@ -15,6 +15,7 @@ import UsersPage from './pages/admin/UsersPage'
 import NbaGamesPage from './pages/admin/NbaGamesPage'
 import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
+import MlbPickEmDBPage from './pages/admin/MlbPickEmDB'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
 import PasswordReset from './pages/forms/PasswordReset'
@@ -34,6 +35,7 @@ import NbaActionPage from './pages/actions/NbaActionPage'
 import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
 import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
+
 
 
 import './App.css';
@@ -353,6 +355,17 @@ class App extends Component {
             <Route exact path='/mlbGames' render={() => (
               this.state.adminLoggedIn === true ? (
                 <MlbGamesPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/mlbPickEmDB' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <MlbPickEmDBPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (

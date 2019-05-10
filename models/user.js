@@ -13,8 +13,8 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
-    passwordResetToken: { type: String, required: true, default: ''},
-    passwordResetExp: { type: Date, required: true, default: ''},
+    passwordResetToken: { type: String, required: false, default: ''},
+    passwordResetExp: { type: Date, required: false, default: ''},
     date: { type: Date, default: Date.now },
     challenges: { type: Array, default: [] },
     wins: { type: Array, default: [] }
