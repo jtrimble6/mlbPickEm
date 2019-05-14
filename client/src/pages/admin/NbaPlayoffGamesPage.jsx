@@ -35,7 +35,7 @@ class NbaPlayoffGamesPage extends Component {
 
   componentDidMount() {
       this.getAllGames()
-      // this.getGames()
+      this.getGames()
     }
 
   getAllGames = () => {
