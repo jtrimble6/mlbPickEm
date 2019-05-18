@@ -8,7 +8,7 @@ import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import '../../css/adminPage.css'
 
-class MlbPickEmDBPage extends Component {
+class NbaPlayoffDBPage extends Component {
     constructor(props) {
         super(props) 
         this.state = {
@@ -45,14 +45,14 @@ class MlbPickEmDBPage extends Component {
     getChallenges = () => {
         let self = this
         let findSport = (sport) => {
-          return sport.sport === 'mlb'
+          return sport.sport === 'nba'
         }
         API.getChallenges()
           .then(res => {
               let challenges = res.data
               console.log('CHALLENGES: ', challenges)
               let filteredChals = challenges.filter(findSport)
-              console.log('ONLY MLB CHALLENGES: ', filteredChals)
+              console.log('ONLY NBA PLAYOFF CHALLENGES: ', filteredChals)
               self.setState({
                   allChallenges: filteredChals
               })
@@ -367,4 +367,4 @@ class MlbPickEmDBPage extends Component {
     }
 }
 
-export default MlbPickEmDBPage
+export default NbaPlayoffDBPage
