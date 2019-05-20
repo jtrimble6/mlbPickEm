@@ -31,6 +31,11 @@
     text-align: center;
     overflow: auto !important;
     height: 500px;
+    max-width: 100%;
+}
+.upcomingChallengesCol {
+    text-align: center;
+    overflow: auto;
 }
 .upcomingChallenges .challengeButton {
     white-space: pre-wrap

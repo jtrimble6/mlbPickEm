@@ -127,7 +127,7 @@ class HomePage extends Component {
                     myChallenges={this.state.myChallenges}
                   />
                 </div>
-                <div className="col-6 upcomingChallenges">
+                <div className="col-6 upcomingChallengesCol">
                   <h1>
                       Open Challenges
                   </h1>
