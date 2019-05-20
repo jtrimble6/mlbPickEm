@@ -517,7 +517,7 @@ class MlbPickEmDBPage extends Component {
                         <h3>AL East</h3>
                         <span>
                           {
-                            this.state.nlEast.map((team) => (
+                            this.state.alEast.map((team) => (
                               <Button key={uuidv4()} color={team.status}>
                                 {team.name}
                               </Button>
