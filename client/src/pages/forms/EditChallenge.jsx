@@ -94,36 +94,36 @@ class EditChallenge extends Component {
                 { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
               ],
               mlbTeams: [
-                { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
-                { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
-                { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary' },
-                { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary' },
-                { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary' },
-                { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary' },
-                { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary' },
-                { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary' },
-                { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary' },
-                { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary' },
-                { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary' },
-                { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary' },
-                { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary' },
-                { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary' },
-                { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary' },
-                { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary' },
-                { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary' },
-                { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary' },
-                { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary' },
-                { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary' },
-                { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary' },
-                { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary' },
-                { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary' },
-                { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary' },
-                { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary' },
-                { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary' },
-                { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary' },
-                { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary' },
-                { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
-                { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
+                { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary', division: 'NL West' },
+                { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary', division: 'NL East' },
+                { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary', division: 'AL East' },
+                { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary', division: 'AL East' },
+                { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary', division: 'AL Central' },
+                { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary', division: 'NL Central' },
+                { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary', division: 'NL Central' },
+                { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary', division: 'AL Central' },
+                { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary', division: 'NL West' },
+                { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary', division: 'AL Central' },
+                { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary', division: 'AL West' },
+                { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary', division: 'AL Central' },
+                { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary', division: 'AL West' },
+                { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary', division: 'NL West' },
+                { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary', division: 'NL East' },
+                { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary', division: 'NL Central' },
+                { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary', division: 'AL Central' },
+                { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary', division: 'AL East' },
+                { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary', division: 'NL East' },
+                { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary', division: 'AL West' },
+                { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary', division: 'NL East' },
+                { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary', division: 'NL Central' },
+                { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary', division: 'NL West' },
+                { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary', division: 'NL West' },
+                { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary', division: 'AL West' },
+                { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary', division: 'NL Central' },
+                { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary', division: 'AL East' },
+                { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary', division: 'AL West' },
+                { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary', division: 'AL East' },
+                { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary', division: 'NL East' }
               ]
           }
           this.getChallenges = this.getChallenges.bind(this)
@@ -136,7 +136,7 @@ class EditChallenge extends Component {
 
     componentDidMount() {
         this.getChallenges()
-        this.getAllTeams()
+        // this.getAllTeams()
         // this.getChallengeData()
       }
 

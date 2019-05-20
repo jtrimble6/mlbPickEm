@@ -5,7 +5,8 @@ const mlbTeamSchema = new Schema({
     teamName: { type: String, required: true },
     teamAlias: { type: String, required: true },
     homeGames: { type: Array, required: true },
-    awayGames: { type: Array, required: true }
+    awayGames: { type: Array, required: true },
+    division: { type: String, required: true }
 })
 
 const MlbTeam = mongoose.model('MlbTeam', mlbTeamSchema)

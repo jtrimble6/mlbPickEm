@@ -607,14 +607,16 @@ class MlbBar extends Component {
 
     postTeams = () => {
       let teams = this.state.challengeData.teams
-      // console.log('POSTING JUST THESE TEAMS: ', teams)
+      console.log('POSTING JUST THESE TEAMS: ', teams)
+      debugger;
       for (var x=0; x<teams.length; x++) {
         let teamNameCombo = teams[x].name
         let newTeam = {
           teamName: teamNameCombo,
           teamAlias: teams[x].abbr.toUpperCase(),
           homeGames: [],
-          awayGames: []
+          awayGames: [],
+          // division: teams[x].division
         }
         // debugger
         API.postMlbTeams(newTeam)
