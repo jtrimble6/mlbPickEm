@@ -269,7 +269,7 @@ class UpcomingChallenges extends Component {
                             Sign Up Opens: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
                         </CardSubtitle>
                         <CardSubtitle className='signUpDate'>
-                            Challenge Begins: ({moment(challenge.startDate).format('MM-DD')})
+                            Challenge Begins: ({moment(challenge.startDate).add(8, 'hours').format('MM-DD')})
                         </CardSubtitle>
                         <CardSubtitle className='maxEntries'>
                             Max Entries: {
