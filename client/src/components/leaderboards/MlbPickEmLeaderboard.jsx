@@ -68,6 +68,7 @@ class Leaderboard extends Component {
           thisDate: '',
           thisTeam: '',
           userPlace: {},
+          challengeStartDate: ''
         }
         this.toggle = this.toggle.bind(this);
         // this.toggleHover = this.toggleHover.bind(this);
@@ -82,6 +83,7 @@ class Leaderboard extends Component {
         this.createLeaderboard = this.createLeaderboard.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+
     }
     componentDidMount() {
       this.getChallengeData()
@@ -115,9 +117,10 @@ class Leaderboard extends Component {
       })
       API.getChallenge(challengeId)
         .then(res => {
-          // console.log(res)
+          console.log('CHALLENGE START DATE: ', res.data[0])
           self.setState({
             challengeData: res.data[0],
+            challengeStartDate: res.data[0].startDate,
             allUsers: res.data[0].users
             // teams: res.data[0].teams
           })
@@ -415,73 +418,6 @@ class Leaderboard extends Component {
   
         }
 
-    // changeLogo = () => {
-    //   this.setState({
-    //     teams: [
-    //       { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
-    //       { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
-    //       { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
-    //       { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
-    //       { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
-    //       { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
-    //       { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
-    //       { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
-    //       { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
-    //       { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
-    //       { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
-    //       { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
-    //       { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
-    //       { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
-    //       { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
-    //       { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
-    //       { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
-    //       { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
-    //       { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
-    //       { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
-    //       { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
-    //       { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
-    //       { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
-    //       { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
-    //       { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
-    //       { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
-    //       { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
-    //       { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
-    //       { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
-    //       { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
-    //     ]
-    //   })
-    //   let wins = this.state.activeUserWins
-    //   let teams = JSON.parse(JSON.stringify(this.state.teams))
-    //   // console.log('THIS USERS WINS: ', wins)
-    //   // let thisWin = (theWins) => {
-    //   //   return theWins.team === this.state.userWin
-    //   // }
-    //     for (var j=0; j<wins.length; j++) {
-    //       this.setState({
-    //         userWin: wins[j].win.trim()
-    //       })
-
-    //       //let newWin = teams.filter(thisWin)
-
-    //       // if (newWin[0]) {
-    //       //   let thisUserWin = newWin[0].team
-    //       // }
-
-    //       for (var y=0; y<teams.length; y++) {
-    //         if (teams[y].name.trim() === wins[j].win.trim()) {
-    //           teams[y].status = 'success'
-    //         }
-    //       }
-
-    //       this.setState({
-    //           teams: teams
-    //       })
-    //       // console.log('NEW TEAMS ARRAY: ', this.state.teams)
-    //     }
-    //     //debugger;
-    //     this.handlePreloader()
-    //   }
-
     handleClick = e => {
       // let self = this
       let user = e.target
@@ -509,25 +445,6 @@ class Leaderboard extends Component {
           this.getUser()
         })
         
-        // this.findRecentPicks()
-        // this.changeLogo()
-        // self.toggle()
-        // API.getUser(player)
-        //   .then(res => {
-        //     let thisUser = {
-        //       username: res.data[0].username,
-        //       wins: res.data[0].wins,
-        //       winsCount: res.data[0].wins.length,
-        //       picks: res.data[0].picks
-        //     }
-        //     console.log('THIS USER: ', thisUser)
-        //     this.setState({
-        //       activeUser: thisUser
-        //     })
-        //     self.findRecentPicks()
-        //     self.changeLogo()
-        //   })
-        //   .catch(err => console.log(err))
         } else {
           return
         }
@@ -595,7 +512,8 @@ class Leaderboard extends Component {
         let username = this.state.activeUserUsername
         let timerDiff = this.state.timeDiff
         let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
-        
+        let challengeStartDate = moment(this.state.challengeStartDate).format('MM-DD-YYYY')
+        let today = moment().format('MM-DD-YYYY')
         // let timerEnded = false;
         let EndTimer = () => {
           // timerEnded = true
@@ -623,10 +541,21 @@ class Leaderboard extends Component {
               >
             </LoadingOverlay>
               <h2>Leaderboard</h2>
+                {
+
+                  moment(challengeStartDate).isBefore(today) ? 
+
+                  <small></small>  
+
+                  :
+
+                  <small>*ALL POINTS WILL BE RESET ON {challengeStartDate}*</small>
+
+                }
               <hr />
               <table className='leaderboardData table table-hover'>
                 <thead>
-                  <tr className='leaderboardHeader'>
+                  <tr className='leaderboardHeader'>                
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
                     <th className='leaderboardHeader'>Points</th>
