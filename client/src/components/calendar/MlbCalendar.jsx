@@ -1039,7 +1039,7 @@ class MlbCalendar extends Component {
                     }
                   })
                 }}
-                text='PLEASE WAIT... Loading Results... (this should take less than 30 seconds)'
+                text='PLEASE WAIT... Loading Results... (this may take up to 30-45 seconds)'
                 >
               </LoadingOverlay>
               

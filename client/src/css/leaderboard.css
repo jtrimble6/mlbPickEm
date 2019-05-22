@@ -341,3 +341,16 @@
     margin-bottom: 3%;
 }
 
+
+.leaderboard {
+    color: gold;
+    text-align: center;
+    margin-left: 10% !important;
+    overflow: auto;
+    margin-bottom: 25px;
+    min-width: 100% !important;
+    box-sizing: content-box;
+    border: dashed 3px #209CEE;
+    border-radius: 5%;
+    padding: 5%;
+}

@@ -171,12 +171,16 @@ h2 {
   /* .profileBar {
     margin-top: 9% !important;
   } */
+  .recordRow .col-md-3 {
+    padding-right: 0px !important;
+  }
   .recentPicks {
     max-width: 80% !important;
     line-height: 1.5em;
   }
   h4.winsHeader {
     margin-top: 2%;
+    
   }
   .golfHeader {
     white-space: nowrap !important;
@@ -403,7 +407,7 @@ h2 {
   }
   h4.winsHeader {
     font-size: 8px !important;
-    width: 70%;
+    width: 75%;
   }
   h4.winsTitle {
     width: 70%;
