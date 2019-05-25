@@ -446,7 +446,7 @@ class MlbCalendar extends Component {
       this.setState({
         sortedGames: sortedGames
       })
-      console.log('THE SORTED GAMES: ', this.state.sortedGames)
+      // console.log('THE SORTED GAMES: ', this.state.sortedGames)
       //console.log('THE OLD PICKS: ', this.state.oldGames)
       
     

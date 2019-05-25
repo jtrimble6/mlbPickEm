@@ -133,13 +133,13 @@ class Leaderboard extends Component {
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
-
+      
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
       }
       let thisUser = chalUsers.filter(chalFilter)
-
+      
       this.setState({
         currentUser: thisUser[0],
         username: thisUser[0].username,
@@ -165,9 +165,18 @@ class Leaderboard extends Component {
 
     createLeaderboard = () => {
         let users = this.state.challengeData.users
+        let testFilter = (allChallengers) => {
+          return allChallengers.username !== 'test'
+        }
+        let newUsers = users.filter(testFilter)
+        
+        // console.log('NEW USERS FOR LEADERBOARD: ', newUsers)
+        // if(thisUser === 'test') {
+        //   return
+        // }
         // console.log('Create leaderboard with this data: ', users)
-        let placedUsers = users.map(function(el, i) {
-            return { index: i, value: el.wins.length }
+        let placedUsers = newUsers.map(function(el, i) {
+            return { index: i, value: el.wins.length, username: el.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
@@ -180,7 +189,7 @@ class Leaderboard extends Component {
             return 0;
         })
         let leaders = placedUsers.map(function(el) {
-            return users[el.index]
+            return newUsers[el.index]
         })
         // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
