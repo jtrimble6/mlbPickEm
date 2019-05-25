@@ -915,3 +915,15 @@ td.fc-event-container a {
     margin-top: 0;
     color: #209CEE !important;
 }
+
+.resultsButton {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    margin-left: 0;
+    
+}
+
+.allGamesModal {
+    max-height: 500px;
+    overflow: auto;
+}

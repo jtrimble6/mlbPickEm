@@ -23,6 +23,8 @@ class MlbCalendar extends Component {
           pickError: false,
           isActive: false,
           modal: false, 
+          modalYesterday: false,
+          modalAllGames: false,
           nestedModal: false, 
           nestedModalExpPick: false, 
           nestedModalNoPick: false, 
@@ -33,6 +35,7 @@ class MlbCalendar extends Component {
           challengeData: {},
           challengeStartDate: '',
           allGames: [],
+          sortedGames: [],
           yesterdaysGames: [], 
           myPicks: [], 
           myWins: [],
@@ -73,6 +76,8 @@ class MlbCalendar extends Component {
         this.toggleLatePick = this.toggleLatePick.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
         this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
+        this.toggleYesterday = this.toggleYesterday.bind(this);
+        this.toggleAllGames = this.toggleAllGames.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         // this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDatesPicked = this.checkPrevDatesPicked.bind(this);
@@ -89,6 +94,10 @@ class MlbCalendar extends Component {
         this.overridePickResult = this.overridePickResult.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.getYesterdaysResults = this.getYesterdaysResults.bind(this)
+        this.getAllGames = this.getAllGames.bind(this)
+        this.sortAllGames = this.sortAllGames.bind(this)
+        
       }
 
     componentDidMount() {
@@ -109,6 +118,22 @@ class MlbCalendar extends Component {
           modal: !this.state.modal,
         });
       }
+
+    toggleYesterday() {
+      this.getTodaysFirstGame()
+      this.getYesterdaysResults()
+      this.setState({
+        modalYesterday: !this.state.modalYesterday,
+      });
+    }
+
+    toggleAllGames() {
+      this.getTodaysFirstGame()
+      this.getAllGames()
+      this.setState({
+        modalAllGames: !this.state.modalAllGames,
+      });
+    }
 
     toggleActive() {
       let _this = this
@@ -391,6 +416,42 @@ class MlbCalendar extends Component {
         })
       }
 
+    getYesterdaysResults = () => {
+      console.log('YESTERDAYS GAME RESULTS: ', this.state.yesterdaysGames)
+    }
+
+    getAllGames = () => {
+      
+      console.log('ALL GAMES: ', this.state.allGames)
+    }
+
+    sortAllGames = () => {
+      let allGames = this.state.allGames
+      // console.log('USER PICKS: ', this.state.allGames)
+
+      // let oldGamesFunc = (picks) => {
+      //   return picks.date.isSameOrAfter(moment().format('YYYY-MM-DD')) 
+      // }
+      // let oldGames = allGames.filter(oldGamesFunc)
+      let sortedGames = allGames.sort(function(a, b) {
+        if (moment(a.start).isBefore(moment(b.start))) {
+            return -1;
+        }
+        if (moment(a.start).isAfter(moment(b.start))) {
+            return 1;
+        }
+        return 0;
+      })
+
+      this.setState({
+        sortedGames: sortedGames
+      })
+      console.log('THE SORTED GAMES: ', this.state.sortedGames)
+      //console.log('THE OLD PICKS: ', this.state.oldGames)
+      
+    
+      }
+
     getSchedule = () => {
       let date = moment().subtract(1, 'days').format('YYYY-MM-DD')
       let self = this
@@ -530,74 +591,57 @@ class MlbCalendar extends Component {
               games.push(gameInfo)
             })
             this.setState({ allGames: games })
+            this.sortAllGames()
         })
           .catch(err => console.log(err))
 
-      // PULL ENTIRE SCHEDULE FROM API
-
-      // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
-      // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
-
-      // API CALL TO PULL ENTIRE SEASON SCHEDULE
-      // $.ajax({
-      //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
-      //   type: 'GET',
-      //   success: function(data) {
-      //     self.setState({ fullSchedule: data.games });
-      //     // POST ENTIRE SCHEDULE
-      //     self.postGames(data.games)
-      //     }
-      //   })
       }
     
-      getResults = () => {
-        // console.log('GETTING RESULTS')
-        let self = this
-        let yesterdaysGames = this.state.yesterdaysGames
-        let yesterdaysGameIds = this.state.yesterdaysGameIds
-        // let lastGame = yesterdaysGames.length - 1
-        let yesterdaysGameResultFunc = (games) => {
-          return games.gameWinner === undefined
-        }
-        let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
-    
-        if (yesterdaysGameResultUndefined[0]) {
-          this.handlePreloader()
-          // console.log('NO FOUND RESULTS FOR YESTERDAY')
-          // console.log('ALL THE GAMES: ', yesterdaysGames)
-          // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
-          // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+    getResults = () => {
+      // console.log('GETTING RESULTS')
+      let self = this
+      let yesterdaysGames = this.state.yesterdaysGames
+      let yesterdaysGameIds = this.state.yesterdaysGameIds
+      // let lastGame = yesterdaysGames.length - 1
+      let yesterdaysGameResultFunc = (games) => {
+        return games.gameWinner === undefined
+      }
+      let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
   
-          let gameResults = []
-  
-          const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
-  
-          yesterdaysGameIds.forEach(function(gameId, k) {
-            setTimeout ( 
-              function() {
-                $.ajax({
-                  url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + gameId + "/boxscore.json?api_key=" + mlbKey,
-                  type: 'GET',
-                  success: function(data) {
-                    // console.log('Game results: ', data.game)
-                    gameResults.push(data.game)
-                    self.setState({ gameResults: gameResults })
-                    if (gameResults.length === yesterdaysGameIds.length) {
-                      self.findGameWinners()
-                    }
+      if (yesterdaysGameResultUndefined[0]) {
+        this.handlePreloader()
+        // console.log('NO FOUND RESULTS FOR YESTERDAY')
+        // console.log('ALL THE GAMES: ', yesterdaysGames)
+        // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
+        // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+
+        let gameResults = []
+
+        const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+
+        yesterdaysGameIds.forEach(function(gameId, k) {
+          setTimeout ( 
+            function() {
+              $.ajax({
+                url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + gameId + "/boxscore.json?api_key=" + mlbKey,
+                type: 'GET',
+                success: function(data) {
+                  // console.log('Game results: ', data.game)
+                  gameResults.push(data.game)
+                  self.setState({ gameResults: gameResults })
+                  if (gameResults.length === yesterdaysGameIds.length) {
+                    self.findGameWinners()
                   }
-                })
-              }, 1500*k)
-            })
-          } else {
-            // console.log('FOUND RESULTS FOR YESTERDAY')
-            // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
-            return
-          }
+                }
+              })
+            }, 1500*k)
+          })
+        } else {
+          // console.log('FOUND RESULTS FOR YESTERDAY')
+          // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+          return
         }
+      }
 
     findGameWinners = () => {
       // FIND GAME RESULTS FROM YESTERDAY
@@ -1015,9 +1059,15 @@ class MlbCalendar extends Component {
 
     render() {
       library.add(faIgloo, faCaretRight, faBasketballBall)
+      let uuidv4 = require('uuid/v4')
       let timerEnded = false;
       let today = moment().format('MM-DD-YYYY')
+      let yesterday = moment().subtract(1, 'day').format('MM-DD-YYYY')
       let challengeStartDate = moment(this.state.challengeStartDate).format('MM-DD-YYYY')
+      let modalStyle = {
+        backgroundColor: 'gold',
+        color: 'darkblue'
+        }    
       let EndTimer = () => {
           timerEnded = true
           return (
@@ -1042,6 +1092,87 @@ class MlbCalendar extends Component {
                 text='PLEASE WAIT... Loading Results... (this may take up to 30-45 seconds)'
                 >
               </LoadingOverlay>
+
+              <Modal 
+                isOpen={this.state.modalAllGames} 
+                autoFocus={true}
+                centered={true}
+                size='lg'
+                className='allGamesModal'
+              >
+                
+                <ModalHeader id='modalTitle'>
+                  Full MLB Schedule
+                </ModalHeader>
+                  <ModalBody id='modalBody' className='games' style={modalStyle}>
+                      <div className="thisTeam">
+                        <table className='table  table-hover'>
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Matchup</th>
+                              <th>Game Time</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {
+                            this.state.sortedGames.map((game) => (
+                              <tr key={uuidv4()} className='gameInfo' >
+                                <td>{moment(game.date).format('MM-DD-YYYY')}</td>
+                                <td>{game.awayTeam} @ {game.homeTeam}</td>
+                                <td>{moment(game.start).format('hh:mm a')}</td>
+                              </tr>
+                            ))
+                          }    
+                          </tbody>
+                        </table>
+                      </div> <hr />
+                      
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggleAllGames}>Close</Button>
+                  </ModalFooter>
+                </Modal>
+
+
+              <Modal 
+                isOpen={this.state.modalYesterday} 
+                autoFocus={true}
+                centered={true}
+                size='lg'
+                className='resultsModal'
+              >
+                
+                <ModalHeader id='modalTitle'>
+                  Yesterday's Games ({yesterday})
+                </ModalHeader>
+                  <ModalBody id='modalBody' className='games' style={modalStyle}>
+                      <div className="thisTeam">
+                        <table className='table  table-hover'>
+                          <thead>
+                            <tr>
+                              <th>Matchup</th>
+                              <th>Result</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {
+                            this.state.yesterdaysGames.map((game) => (
+                              <tr key={uuidv4()} className='gameResult' >
+                                <td>{game.awayTeam} @ {game.homeTeam}</td>
+                                <td>{game.gameWinner}</td>
+                              </tr>
+                            ))
+                          }    
+                          </tbody>
+                        </table>
+                      </div> <hr />
+                      
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggleYesterday}>Close</Button>
+                  </ModalFooter>
+                </Modal>
               
                <Modal 
                  isOpen={this.state.modal} 
@@ -1117,27 +1248,34 @@ class MlbCalendar extends Component {
                 </Modal>
 
               <div className="row countdown">
-              <div className="col-3"></div>
-              <div className="col-6 timer">
-                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
-                    <EndTimer />
-                  </Countdown> <br />
-                  {
+                <div className="col-2"></div>
+                <div className="col-8 timer">
+                  TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+                      <EndTimer />
+                    </Countdown> <br />
+                    {
 
-                    moment(challengeStartDate).isBefore(moment(today)) ? 
+                      moment(challengeStartDate).isBefore(moment(today)) ? 
 
-                    <small></small>  
+                      <small></small>  
 
-                    :
+                      :
 
-                    <small>*THIS CHALLENGE BEGINS ON {challengeStartDate}*</small>
+                      <small>*THIS CHALLENGE BEGINS ON {challengeStartDate}*</small>
 
-                  }
-                  <small id="est" className="form-text text-muted">All times shown in EST</small>
-              </div>
-              <div className="col-3"></div>
-                
-                
+                    }
+                    <small id="est" className="form-text text-muted">All times shown in EST</small>
+                </div>
+                <div className="col-4 resultsButton">
+                  <Button disabled color='danger'>All Game Results</Button>
+                </div>
+                <div className="col-4 resultsButton">
+                  <Button disabled color='warning' onClick={this.toggleAllGames}>View Full MLB Schedule</Button>
+                </div>
+                <div className="col-4 resultsButton">
+                  <Button color='success' onClick={this.toggleYesterday}>Yesterday's Game Results</Button>
+                </div>
+              
               </div>
               
               <FullCalendar
