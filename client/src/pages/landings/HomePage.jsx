@@ -4,6 +4,7 @@ import HomeBar from '../../components/nav/HomeBar'
 import MyChallenges from '../../components/home/myChallenges'
 import UpcomingChallenges from '../../components/home/upcomingChallenges'
 import MessageBoard from '../../components/home/messageBoard'
+import ChallengeDelay from '../../components/alerts/ChallengeDelay'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/home.css'
@@ -22,7 +23,8 @@ class HomePage extends Component {
       winsCount: 0,
       myChallenges: [],
       allActiveChallenges: [],
-      allRecentChallenges: []
+      allRecentChallenges: [],
+      challengeDelay: true
 
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -117,6 +119,13 @@ class HomePage extends Component {
               <HomeBar 
                 username={this.state.username}
               />
+              <div className="row chalDelay">
+                <div className="col-12">
+                  <ChallengeDelay 
+                    challengeDelay={this.state.challengeDelay}
+                  />
+                </div>
+              </div>
               <div className='row homePageBoard'>
                 <div className="col-3 myChallenges">
                   <h1>
