@@ -25,6 +25,7 @@ class MlbCalendar extends Component {
           modal: false, 
           modalYesterday: false,
           modalAllGames: false,
+          modalPastResults: false,
           nestedModal: false, 
           nestedModalExpPick: false, 
           nestedModalNoPick: false, 
@@ -36,6 +37,7 @@ class MlbCalendar extends Component {
           challengeStartDate: '',
           allGames: [],
           allRecentGames: [],
+          allPastGames: [],
           sortedGames: [],
           yesterdaysGames: [], 
           myPicks: [], 
@@ -57,6 +59,7 @@ class MlbCalendar extends Component {
           activeDate: '', 
           today: '',
           newToday: '',
+          oldToday: '',
           yesterday: '', 
           firstGameTime: '',
           timeDiff: '', 
@@ -81,6 +84,7 @@ class MlbCalendar extends Component {
         this.toggleAllExpPick = this.toggleAllExpPick.bind(this);
         this.toggleYesterday = this.toggleYesterday.bind(this);
         this.toggleAllGames = this.toggleAllGames.bind(this);
+        this.togglePastResults = this.togglePastResults.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
         // this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevDatesPicked = this.checkPrevDatesPicked.bind(this);
@@ -100,7 +104,10 @@ class MlbCalendar extends Component {
         this.getYesterdaysResults = this.getYesterdaysResults.bind(this)
         this.getAllGames = this.getAllGames.bind(this)
         this.addWeek = this.addWeek.bind(this)
+        this.addWeekResult = this.addWeekResult.bind(this)
         this.subWeek = this.subWeek.bind(this)
+        this.subWeekResult = this.subWeekResult.bind(this)
+        this.findPastResults = this.findPastResults.bind(this)
         this.sortAllGames = this.sortAllGames.bind(this)
         
       }
@@ -138,6 +145,14 @@ class MlbCalendar extends Component {
       this.setState({
         modalAllGames: !this.state.modalAllGames,
       });
+    }
+
+    togglePastResults() {
+      this.getTodaysFirstGame()
+      this.findPastResults()
+      this.setState({
+        modalPastResults: !this.state.modalPastResults
+      })
     }
 
     toggleActive() {
@@ -433,7 +448,6 @@ class MlbCalendar extends Component {
         }, () => {
           this.getAllGames()
         })
-
       }
     
     subWeek = () => {
@@ -444,6 +458,66 @@ class MlbCalendar extends Component {
         }, () => {
           this.getAllGames()
         })
+      }
+
+    addWeekResult = () => {
+      let startDay = this.state.oldToday
+      let newDay = moment(startDay).add(7, 'days').format('YYYY-MM-DD')
+      this.setState({
+        oldToday: newDay
+        }, () => {
+          this.findPastResults()
+        })
+      }
+    
+    subWeekResult = () => {
+      let startDay = this.state.oldToday
+      let newDay = moment(startDay).subtract(7, 'days').format('YYYY-MM-DD')
+      this.setState({
+        oldToday: newDay
+        }, () => {
+          this.findPastResults()
+        })
+      }
+
+    findPastResults = () => {
+      let today = this.state.oldToday
+      let week = moment(today).subtract(7, 'days').format('YYYY-MM-DD')
+
+      let allGames = this.state.allGames
+      let pastGamesFunc = (games) => {
+        return moment(games.start._i).isSameOrBefore(today) && moment(games.start._i).isSameOrAfter(week)
+      }
+      let allPastGames = allGames.filter(pastGamesFunc).reverse()
+      console.log('ONLY PAST GAMES: ', allPastGames)
+
+      this.setState({
+        allPastGames: allPastGames
+      })
+
+      // API.getMlbGames()
+      //   .then(res => {
+      //     console.log('all games: ', res.data)
+      //     let allGames = res.data
+      //     let pastGamesFunc = (games) => {
+      //       return moment(games.gameTime).isSameOrBefore(today) && moment(games.gameTime).isSameOrAfter(week)
+      //     }
+      //     let allPastGames = allGames.filter(pastGamesFunc).reverse()
+      //     console.log('ONLY PAST GAMES: ', allPastGames)
+    
+      //     this.setState({
+      //       allPastGames: allPastGames
+      //     }, () => {
+      //       this.sortPastGames()
+      //     })
+          
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
+      
+      // console.log('ALL PAST GAMES: ', allGames)
+
       
 
       }
@@ -452,14 +526,14 @@ class MlbCalendar extends Component {
       let today = this.state.newToday
       let week = moment(today).add(7, 'days').format('YYYY-MM-DD')
       let allGames = this.state.allGames
-      console.log('ALL GAMES: ', allGames)
+      // console.log('ALL GAMES: ', allGames)
 
       let findRecentGames = (games) => {
         return moment(games.start._i).isSameOrAfter(today) && moment(games.start._i).isSameOrBefore(week)
       }
 
       let allRecentGames = allGames.filter(findRecentGames)
-      console.log('ONLY RECENT GAMES: ', allRecentGames)
+      // console.log('ONLY RECENT GAMES: ', allRecentGames)
 
       this.setState({
         allRecentGames: allRecentGames
@@ -490,6 +564,33 @@ class MlbCalendar extends Component {
         sortedGames: sortedGames
       })
       console.log('THE SORTED GAMES: ', sortedGames)
+      //console.log('THE OLD PICKS: ', this.state.oldGames)
+      
+    
+      }
+
+    sortPastGames = () => {
+      let allGames = this.state.allPastGames
+      // console.log('USER PICKS: ', this.state.allGames)
+
+      // let oldGamesFunc = (picks) => {
+      //   return picks.date.isSameOrAfter(moment().format('YYYY-MM-DD')) 
+      // }
+      // let oldGames = allGames.filter(oldGamesFunc)
+      let sortedGames = allGames.sort(function(a, b) {
+        if (moment(a.start).isBefore(moment(b.start))) {
+            return -1;
+        }
+        if (moment(a.start).isAfter(moment(b.start))) {
+            return 1;
+        }
+        return 0;
+      })
+
+      this.setState({
+        allPastGames: sortedGames
+      })
+      // console.log('THE SORTED GAMES: ', sortedGames)
       //console.log('THE OLD PICKS: ', this.state.oldGames)
       
     
@@ -546,7 +647,8 @@ class MlbCalendar extends Component {
       let date = moment().format('YYYY-MM-DD')
       this.setState({
         today: date,
-        newToday: date
+        newToday: date,
+        oldToday: date
       })
       let self = this
 
@@ -625,6 +727,7 @@ class MlbCalendar extends Component {
                 date: gameDate,
                 start: startTime,
                 status: game.gameStatus,
+                result: game.gameResult,
                 homeTeam: game.homeTeam,
                 awayTeam: game.awayTeam,
                 homeAlias: homeAlias,
@@ -1097,7 +1200,9 @@ class MlbCalendar extends Component {
       let today = moment().format('MM-DD-YYYY')
       let yesterday = moment().subtract(1, 'day').format('MM-DD-YYYY')
       let newToday = moment(this.state.newToday).format('MM-DD')
+      let oldToday = moment(this.state.oldToday).subtract(1, 'day').format('MM-DD')
       let newWeek = moment(newToday).add(6, 'days').format('MM-DD')
+      let oldWeek = moment(oldToday).subtract(6, 'days').format('MM-DD')
       let challengeStartDate = moment(this.state.challengeStartDate).format('MM-DD-YYYY')
       let modalStyle = {
         backgroundColor: 'gold',
@@ -1127,6 +1232,51 @@ class MlbCalendar extends Component {
                 text='PLEASE WAIT... Loading Results... (this may take up to 30-45 seconds)'
                 >
               </LoadingOverlay>
+
+              {/* FULL MLB SCHEDULE MODAL */}
+              <Modal 
+                isOpen={this.state.modalPastResults} 
+                autoFocus={true}
+                centered={true}
+                size='lg'
+                className='pastResultsModal'
+              >
+                
+                <ModalHeader id='modalTitle'>
+                  Past Results <strong>( {oldWeek} - {oldToday} )</strong>
+                  <i className="fas fa-arrow-left leftArrow" onClick={this.subWeekResult}></i>
+                  <i className="fas fa-arrow-right rightArrow" onClick={this.addWeekResult}></i>
+                  <i className="fas fa-times closeButton" onClick={this.togglePastResults}></i>
+                </ModalHeader>
+                  <ModalBody id='modalBody' className='games' style={modalStyle}>
+                      <div className="thisTeam">
+                        <table className='table table-hover'>
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Matchup</th>
+                              <th>Game Result</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {
+                            this.state.allPastGames.map((game) => (
+                              <tr key={uuidv4()} className='gameInfo' >
+                                <td>{moment(game.date).format('M/D')}</td>
+                                <td>{game.awayTeam} @ {game.homeTeam}</td>
+                                <td>{game.result.gameResult ? game.result.gameResult : game.result}</td>
+                              </tr>
+                            ))
+                          }    
+                          </tbody>
+                        </table>
+                      </div> <hr />
+                      
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.togglePastResults}>Close</Button>
+                  </ModalFooter>
+                </Modal>
 
 
               {/* FULL MLB SCHEDULE MODAL */}
@@ -1175,6 +1325,7 @@ class MlbCalendar extends Component {
                 </Modal>
 
 
+              {/* YESTERDAYS GAMES MODAL */}
               <Modal 
                 isOpen={this.state.modalYesterday} 
                 autoFocus={true}
@@ -1213,6 +1364,10 @@ class MlbCalendar extends Component {
                     <Button color="secondary" onClick={this.toggleYesterday}>Close</Button>
                   </ModalFooter>
                 </Modal>
+
+
+
+
               
                <Modal 
                  isOpen={this.state.modal} 
@@ -1307,7 +1462,7 @@ class MlbCalendar extends Component {
                     <small id="est" className="form-text text-muted">All times shown in EST</small>
                 </div>
                 <div className="col-4-sm resultsButton">
-                  <Button disabled color='danger'>All My Pick Results</Button>
+                  <Button color='danger' onClick={this.togglePastResults}>Past Game Results</Button>
                 </div>
                 <div className="col-4-sm resultsButton">
                   <Button color='warning' onClick={this.toggleAllGames}>View Schedule List</Button>

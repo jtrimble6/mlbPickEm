@@ -928,6 +928,12 @@ td.fc-event-container a {
     overflow: auto;
 }
 
+.pastResultsModal {
+    min-height: 100%;
+    overflow: auto;
+    text-align: center;
+}
+
 .closeButton {
     position: fixed;
     font-size: 30px;
@@ -948,3 +954,4 @@ td.fc-event-container a {
     right: 75px;
     cursor: pointer;
 }
+
