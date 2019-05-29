@@ -716,9 +716,9 @@ class MlbCalendar extends Component {
           }
 
         if (homeTeam.runs > awayTeam.runs) {
-            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team})
+            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team, homeRuns: homeTeam.runs, awayRuns: awayTeam.runs})
           } else {
-            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
+            winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team, homeRuns: homeTeam.runs, awayRuns: awayTeam.runs})
           }
         
         })
@@ -727,28 +727,6 @@ class MlbCalendar extends Component {
         if (winningTeams.length === gameResults.length) {
           this.postGameWinners(this.state.winningTeams)
           }
-
-      // for (let x=0; x<gameResults.length; x++) {
-      //   let gameId = gameResults[x].id
-      //   let gameDate = this.state.yesterday
-      //   let homeTeam = {
-      //       team: gameResults[x].home.market + ' ' + gameResults[x].home.name ,
-      //       runs: gameResults[x].home.runs
-      //     }
-      //   let awayTeam = {
-      //       team: gameResults[x].away.market + ' ' + gameResults[x].away.name,
-      //       runs: gameResults[x].away.runs
-      //     }
-
-      //   if (homeTeam.runs > awayTeam.runs) {
-      //       winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: homeTeam.team})
-      //     } else {
-      //       winningTeams.push({gameId: gameId, gameDate: gameDate, winningTeam: awayTeam.team})
-      //     }
-      //     this.setState({ winningTeams: winningTeams })
-      //   }
-
-      // this.postGameWinners(this.state.winningTeams)
 
       }
 
