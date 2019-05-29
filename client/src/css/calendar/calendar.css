@@ -917,13 +917,34 @@ td.fc-event-container a {
 }
 
 .resultsButton {
+    margin: 0 auto;
     margin-top: 1%;
     margin-bottom: 3%;
-    margin-left: 0;
-    
+
 }
 
 .allGamesModal {
-    max-height: 500px;
+    min-height: 100%;
     overflow: auto;
+}
+
+.closeButton {
+    position: fixed;
+    font-size: 30px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.leftArrow {
+    position: fixed;
+    font-size: 30px;
+    right: 125px;
+    cursor: pointer;
+}
+
+.rightArrow {
+    position: fixed;
+    font-size: 30px;
+    right: 75px;
+    cursor: pointer;
 }
