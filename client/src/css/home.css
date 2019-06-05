@@ -23,6 +23,29 @@
 
 .myChallenges .btn {
     white-space: pre-wrap !important;
+    background-color: #209CEE;
+    border: solid 2px gold;
+}
+
+.myChallenges, .upcomingChallengesCol {
+    color: #209CEE;
+    border-radius: 5%;
+    background-color: rgb(58, 56, 56);
+    margin: 1%;
+}
+
+.messageBoardPage {
+    border-radius: 5%;
+    background-color: rgb(58, 56, 56);
+    margin: 1%;
+}
+
+/* .upcomingChallengesCol {
+    max-width: 700px !important;
+} */
+
+.homePageBoard h1 {
+    margin-top: 5%;
 }
 
 
@@ -30,8 +53,6 @@
 .upcomingChallenges {
     text-align: center;
     overflow: auto !important;
-    height: 500px;
-    max-width: 100%;
 }
 .upcomingChallengesCol {
     text-align: center;
@@ -49,9 +70,19 @@
     margin: 0 auto ;
     margin-bottom: 5%;
     margin: 1%;
-    width: 40%;
-    border: solid 2px gold;
+    width: 95%;
+    height: 30%;
+    border: solid 8px gold;
     border-radius: 1%;
+}
+.challengeCard .titleCol {
+    float: left;
+    margin: 0 auto;
+}
+
+.challengeCard .details {
+    float: left;
+    margin: 0 auto;
 }
 .challengeCard .card-title {
     font-weight: bolder;
@@ -59,7 +90,6 @@
 }
 .challengeCard .card-subtitle {
     font-size: 12px;
-    color: red;
     margin: 5px;
 }
 .challengeCard .card-body {
@@ -92,7 +122,12 @@
 }
 .challengeCard .challengeInfo {
     font-size: 22px;
+    
 }
+.titleCol .card-title {
+    font-size: 24px;
+}
+
 
 
 /* CHALLENGE MODAL */
@@ -116,13 +151,12 @@
 }
 
 .signUpDate, .remainingSpots {
-    color: gold !important;
+    color: red !important;
 }
 
 
 /* MESSAGE BOARD */
 .messageBoardPage {
-    background-color: #209CEE;
     height: 600px;
     text-align: center;
 }
@@ -227,7 +261,6 @@
     }
     .challengeCard .card-subtitle {
         font-size: 12px;
-        color: red;
         margin: 5px;
     }
 
@@ -303,7 +336,6 @@
     }
     .challengeCard .card-subtitle {
         font-size: 14px;
-        color: red;
         margin: 5px;
     }
 
@@ -386,7 +418,6 @@
     }
     .challengeCard .card-subtitle {
         font-size: 12px;
-        color: red;
         margin: 5px;
     }
 

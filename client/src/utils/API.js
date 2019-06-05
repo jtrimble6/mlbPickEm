@@ -180,6 +180,47 @@ export default {
     },
 
 
+    // NFL API CALLS
+    postNflGames: function(data) {
+        return axios.post('/api/mlbgames/', data)
+    },
+    getNflGames: function() {
+        return axios.get('/api/mlbgames/')
+    },
+    getNflGamesByDate: function(date) {
+        return axios.get('/api/mlbgames/' + date)
+    },
+    postNflTeams: function(data) {
+        return axios.post('/api/mlbteams/', data)
+    },
+    addNflGamesByTeam: function(team, game) {
+        return axios.put('/api/mlbteams/' + team, game)
+    },
+    getNflTeam: function(team) {
+        return axios.get('/api/mlbteams/' + team)
+    },
+    getNflTeams: function() {
+        return axios.get('/api/mlbteams/')
+    },
+    getNflGamesById: function(date, id) {
+        return axios.get('/api/mlbgames/' + date + '/' + id)
+    },
+    updateNflGame: function(date, id, gameResult) {
+        return axios.put('/api/mlbgames/' + date + '/' + id, gameResult)
+    },
+    addNflWin: function(id, user, newWin) {
+        return axios.post('/api/challenges/' + id + '/users/' + user, newWin)
+    },
+    saveNflPick: function(id, user, thisPick) {
+        return axios.put('/api/challenges/' + id + '/users/' + user, thisPick)
+    },
+    deleteNflPick: function(id, user, date) {
+        return axios.delete('/api/challenges/' + id + '/users/' + user + '/' + date)
+    },
+    updateNflPick: function(id, user, date, result) {
+        return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
+    },
+
     
 
     // MLB API CALLS

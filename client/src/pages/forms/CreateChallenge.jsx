@@ -118,6 +118,40 @@ class CreateChallenge extends Component {
               { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary', division: 'AL West' },
               { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary', division: 'AL East' },
               { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary', division: 'NL East' }
+            ],
+            nflTeams: [
+              { name: 'Arizona Cardinals', abbr: 'ari', logo: 'ari2', status: 'secondary', division: 'NFC West' },
+              { name: 'Atlanta Falcons', abbr: 'atl', logo: 'atl3', status: 'secondary', division: 'NFC South' },
+              { name: 'Baltimore Ravens', abbr: 'bal', logo: 'bal2', status: 'secondary', division: 'AFC North' },
+              { name: 'Buffalo Bills', abbr: 'buf', logo: 'buf', status: 'secondary', division: 'AFC East' },
+              { name: 'Carolina Panthers', abbr: 'car', logo: 'car', status: 'secondary', division: 'NFC South' },
+              { name: 'Chicago Bears', abbr: 'chi', logo: 'chi2', status: 'secondary', division: 'NFC North' },
+              { name: 'Cincinnati Bengals', abbr: 'cin', logo: 'cin', status: 'secondary', division: 'AFC North' },
+              { name: 'Cleveland Browns', abbr: 'cle', logo: 'cle3', status: 'secondary', division: 'AFC North' },
+              { name: 'Dallas Cowboys', abbr: 'dal', logo: 'dal2', status: 'secondary', division: 'NFC East' },
+              { name: 'Denver Broncos', abbr: 'den', logo: 'den', status: 'secondary', division: 'AFC West' },
+              { name: 'Detroit Lions', abbr: 'det', logo: 'det3', status: 'secondary', division: 'NFC North' },
+              { name: 'Green Bay Packers', abbr: 'gb', logo: 'gb', status: 'secondary', division: 'NFC North' },
+              { name: 'Houston Texans', abbr: 'hou', logo: 'hou2', status: 'secondary', division: 'AFC South' },
+              { name: 'Indianapolis Colts', abbr: 'ind', logo: 'ind2', status: 'secondary', division: 'AFC South' },
+              { name: 'Jacksonville Jaguars', abbr: 'jax', logo: 'jax', status: 'secondary', division: 'AFC South' },
+              { name: 'Kansas City Chiefs', abbr: 'kc', logo: 'kc', status: 'secondary', division: 'AFC West' },
+              { name: 'Los Angeles Chargers', abbr: 'lac', logo: 'lac2', status: 'secondary', division: 'AFC West' },
+              { name: 'Los Angeles Rams', abbr: 'lar', logo: 'lar', status: 'secondary', division: 'NFC West' },
+              { name: 'Miami Dolphins', abbr: 'mia', logo: 'mia2', status: 'secondary', division: 'AFC East' },
+              { name: 'Minnesota Vikings', abbr: 'min', logo: 'min2', status: 'secondary', division: 'NFC North' },
+              { name: 'New England Patriots', abbr: 'ne', logo: 'ne', status: 'secondary', division: 'AFC East' },
+              { name: 'New Orleans Saints', abbr: 'no', logo: 'no', status: 'secondary', division: 'NFC South' },
+              { name: 'New York Giants', abbr: 'nyg', logo: 'nyg', status: 'secondary', division: 'NFC East' },
+              { name: 'New York Jets', abbr: 'nyj', logo: 'nyj', status: 'secondary', division: 'AFC East' },
+              { name: 'Oakland Raiders', abbr: 'oak', logo: 'oak', status: 'secondary', division: 'AFC West' },
+              { name: 'Philadelphia Eagles', abbr: 'phi', logo: 'phi', status: 'secondary', division: 'NFC East' },
+              { name: 'Pittsburgh Steelers', abbr: 'pit', logo: 'pit', status: 'secondary', division: 'AFC North' },
+              { name: 'Seattle Seahawks', abbr: 'sea', logo: 'sea', status: 'secondary', division: 'NFC West' },
+              { name: 'San Francisco 49ers', abbr: 'sf', logo: 'sf', status: 'secondary', division: 'NFC West' },
+              { name: 'Tampa Bay Buccaneers', abbr: 'tb', logo: 'tb', status: 'secondary', division: 'NFC South' },
+              { name: 'Tennessee Titans', abbr: 'ten', logo: 'ten', status: 'secondary', division: 'AFC South' },
+              { name: 'Washington Redskins', abbr: 'was', logo: 'was2', status: 'secondary', division: 'NFC East' }
             ]
           }
 
@@ -229,7 +263,7 @@ class CreateChallenge extends Component {
         // this.setState({
         //     nameTaken: false,
         // })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
+        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nfl' ? this.state.nflTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
         event.preventDefault();
         //console.log(this.state)
         let challengeData = {
@@ -424,6 +458,7 @@ class CreateChallenge extends Component {
                                     id="sport"                                       
                                 >
                                 <option value=''>Select One</option>
+                                <option value='nfl'>NFL</option>
                                 <option value='mlb'>MLB</option>
                                 <option value='nba'>NBA</option>
                                 <option value='golf'>MASTERS</option>
@@ -440,6 +475,7 @@ class CreateChallenge extends Component {
                                     id="teams"                                       
                                 >
                                 <option value=''>Select One</option>
+                                <option value='nfl'>NFL Teams</option>
                                 <option value='mlb'>MLB Teams</option>
                                 <option value='nba'>NBA Teams</option>
                                 <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
@@ -457,6 +493,7 @@ class CreateChallenge extends Component {
                                     id="url"                                       
                                 >
                                   <option value=''>Select One</option>
+                                  <option value='/actionNfl'>NFL Challenge</option>
                                   <option value='/actionMlb'>MLB Challenge</option>
                                   <option value='/actionNba'>NBA Challenge</option>
                                   <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
@@ -474,6 +511,7 @@ class CreateChallenge extends Component {
                                     id="rulesUrl"                                       
                                 >
                                   <option value=''>Select One</option>
+                                  <option value='/nflRules'>NFL Rules</option>
                                   <option value='/mlbRules'>MLB Rules</option>
                                   <option value='/nbaRules'>NBA Rules</option>
                                   <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
@@ -496,13 +534,13 @@ class CreateChallenge extends Component {
                         <div className="form-group">
                             <label htmlFor="challengeInfo">Challenge Info</label>
                                 <textarea 
-                                value={this.state.challengeInfo}
-                                name="challengeInfo"
-                                onChange={this.handleInputChange}
-                                type="text"
-                                className="form-control"
-                                id="challengeInfo"
-                                placeholder="Add some info about the challenge!"
+                                  value={this.state.challengeInfo}
+                                  name="challengeInfo"
+                                  onChange={this.handleInputChange}
+                                  type="text"
+                                  className="form-control"
+                                  id="challengeInfo"
+                                  placeholder="Add some info about the challenge!"
                                 />
                         </div>
                         <div className="form-group">
@@ -516,6 +554,7 @@ class CreateChallenge extends Component {
                                 id="img"                                       
                             >
                                 <option value=''>Select One</option>
+                                <option value='nfldivisionchallenge.jpeg'>NFL</option>
                                 <option value='mlbpickemchallenge.jpeg'>MLB</option>
                                 <option value='nbaplayoffchallenge.jpg'>NBA</option>
                                 <option value='masterschallenge.jpg'>MASTERS</option>

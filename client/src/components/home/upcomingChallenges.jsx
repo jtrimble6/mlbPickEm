@@ -255,34 +255,48 @@ class UpcomingChallenges extends Component {
               (!this.props.challenges[0]) ? <Button className='challengeButton' color='warning'>Open Challenges Will Appear Here!</Button> :
 
               this.props.challenges.map(challenge => (
-                <div key={uuidv4()} className='challengeCard' data={challenge.url}>
+                <div key={uuidv4()} className='row challengeCard' data={challenge.url}>
                     <Card>
                       <CardBody>
-                        <CardTitle>{challenge.challengeName}</CardTitle><hr />
-                        <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
-                          Sign Up Now
-                        </CardLink><hr />
-                        <CardSubtitle className='buyIn'>
-                            Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
-                        </CardSubtitle>
-                        <CardSubtitle className='signUpDate'>
-                            Sign Up Opens: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
-                        </CardSubtitle>
-                        <CardSubtitle className='signUpDate'>
-                            Challenge Begins: ({moment(challenge.startDate).add(8, 'hours').format('MM-DD')})
-                        </CardSubtitle>
-                        <CardSubtitle className='maxEntries'>
-                            Max Entries: {
-                                (challenge.maxEntries > 0) ? challenge.maxEntries : noMax
-                              }
-                        </CardSubtitle>
-                        <CardSubtitle className='remainingSpots'>
-                            Remaining Spots: {
-                                (challenge.maxEntries > 0) ? (challenge.maxEntries - challenge.users.length) : noMax
-                              }
-                        </CardSubtitle>
+                        <div className="col-6 titleCol">
+                          <CardTitle>{challenge.challengeName}</CardTitle><hr />
+                          <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
+                            Sign Up Now
+                          </CardLink><hr />
+                        </div>
+
+                        <div className="col-6 details">
+
+                          <CardSubtitle className='buyIn'>
+                              Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
+                          </CardSubtitle>
+
+                          <CardSubtitle className='remainingSpots'>
+                              Remaining Spots: {
+                                  (challenge.maxEntries > 0) ? (challenge.maxEntries - challenge.users.length) : noMax
+                                }
+                          </CardSubtitle>
+
+                          <CardSubtitle className='maxEntries'>
+                              Max Entries: {
+                                  (challenge.maxEntries > 0) ? challenge.maxEntries : noMax
+                                }
+                          </CardSubtitle>
+
+                          <CardSubtitle className='signUpDate'>
+                              Sign Up Begins: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})
+                          </CardSubtitle>
+
+                          <CardSubtitle className='signUpDate'>
+                              Challenge Begins: ({moment(challenge.startDate).add(8, 'hours').format('MM-DD')})
+                          </CardSubtitle>
+                          
+                          
+                        </div>
+                        
+                        
                         </CardBody>
-                          <img width="100%" src={require('../../css/images/' + challenge.img.toLowerCase() + '')} alt={challenge.name} />
+                          {/* <img width="100%" src={require('../../css/images/' + challenge.img.toLowerCase() + '')} alt={challenge.name} /> */}
                         <CardBody>
                         <CardText className='challengeInfo'><em>{challenge.info}</em></CardText>
                         {/* <CardLink href="#">Bookmark Challenge</CardLink><br /> */}

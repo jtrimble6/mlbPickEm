@@ -5,7 +5,7 @@ import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
 import moment from 'moment';
 import '../../css/leaderboardPage.css'
 
-class MastersLeaderboardPage extends Component {
+class NflLeadboardPage extends Component {
 
     state = {
         redirect: false,
@@ -79,4 +79,4 @@ class MastersLeaderboardPage extends Component {
 
 }
 
-export default MastersLeaderboardPage
+export default NflLeadboardPage

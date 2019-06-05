@@ -28,19 +28,23 @@ import ContactUser from './pages/contacts/ContactPageUser'
 import AboutUser from './pages/abouts/AboutPageUser'
 import Rules from './pages/rules/RulesPage'
 import MlbRules from './pages/rules/MlbRulesPage'
+import NflRules from './pages/rules/NflDivisionRulesPage'
 import NbaPlayoffRules from './pages/rules/NbaPlayoffRulesPage'
+import MastersRules from './pages/rules/MastersRulesPage';
 import HomePage from './pages/landings/HomePage'
 import LandingPage from './pages/landings/LandingPage'
 import MlbActionPage from './pages/actions/MlbActionPage'
+import NflDivisionActionPage from './pages/actions/NflDivisionActionPage'
 import NbaActionPage from './pages/actions/NbaActionPage'
 import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
 import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
+import NflDivisionLeaderboard from './pages/leaderboards/NflDivisionLeaderboardPage'
 
 
 
 import './App.css';
-import MastersRules from './pages/rules/MastersRulesPage';
+
 
 
 
@@ -228,6 +232,17 @@ class App extends Component {
                 <Rules
                   updateUser={this.updateUser}
                 />
+              }
+            />
+            <Route exact path='/nflRules'
+              render={() =>
+                this.state.userLoggedIn === true ? (
+                  <NflRules />
+                ) : this.state.userLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )
               }
             />
             <Route exact path='/mlbRules'
@@ -428,6 +443,17 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/actionNfl' render={() => (
+              this.state.userLoggedIn === true ? (
+                <NflDivisionActionPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.userLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/actionMlb' render={() => (
               this.state.userLoggedIn === true ? (
                 <MlbActionPage 
@@ -442,6 +468,15 @@ class App extends Component {
             <Route exact path='/leaderboard' render={() => (
               this.state.userLoggedIn === true ? (
                 <MlbLeaderboard />
+              ) : this.state.userLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nflDivisionLeaderboard' render={() => (
+              this.state.userLoggedIn === true ? (
+                <NflDivisionLeaderboard />
               ) : this.state.userLoggedIn === false ? (
                 <Redirect to='/login' />
               ) : (
