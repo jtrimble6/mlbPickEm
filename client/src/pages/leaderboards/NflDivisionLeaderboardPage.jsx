@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import Navbar from '../../components/nav/Navbar'
-import Leaderboard from '../../components/leaderboards/MlbPickEmLeaderboard'
+import NflDivisionActionNav from '../../components/nav/NflDivisionActionNav'
+import NflDivisionLeaderboard from '../../components/leaderboards/NflDivisionLeaderboard'
 import moment from 'moment';
 import '../../css/leaderboardPage.css'
 
@@ -66,9 +66,9 @@ class NflLeadboardPage extends Component {
 
         return (
             <div id='leaderboardPage'>
-              <Navbar />
+              <NflDivisionActionNav />
               
-              <Leaderboard 
+              <NflDivisionLeaderboard 
 
               />
                

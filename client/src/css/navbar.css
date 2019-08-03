@@ -266,7 +266,7 @@
       margin-top: 0 !important;
     }
     .navbar-brand {
-      font-size: 14px;
+      font-size: 1px;
     }
     .username {
       color: white;
@@ -274,6 +274,10 @@
     .challengeName {
       margin-top: 18%;
       color: white; 
+    }
+    .container {
+      /* max-width: 80% !important; */
+      margin-left: 1%;
     }
   }
 
@@ -301,10 +305,9 @@
     }
   }
 
-  .navbar {
-    max-width: 100% !important;
+  #mainNav {
+    max-width: 100% !important
   }
-
   
   
   

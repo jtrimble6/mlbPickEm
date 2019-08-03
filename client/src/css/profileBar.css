@@ -14,33 +14,109 @@
   margin: 0%;
 }
 
+.nextGames {
+  max-height: 80%;
+  overflow: auto;
+}
+
 .profLogo {
   width: 55px;
   height: 70px;
 }
 
-/* .Button {
-  min-height: 75px !important;
-  max-width: 150px !important;
-} */
-
-.teamLogos {
-  margin-right: 1%;
-  margin-bottom: 20px;
-  flex-wrap: nowrap;
-  overflow: auto;
-  
+.toggleRow {
+  margin: 0 auto;
+  justify-content: center !important;
 }
 
-.teamLogo {
-  padding: 0;
-  margin-bottom: 5px;
+.divisionTitle {
+  color: white;
+  margin: 0 auto;
+  margin-bottom: 5%;
+}
+.nflTeamButton {
+  font-size: 75%;
+  margin: 0 auto;
+}
+
+.teamLogos {
+  margin: 0 auto !important;
+  flex-wrap: nowrap;
+  overflow: auto;
+  text-align: center;
+  justify-content: center;
 }
 
 .profileBar .jumbotron {
   padding: 8px;
   height: 220px;
   background-color: #209CEE;
+  /* border: 4px gold solid */
+}
+
+.reactHint {
+  padding: 5px;
+	position: absolute;
+	z-index: 9999;
+	cursor: default;
+  animation: .5s fadeIn;
+  font-size: 50%;
+  text-align: center;
+}
+
+.reactHint__content {
+	padding: 10px;
+	border-radius: 5px;
+	background: #000;
+	color: #fff;
+}
+
+.reactHint:after {
+	content: '';
+	width: 0;
+	height: 0;
+	margin: auto;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 5px solid transparent;
+}
+
+.reactHint--top:after {
+	top: auto;
+	border-bottom: none;
+	border-top-color: #000;
+}
+
+.reactHint--left:after {
+	left: auto;
+	border-right: none;
+	border-left-color: #000;
+}
+
+.reactHint--right:after {
+	right: auto;
+	border-left: none;
+	border-right-color: #000;
+}
+
+.reactHint--bottom:after {
+	bottom: auto;
+	border-top: none;
+	border-bottom-color: #000;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
 }
 
 .display-4 {
@@ -167,6 +243,10 @@ h2 {
   margin-bottom: 0;
 }
 
+.fas {
+  font-size: 18px;
+}
+
 @media (min-width: 950px) {
   /* .profileBar {
     margin-top: 9% !important;
@@ -186,9 +266,32 @@ h2 {
     white-space: nowrap !important;
     width: 120px !important;
   }
+  .toggleRow {
+    margin: 0 auto;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
+  .nflTeamLogos {
+    margin-top: 1%;
+    width: 100%;
+  }
+
+  .nfcButton {
+    white-space: pre-wrap;
+    width: 45%;
+    margin-right: 5%;
+    /* padding: 15%; */
+  }
+
+  .afcButton {
+    white-space: pre-wrap;
+    width: 45%;
+    /* padding: 15%; */
+  }
 }
 
-@media (min-width: 805px) and (max-width: 949px) {
+@media (min-width: 858px) and (max-width: 949px) {
   /* .profileBar {
     margin-top: 11% !important;
   } */
@@ -207,13 +310,13 @@ h2 {
   }
 }
 
-@media (min-width: 695px) and (max-width: 804px) {
+@media (min-width: 695px) and (max-width: 857px) {
   /* .profileBar {
     margin-top: 13% !important;
   } */
-  /* .recentPicksRow {
-     min-width: 150%; 
-  } */
+  .recentPicksRow {
+     margin: 0 auto;
+  }
   .recentPicks {
     max-width: 75%;
     line-height: 1.5em;
@@ -232,7 +335,7 @@ h2 {
     width: 100% !important;
   }
   .title {
-    width: 50px;
+    width: 10px;
   }
   .title h3 {
     margin-right: 20px;
@@ -240,10 +343,20 @@ h2 {
   }
   h4.winsHeader {
     width: 100%;
+    margin: 0;
   }
   .recordRow {
     width: 40%;
   }
+  .nflTeamButton {
+    font-size: 55%;
+    /* margin-bottom: 3%;
+    margin: 2%; */
+  }
+  .afcButton, .nfcButton {
+    font-size: 55%;
+  }
+  
 }
 
 @media (min-width: 580px) and (max-width: 694px) {
@@ -252,6 +365,9 @@ h2 {
   } */
   .recentPicks {
     max-width: 60% !important;
+  }
+  .recentPicksRow {
+     min-width: 170%; 
   }
   .recentPicks tr {
     line-height: 1.5em;
@@ -268,12 +384,24 @@ h2 {
   }
   h4.winsHeader {
     width: 70%;
+    margin: 0;
   }
   h4.winsTitle {
     width: 70%;
   }
   .recordRow {
     width: 40%;
+  }
+  small {
+    font-size: 70%;
+  }
+  .nflTeamButton {
+    font-size: 45%;
+    /* margin-bottom: 3%;
+    margin: 2%; */
+  }
+  .afcButton, .nfcButton {
+    font-size: 35%;
   }
 }
 
@@ -296,6 +424,7 @@ h2 {
   }
   h4.winsHeader {
     width: 70%;
+    margin: 0;
   }
   h4.winsTitle {
     width: 70%;
@@ -305,6 +434,17 @@ h2 {
   }
   .recordRow {
     width: 40%;
+  }
+  small {
+    font-size: 50%;
+  }
+  .nflTeamButton {
+    font-size: 8px;
+    /* margin-bottom: 3%;
+    margin: 2%; */
+  }
+  .afcButton, .nfcButton {
+    font-size: 8px;
   }
 }
 
@@ -317,19 +457,17 @@ h2 {
   }
   .recentPicks tr {
     /* min-width: 100%; */
-    font-size: 10px;
+    font-size: 8px;
     line-height: 1em;
+    word-wrap: pre-wrap;
   }
-  .profileBar .col-4 {
-    flex: 0 0 33%;
-    max-width: 50%;
-  }
+
   .profileBar .col-8 {
     max-width: 240px;
   }
-  .recentPicks .col-10 {
-    max-width: 80%;
-  }
+  /* .recentPicksRow.picks.mainPicks {
+    width: 150% !important;
+  } */
   .title {
     width: 30px;
   }
@@ -337,7 +475,8 @@ h2 {
     font-size: 10px;
   }
   h4.winsHeader {
-    width: 70%;
+    width: 100%;
+    margin: 0;
   }
   h4.winsTitle {
     width: 70%;
@@ -348,26 +487,40 @@ h2 {
   .display-4 {
     font-size: 14px;
   }
-  .teamLogos {
-    margin-right: 3%;
-  }
+  
   .recordRow {
     width: 70%;
   }
   .jumbotron {
     width: 80%;
     padding-right: 0;
+    margin-bottom: 25%;
   }
   .profileBar .col-8 {
     /* max-width: 240px !important; */
     padding-right: 0 !important;
   }
   .profileBar .col-10 {
-    flex: 0 0 75%;
+    /* flex: 0 0 75%; */
   }
   /* .recentPicksRow {
     width: 170%;
   } */
+  small {
+    font-size: 50%;
+  }
+  .nflTeamButton {
+    font-size: 8px;
+    margin: 10%;
+    /* margin-bottom: 3%;
+    margin: 2%; */
+  }
+  .afcButton, .nfcButton {
+    font-size: 6px;
+  }
+  .divisionTitle {
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 399px) {
@@ -375,15 +528,10 @@ h2 {
     padding-left: 5px;
     padding-right: 0;
   }
-  .profileBar .col-4 {
-    min-width: 50%;
-  }
-  .profileBar .col-8 {
-    max-width: 50%;
-  }
+
   .recentPicks {
-    max-width: 70%;
-    flex: 0 0 99.333333%;
+    max-width: 80%;
+    /* flex: 0 0 99.333333%; */
   }
   .recentPicks .col-10 {
     width: 80% !important;
@@ -397,6 +545,8 @@ h2 {
   } 
   .recentPicks td {
     max-height: 5px !important;
+    padding-right: 1% !important;
+    
   }
   .title {
     float: left;
@@ -408,6 +558,7 @@ h2 {
   h4.winsHeader {
     font-size: 8px !important;
     width: 75%;
+    margin: 0;
   }
   h4.winsTitle {
     width: 70%;
@@ -419,32 +570,90 @@ h2 {
     font-size: 12px;
   }
 
-  .teamLogos {
-    margin-right: 3%;
+  .toggleRow {
+    margin: 0 auto;
+    margin-top: 5%;
   }
+
+  .nflTeamLogos {
+    margin-top: 10%;
+    width: 100%;
+  }
+
+  .nfcButton {
+    font-size: 8px !important;
+    white-space: pre-wrap;
+    width: 45%;
+    margin-right: 5%;
+    /* padding: 15%; */
+  }
+
+  .afcButton {
+    font-size: 8px !important;
+    white-space: pre-wrap;
+    width: 45%;
+    /* padding: 15%; */
+  }
+
+  .nflTeamLogos h4 {
+    font-size: 12px !important;
+  }
+
+  .nflTeamLogos .nflTeamButton {
+    white-space: pre-wrap;
+    /* max-width: 100%; */
+    font-size: 10px !important;
+    padding: 10%;
+  }
+
+  .teamsRow .teamsCol {
+    padding: 5%;
+    
+  }
+
+  .fas {
+    font-size: 6px;
+  }
+
   .recordRow {
     width: 40%;
   }
-  /* .recentPicksRow {
-    width: 110%;
-  } */
+  .recentPicksRow {
+    min-width: 180%;
+  }
+
+  small {
+    font-size: 50%;
+  }
 
 }
 
 @media (min-width: 372px) and (max-width: 376px) {
-  /* .recentPicksRow{
-    min-width: 180%;
+  /* div.col-8 {
+    padding-right: 0 !important;
+    width: 60% !important;
   } */
+  .recentPicksRow {
+    min-width: 200%;
+    padding-right: 15% !important;
+  }
 }
 
 @media (max-width: 450px) {
   .profileBar .jumbotronMain .display-4 .recordRow {
-    min-width: 100%;
+    width: 100% !important;
+  }
+  .jumbotronMain {
+    width: 80%;
+    padding-right: 0 !important;
   }
 }
 @media (min-width: 760px) and (max-width: 770px) {
   .profileBar .jumbotronMain .display-4 .recordRow {
     min-width: 100%;
+  }
+  small {
+    font-size: 80%;
   }
 }
 .mainPicks {
@@ -455,6 +664,8 @@ h2 {
 }
 
 .profileBar .btn-success {
+  color: black;
   background-color: lightgreen;
 }
+
 

@@ -4,12 +4,13 @@ import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFoote
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
-import Countdown from 'react-countdown-now';
+// import Countdown from 'react-countdown-now';
+// import ReactHintFactory from 'react-hint'
 import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 //import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
+// import { ari2, atl3, bal2, buf, car, chi2, cin2, cle3, dal2, den, det3, gb, hou2, ind2, jac, kc, lac2, la, mia2, min2, ne, no, nyg, nyj, oak, phi, pit, sea, sf, tb, ten, was2 } from '../../css/nflLogos'
 
 class NflDivisionLeaderboard extends Component {
     constructor(props) {
@@ -18,37 +19,39 @@ class NflDivisionLeaderboard extends Component {
           challengeId: '',
           challengeData: {},
           currentUser: {},
-          teams: [
-            { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
-            { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
-            { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary' },
-            { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary' },
-            { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary' },
-            { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary' },
-            { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary' },
-            { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary' },
-            { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary' },
-            { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary' },
-            { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary' },
-            { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary' },
-            { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary' },
-            { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary' },
-            { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary' },
-            { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary' },
-            { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary' },
-            { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary' },
-            { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary' },
-            { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary' },
-            { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary' },
-            { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary' },
-            { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary' },
-            { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary' },
-            { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary' },
-            { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary' },
-            { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary' },
-            { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary' },
-            { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
-            { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
+          nflTeams: [
+            { teamName: 'Arizona Cardinals', teamAlias: 'ari', logo: 'ari2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Atlanta Falcons', teamAlias: 'atl', logo: 'atl3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Baltimore Ravens', teamAlias: 'bal', logo: 'bal2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Buffalo Bills', teamAlias: 'buf', logo: 'buf', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Carolina Panthers', teamAlias: 'car', logo: 'car', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Chicago Bears', teamAlias: 'chi', logo: 'chi2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Cincinnati Bengals', teamAlias: 'cin', logo: 'cin', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Cleveland Browns', teamAlias: 'cle', logo: 'cle3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Dallas Cowboys', teamAlias: 'dal', logo: 'dal2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'Denver Broncos', teamAlias: 'den', logo: 'den', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Detroit Lions', teamAlias: 'det', logo: 'det3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Green Bay Packers', teamAlias: 'gb', logo: 'gb', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Houston Texans', teamAlias: 'hou', logo: 'hou2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Indianapolis Colts', teamAlias: 'ind', logo: 'ind2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Jacksonville Jaguars', teamAlias: 'jac', logo: 'jac', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Kansas City Chiefs', teamAlias: 'kc', logo: 'kc', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Los Angeles Chargers', teamAlias: 'lac', logo: 'lac2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Los Angeles Rams', teamAlias: 'la', logo: 'la', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Miami Dolphins', teamAlias: 'mia', logo: 'mia2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Minnesota Vikings', teamAlias: 'min', logo: 'min2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'New England Patriots', teamAlias: 'ne', logo: 'ne', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'New Orleans Saints', teamAlias: 'no', logo: 'no', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'New York Giants', teamAlias: 'nyg', logo: 'nyg', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'New York Jets', teamAlias: 'nyj', logo: 'nyj', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Oakland Raiders', teamAlias: 'oak', logo: 'oak', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Philadelphia Eagles', teamAlias: 'phi', logo: 'phi', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'Pittsburgh Steelers', teamAlias: 'pit', logo: 'pit', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Seattle Seahawks', teamAlias: 'sea', logo: 'sea', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'San Francisco 49ers', teamAlias: 'sf', logo: 'sf', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Tampa Bay Buccaneers', teamAlias: 'tb', logo: 'tb', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Tennessee Titans', teamAlias: 'ten', logo: 'ten', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Washington Redskins', teamAlias: 'was', logo: 'was2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' }
           ],
           isActive: false,
           hover: false,
@@ -57,9 +60,12 @@ class NflDivisionLeaderboard extends Component {
           modal: false,
           activeUser: {},
           activeUserUsername: '',
+          activeUserLine: '',
           activeUserWins: [],
           activeUserPicks: [],
           activeUserPrevPicks: [],
+          activeUserWeekPick: '',
+          activeUserPickValue: '',
           prevPicks: [],
           thisRecentPick: '',
           userWin: '',
@@ -78,7 +84,7 @@ class NflDivisionLeaderboard extends Component {
         this.createTimer = this.createTimer.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
-        this.loadLogo = this.loadLogo.bind(this);
+        // this.loadLogo = this.loadLogo.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.createLeaderboard = this.createLeaderboard.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
@@ -117,12 +123,12 @@ class NflDivisionLeaderboard extends Component {
       })
       API.getChallenge(challengeId)
         .then(res => {
-          console.log('CHALLENGE START DATE: ', res.data[0])
+          // console.log('CHALLENGE START DATE: ', res.data[0])
           self.setState({
             challengeData: res.data[0],
             challengeStartDate: res.data[0].startDate,
             allUsers: res.data[0].users
-            // teams: res.data[0].teams
+            // nflTeams: res.data[0].nflTeams
           })
           self.getUserData()
   
@@ -164,35 +170,64 @@ class NflDivisionLeaderboard extends Component {
       }
 
     createLeaderboard = () => {
-        let users = this.state.challengeData.users
+        // let _this = this
+        let users = this.state.allUsers
         let testFilter = (allChallengers) => {
           return allChallengers.username !== 'test'
         }
         let newUsers = users.filter(testFilter)
         
-        // console.log('NEW USERS FOR LEADERBOARD: ', newUsers)
+        // console.log('NEW USERS FOR LEADERBOARD: ', users)
         // if(thisUser === 'test') {
         //   return
         // }
         // console.log('Create leaderboard with this data: ', users)
-        let placedUsers = newUsers.map(function(el, i) {
-            return { index: i, value: el.wins.length, username: el.username }
+        let placedUsers = newUsers.map(function(user, i) {
+          let points = 0
+          let pickCount = 0
+          for (let h=0; h<user.picks.length; h++) {
+            pickCount++
+            let thisPickValue = user.picks[h].teamValue
+            if (pickCount === user.picks.length) {
+              // console.log('PICK GAME TIME: ', user.picks[h].gameTime)
+              let gameTime = user.picks[h].gameTime
+              let currentTime = moment().format()
+              // console.log('game time: ', gameTime)
+              // console.log('current time: ', currentTime)
+              if (moment(gameTime).isAfter(moment(currentTime))) {
+                // console.log('THE GAME HAS NOT STARTED')
+                thisPickValue = 0
+              } 
+            } 
+            points = points + thisPickValue
+          }
+          return { index: i, value: user.wins.length, line: points, username: user.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
             if (a.value > b.value) {
                 return -1;
-            }
-            if (a.value < b.value) {
+            } else if (a.value < b.value) {
                 return 1;
-            }
-            return 0;
+            } else if (a.value === b.value) {
+              // console.log('WE HAVE A TIE')
+              if (a.line > b.line) {
+                // console.log('THIS IS THE HIGHER SEED: ', b)
+                return -1
+              }
+              if (a.line < b.line) {
+                // console.log('THIS IS THE HIGHER SEED: ', b)
+                return 1
+              }
+            } return 0;
         })
-        let leaders = placedUsers.map(function(el) {
-            return newUsers[el.index]
-        })
+        // let leaders = placedUsers.map(function(user) {
+        //     newUsers[user.index].points = placedUsers[user.index].line
+        //     return newUsers[user.index]
+        // })
         // console.log('LEADERS: ', leaders)
-        this.setState({ leaders: leaders })
+        // console.log('PLACED USERS: ', placedUsers)
+        this.setState({ leaders: placedUsers })
 
         // console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
@@ -201,21 +236,21 @@ class NflDivisionLeaderboard extends Component {
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
       let sortedPicks = userPicks.sort(function(a, b) {
-          if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
-              return -1;
-          }
-          if (moment(a.gameDate).isAfter(moment(b.gameDate))) {
-              return 1;
-          }
-          return 0;
-        })
+        if (a.gameWeek < b.gameWeek) {
+          return -1;
+        }
+        if (a.gameWeek > b.gameWeek) {
+          return 1;
+        }
+        return 0;
+      })
 
       let todaysPickFunc = (userPicks) => {
-        return(moment(userPicks.gameDate).isSame(moment().format('YYYY-MM-DD')))
+        return userPicks.gameWeek === this.props.thisWeek
       }
 
       let prevPicksFunc = (userPrevPicks) => {
-        return (moment(userPrevPicks.gameDate).isBefore(moment().format('YYYY-MM-DD')))
+        return userPrevPicks.gameWeek < this.props.thisWeek
       }
       let todaysUserPick = 'NO PICK'
       let userPick = sortedPicks.filter(todaysPickFunc)
@@ -224,8 +259,8 @@ class NflDivisionLeaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      // console.log('SORTED ARRAY: ', sortedPicks)
-      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      console.log('SORTED ARRAY: ', sortedPicks)
+      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
           todaysPick: todaysUserPick,
@@ -235,45 +270,47 @@ class NflDivisionLeaderboard extends Component {
       
       }
 
-      changeLogo = () => {
+    changeLogo = () => {
         let wins = this.state.activeUserWins
-        let teams = [
-          { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
-          { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
-          { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary' },
-          { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary' },
-          { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary' },
-          { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary' },
-          { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary' },
-          { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary' },
-          { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary' },
-          { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary' },
-          { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary' },
-          { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary' },
-          { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary' },
-          { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary' },
-          { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary' },
-          { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary' },
-          { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary' },
-          { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary' },
-          { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary' },
-          { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary' },
-          { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary' },
-          { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary' },
-          { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary' },
-          { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary' },
-          { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary' },
-          { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary' },
-          { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary' },
-          { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary' },
-          { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
-          { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
+        let nflTeams = [
+          { teamName: 'Arizona Cardinals', teamAlias: 'ari', logo: 'ari2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Atlanta Falcons', teamAlias: 'atl', logo: 'atl3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Baltimore Ravens', teamAlias: 'bal', logo: 'bal2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Buffalo Bills', teamAlias: 'buf', logo: 'buf', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Carolina Panthers', teamAlias: 'car', logo: 'car', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Chicago Bears', teamAlias: 'chi', logo: 'chi2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Cincinnati Bengals', teamAlias: 'cin', logo: 'cin', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Cleveland Browns', teamAlias: 'cle', logo: 'cle3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Dallas Cowboys', teamAlias: 'dal', logo: 'dal2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'Denver Broncos', teamAlias: 'den', logo: 'den', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Detroit Lions', teamAlias: 'det', logo: 'det3', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Green Bay Packers', teamAlias: 'gb', logo: 'gb', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'Houston Texans', teamAlias: 'hou', logo: 'hou2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Indianapolis Colts', teamAlias: 'ind', logo: 'ind2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Jacksonville Jaguars', teamAlias: 'jac', logo: 'jac', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Kansas City Chiefs', teamAlias: 'kc', logo: 'kc', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Los Angeles Chargers', teamAlias: 'lac', logo: 'lac2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Los Angeles Rams', teamAlias: 'la', logo: 'la', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Miami Dolphins', teamAlias: 'mia', logo: 'mia2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Minnesota Vikings', teamAlias: 'min', logo: 'min2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC North' },
+            { teamName: 'New England Patriots', teamAlias: 'ne', logo: 'ne', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'New Orleans Saints', teamAlias: 'no', logo: 'no', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'New York Giants', teamAlias: 'nyg', logo: 'nyg', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'New York Jets', teamAlias: 'nyj', logo: 'nyj', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC East' },
+            { teamName: 'Oakland Raiders', teamAlias: 'oak', logo: 'oak', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC West' },
+            { teamName: 'Philadelphia Eagles', teamAlias: 'phi', logo: 'phi', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' },
+            { teamName: 'Pittsburgh Steelers', teamAlias: 'pit', logo: 'pit', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC North' },
+            { teamName: 'Seattle Seahawks', teamAlias: 'sea', logo: 'sea', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'San Francisco 49ers', teamAlias: 'sf', logo: 'sf', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC West' },
+            { teamName: 'Tampa Bay Buccaneers', teamAlias: 'tb', logo: 'tb', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC South' },
+            { teamName: 'Tennessee Titans', teamAlias: 'ten', logo: 'ten', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'AFC South' },
+            { teamName: 'Washington Redskins', teamAlias: 'was', logo: 'was2', status: 'secondary', valueWeek: 0, value: 0, tier: 0, homeGames: [], awayGames: [], division: 'NFC East' }
         ]
         let allPicks = this.state.activeUserPicks
         let thisTeam = ''
         //let matchedTeams = []
         let theseMatchingWins = []
-        let allTeams = JSON.parse(JSON.stringify(teams))
+        let allTeams = JSON.parse(JSON.stringify(nflTeams))
 
         let todaysPickFunc = (picks) => {
           return picks.gameDate === moment().format('YYYY-MM-DD')
@@ -287,7 +324,7 @@ class NflDivisionLeaderboard extends Component {
 
         // FIND TODAYS PICK
         let matchingTeams = (theTeams) => {
-          return theTeams.name.trim() === todaysPick.trim()
+          return theTeams.teamName.trim() === todaysPick.trim()
         }
 
         // FIND MATCHING WINS
@@ -297,15 +334,15 @@ class NflDivisionLeaderboard extends Component {
 
         for (var j=0; j<allTeams.length; j++) {
           // console.log('CURRENT WINS: ', wins)
-          let thisTeamName = allTeams[j].name
+          let thisTeamName = allTeams[j].teamName
           // console.log('this team: ', thisTeam)
           
           thisTeam = thisTeamName
 
           let teamMatched = allTeams.filter(matchingTeams)
           if (teamMatched[0] && (this.state.timeDiff <= 0)) {
-            if (teamMatched[0].name.trim() === allTeams[j].name.trim()) {
-              // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
+            if (teamMatched[0].teamName.trim() === allTeams[j].teamName.trim()) {
+              // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].teamName)
               allTeams[j].status = 'warning'
             } 
           }
@@ -318,7 +355,7 @@ class NflDivisionLeaderboard extends Component {
           } 
           
           this.setState({
-              teams: allTeams,
+              nflTeams: allTeams,
               todaysPick: teamMatched
           })
 
@@ -327,108 +364,109 @@ class NflDivisionLeaderboard extends Component {
 
         }
         
-      }
-
-      loadLogo = (team) => {
-        switch (true) {
-          case (team === 'atl'):
-            return atl2;
-            
-          case (team === 'bal'):
-            return bal;
-            
-          case (team === 'bos'):
-            return bos2;
-            
-          case (team === 'chc'):
-            return chc;
-            
-          case (team === 'cws'):
-            return cws;
-             
-          case (team === 'cle'):
-            return cle2;
-             
-          case (team === 'cin'):
-            return cin;
-             
-          case (team === 'col'):
-            return col;
-             
-          case (team === 'det'):
-            return det2;
-             
-          case (team === 'mia'):
-            return mia2;
-             
-          case (team === 'hou'):
-            return hou2;
-             
-          case (team === 'kc'):
-            return kc;
-             
-          case (team === 'laa'):
-            return laa;
-             
-          case (team === 'lad'):
-            return lad;
-             
-          case (team === 'nym'):
-            return nym;
-             
-          case (team === 'nyy'):
-            return nyy;
-          
-          case (team === 'mil'):
-            return mil2;
-             
-          case (team === 'min'):
-            return min2;
-             
-          case (team === 'oak'):
-            return oak;
-             
-          case (team === 'pit'):
-            return pit;
-             
-          case (team === 'sd'):
-            return sd;
-             
-          case (team === 'sf'):
-            return sf;
-             
-          case (team === 'phi'):
-            return phi2;
-             
-          case (team === 'sea'):
-            return sea;
-             
-          case (team === 'stl'):
-            return stl;
-             
-          case (team === 'tb'):
-            return tb;
-             
-          case (team === 'tex'):
-            return tex;
-             
-          case (team === 'tor'):
-            return tor2;
-             
-          case (team === 'ari'):
-            return ari;
-             
-          case (team === 'wsh'):
-            return wsh;
-             
-          default:
-            return ari;
-          }  
-  
         }
+
+    // loadLogo = (team) => {
+    //   switch (true) {
+    //     case (team === 'atl'):
+    //       return atl2;
+          
+    //     case (team === 'bal'):
+    //       return bal;
+          
+    //     case (team === 'bos'):
+    //       return bos2;
+          
+    //     case (team === 'chc'):
+    //       return chc;
+          
+    //     case (team === 'cws'):
+    //       return cws;
+            
+    //     case (team === 'cle'):
+    //       return cle2;
+            
+    //     case (team === 'cin'):
+    //       return cin;
+            
+    //     case (team === 'col'):
+    //       return col;
+            
+    //     case (team === 'det'):
+    //       return det2;
+            
+    //     case (team === 'mia'):
+    //       return mia2;
+            
+    //     case (team === 'hou'):
+    //       return hou2;
+            
+    //     case (team === 'kc'):
+    //       return kc;
+            
+    //     case (team === 'laa'):
+    //       return laa;
+            
+    //     case (team === 'lad'):
+    //       return lad;
+            
+    //     case (team === 'nym'):
+    //       return nym;
+            
+    //     case (team === 'nyy'):
+    //       return nyy;
+        
+    //     case (team === 'mil'):
+    //       return mil2;
+            
+    //     case (team === 'min'):
+    //       return min2;
+            
+    //     case (team === 'oak'):
+    //       return oak;
+            
+    //     case (team === 'pit'):
+    //       return pit;
+            
+    //     case (team === 'sd'):
+    //       return sd;
+            
+    //     case (team === 'sf'):
+    //       return sf;
+            
+    //     case (team === 'phi'):
+    //       return phi2;
+            
+    //     case (team === 'sea'):
+    //       return sea;
+            
+    //     case (team === 'stl'):
+    //       return stl;
+            
+    //     case (team === 'tb'):
+    //       return tb;
+            
+    //     case (team === 'tex'):
+    //       return tex;
+            
+    //     case (team === 'tor'):
+    //       return tor2;
+            
+    //     case (team === 'ari'):
+    //       return ari;
+            
+    //     case (team === 'wsh'):
+    //       return wsh;
+            
+    //     default:
+    //       return ari;
+    //     }  
+
+    //   }
 
     handleClick = e => {
       // let self = this
+      let _this = this
       let user = e.target
       let player = user.textContent
       let allUsers = this.state.challengeData.users
@@ -443,12 +481,45 @@ class NflDivisionLeaderboard extends Component {
           return players.username === player
         }
         let thisPlayerObj = allUsers.filter(thisPlayerFunc)
+        
         // console.log('THIS PLAYER: ', thisPlayerObj[0])
         thisPlayer.push(thisPlayerObj[0])
+
+        // let player = thisPlayer[0]
+
+        let points = 0
+        let pickCount = 0
+        for (let p=0; p<thisPlayer[0].picks.length; p++) {
+          pickCount++
+          let thisPickValue = thisPlayer[0].picks[p].teamValue
+          if (pickCount === thisPlayer[0].picks.length) {
+            // console.log('PICK GAME TIME: ', user.picks[h].gameTime)
+            let gameTime = thisPlayer[0].picks[p].gameTime
+            let currentTime = moment().format()
+            console.log('game time: ', gameTime)
+            console.log('current time: ', currentTime)
+            if (moment(gameTime).isAfter(moment(currentTime))) {
+              console.log('THE GAME HAS NOT STARTED')
+              thisPickValue = 0
+            } else {
+              console.log('THE GAME HAS STARTED')
+              if (thisPlayer[0].picks[p].gameWeek === _this.props.thisWeek) {
+                // console.log('HAVE THIS WEEKS PICK: ', thisPlayer[0].picks[h])
+                _this.setState({
+                  activeUserWeekPick: thisPlayer[0].picks[p].team,
+                  activeUserPickValue: thisPlayer[0].picks[p].teamValue
+                })
+              }
+            }
+          } 
+          points = points + thisPickValue
+        }
+      
         this.setState({
           activeUser: thisPlayer[0],
           activeUserUsername: thisPlayer[0].username,
           activeUserWins: thisPlayer[0].wins,
+          activeUserLine: points,
           activeUserPicks: thisPlayer[0].picks
         }, () => {
           this.getUser()
@@ -464,7 +535,7 @@ class NflDivisionLeaderboard extends Component {
       let date = moment(now).format('YYYY-MM-DD')
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getMlbGamesByDate(date)
+      API.getNbaGamesByDate(date)
         .then (res => {
           let games = res.data
           let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
@@ -502,6 +573,7 @@ class NflDivisionLeaderboard extends Component {
 
     render() {
         let uuidv4 = require('uuid/v4')
+        // let startDate = this.state.challengeStartDate
         let record = (this.state.activeUserPrevPicks.length - this.state.activeUserWins.length)
         let leaderStyle = {
             overflow: 'scroll'
@@ -519,21 +591,22 @@ class NflDivisionLeaderboard extends Component {
           }
         let userPicks = this.state.activeUserPrevPicks
         let username = this.state.activeUserUsername
-        let timerDiff = this.state.timeDiff
-        let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
-        let challengeStartDate = moment(this.state.challengeStartDate).format('MM-DD-YYYY')
-        let today = moment().format('MM-DD-YYYY')
+        // let timerDiff = this.state.timeDiff
+        // const ReactHint = ReactHintFactory(React)
+        // let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
+        // let challengeStartDate = moment(startDate).format('MM-DD-YYYY')
+        // let today = moment().format('MM-DD-YYYY')
         // let timerEnded = false;
-        let EndTimer = () => {
-          // timerEnded = true
-          // console.log('TODAYS PICK: ', todaysPick)
-          return (
-            <span>{todaysPick}</span>
-          )
-        }
+        // let EndTimer = () => {
+        //   // timerEnded = true
+        //   // console.log('TODAYS PICK: ', todaysPick)
+        //   return (
+        //     <span>{todaysPick}</span>
+        //   )
+        // }
 
         return(
-          <div className='leaderboard'>
+          <div className='leaderboard nflLeaderboard'>
             <LoadingOverlay
               active={this.state.isActive}
               spinner
@@ -549,10 +622,10 @@ class NflDivisionLeaderboard extends Component {
               text='Loading user...'
               >
             </LoadingOverlay>
-              <h2>NflDivisionLeaderboard</h2>
-                {
+              <h2>NFL Division Leaderboard</h2>
+                {/* {
 
-                  moment(challengeStartDate).isBefore(today) ? 
+                  moment(challengeStartDate).isBefore(moment(today)) ? 
 
                   <small></small>  
 
@@ -560,14 +633,15 @@ class NflDivisionLeaderboard extends Component {
 
                   <small>*ALL POINTS WILL BE RESET ON {challengeStartDate}*</small>
 
-                }
+                } */}
               <hr />
               <table className='leaderboardData table table-hover'>
                 <thead>
                   <tr className='leaderboardHeader'>                
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
-                    <th className='leaderboardHeader'>Points</th>
+                    <th className='leaderboardHeader'>Wins</th>
+                    <th className='leaderboardHeader'>Locked Line</th>
                     {/* <th>Teams</th> */}
                   </tr>
                 </thead>
@@ -578,8 +652,9 @@ class NflDivisionLeaderboard extends Component {
                     
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
-                      <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.wins.length}</td>
+                      <td className='leaderRow username' data-rh='Click to view user profile.' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.value}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.line}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
@@ -597,14 +672,15 @@ class NflDivisionLeaderboard extends Component {
                                 <Container fluid>
                                   <div className="display-4">
                                     <h2>{username}</h2> <hr />
-                                    <h4 className="winsHeader">Today's Pick</h4>
+                                    <h4 className="winsHeader winsHeaderModal">This Week's Pick</h4>
                                       <div className="userTimer">
 
                                         {
-                                          (!timerDiff) ? <p>No Games Today</p> :
+                                          (this.state.activeUserWeekPick === '') ? <p>User Selected Game Hasn't Begun</p> :
 
                                           <div>
-                                          <Countdown 
+                                            {this.state.activeUserWeekPick} ({this.state.activeUserPickValue})
+                                          {/* <Countdown 
                                             date={Date.now() + this.state.timeDiff}
                                             zeroPadTime={2} 
                                             daysInHours={true} 
@@ -612,21 +688,21 @@ class NflDivisionLeaderboard extends Component {
                                             className='userTimer'
                                           >
                                             <EndTimer />
-                                          </Countdown> 
+                                          </Countdown>  */}
                                           </div>
                                         }
 
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
+                                        <h4 className='winsHeader winsHeaderModal'>Users Locked Line</h4> {this.state.activeUserLine}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
+                                        <h4 className='winsHeader winsHeaderModal'>Division's Won</h4> {this.state.activeUserWins.length} <small>out of</small> 8
+                                      </div> 
+                                      <div className="col-md-3">
+                                        <h4 className='winsHeader winsHeaderModal'>Record</h4> {this.state.activeUserWins.length} - {record}
                                       </div>  
-                                      {/* <div className="col-md-3">
-                                        <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
-                                      </div>   */}
                                     </div>  
                                   </div>
                                 </Container>
@@ -636,7 +712,7 @@ class NflDivisionLeaderboard extends Component {
                                   <table className='table table-hover'>
                                     <thead>
                                       <tr>
-                                        <th>Date</th>
+                                        <th>Week</th>
                                         <th>Pick</th>
                                       </tr>
                                     </thead>
@@ -647,8 +723,8 @@ class NflDivisionLeaderboard extends Component {
                                         
                                         userPicks.map((newRecentPick, i) => (
                                           <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
-                                            <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
-                                            <td>{newRecentPick.team}</td>
+                                            <td>{newRecentPick.gameWeek}</td>
+                                            <td>{newRecentPick.team} { newRecentPick.teamValue ? '(' + newRecentPick.teamValue + ')' : '' }</td>
                                           </tr> 
                                           )
                                         )                                            
@@ -670,10 +746,10 @@ class NflDivisionLeaderboard extends Component {
                             </div>
 
                             <span className="col-md"> 
-                              <div className="row teamLogos">
+                              {/* <div className="row teamLogos">
                                 
                                 {
-                                  this.state.teams.map((team, i) => (
+                                  this.state.nflTeams.map((team, i) => (
                                   
                                     <Button 
                                       key={uuidv4()}
@@ -695,7 +771,7 @@ class NflDivisionLeaderboard extends Component {
                                   ))
                                 }
                                 
-                              </div>
+                              </div> */}
                             </span>
                           </ModalBody>
                           <ModalFooter>

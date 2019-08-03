@@ -20,10 +20,16 @@
     border: solid 5px gold;
     border-radius: 4%;
     max-height: 550px;
+    overflow: auto;
 }
 
 .calendar {
     max-height: 100% !important;
+}
+
+
+.countdown {
+    max-width: 100%;
 }
 
 .fc {
@@ -151,6 +157,76 @@ td.fc-event-container a {
     min-width: 80%;
     margin-left: 10%;
 }
+
+.disclaimer {
+    margin: 0 auto;
+  }
+
+.reactHint {
+    width: 100%;
+    padding: 5px;
+    position: absolute;
+    z-index: 9998;
+    cursor: default;
+    animation: .5s fadeIn;
+    font-size: 50%;
+    text-align: center;
+  }
+  
+  .reactHint__content {
+      padding: 10px;
+      border-radius: 5px;
+      background: #000;
+      color: #fff;
+  }
+  
+  .reactHint:after {
+      content: '';
+      width: 0;
+      height: 0;
+      margin: auto;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 5px solid transparent;
+  }
+  
+  .reactHint--top:after {
+      top: auto;
+      border-bottom: none;
+      border-top-color: #000;
+  }
+  
+  .reactHint--left:after {
+      left: auto;
+      border-right: none;
+      border-left-color: #000;
+  }
+  
+  .reactHint--right:after {
+      right: auto;
+      border-left: none;
+      border-right-color: #000;
+  }
+  
+  .reactHint--bottom:after {
+      bottom: auto;
+      border-top: none;
+      border-bottom-color: #000;
+  }
+  
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+      }
+  
+      to {
+          opacity: 1;
+      }
+  }
 
 
 @media (min-width: 1000px) and (max-width: 1299px) {
@@ -745,6 +821,11 @@ td.fc-event-container a {
     
     .calendar {
         max-height: 100% !important;
+    }
+
+    .nflColumn .btn {
+        white-space: pre-wrap;
+        font-size: 9px !important;
     }
     
     table {

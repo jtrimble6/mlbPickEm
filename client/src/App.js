@@ -13,6 +13,7 @@ import ChallengePage from './pages/admin/ChallengePage';
 import MastersPage from './pages/admin/MastersPage';
 import UsersPage from './pages/admin/UsersPage'
 import NbaGamesPage from './pages/admin/NbaGamesPage'
+import NflDivisionAdmin from './pages/admin/NflDivisionChallenge'
 import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
 import MlbPickEmDBPage from './pages/admin/MlbPickEmDB'
@@ -40,6 +41,7 @@ import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
 import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 import NflDivisionLeaderboard from './pages/leaderboards/NflDivisionLeaderboardPage'
+// import {DragDropContext} from 'react-beautiful-dnd'
 
 
 
@@ -346,6 +348,19 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/nflDivisionAdmin' render={() => (
+              this.state.adminLoggedIn === true ? (
+                
+                  <NflDivisionAdmin 
+                    username={this.state.userUsername}
+                  />
+                
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/nbaGames' render={() => (
               this.state.adminLoggedIn === true ? (
                 <NbaGamesPage 
@@ -474,6 +489,15 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/nflDivLeaderboard' render={() => (
+              this.state.userLoggedIn === true ? (
+                <NflDivisionLeaderboard />
+              ) : this.state.userLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/nflDivisionLeaderboard' render={() => (
               this.state.userLoggedIn === true ? (
                 <NflDivisionLeaderboard />
@@ -486,6 +510,7 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
+      
     );
   }
 }

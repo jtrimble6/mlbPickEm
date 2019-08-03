@@ -203,16 +203,20 @@ class UpcomingChallenges extends Component {
 
         // ADD USER TO CHALLENGE
         API.addUserToChallenge(this.state.currentChallengeId, userData)
-          .then(res => { console.log('RESPONSE: ', res) })
+          .then(
+            res => { console.log('RESPONSE: ', res) 
+            API.saveUserChallenge(username, challengeData)
+              .then(res => console.log(res))
+              .catch(err => console.log(err))
+            })
           .catch(err => console.log(err))
-
+        
         // console.log('THIS USER: ', user.username)
         // console.log('THIS CHALLENGE DATA: ', challengeData)
-        // ADD CHALLENGE TO USER DB
-        API.saveUserChallenge(username, challengeData)
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
+        // debugger;
 
+        // ADD CHALLENGE TO USER DB
+        
         // debugger;
         this.toggle()
         window.location.reload()
@@ -262,17 +266,17 @@ class UpcomingChallenges extends Component {
                           <CardTitle>{challenge.challengeName}</CardTitle><hr />
                           <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
                             Sign Up Now
-                          </CardLink><hr />
+                          </CardLink>
                         </div>
 
                         <div className="col-6 details">
 
                           <CardSubtitle className='buyIn'>
                               Entry: <i className="fas fa-strikethrough"></i>{challenge.buyIn}
-                          </CardSubtitle>
+                          </CardSubtitle> <hr />
 
                           <CardSubtitle className='remainingSpots'>
-                              Remaining Spots: {
+                              Open Slots: {
                                   (challenge.maxEntries > 0) ? (challenge.maxEntries - challenge.users.length) : noMax
                                 }
                           </CardSubtitle>
@@ -281,7 +285,7 @@ class UpcomingChallenges extends Component {
                               Max Entries: {
                                   (challenge.maxEntries > 0) ? challenge.maxEntries : noMax
                                 }
-                          </CardSubtitle>
+                          </CardSubtitle> <hr />
 
                           <CardSubtitle className='signUpDate'>
                               Sign Up Begins: ({moment(challenge.openSignUp).add(8,'hours').format('MM-DD')})

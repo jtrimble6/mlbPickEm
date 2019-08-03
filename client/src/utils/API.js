@@ -182,31 +182,31 @@ export default {
 
     // NFL API CALLS
     postNflGames: function(data) {
-        return axios.post('/api/mlbgames/', data)
+        return axios.post('/api/nflgames/', data)
     },
     getNflGames: function() {
-        return axios.get('/api/mlbgames/')
+        return axios.get('/api/nflgames/')
     },
     getNflGamesByDate: function(date) {
-        return axios.get('/api/mlbgames/' + date)
+        return axios.get('/api/nflgames/' + date)
     },
     postNflTeams: function(data) {
-        return axios.post('/api/mlbteams/', data)
+        return axios.post('/api/nflteams/', data)
     },
     addNflGamesByTeam: function(team, game) {
-        return axios.put('/api/mlbteams/' + team, game)
+        return axios.put('/api/nflteams/' + team, game)
     },
     getNflTeam: function(team) {
-        return axios.get('/api/mlbteams/' + team)
+        return axios.get('/api/nflteams/' + team)
     },
     getNflTeams: function() {
-        return axios.get('/api/mlbteams/')
+        return axios.get('/api/nflteams/')
     },
     getNflGamesById: function(date, id) {
-        return axios.get('/api/mlbgames/' + date + '/' + id)
+        return axios.get('/api/nflgames/' + date + '/' + id)
     },
     updateNflGame: function(date, id, gameResult) {
-        return axios.put('/api/mlbgames/' + date + '/' + id, gameResult)
+        return axios.put('/api/nflgames/' + date + '/' + id, gameResult)
     },
     addNflWin: function(id, user, newWin) {
         return axios.post('/api/challenges/' + id + '/users/' + user, newWin)

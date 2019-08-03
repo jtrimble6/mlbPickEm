@@ -49,7 +49,7 @@ class LandingPage extends Component {
       }
 
     render() {
-        let background1 = require('../../css/images/landing2.jpeg')
+        let background1 = require('../../css/images/landing5.jpg')
         return (
             <div id='landingPage'>
               {this.renderRedirect()}

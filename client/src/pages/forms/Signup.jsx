@@ -265,7 +265,7 @@ class Signup extends Component {
 
     render() {
         return (
-            <div id="signupPage">
+            <div id="signUpPage">
             <SignupBar />
               {this.renderRedirect()}
                 <div className="formContainer">    

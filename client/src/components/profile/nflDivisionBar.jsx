@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 //import { Link } from 'react-router-dom';
 import '../../css/profileBar.css'
 import API from '../../utils/API';
 import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import $ from 'jquery'
-import { ari } from '../../css/nflLogos'
+import ReactHintFactory from 'react-hint'
+import { ari2 } from '../../css/nflLogos'
 
 class NflDivisionBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
-            currentUser: {},
-            challengeData: {},
-            userId: '',
-            userWins: [],
-            thisTeam: '',
-            userPicks: [],
-            todaysPick: this.props.todaysPick,
-            pastPicks: [],
-            activeTeam: {},
-            nextDays: [],
-            pastFutureDates: [],
-            recentDate: '',
-            nextGames: [],
-            matchingGames: [],
-            currentGameDate: '',
-            recentPicks: [],
-            sortedPicks: [],
-            oldPicks: [],
-            allGames: [],
-            homeGames: [],
-            awayGames: [],
-            teams: []
+          thisWeek: this.props.thisWeek,
+          prevWeek: this.props.prevWeek,
+          chalValue: this.props.chalValue,
+          myValue: this.props.myValue,
+          nfcActive: true,
+          afcActive: false,
+          modal: false,
+          currentUser: {},
+          challengeData: {},
+          userId: '',
+          userWins: [],
+          thisTeam: '',
+          userPicks: [],
+          todaysPick: this.props.todaysPick,
+          pastPicks: [],
+          activeTeam: {},
+          activeTeamName: '',
+          nextDays: [],
+          nflWeeks: [],
+          recentDate: '',
+          nextGames: [],
+          matchingGames: [],
+          currentGameDate: '',
+          recentPicks: [],
+          sortedPicks: [],
+          oldPicks: [],
+          allGames: [],
+          homeGames: [],
+          awayGames: [],
+          teams: [],
+          nfcWest: [],
+          nfcEast: [],
+          nfcSouth: [],
+          nfcNorth: [],
+          afcWest: [],
+          afcEast: [],
+          afcSouth: [],
+          afcNorth: []
           
         }
 
@@ -44,19 +60,24 @@ class NflDivisionBar extends Component {
         this.loadLogo = this.loadLogo.bind(this);
         this.postTeams = this.postTeams.bind(this);
         this.findTeamGames = this.findTeamGames.bind(this);
-        this.findNextGames = this.findNextGames.bind(this);
+        // this.sortTeamGames = this.sortTeamGames.bind(this);
         // this.setNextGames = this.setNextGames.bind(this);
         this.postTeamGames = this.postTeamGames.bind(this);
         this.sortUserPicks = this.sortUserPicks.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
-        this.findNextDays = this.findNextDays.bind(this);
+        // this.findNextDays = this.findNextDays.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.getTeams = this.getTeams.bind(this);
+        this.toggleNfc =  this.toggleNfc.bind(this);
+        this.toggleAfc = this.toggleAfc.bind(this);
+        this.toggleWins = this.toggleWins.bind(this);
       }
 
     componentDidMount() {
       this.getChallengeData()
       this.findNextDays()
+      this.getTeams()
       // this.postTeams()
       // this.postTeamGames()
       }
@@ -69,58 +90,322 @@ class NflDivisionBar extends Component {
 
     toggleActive() {
       let _this = this
-      $('.button').click(function(){
+      $('.nflTeamButton').click(function(){
           $(this).addClass('active');
-          $(this).parent().children('.teamButton').not(this).removeClass('active');
-          let thisTeam = $(this).text()
+          $(this).parent().children('.teamButton').not(_this).removeClass('active');
+          // console.log('THIS: ', _this)
+          let thisTeam = $(_this).text()
           _this.setState({ activeTeam: thisTeam })
         }); 
       }
 
-    findTeamGames = (team, i) => {
+    toggleNfc() {
+        this.setState({
+          nfcActive: true,
+          afcActive: false
+        })
+        this.toggleWins()
+      }
+
+    toggleAfc() {
+        this.setState({
+          afcActive: true,
+          nfcActive: false
+        })
+        this.toggleWins()
+      }
+
+    toggleWins() {
+        let nfcWest = JSON.parse(JSON.stringify(this.state.nfcWest))
+        let nfcEast = JSON.parse(JSON.stringify(this.state.nfcEast))
+        let nfcNorth = JSON.parse(JSON.stringify(this.state.nfcNorth))
+        let nfcSouth = JSON.parse(JSON.stringify(this.state.nfcSouth))
+        let afcWest = JSON.parse(JSON.stringify(this.state.afcWest))
+        let afcEast = JSON.parse(JSON.stringify(this.state.afcEast))
+        let afcNorth = JSON.parse(JSON.stringify(this.state.afcNorth))
+        let afcSouth = JSON.parse(JSON.stringify(this.state.afcSouth))
+
+        // console.log('AFC SOUTH: ', afcSouth)
+
+        let userPicks = this.state.userPicks
+        // console.log('USER PICKS: ', userPicks)
+
+        let findWins = (picks) => {
+          return picks.result === 'win'
+        }
+
+        let userWins = userPicks.filter(findWins)
+        // console.log('USER WINS: ', userWins)
+
+        let theseMatchingWins = []
+
+        let todaysPickFunc = (picks) => {
+          return picks.gameWeek === this.props.thisWeek 
+        }
+        let todaysPickObj = userPicks.filter(todaysPickFunc)
+        let todaysPick = ''
+        if (todaysPickObj[0]) {
+          todaysPick = todaysPickObj[0].team
+          // console.log('TODAYS PICK: ', todaysPick)
+        }
+
+        // FIND TODAYS PICK
+        let matchingTeams = (teams) => {
+          return teams.teamName.trim() === todaysPick.trim()
+        }
+
+        // AFC SOUTH WINS
+        for (var j=0; j<afcSouth.length; j++) {
+          this.setState({
+            thisTeam: afcSouth[j].teamName.trim()
+          })
+          let teamMatched = afcSouth.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === afcSouth[j].teamName.trim()) {
+              afcSouth[j].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            afcSouth[j].status = 'success'
+          }
+          this.setState({
+              afcSouth: afcSouth,
+              todaysPick: teamMatched
+          })
+        }
+
+        // AFC NORTH WINS
+        for (var k=0; k<afcNorth.length; k++) {
+          this.setState({
+            thisTeam: afcNorth[k].teamName.trim()
+          })
+          let teamMatched = afcNorth.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === afcNorth[k].teamName.trim()) {
+              afcNorth[k].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            afcNorth[k].status = 'success'
+          }
+          this.setState({
+              afcNorth: afcNorth,
+              todaysPick: teamMatched
+          })
+        }
+
+        // AFC EAST WINS
+        for (var l=0; l<afcEast.length; l++) {
+          this.setState({
+            thisTeam: afcEast[l].teamName.trim()
+          })
+          let teamMatched = afcEast.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === afcEast[l].teamName.trim()) {
+              afcEast[l].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            afcEast[l].status = 'success'
+          }
+          this.setState({
+              afcEast: afcEast,
+              todaysPick: teamMatched
+          })
+        }
+
+        // AFC WEST WINS
+        for (var m=0; m<afcWest.length; m++) {
+          this.setState({
+            thisTeam: afcWest[m].teamName.trim()
+          })
+          let teamMatched = afcWest.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === afcWest[m].teamName.trim()) {
+              afcWest[m].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            afcWest[m].status = 'success'
+          }
+          this.setState({
+              afcWest: afcWest,
+              todaysPick: teamMatched
+          })
+        }
+
+        // NFC SOUTH WINS
+        for (var n=0; n<nfcSouth.length; n++) {
+          this.setState({
+            thisTeam: nfcSouth[n].teamName.trim()
+          })
+          let teamMatched = nfcSouth.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === nfcSouth[n].teamName.trim()) {
+              nfcSouth[n].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            nfcSouth[n].status = 'success'
+          }
+          this.setState({
+              nfcSouth: nfcSouth,
+              todaysPick: teamMatched
+          })
+        }
+
+        // NFC NORTH WINS
+        for (var o=0; o<nfcNorth.length; o++) {
+          this.setState({
+            thisTeam: nfcNorth[o].teamName.trim()
+          })
+          let teamMatched = nfcNorth.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === nfcNorth[o].teamName.trim()) {
+              nfcNorth[o].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            nfcNorth[o].status = 'success'
+          }
+          this.setState({
+              nfcNorth: nfcNorth,
+              todaysPick: teamMatched
+          })
+        }
+
+        // NFC EAST WINS
+        for (var p=0; p<nfcEast.length; p++) {
+          this.setState({
+            thisTeam: nfcEast[p].teamName.trim()
+          })
+          let teamMatched = nfcEast.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === nfcEast[p].teamName.trim()) {
+              nfcEast[p].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            nfcEast[p].status = 'success'
+          }
+          this.setState({
+              nfcEast: nfcEast,
+              todaysPick: teamMatched
+          })
+        }
+
+        // NFC WEST WINS
+        for (var q=0; q<nfcWest.length; q++) {
+          this.setState({
+            thisTeam: nfcWest[q].teamName.trim()
+          })
+          let teamMatched = nfcWest.filter(matchingTeams)
+          if (teamMatched[0]) {
+            if (teamMatched[0].teamName.trim() === nfcWest[q].teamName.trim()) {
+              nfcWest[q].status = 'warning'
+            } 
+          }
+          // FIND MATCHING WINS
+          let matchingWins = (wins) => {
+            return wins.team.trim() === this.state.thisTeam
+          }
+          theseMatchingWins = userWins.filter(matchingWins)
+          if (theseMatchingWins[0]) {
+            nfcWest[q].status = 'success'
+          }
+          this.setState({
+              nfcWest: nfcWest,
+              todaysPick: teamMatched
+          })
+        }
+
+        
+
+        
+
+        // for (let r=0; r<userWins.length; r++) {
+        //   let win = userWins[r].team.trim()
+        //   let teamButton = document.querySelectorAll(`[data-teamname="${win}"]`)
+        //   console.log('ADDING CLASS: ', win)
+        //   console.log('WIN BUTTON: ', teamButton)
+        //   if (teamButton[0]) {
+        //     console.log('TEAM BUTTON: ', teamButton[0])
+        //     $(teamButton[0]).addClass('teamWin')
+        //     // teamButton[0].classList.add("teamWin")
+        //   } else {
+        //     console.log('NO MATCHING TEAMS')
+        //   }
+          
+        //   // $(`*[data-teamname='${win}']`).addClass("teamWin")
+        // }
+
+
+      }
+
+    findTeamGames = (event) => {
       this.toggleActive()
       this.toggle()
-      let teamAbbr = ''
-      if (team.target.type) {
-        let thisTeam = team.target
-        let thisTeamAlt = thisTeam.attributes['data'].value.toUpperCase()
-        teamAbbr = thisTeamAlt
-      } else {
-        let thisTeam = team.target.alt
-        let teamAlt = thisTeam.trim()
-        let thisTeamAlt = teamAlt.toUpperCase()
-        teamAbbr = thisTeamAlt
-      }
+      let team = event.target
+      // console.log('THIS TEAM: ', team.dataset)
+      let teamAbbr = team.dataset.teamalias
 
-      // console.log('Find the next games for this team: ', teamAbbr)
-      let self = this
-      API.getMlbTeam(teamAbbr)
+      this.setState({
+        activeTeamName: team.dataset.teamname,
+      })
+
+      API.getNflTeam(teamAbbr)
         .then(res => {
-          // console.log(res.data)
-          self.setState({
-            activeTeam: res.data[0],
-            homeGames: res.data[0].homeGames,
-            awayGames: res.data[0].awayGames
+          // console.log('TEAM DATA: ', res.data[0])
+          let origTeam = res.data[0]
+          this.setState({
+            homeGames: origTeam.homeGames,
+            awayGames: origTeam.awayGames
           })
-          let homeGames = this.state.homeGames
-          let awayGames = this.state.awayGames
-          // console.log('HOME GAMES: ', this.state.homeGames)
-          // console.log('AWAY GAMES: ', this.state.awayGames)
-          self.findNextGames(homeGames, awayGames)
+          this.sortTeamGames(origTeam.homeGames, origTeam.awayGames)
         })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)})
 
-      // API.getMlbGamesByTeam(teamAbbr)
-      //   .then(res => {
-      //       console.log(res)
-      //   })
-      //   .catch(err => (console.log(err)))
       }
 
-    findNextGames = (homeGames, awayGames) => {
-      //console.log('FIND NEXT GAMES FROM THESE: ', homeGames, awayGames)
+    sortTeamGames = (homeGames, awayGames) => {
+      // console.log('FIND NEXT GAMES FROM THESE: ', homeGames, awayGames)
       let allGames = []
-      let matchingGames = []
+      // let matchingGames = []
       
       for (var n=0; n<homeGames.length; n++) {
         allGames.push(homeGames[n], awayGames[n])
@@ -128,69 +413,10 @@ class NflDivisionBar extends Component {
       let sortedGames = allGames.sort((a, b) => new Date(...a.gameDate.split('/').reverse()) - new Date(...b.gameDate.split('/').reverse()));
       //console.log('SORTED GAMES: ', sortedGames)
       this.setState({
-        allGames: sortedGames
+        allGames: sortedGames,
+        nextGames: sortedGames
       })
-      // let allGamesState = this.state.allGames
-      //console.log('ALL GAMES FOUND: ', allGamesState)
-      
-      // console.log('NEXT 7 DAYS: ', this.state.nextDays)
-      let nextGames = []
-      for (var u=0; u<7; u++) {  
-        this.setState({
-          currentGameDate: this.state.nextDays[u]
-        })
-        let newGame = ''
-        let noGame = {
-          game: { gameDate: this.state.nextDays[u] },
-          gameDetails: '--',
-          status: 'noGame'
-        }
-        let gameMatch = (thisGame) => {
-          return thisGame.gameDate === this.state.currentGameDate 
-        }
-
-        let thisGameMatch = this.state.allGames.filter(gameMatch)
-        if (thisGameMatch[0]) {
-          matchingGames.push(thisGameMatch[0])
-            if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isBefore(moment().format('YYYY-MM-DD'))) {
-            // newGame.status = 'past'
-            newGame = {
-              game: thisGameMatch[0],
-              gameDetails: (thisGameMatch[0].homeAlias === this.state.activeTeam.teamAlias) ? 'vs ' + thisGameMatch[0].awayAlias : '@ ' + thisGameMatch[0].homeAlias,
-              status: 'past'
-            } 
-          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isSame(moment().format('YYYY-MM-DD'))) {
-            // newGame.status = 'today'
-            newGame = {
-              game: thisGameMatch[0],
-              gameDetails: (thisGameMatch[0].homeAlias === this.state.activeTeam.teamAlias) ? 'vs ' + thisGameMatch[0].awayAlias : '@ ' + thisGameMatch[0].homeAlias , 
-              status: 'today'
-            }
-          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isAfter(moment().format('YYYY-MM-DD'))) {
-            // newGame.status = 'future'
-            newGame = {
-              game: thisGameMatch[0],
-              gameDetails: (thisGameMatch[0].homeAlias === this.state.activeTeam.teamAlias) ? 'vs ' + thisGameMatch[0].awayAlias : '@ ' + thisGameMatch[0].homeAlias,
-              status: 'future'
-            }
-          }
-          
-        } else {
-          // console.log('NO MATCHES')
-        }
-        
-        if (newGame !== '') {
-          nextGames.push(newGame)
-        } else {
-          nextGames.push(noGame)
-        } 
-        
-      }
-
-      
-      this.setState({
-        nextGames: nextGames
-      })
+  
       // console.log('THE NEXT GAMES: ', this.state.nextGames)
       // console.log('THESE GAMES MATCH: ', matchingGames)
       // this.setNextGames(nextGames)
@@ -201,15 +427,15 @@ class NflDivisionBar extends Component {
       // console.log('USER PICKS: ', this.state.userPicks)
 
       let oldPicksFunc = (picks) => {
-        return picks.gameDate < moment().format('YYYY-MM-DD')
+        return picks.gameWeek < this.props.thisWeek
       }
       let oldPicks = userPicks.filter(oldPicksFunc)
       let sortedPicks = userPicks.sort(function(a, b) {
-        if (moment(a.gameDate).isBefore(moment(b.gameDate))) {
-            return -1;
+        if (a.gameWeek < b.gameWeek) {
+          return -1;
         }
-        if (moment(a.gameDate).isAfter(moment(b.gameDate))) {
-            return 1;
+        if (a.gameWeek > b.gameWeek) {
+          return 1;
         }
         return 0;
       })
@@ -219,23 +445,23 @@ class NflDivisionBar extends Component {
         oldPicks: oldPicks
       })
       // console.log('THE NEXT PICKS: ', this.state.sortedPicks)
-      //console.log('THE OLD PICKS: ', this.state.oldPicks)
+      // console.log('THE OLD PICKS: ', this.state.oldPicks)
       this.findRecentPicks()
     
       }
 
     findRecentPicks = () => {
       let sortedPicks = this.state.sortedPicks
-      let recentDates = this.state.pastFutureDates
+      let recentDates = this.state.nflWeeks
       let recentPicks = []
       // console.log('SORTED PICKS ARRAY: ', sortedPicks)
       // console.log('PAST/FUTURE DATES: ', recentDates)
       let recentPickMatch = (thePicks) => {
-        return moment(thePicks.gameDate).isSame(this.state.recentDate.date) 
+        return thePicks.gameWeek === this.state.recentDate 
       }
       for (var t=0; t<recentDates.length; t++) {
           this.setState({
-            recentDate: recentDates[t]
+            recentDate: recentDates[t].week
           })
           let dateMatch = sortedPicks.filter(recentPickMatch)
           if (dateMatch[0]) {
@@ -245,10 +471,10 @@ class NflDivisionBar extends Component {
             recentPicks.push(
               {
                 team: 'NO PICK',
-                gameDate: recentDates[t].date,
+                gameWeek: recentDates[t].week,
                 gameID: '',
                 // style: (moment().format('YYYY-MM-DD').isAfter(moment(recentDates[t].date)) ? 'loss' : (moment().format('YYYY-MM-DD').isBefore(moment(recentDates[t].date)) ? 'futurePick' : 'todaysPick')),
-                style: ( moment().format('YYYY-MM-DD') === (recentDates[t].date) ? 'todaysPick' : moment().format('YYYY-MM-DD') > (recentDates[t].date) ? 'loss' : 'futurePick' )
+                style: ( moment().format('YYYY-MM-DD') === (recentDates[t].week) ? 'todaysPick' : moment().format('YYYY-MM-DD') > (recentDates[t].date) ? 'loss' : 'futurePick' )
               }
             )
           }
@@ -261,82 +487,84 @@ class NflDivisionBar extends Component {
       }
 
     findNextDays = () => {
-      let today = moment().subtract(2, 'days').format('YYYY-MM-DD')
       let nextDays = []
-      let pastFutureDates = [
+      let nflWeeks = [
         {
-          name: 'past',
-          date: moment().subtract(7, 'days').format('YYYY-MM-DD')
+          date: '2019-06-04',
+          week: 1
         },
         {
-          name: 'past',
-          date: moment().subtract(6, 'days').format('YYYY-MM-DD')
+          date: '2019-06-11',
+          week: 2
         },
         {
-          name: 'past',
-          date: moment().subtract(5, 'days').format('YYYY-MM-DD')
+          date: '2019-06-18',
+          week: 3
         },
         {
-          name: 'past',
-          date: moment().subtract(4, 'days').format('YYYY-MM-DD')
+          date: '2019-06-25',
+          week: 4
         },
         {
-          name: 'past',
-          date: moment().subtract(3, 'days').format('YYYY-MM-DD')
+          date: '2019-07-02',
+          week: 5
         },
         {
-          name: 'past',
-          date: moment().subtract(2, 'days').format('YYYY-MM-DD')
+          date: '2019-07-09',
+          week: 6
         },
         {
-          name: 'past',
-          date: moment().subtract(1, 'day').format('YYYY-MM-DD')
+          date: '2019-07-16',
+          week: 7
         },
         {
-          name: 'today',
-          date: moment().format('YYYY-MM-DD')
+          date: '2019-07-23',
+          week: 8
         },
         {
-          name: 'future',
-          date: moment().add(1, 'day').format('YYYY-MM-DD')
+          date: '2019-07-30',
+          week: 9
         },
         {
-          name: 'future',
-          date: moment().add(2, 'days').format('YYYY-MM-DD')
+          date: '2019-08-06',
+          week: 10
         },
         {
-          name: 'future',
-          date: moment().add(3, 'days').format('YYYY-MM-DD')
+          date: '2019-08-13',
+          week: 11
         },
         {
-          name: 'future',
-          date: moment().add(4, 'days').format('YYYY-MM-DD')
+          date: '2019-08-20',
+          week: 12
         },
         {
-          name: 'future',
-          date: moment().add(5, 'days').format('YYYY-MM-DD')
+          date: '2019-08-27',
+          week: 13
         },
         {
-          name: 'future',
-          date: moment().add(6, 'days').format('YYYY-MM-DD')
+          date: '2019-09-03',
+          week: 14
         },
         {
-          name: 'future',
-          date: moment().add(7, 'days').format('YYYY-MM-DD')
+          date: '2019-09-10',
+          week: 15
         },
+        {
+          date: '2019-09-17',
+          week: 16
+        },
+        {
+          date: '2019-09-24',
+          week: 17
+        }
+        
 
       ]
       // console.log('GAMES FOR THIS WEEK: ', today)
-      
-      for (var c=0; c<14; c++) {
-        let thisDay = moment(today).add(c, 'days').format('YYYY-MM-DD')
-        // console.log('THIS DAY: ', thisDay)
-        nextDays.push(thisDay)
-      }
 
       this.setState({
         nextDays: nextDays,
-        pastFutureDates: pastFutureDates
+        nflWeeks: nflWeeks
       })
 
       }
@@ -359,11 +587,12 @@ class NflDivisionBar extends Component {
           // self.postTeamGames()
         })
         .catch(err => console.log(err))
-        }
+      }
   
     getUserData = () => {
       let localUser = localStorage.getItem('user')
       let chalUsers = this.state.challengeData.users
+      let _this = this
 
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
@@ -378,17 +607,77 @@ class NflDivisionBar extends Component {
         winsCount: thisUser[0].wins.length,
         userPicks: thisUser[0].picks,
       })
-      this.changeLogo()
+      // this.changeLogo()
       this.sortUserPicks()
 
       $(document).ready(function(){
-        $('.recentPicks').animate({scrollTop: '300%'}, 1000);
+        // console.log('THIS WEEK: ', _this.props.thisWeek)
+        let week = _this.props.thisWeek
+        let scrollNum = ''
+        switch(week) {
+          case 1:
+              scrollNum = '5%';
+              break;
+          case 2:
+              scrollNum = '10%';
+              break;
+          case 3:
+              scrollNum = '20%';
+              break;
+          case 4:
+              scrollNum = '50%';
+              break;
+          case 5:
+              scrollNum = '100%';
+              break;
+          case 6:
+              scrollNum = '150%';
+              break;
+          case 7:
+              scrollNum = '200%';
+              break;
+          case 8:
+              scrollNum = '250%';
+              break;
+          case 9:
+              scrollNum = '300%';
+              break;
+          case 10:
+              scrollNum = '350%';
+              break;
+          case 11:
+              scrollNum = '400%';
+              break;
+          case 12:
+              scrollNum = '450%';
+              break;
+          case 13:
+              scrollNum = '500%';
+              break;
+          case 14:
+              scrollNum = '550%';
+              break;
+          case 15:
+              scrollNum = '600%';
+              break;
+          case 16:
+              scrollNum = '650%';
+              break;
+          case 17:
+              scrollNum = '700%';
+              break;
+          default: 
+            scrollNum = '10%';
+            break;
+        }
+
+        $('.recentPicks').animate({scrollTop: scrollNum}, 1000);
         return false;
       });
 
       // console.log('CURRENT USER: ', this.state.currentUser)
       // console.log('CHAL USERS DATA: ', this.state.challengeData)
-        }  
+      }  
 
     // findWins = () => {
     //   let localUser = localStorage.getItem('user')
@@ -439,19 +728,19 @@ class NflDivisionBar extends Component {
           return teams.name.trim() === todaysPick.trim()
         }
 
-        for (var j=0; j<teams.length; j++) {
+        for (var r=0; r<teams.length; r++) {
           //console.log('CURRENT WINS: ', wins)
           //console.log('CURRENT TEAMS: ', teams)
-          // console.log('CURRENT TEAM: ', teams[j].name)
+          // console.log('CURRENT TEAM: ', teams[r].name)
           this.setState({
-            thisTeam: teams[j].name.trim()
+            thisTeam: teams[r].name.trim()
           })
           
           let teamMatched = teams.filter(matchingTeams)
           if (teamMatched[0]) {
-            if (teamMatched[0].name.trim() === teams[j].name.trim()) {
+            if (teamMatched[0].name.trim() === teams[r].name.trim()) {
               // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
-              teams[j].status = 'warning'
+              teams[r].status = 'warning'
             } 
           }
 
@@ -462,7 +751,7 @@ class NflDivisionBar extends Component {
           theseMatchingWins = wins.filter(matchingWins)
           if (theseMatchingWins[0]) {
             // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
-            teams[j].status = 'success'
+            teams[r].status = 'success'
           }
           
           this.setState({
@@ -478,8 +767,8 @@ class NflDivisionBar extends Component {
 
     loadLogo = (team) => {
       switch (true) {
-        case (team === 'ari'):
-          return ari;
+        case (team === 'ari2'):
+          return ari2;
           
         // case (team === 'bal'):
         //   return bal;
@@ -562,22 +851,22 @@ class NflDivisionBar extends Component {
         // case (team === 'tor'):
         //   return tor2;
             
-        // case (team === 'ari'):
-        //   return ari;
+        // case (team === 'ari2'):
+        //   return ari2;
             
         // case (team === 'wsh'):
         //   return wsh;
             
         default:
-          return ari;
+          return ari2;
         }  
 
       }
 
     postTeams = () => {
       let teams = this.state.challengeData.teams
-      console.log('POSTING JUST THESE TEAMS: ', teams)
-      debugger;
+      // console.log('POSTING JUST THESE TEAMS: ', teams)
+      // debugger;
       for (var x=0; x<teams.length; x++) {
         let teamNameCombo = teams[x].name
         let newTeam = {
@@ -588,7 +877,7 @@ class NflDivisionBar extends Component {
           // division: teams[x].division
         }
         // debugger
-        API.postMlbTeams(newTeam)
+        API.postNflTeams(newTeam)
           .then(res => {
             console.log(res.data)
           })
@@ -598,7 +887,7 @@ class NflDivisionBar extends Component {
     
     postTeamGames = () => {
       let allGames = []
-      API.getMlbGames()
+      API.getNflGames()
         .then(res => {
           allGames.push(res.data)
           let theGames = allGames[0]
@@ -612,7 +901,7 @@ class NflDivisionBar extends Component {
               if (homeA === thisTeam) {
                 // console.log('THE GAME: ', theGames[p])
                 // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
-                API.addMlbGamesByTeam(thisTeam, theGames[p])
+                API.addNflGamesByTeam(thisTeam, theGames[p])
                   .then(res => {
                     console.log(res)
                   })
@@ -621,7 +910,7 @@ class NflDivisionBar extends Component {
               // if (awayA === thisTeam) {
               //   // console.log('THE GAME: ', theGames[p])
               //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
-              //   API.addMlbGamesByTeam(thisTeam, theGames[p])
+              //   API.addNflGamesByTeam(thisTeam, theGames[p])
               //     .then(res => {
               //       console.log(res)
               //     })
@@ -637,9 +926,82 @@ class NflDivisionBar extends Component {
 
       }
 
+    getTeams = () => {
+      // console.log('GETTING TEAMS')
+      let findOrigTeamsFunc = (teams) => {
+          return teams.valueWeek === 0
+        }
+      // let findCurrentTeamsFunc = (teams) => {
+      //     return teams.valueWeek === this.state.thisWeek
+      //   }
+
+      // GET NFC TEAMS
+      let findNfcNorthTeamsFunc = (teams) => {
+        return teams.division === 'NFC North'
+      }
+      let findNfcSouthTeamsFunc = (teams) => {
+        return teams.division === 'NFC South'
+      }
+      let findNfcEastTeamsFunc = (teams) => {
+        return teams.division === 'NFC East'
+      }
+      let findNfcWestTeamsFunc = (teams) => {
+        return teams.division === 'NFC West'
+      }
+
+      // GET AFC TEAMS
+      let findAfcNorthTeamsFunc = (teams) => {
+        return teams.division === 'AFC North'
+      }
+      let findAfcSouthTeamsFunc = (teams) => {
+        return teams.division === 'AFC South'
+      }
+      let findAfcEastTeamsFunc = (teams) => {
+        return teams.division === 'AFC East'
+      }
+      let findAfcWestTeamsFunc = (teams) => {
+        return teams.division === 'AFC West'
+      }
+
+      API.getNflTeams()
+        .then(res => {
+          // console.log(res.data)
+          let allTeams = res.data
+          let origTeams = allTeams.filter(findOrigTeamsFunc)
+          // let currentTeams = allTeams.filter(findCurrentTeamsFunc)
+          let nfcNorth = origTeams.filter(findNfcNorthTeamsFunc)
+          let nfcSouth = origTeams.filter(findNfcSouthTeamsFunc)
+          let nfcEast = origTeams.filter(findNfcEastTeamsFunc)
+          let nfcWest = origTeams.filter(findNfcWestTeamsFunc)
+          let afcNorth = origTeams.filter(findAfcNorthTeamsFunc)
+          let afcSouth = origTeams.filter(findAfcSouthTeamsFunc)
+          let afcEast = origTeams.filter(findAfcEastTeamsFunc)
+          let afcWest = origTeams.filter(findAfcWestTeamsFunc)
+          this.setState({
+            nfcNorth: nfcNorth,
+            nfcSouth: nfcSouth,
+            nfcEast: nfcEast,
+            nfcWest: nfcWest,
+            afcNorth: afcNorth,
+            afcSouth: afcSouth,
+            afcEast: afcEast,
+            afcWest: afcWest
+          })
+          this.toggleWins()
+          // console.log('ORIG TEAMS: ', origTeams)
+          // console.log('CURRENT TEAMS: ', nfcNorth)
+        })
+        .catch(err => console.log(err))
+      }
+
     render() {
       let uuidv4 = require('uuid/v4')
       let picks = (this.state.recentPicks) ? true : false
+      // let activeTeam = this.state.activeTeam
+      let currentTime = moment().tz('America/New_York').format()
+      let todaysPickStart = this.props.todaysPickStart
+      let gameStarted = moment(currentTime).isAfter(todaysPickStart)
+      const ReactHint = ReactHintFactory(React)
       //let teams = this.state.challengeData.teams   
       let modalStyle = {
         backgroundColor: 'gold',
@@ -654,17 +1016,22 @@ class NflDivisionBar extends Component {
                 <Container fluid>
                   <div className="display-4">
                     <h2>{this.props.username.toUpperCase()}</h2> <hr />
-                    <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
+                    <h4 className='winsTitle' data-rh={gameStarted ? 'Pick has locked.' : 'Pick has not locked.'}>Week {this.props.thisWeek} Pick</h4> {this.props.todaysPick} {this.props.todaysPickValue} { gameStarted ? <i data-rh='locked' className="fas fa-lock"></i> : <i data-rh='not locked' className="fas fa-unlock"></i> } <br />
                     <div className="row recordRow">
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Wins</h4> {this.props.winsCount}
+                      <ReactHint 
+                        autoPosition={true} 
+                        events={true} 
+                        className='reactHint'
+                      />
+                        <h4 className='winsHeader'>My Current Line</h4> {this.props.myValue}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Record</h4> {this.props.winsCount} - {this.state.oldPicks.length - this.props.winsCount}
+                        <h4 className='winsHeader'>Division's Won</h4> {this.props.winsCount} <small>out of</small> 8
+                      </div>
+                      <div className="col-md-3">
+                        <h4 className='winsHeader'>Record</h4> {this.props.winsCount}-{this.state.oldPicks.length - this.props.winsCount}
                       </div>  
-                      { /* <div className="col-md-3">
-                        <h4 className='winsHeader'>Place</h4> {this.props.winsCount}
-                      </div> */ }
                     </div>
                   </div>
                 </Container>
@@ -681,17 +1048,17 @@ class NflDivisionBar extends Component {
                       <table className='table table-hover'>
                       <thead>
                         <tr>
-                          <th>Date</th>
+                          <th>Week</th>
                           <th>Pick</th>
                         </tr>
                       </thead>
                       <tbody>
                         {
                           this.state.recentPicks.map((recentPick, i) => (
-                            <tr key={uuidv4()} className= {(recentPick.gameDate === moment().format('YYYY-MM-DD')) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
+                            <tr key={uuidv4()} className={(recentPick.gameDate === moment().format('YYYY-MM-DD')) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
                             {/* <tr key={uuidv4()} className={recentPick.result}> */}
-                              <td>{moment(recentPick.gameDate).format('MM-DD')}</td>
-                              <td>{recentPick.team}</td>
+                              <td>{recentPick.gameWeek}</td>
+                              <td>{recentPick.team} { recentPick.teamValue ? '(' + recentPick.teamValue + ')' : '' } </td>
                             </tr> 
                               )
                             )     
@@ -703,72 +1070,288 @@ class NflDivisionBar extends Component {
                   }
 
                 </div>
-                <div className="col-1 title">
-                  <h3>My Recent Picks</h3>
-                </div>
+                {/* <div className="col-1 title">
+                  <h3>My Picks</h3>
+                </div> */}
               </div>
             </div>
-              <div className="row teamLogos">
-                {
-                  this.state.teams.map((team, i) => (
-                    <Button 
-                      key={uuidv4()}
-                      onClick={this.findTeamGames}
-                      color={team.status} 
-                      className='teamButton'
-                      data={team.abbr}
-                    >
-                      <img
-                        className='profLogo'
-                        src={this.loadLogo(team.abbr)}
-                        alt={team.abbr}
-                        fluid='true'
-                        />
-                        {/* <br />
-                        {team.name.toUpperCase()} */}
-                    </Button>
-                  ))
-                }
+              <div className="row nflTeamLogos teamLogos">
+                <div className="col-10">
+                  
 
-              <Modal 
-                isOpen={this.state.modal} 
-                autoFocus={true}
-                centered={true}
-                size='lg'
-                className='fullCalModal'
-              >
-                
-                <ModalHeader id='modalTitle'>
-                  Upcoming Games ({this.state.activeTeam.teamName})
-                </ModalHeader>
-                  <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
-                      <div className="thisTeam">
-                        <table className='table  table-hover'>
-                          <thead>
-                            <tr>
-                              <th>Date</th>
-                              <th>Matchup</th>
-                            </tr>
-                          </thead>
-                          <tbody>
+                  {
+                    this.state.nfcActive ?
+
+                    <div className="row teamsRow">
+                      <div className="col-3 teamsCol">
+                        <h4 className='divisionTitle'>NFC North</h4>
                           {
-                            this.state.nextGames.map((nextGame) => (
-                              <tr key={uuidv4()} className={(moment().format('YYYY-MM-DD') === nextGame.game.gameDate) ? 'today' : nextGame.status} >
-                                <td>{moment(nextGame.game.gameDate).format('MM-DD')}</td>
-                                <td>{nextGame.gameDetails}</td>
-                              </tr>
+                            this.state.nfcNorth.map(nfcNorthTeam => (
+                              <Button 
+                                key={uuidv4()}
+                                onClick={this.findTeamGames}
+                                color={nfcNorthTeam.status} 
+                                className='nflTeamButton'
+                                data-teamalias={nfcNorthTeam.teamAlias}
+                                data-teamname={nfcNorthTeam.teamName}
+                                data-homegames={nfcNorthTeam.homeGames}
+                                data-awaygames={nfcNorthTeam.awayGames}
+                                data-rh='Click to see schedule.'
+                              >
+                                {nfcNorthTeam.teamName}
+                              </Button>
                             ))
-                          }    
-                          </tbody>
-                        </table>
-                      </div> <hr />
-                      
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="secondary" onClick={this.toggle}>Close</Button>
-                  </ModalFooter>
-                </Modal>
+                          }
+                      </div>
+
+                      <div className="col-3 teamsCol">
+                        <h4 className='divisionTitle'>NFC South</h4>
+                        {
+                          this.state.nfcSouth.map(nfcSouthTeam => (
+                            <Button 
+                              key={uuidv4()}
+                              onClick={this.findTeamGames}
+                              color={nfcSouthTeam.status} 
+                              className='nflTeamButton'
+                              data-teamalias={nfcSouthTeam.teamAlias}
+                              data-teamname={nfcSouthTeam.teamName}
+                              data-homegames={nfcSouthTeam.homeGames}
+                              data-awaygames={nfcSouthTeam.awayGames}
+                              data-rh='Click to see schedule.'
+                            >
+                              {nfcSouthTeam.teamName}
+                            </Button>
+                          ))
+                        }
+                      </div>
+
+                      <div className="col-3 teamsCol">
+                        <h4 className='divisionTitle'>NFC West</h4>
+                        {
+                          this.state.nfcWest.map(nfcWestTeam => (
+                            <Button 
+                              key={uuidv4()}
+                              onClick={this.findTeamGames}
+                              color={nfcWestTeam.status} 
+                              className='nflTeamButton'
+                              data-teamalias={nfcWestTeam.teamAlias}
+                              data-teamname={nfcWestTeam.teamName}
+                              data-homegames={nfcWestTeam.homeGames}
+                              data-awaygames={nfcWestTeam.awayGames}
+                              data-rh='Click to see schedule.'
+                            >
+                              {nfcWestTeam.teamName}
+                            </Button>
+                          ))
+                        }
+                      </div>
+
+                      <div className="col-3 teamsCol">
+                        <h4 className='divisionTitle'>NFC East</h4>
+                        {
+                          this.state.nfcEast.map(nfcEastTeam => (
+                            <Button 
+                              key={uuidv4()}
+                              onClick={this.findTeamGames}
+                              color={nfcEastTeam.status} 
+                              className='nflTeamButton'
+                              data-teamalias={nfcEastTeam.teamAlias}
+                              data-teamname={nfcEastTeam.teamName}
+                              data-homegames={nfcEastTeam.homeGames}
+                              data-awaygames={nfcEastTeam.awayGames}
+                              data-rh='Click to see schedule.'
+                            >
+                              {nfcEastTeam.teamName}
+                            </Button>
+                          ))
+                        }
+                      </div>
+
+                      <Modal 
+                          isOpen={this.state.modal} 
+                          autoFocus={true}
+                          centered={true}
+                          size='lg'
+                          className='fullCalModal'
+                        >
+                          
+                          <ModalHeader id='modalTitle'>
+                            Schedule ({this.state.activeTeamName})
+                          </ModalHeader>
+                            <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
+                                <div className="thisTeam">
+                                  <table className='table  table-hover'>
+                                    <thead>
+                                      <tr>
+                                        <th>Week</th>
+                                        <th>Matchup</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                      this.state.nextGames.map((nextGame) => (
+                                        <tr key={uuidv4()} className={(moment().format('YYYY-MM-DD') === nextGame.gameDate) ? 'today' : nextGame.status} >
+                                          <td>{(nextGame.gameWeek)}</td>
+                                          <td>{(nextGame.homeTeam === this.state.activeTeamName) ? 'vs ' + nextGame.awayAlias : '@ ' + nextGame.homeAlias}</td>
+                                        </tr>
+                                      ))
+                                    }    
+                                    </tbody>
+                                  </table>
+                                </div> <hr />
+                                
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button color="secondary" onClick={this.toggle}>Close</Button>
+                            </ModalFooter>
+                          </Modal>
+
+
+                    </div>
+                  : 
+
+                  <div className="row teamsRow">
+                    <div className="col-3 teamsCol">
+                      <h4 className='divisionTitle'>AFC North</h4>
+                      {
+                        this.state.afcNorth.map(afcNorthTeam => (
+                          <Button 
+                            key={uuidv4()}
+                            onClick={this.findTeamGames}
+                            color={afcNorthTeam.status} 
+                            className='nflTeamButton'
+                            data-teamalias={afcNorthTeam.teamAlias}
+                            data-teamname={afcNorthTeam.teamName}
+                            data-homegames={afcNorthTeam.homeGames}
+                            data-awaygames={afcNorthTeam.awayGames}
+                            data-rh='Click to see schedule.'
+                          >
+                            {afcNorthTeam.teamName}
+                          </Button>
+                        ))
+                      }
+                    </div>
+
+                    <div className="col-3 teamsCol">
+                      <h4 className='divisionTitle'>AFC South</h4>
+                      {
+                        this.state.afcSouth.map(afcSouthTeam => (
+                          <Button 
+                            key={uuidv4()}
+                            onClick={this.findTeamGames}
+                            color={afcSouthTeam.status} 
+                            className='nflTeamButton'
+                            data-teamalias={afcSouthTeam.teamAlias}
+                            data-teamname={afcSouthTeam.teamName}
+                            data-homegames={afcSouthTeam.homeGames}
+                            data-awaygames={afcSouthTeam.awayGames}
+                            data-rh='Click to see schedule.'
+                          >
+                            {afcSouthTeam.teamName}
+                          </Button>
+                        ))
+                      }
+                    </div>
+
+                    <div className="col-3 teamsCol">
+                      <h4 className='divisionTitle'>AFC West</h4>
+                      {
+                        this.state.afcWest.map(afcWestTeam => (
+                          <Button 
+                            key={uuidv4()}
+                            onClick={this.findTeamGames}
+                            color={afcWestTeam.status} 
+                            className='nflTeamButton'
+                            data-teamalias={afcWestTeam.teamAlias}
+                            data-teamname={afcWestTeam.teamName}
+                            data-homegames={afcWestTeam.homeGames}
+                            data-awaygames={afcWestTeam.awayGames}
+                            data-rh='Click to see schedule.'
+                          >
+                            {afcWestTeam.teamName}
+                          </Button>
+                        ))
+                      }
+                    </div>
+
+                    <div className="col-3 teamsCol">
+                      <h4 className='divisionTitle'>AFC East</h4>
+                        {
+                          this.state.afcEast.map(afcEastTeam => (
+                            <Button 
+                              key={uuidv4()}
+                              onClick={this.findTeamGames}
+                              color={afcEastTeam.status} 
+                              className='nflTeamButton'
+                              data-teamalias={afcEastTeam.teamAlias}
+                              data-teamname={afcEastTeam.teamName}
+                              data-homegames={afcEastTeam.homeGames}
+                              data-awaygames={afcEastTeam.awayGames}
+                              data-rh='Click to see schedule.'
+                            >
+                              {afcEastTeam.teamName}
+                            </Button>
+                          ))
+                        }
+                      </div>
+
+                      <Modal 
+                          isOpen={this.state.modal} 
+                          autoFocus={true}
+                          centered={true}
+                          size='lg'
+                          className='fullCalModal'
+                        >
+                          
+                          <ModalHeader id='modalTitle'>
+                            Schedule ({this.state.activeTeamName})
+                          </ModalHeader>
+                            <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
+                                <div className="thisTeam">
+                                  <table className='table  table-hover'>
+                                    <thead>
+                                      <tr>
+                                        <th>Week</th>
+                                        <th>Matchup</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                      this.state.nextGames.map((nextGame) => (
+                                        <tr key={uuidv4()} className={nextGame.game ? (moment().format('YYYY-MM-DD') === nextGame.game.gameDate) ? 'today' : nextGame.status : ''} >
+                                          <td>{(nextGame.gameWeek)}</td>
+                                          <td>{(nextGame.homeTeam === this.state.activeTeamName) ? 'vs ' + nextGame.awayAlias : '@ ' + nextGame.homeAlias}</td>
+                                        </tr>
+                                      ))
+                                    }    
+                                    </tbody>
+                                  </table>
+                                </div> <hr />
+                                
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button color="secondary" onClick={this.toggle}>Close</Button>
+                            </ModalFooter>
+                          </Modal>
+
+                    </div>
+                  
+                  }
+                  
+                </div>
               </div>
+              <div className="row toggleRow">
+                {/* <small>(Toggle)</small> */}
+                  <div className="col-md">
+                    <Button className='nfcButton' onClick={this.toggleNfc}>
+                      NFC TEAMS
+                    </Button>
+                    <Button className='afcButton' onClick={this.toggleAfc}>
+                      AFC TEAMS
+                    </Button>
+                  </div>
+                </div>
+
             </div>
         )
     }

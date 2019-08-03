@@ -149,7 +149,7 @@ class UpdatePassword extends Component {
     handleFormSubmit = event => {
         event.preventDefault()
         let newPassword = this.state.password
-        let confirmPassword = this.state.confirmPassword
+        // let confirmPassword = this.state.confirmPassword
         let username = this.state.username
         // const nodemailer = require('nodemailer');
         // let password = this.state.password

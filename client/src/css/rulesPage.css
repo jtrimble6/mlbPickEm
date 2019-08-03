@@ -1,4 +1,7 @@
 @media (min-width: 800px) {
+    .nflRulesTitle {
+        font-size: 40px;
+    }
     #rulesPage {
         font-size: 24px;
         margin-left: 3%;
@@ -131,3 +134,4 @@ hr {
 .mastersRules h2 {
     font-size: 30px;
 }
+

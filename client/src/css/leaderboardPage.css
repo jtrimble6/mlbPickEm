@@ -1,14 +1,21 @@
+#leaderboardPage.leaderboard {
+    margin: 0 auto !important;
+    min-width: 80% !important;
+}
+
 @media (min-width: 751px) {
-    thead {
+    #leaderboardPage.thead {
+        font-size: 200%;
         border: none;
     }
     
-    .allRows {
+    #leaderboardPage.allRows {
         max-height: 30% !important;
         overflow: auto;
+        font-size: 150%;
     }
     
-    #leaderboardPage .leaderboard {
+    #leaderboardPage {
         /* position: relative; */
         margin-top: 10%;
         margin-left: 1% !important;
@@ -29,16 +36,16 @@
 }
 
 @media (min-width: 451px) and (max-width: 750px) {
-    thead {
+    #leaderboardPage.thead {
         border: none;
     }
     
-    .allRows {
+    #leaderboardPage.allRows {
         max-height: 30% !important;
         overflow: auto;
     }
     
-    .leaderboard {
+    #leaderboardPage.leaderboard {
         /* position: relative; */
         margin-top: 20%;
         max-width: 80%;
@@ -60,16 +67,16 @@
 }
 
 @media (max-width: 450px) {
-    thead {
+    #leaderboardPage.thead {
         border: none;
     }
     
-    .allRows {
+    #leaderboardPage.allRows {
         max-height: 30% !important;
         overflow: auto;
     }
     
-    .leaderboard {
+    #leaderboardPage.leaderboard {
         /* position: relative; */
         margin-top: 20%;
         max-width: 80%;

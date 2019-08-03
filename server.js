@@ -11,6 +11,8 @@ const updatePasswordRoutes = require('./routes/API/updatePasswordAPI')
 const sessionRoutes = require("./routes/API/sessionAPI");
 const mlbGameRoutes = require('./routes/API/mlbGameAPI')
 const mlbTeamRoutes = require('./routes/API/mlbTeamAPI')
+const nflGameRoutes = require('./routes/API/nflGameAPI')
+const nflTeamRoutes = require('./routes/API/nflTeamAPI')
 const nbaGameRoutes = require('./routes/API/nbaGameAPI')
 const nbaPlayoffGameRoutes = require('./routes/API/nbaPlayoffGameAPI')
 const nbaPlayoffTeamRoutes = require('./routes/API/nbaPlayoffTeamAPI')
@@ -45,7 +47,7 @@ app.use(userPassport.initialize());
 app.use(userPassport.session());
 
 // Add routes, both API and view
-app.use(messageBoardRoutes, userRoutes, userTestRoutes, passwordResetRoutes, updatePasswordRoutes, sessionRoutes, challengeRoutes, mastersRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaPlayoffGameRoutes, nbaPlayoffTeamRoutes, nbaTeamRoutes);
+app.use(messageBoardRoutes, userRoutes, userTestRoutes, passwordResetRoutes, updatePasswordRoutes, sessionRoutes, challengeRoutes, mastersRoutes, nflGameRoutes, nflTeamRoutes, mlbGameRoutes, mlbTeamRoutes, nbaGameRoutes, nbaPlayoffGameRoutes, nbaPlayoffTeamRoutes, nbaTeamRoutes);
 
 app.use(
   session({

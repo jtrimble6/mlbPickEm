@@ -42,10 +42,13 @@ class NflDivisionActionNav extends Component {
                                 <NavLink href="/home">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/leaderboard">Leaderboard</NavLink>
+                                <NavLink href="/actionNfl">Action</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/mlbRules">Rules</NavLink>
+                                <NavLink href="/nflDivLeaderboard">Leaderboard</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/nflRules">Rules</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/signout">Sign Out</NavLink>
@@ -60,10 +63,13 @@ class NflDivisionActionNav extends Component {
                         <a className="nav-link js-scroll-trigger" href="/home">Home</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/leaderboard">Leaderboard</a>
+                        <a className="nav-link js-scroll-trigger" href="/actionNfl">Action</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="/mlbRules">Rules</a>
+                        <a className="nav-link js-scroll-trigger" href="/nflDivLeaderboard">Leaderboard</a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link js-scroll-trigger" href="/nflRules">Rules</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="/signout">Sign Out</a>

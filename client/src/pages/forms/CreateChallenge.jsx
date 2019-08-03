@@ -126,7 +126,7 @@ class CreateChallenge extends Component {
               { name: 'Buffalo Bills', abbr: 'buf', logo: 'buf', status: 'secondary', division: 'AFC East' },
               { name: 'Carolina Panthers', abbr: 'car', logo: 'car', status: 'secondary', division: 'NFC South' },
               { name: 'Chicago Bears', abbr: 'chi', logo: 'chi2', status: 'secondary', division: 'NFC North' },
-              { name: 'Cincinnati Bengals', abbr: 'cin', logo: 'cin', status: 'secondary', division: 'AFC North' },
+              { name: 'Cincinnati Bengals', abbr: 'cin', logo: 'cin2', status: 'secondary', division: 'AFC North' },
               { name: 'Cleveland Browns', abbr: 'cle', logo: 'cle3', status: 'secondary', division: 'AFC North' },
               { name: 'Dallas Cowboys', abbr: 'dal', logo: 'dal2', status: 'secondary', division: 'NFC East' },
               { name: 'Denver Broncos', abbr: 'den', logo: 'den', status: 'secondary', division: 'AFC West' },

@@ -115,74 +115,77 @@ class Login extends Component {
 
     render() {
         return (
-            <div id="loginPage">
-            <AdminLoginBar />
-              {this.renderRedirect()}
-                <div className="formContainer">    
-                    <form className="formLogin" action="index.html">
-                        <h2 className="formLoginHeading">Admin Sign In</h2> <br />
-                        <div className="loginWrap">
-                            <input
-                                value={this.state.username.toLowerCase()}
-                                name="username"
-                                onChange={this.handleInputChange}
-                                type="text"
-                                className="form-control"
-                                placeholder="Username (case sensitive)"
-                                autoFocus
-                            />
-                            <br/>
-                            <input
-                                value={this.state.password}
-                                name="password"
-                                onChange={this.handleInputChange}
-                                type="password"
-                                className="form-control"
-                                placeholder="Password (case sensitive)"
-                            />
-                            <label className="checkbox">
-                                <span className="pull-right">
-                                    <a data-toggle="modal" href="login.html#myModal">Forgot Password?</a>               
-                                </span>
-                            </label>
-                            <SignInError
-                                signInError={this.state.signInError}
-                            />
-                            <button
-                                className="btn btn-primary btn-block"
-                                href="index.html"
-                                type="submit"
-                                onClick={this.handleFormSubmit}
-                                >
-                                <i className="fa fa-lock"></i>
-                                SIGN IN
-                            </button>
-                            <hr/>       
-                        </div> 
-                        {/* <!-- Modal --> */}
-                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabIndex="-1" id="myModal" className="modal fade">
-                            <div className="modal-dialog">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 className="modal-title">Forgot Password ?</h4>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p>Enter your e-mail address below to reset your password.</p>
-                                        <input type="text" name="email" placeholder="Email" autoComplete="off" className="form-control placeholder-no-fix"/>
+            <div>
+                <AdminLoginBar />
+                <div id="loginPageAdmin">
                 
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button data-dismiss="modal" className="btn btn-default" type="button">Cancel</button>
-                                        <button className="btn btn-theme btnMaster" type="button">Submit</button>
+                {this.renderRedirect()}
+                    <div className="formContainer">    
+                        <form className="formLogin" action="index.html">
+                            <h2 className="formLoginHeading">Admin Sign In</h2> <br />
+                            <div className="loginWrap">
+                                <input
+                                    value={this.state.username.toLowerCase()}
+                                    name="username"
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Username (case sensitive)"
+                                    autoFocus
+                                />
+                                <br/>
+                                <input
+                                    value={this.state.password}
+                                    name="password"
+                                    onChange={this.handleInputChange}
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Password (case sensitive)"
+                                />
+                                <label className="checkbox">
+                                    <span className="pull-right">
+                                        <a data-toggle="modal" href="login.html#myModal">Forgot Password?</a>               
+                                    </span>
+                                </label>
+                                <SignInError
+                                    signInError={this.state.signInError}
+                                />
+                                <button
+                                    className="btn btn-primary btn-block"
+                                    href="index.html"
+                                    type="submit"
+                                    onClick={this.handleFormSubmit}
+                                    >
+                                    <i className="fa fa-lock"></i> SIGN IN
+                                </button>
+                                <hr/>       
+                            </div> 
+                            {/* <!-- Modal --> */}
+                            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabIndex="-1" id="myModal" className="modal fade">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 className="modal-title">Forgot Password ?</h4>
+                                        </div>
+                                        <div className="modal-body">
+                                            <p>Enter your e-mail address below to reset your password.</p>
+                                            <input type="text" name="email" placeholder="Email" autoComplete="off" className="form-control placeholder-no-fix"/>
+                    
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button data-dismiss="modal" className="btn btn-default" type="button">Cancel</button>
+                                            <button className="btn btn-theme btnMaster" type="button">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {/* <!-- modal --> */}
-                    </form>	  	
+                            {/* <!-- modal --> */}
+                        </form>	  	
+                    </div>
                 </div>
             </div>
+            
         )
     }
 }

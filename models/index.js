@@ -4,6 +4,8 @@ module.exports = {
     AdminSession: require('./adminSession'),
     User: require('./user'),
     UserSession: require('./session'),
+    NflGame: require('./nflGame'),
+    NflTeam: require('./nflTeam'),
     MlbGame: require('./mlbGame'),
     MlbTeam: require('./mlbTeam'),
     NbaGame: require('./nbaGame'),

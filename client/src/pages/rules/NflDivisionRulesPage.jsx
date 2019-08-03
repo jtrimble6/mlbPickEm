@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 // import API from '../utils/API'
-import LoginBar from '../../components/nav/LoginBar'
+import NflDivisionActionNav from '../../components/nav/NflDivisionActionNav'
 // import Games from '../components/calendar/Games'
 import '../../css/rulesPage.css'
 
@@ -10,32 +10,35 @@ class NflDivisionRules extends Component {
     render() {
         return(
             <div id='rulesPage'>
-              <LoginBar />
+              <NflDivisionActionNav />
               <div id='rulesHeader'>
-                <h1>NFL Division Challenge Rules</h1>
+                <h1 className='nflRulesTitle'>NFL Division Challenge Rules</h1>
                 <hr /> 
                 <br />
-                <h5>How the Challenge works:</h5>
+                <h5>How the Challenge works:</h5> <br />
                 <p>
-                  Each day you will pick ONE MLB team that is playing a game on that particular day (see below for how to make a pick). Picks are due each day BEFORE the scheduled time of the first game on that particular day. <br /> <br />
-                  <em>FOR EXAMPLE:</em> Opening day is March 28th. The first game that day is scheduled to begin at 1:05 EST. that means all picks for March 28th are due at 1:05 EST. The next day March 29th the first pitch is not schedule until 7:07 EST. Picks for March 29th are due by 7:07 EST.
+                  Each week you will pick (1) NFL team to win that week. Each game is disabled at the individually scheduled game time and each pick is locked once the selected game begins. <br /> <br />
+                  <em>FOR EXAMPLE:</em> All 1PM EST games will be locked at 1PM EST while the 4PM, SNF, and MNF games will still be avaliable to select. Additionally, if you pick a 1PM game, your pick will lock at 1PM. <br /> <br />
                 </p>
-                <h5>Objective: </h5>
+                <h5>Caveats:</h5> <br />
                 <p>
-                  Get 30 points/Win ONE game with all 30 MLB teams. <br />
-                  1 win with a new team = 1 point
+                  A value known as the 'par line' will be set at the beginning of the challenge that cannot be crossed by any user at any point. Each team will have an individual value that is potentially reset each week and that value is incured by all users selecting that team in that particular week. Each user will start with an individual 'par line' value of 0. <br /> <br />
+                  <em>FOR EXAMPLE:</em> The 'par line' is set at (12.5). User A and User B both select the same game [ Bengals (set value = -2) vs. Patriots (set value = 2) ]. User A selects [ Patriots (2) ]. User B selects [ Bengals (-2) ]. When each pick locks at the scheduled start of the game, User A's individual line will change to (2) and User B's individual line will change to (-2). If the game end's in a tie, User B will be in 1st place while User A will be in 2nd place. <br /> <br />
                 </p>
-                <h5>How to win:</h5>
+                <h5>Objective: </h5> <br />
                 <p>
-                If you pick the Cardinals on opening day and they win, you get 1 point. You now will no longer pick the Cardinals throughout the Challenge. If the Cardinals lose, nothing happens and you can pick the Cardinals again at any time. 
+                  Get a win with at least (1) team in ALL (8) NFL divisions. <br /> <br />
+                </p>
+                <h5>How to win:</h5> <br />
+                <p>
+                  The first user to have (1) win with a team in ALL (8) NFL divisions. Ties are determined by individual value lines. <br /> <br />
                 </p> 
-                <h5>Important notes:</h5>
+                <h5>Important notes:</h5> <br />
                 <p>
-                Once your picks lock for a particular day you will not be able to go back and make a pick. <br />
-                If you lock in a pick, and the team you picked is involved in a game that is canceled for any reason that day, no points are awarded. Furthermore, if the game is  suspended mid game, and DOES NOT finish on that day, no points are awarded. The final out of the 9th inning must be recorded on that day for the game to count. <br />
-                If the first game of the day is delayed, that does not effect the time that picks are due. Picks are always due at the scheduled time of the first game on each respective day. <br />
-                You can make picks as far out in the future as you would like. <br /> <br />
-                For any questions/comments/concerns please email us directly at: TheChallengeMaster@SportHabits.com <br />
+                You can pick the same team as many times as you want as long as you do not exeed the 'par line' and have not already won with a team in that division. <br />
+                Once you win in a particular division, you cannot select another team from that division <br />
+                If a user does not pick, or cannot make a pick, that user will automatically receive (4)pts added to their individual 'par line'. <br /> <br /> <br /> <br />
+                For any questions/comments/concerns please email us directly at: TheChallengeMaster@SportHabits.com <br /> <br />
                 Good luck!
                 </p>
               </div>

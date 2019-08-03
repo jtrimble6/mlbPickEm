@@ -140,10 +140,10 @@ class EditChallenge extends Component {
                 { name: 'Green Bay Packers', abbr: 'gb', logo: 'gb', status: 'secondary', division: 'NFC North' },
                 { name: 'Houston Texans', abbr: 'hou', logo: 'hou2', status: 'secondary', division: 'AFC South' },
                 { name: 'Indianapolis Colts', abbr: 'ind', logo: 'ind2', status: 'secondary', division: 'AFC South' },
-                { name: 'Jacksonville Jaguars', abbr: 'jax', logo: 'jax', status: 'secondary', division: 'AFC South' },
+                { name: 'Jacksonville Jaguars', abbr: 'jac', logo: 'jac', status: 'secondary', division: 'AFC South' },
                 { name: 'Kansas City Chiefs', abbr: 'kc', logo: 'kc', status: 'secondary', division: 'AFC West' },
                 { name: 'Los Angeles Chargers', abbr: 'lac', logo: 'lac2', status: 'secondary', division: 'AFC West' },
-                { name: 'Los Angeles Rams', abbr: 'lar', logo: 'lar', status: 'secondary', division: 'NFC West' },
+                { name: 'Los Angeles Rams', abbr: 'la', logo: 'la', status: 'secondary', division: 'NFC West' },
                 { name: 'Miami Dolphins', abbr: 'mia', logo: 'mia2', status: 'secondary', division: 'AFC East' },
                 { name: 'Minnesota Vikings', abbr: 'min', logo: 'min2', status: 'secondary', division: 'NFC North' },
                 { name: 'New England Patriots', abbr: 'ne', logo: 'ne', status: 'secondary', division: 'AFC East' },
@@ -224,10 +224,10 @@ class EditChallenge extends Component {
         let chalTeams = ''
         if (chal.teams[0].abbr === 'atl') {
             chalTeams = 'nba'
-            console.log('TRUE', chalTeams)
+        } else if (chal.teams[1].abbr === 'atl') {
+            chalTeams = 'nfl'
         } else {
             chalTeams = 'mlb'
-            console.log('FALSE', chalTeams)
         }
 
         this.setState({

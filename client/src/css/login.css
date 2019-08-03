@@ -1,6 +1,6 @@
-.formContainer {
+/* .formContainer {
     margin-top: 100px;
-}
+} */
 
 .formLogin {
     color: gold;
@@ -31,4 +31,46 @@ a {
     font-weight: bolder;
     font-size: 110%;
     text-align: center !important;
+}
+
+#loginPageAdmin {
+    margin: 0 auto;
+    margin-top: 15%;
+    height: 100%;
+    width: 80%;
+    background-color: gold;
+    border-radius: 20%;
+}
+
+#loginPageAdmin .formLoginHeading {
+    color: #209CEE;
+}
+
+#loginPageAdmin a {
+   color: #209CEE;
+}
+
+        .formContainer {
+    margin: 0 auto !important;
+    padding: 5%;
+}
+
+@media (min-width: 501px) and (max-width: 1300px) {
+    .formLogin {
+        margin-top: 20%;
+    }
+
+    .formLogin .checkbox {
+        margin: 5% !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .formLogin {
+        margin-top: 40%;
+    }
+
+    .formLogin .checkbox {
+        margin: 5% !important;
+    }
 }

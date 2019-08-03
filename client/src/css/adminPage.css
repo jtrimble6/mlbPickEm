@@ -1,4 +1,4 @@
-.formContainer {
+#adminPage .formContainer {
     margin-top: 100px;
   }
 
@@ -48,7 +48,18 @@ a {
     margin: 0 auto;
 }
 
+.adminRow {
+  justify-content: center;
+}
+
+#adminActions {
+  margin: 1%;
+  text-align: center;
+  width: 100%;
+}
+
 #adminActions .btn {
+  white-space: pre-wrap;
   margin: 2%;
 }
 
@@ -56,7 +67,7 @@ a {
   margin: 1%;
 }
 
-#futureChals, #adminChals, #adminUsers, #adminActions {
+#adminChals, #adminUsers {
   margin-top: 10% !important;
 }
 

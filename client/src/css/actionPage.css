@@ -28,7 +28,6 @@
 
 @media (min-width: 1000px) and (max-width: 1299px) {
     #actionPage {
-        /* background-color: #4d4d4d; */
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 10%;
@@ -100,11 +99,15 @@
 }
 
 @media (max-width: 775px) {
-    #actionPage {
-        /* background-color: #4d4d4d; */
+    /* #actionPage {
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 5%;
+    } */
+
+    #actionPage .username {
+        margin-top: 5%;
+        font-size: 20px;
     }
     
     .calBoard {
@@ -150,10 +153,31 @@
     margin-bottom: 10%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
     #actionPage {
         margin-top: 15%;
         margin-bottom: 25%;
     }
+    .calBoard.col-md-9 {
+        max-width: 80% !important;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    #actionPage {
+        margin-top: 15%;
+        margin-bottom: 25%;
+    }
+    .calBoard.col-md-9 {
+        min-width: 90% !important;
+        margin: 5%;
+    }
+    .profileBar {
+        max-width: 99%;
+    }
+  }
+
+  .nameRow {
+      margin-bottom: 5%;
   }
 

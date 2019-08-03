@@ -74,7 +74,7 @@ renderRedirect = () => {
               
                 <h1>Welcome Admin!</h1>
 
-                <div className="row">
+                <div className="row adminRow">
                   <div id='adminActions' className='col-6'>
                     <h3>Admin Controls</h3>
                     <Button
@@ -115,7 +115,7 @@ renderRedirect = () => {
                       </Button>
                       <Button
                           color='primary'
-                          className='challengeButtons'
+                          className='nbaGamesButton'
                           data-url='/mlbGames'
                           onClick={this.setRedirect}
                         >
@@ -133,7 +133,7 @@ renderRedirect = () => {
                   </div>
 
 
-                <div className="row">
+                <div className="row adminRow">
                   <div id='adminActions' className='col-6' >
                     <h3>Users</h3>
                       <Button
@@ -182,20 +182,29 @@ renderRedirect = () => {
                     >
                       Golf Challenges
                     </Button>
+                    <Button
+                          color='success'
+                          className='nbaGamesButton'
+                          data-url='/nflDivisionAdmin'
+                          onClick={this.setRedirect}
+                        >
+                      NFL Divisional Challenges
+                    </Button>
                   </div>
                 </div>
 
-
-                <div id='adminActions' className='col-6'> 
-                  <div id="futureChals">
-                    <h3>Future Challenges</h3>
-                    <Button
-                      disabled
-                      color='secondary'
-                      className='challengeButtons'
-                    >
-                      Future Challenges Will Appear Here
-                    </Button>
+                <div className="row adminRow">
+                  <div id='adminActions' className='col-6'> 
+                    <div id="futureChals">
+                      <h3>Future Challenges</h3>
+                      <Button
+                        disabled
+                        color='secondary'
+                        className='challengeButtons'
+                      >
+                        Future Challenges Will Appear Here
+                      </Button>
+                    </div>
                   </div>
                 </div>
             </div>

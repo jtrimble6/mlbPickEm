@@ -10,6 +10,7 @@
 .homePageBoard {
     /* margin-top: 8%; */
     color: gold;
+    margin-bottom: 30%;
 }
 
 /* MY CHALLENGES */
@@ -18,7 +19,9 @@
     overflow: auto !important;
 }
 .myChallenges .challengeButton {
+    margin: 1%;
     margin-top: 5%;
+    
 }
 
 .myChallenges .btn {
@@ -46,6 +49,7 @@
 
 .homePageBoard h1 {
     margin-top: 5%;
+    margin-bottom: 2%;
 }
 
 
@@ -78,6 +82,10 @@
 .challengeCard .titleCol {
     float: left;
     margin: 0 auto;
+    margin-top: 8%;
+    background-color: rgb(58, 56, 56);
+    padding: 5%;
+    border-radius: 4%;
 }
 
 .challengeCard .details {
@@ -166,6 +174,10 @@
     margin-bottom: 5% !important;
 }
 
+.recentMessagesButton {
+    margin: 0 auto;
+}
+
 .messageList {
     max-height: 400px !important;
     min-width: 100%;
@@ -188,6 +200,7 @@
 
 .messageBox label {
     margin: 0 auto !important;
+    margin-bottom: 2% !important;
 }
 
 #messageType {
@@ -218,6 +231,19 @@
     .homePageBoard h1 {
         font-size: 20px !important;
     }
+    .upcomingChallengesCol, .myChallenges {
+        min-width: 100%;
+        padding-right: 1%;
+        padding-left: 1%;
+    }
+
+    .messageBoard {
+        min-width: 100%;
+    }
+
+    .messageBoardPage {
+        min-width: 100%;
+    }
 
     .challengeCard {
         margin: 0 auto;
@@ -232,6 +258,12 @@
     .challengeCard .challengeInfo {
         font-size: 12px;
     }
+    .challengeCard .card-title {
+        font-size: 16px;
+    }
+    .signUp {
+        font-size: 12px !important;
+    }
 }
 
 @media (min-width: 640px) and (max-width: 929px) {
@@ -242,10 +274,22 @@
         font-size: 18px !important;
     }
 
-    .upcomingChallenges {
-        min-width: 70%;
+    .homePageBoard h1 {
+        font-size: 20px !important;
+    }
+    .upcomingChallengesCol, .myChallenges {
+        min-width: 100%;
+        padding-right: 1%;
+        padding-left: 1%;
     }
 
+    .messageBoard {
+        min-width: 100%;
+    }
+
+    .messageBoardPage {
+        min-width: 100%;
+    }
     .challengeCard {
         font-size: 15px;
         margin: 0 auto;
@@ -394,11 +438,12 @@
 
 @media (min-width: 300px) and (max-width: 469px) {
     .homePageBoard h1 {
-        font-size: 14px !important;
+        font-size: 12px !important;
+        margin-bottom: 5px;
     }
 
-    .upcomingChallenges {
-        min-width: 70%;
+    .upcomingChallengesCol {
+        min-width: 98%;
         padding-right: 0;
         padding-left: 5%;
     }
@@ -406,9 +451,9 @@
     .challengeCard {
         font-size: 9px;
         margin: 0 auto;
-        width: 90% !important; 
+        width: 100% !important; 
         /* max-height: 100% !important;  */
-        height: 200px;
+        height: 100%;
         overflow: auto !important;
     }
 
@@ -447,13 +492,15 @@
 
     .myChallenges {
         padding: 0;
+        min-width: 99%;
     }
 
     .messageBoardPage {
         margin-top: 8%;
-        min-width: 100%;
+        min-width: 99%;
         text-align: center;
         border-top: solid 2px gold;
+        margin-bottom: 20% !important;
     }
 
     .messageBoardPage h1 {
@@ -471,6 +518,7 @@
     .messageBoard {
         height: 700px;
         padding: 0;
+        
     }
 }
 

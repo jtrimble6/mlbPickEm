@@ -18,6 +18,7 @@ const challengeSchema = new Schema({
     games: { type: Array, default: [] },
     teams: { type: Array, default: [] },
     users: { type: Array, default: [] },
+    parLine: { type: Number, required: true, default: 0 },
     winner: { type: Array, default: [] },
     img: { type: String, required: false },
     password: { type: String, required: true, default: 'none' }

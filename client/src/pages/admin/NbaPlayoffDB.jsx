@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 // import ReactTable from "react-table";
-import matchSorter from 'match-sorter'
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+// import matchSorter from 'match-sorter'
+// import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import moment from 'moment'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
@@ -150,44 +150,44 @@ class NbaPlayoffDBPage extends Component {
 
     render() {
         const uuidv4 = require('uuid/v4')
-        const users = this.state.currentChalUsers
-        const columns = [{
-          Header: 'Username',
-          headerClassName: 'gamesHeaders',
-          accessor: 'username',
-          Cell: props => <span className='chalUsers'>{props.value}</span>,
-          filterMethod: (filter, rows) =>
-            matchSorter(rows, filter.value, { keys: ["username"] }),
-            filterAll: true
-          },
-        {
-          Header: 'Wins',
-          headerClassName: 'gamesHeaders',
-          accessor: 'wins',
-          Cell: props => 
-            <span>
-              {props.value.map(win => (
-              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                <DropdownToggle caret>
-                  Wins
-                </DropdownToggle>
-                <DropdownMenu>
-                  {/* <DropdownItem header>Header</DropdownItem>
-                  <DropdownItem>Some Action</DropdownItem>
-                  <DropdownItem disabled>Action (disabled)</DropdownItem>
-                  <DropdownItem divider /> */}
-                  <DropdownItem key={uuidv4()}>{win.win}</DropdownItem><br />
-                </DropdownMenu>
-              </Dropdown>
-              ))}
+      //   const users = this.state.currentChalUsers
+      //   const columns = [{
+      //     Header: 'Username',
+      //     headerClassName: 'gamesHeaders',
+      //     accessor: 'username',
+      //     Cell: props => <span className='chalUsers'>{props.value}</span>,
+      //     filterMethod: (filter, rows) =>
+      //       matchSorter(rows, filter.value, { keys: ["username"] }),
+      //       filterAll: true
+      //     },
+      //   {
+      //     Header: 'Wins',
+      //     headerClassName: 'gamesHeaders',
+      //     accessor: 'wins',
+      //     Cell: props => 
+      //       <span>
+      //         {props.value.map(win => (
+      //         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      //           <DropdownToggle caret>
+      //             Wins
+      //           </DropdownToggle>
+      //           <DropdownMenu>
+      //             {/* <DropdownItem header>Header</DropdownItem>
+      //             <DropdownItem>Some Action</DropdownItem>
+      //             <DropdownItem disabled>Action (disabled)</DropdownItem>
+      //             <DropdownItem divider /> */}
+      //             <DropdownItem key={uuidv4()}>{win.win}</DropdownItem><br />
+      //           </DropdownMenu>
+      //         </Dropdown>
+      //         ))}
               
-            </span>,
-          filterMethod: (filter, rows) =>
-            matchSorter(rows, filter.value, { keys: ["wins"] }),
-            filterAll: true
-        }
+      //       </span>,
+      //     filterMethod: (filter, rows) =>
+      //       matchSorter(rows, filter.value, { keys: ["wins"] }),
+      //       filterAll: true
+      //   }
       
-      ]
+      // ]
 
         return(
             <div id='challengePage'>

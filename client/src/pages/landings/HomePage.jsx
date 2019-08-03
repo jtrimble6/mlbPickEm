@@ -4,7 +4,7 @@ import HomeBar from '../../components/nav/HomeBar'
 import MyChallenges from '../../components/home/myChallenges'
 import UpcomingChallenges from '../../components/home/upcomingChallenges'
 import MessageBoard from '../../components/home/messageBoard'
-import ChallengeDelay from '../../components/alerts/ChallengeDelay'
+// import ChallengeDelay from '../../components/alerts/ChallengeDelay'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/home.css'
@@ -21,6 +21,7 @@ class HomePage extends Component {
       lastName: '',
       wins: [],
       winsCount: 0,
+      value: 0,
       myChallenges: [],
       allActiveChallenges: [],
       allRecentChallenges: [],
@@ -82,7 +83,7 @@ class HomePage extends Component {
         for (var t=0; t<allChallenges.length; t++) {
           // let myChal = false
           let thisChalUsers = allChallenges[t].users
-          console.log('THIS CHAL USERS: ', thisChalUsers)
+          // console.log('THIS CHAL USERS: ', thisChalUsers)
           let myChalMatch = thisChalUsers.filter(myChalFunc)
           if(myChalMatch[0]) {
             onlyMyChals.push(allChallenges[t])
@@ -90,7 +91,7 @@ class HomePage extends Component {
           }
 
         }
-        console.log('MY CHALLENGES: ', onlyMyChals)
+        // console.log('MY CHALLENGES: ', onlyMyChals)
         API.getUser(localUser)
           .then(response => {
             let winsCount = response.data[0].wins.length
@@ -102,6 +103,7 @@ class HomePage extends Component {
                 profPic: response.data[0].img,
                 wins: response.data[0].wins,
                 winsCount: winsCount,
+                value: response.data[0].points,
                 myChallenges: onlyMyChals,
                 favoriteTeam: response.data[0].favoriteTeam
               })
@@ -119,13 +121,17 @@ class HomePage extends Component {
               <HomeBar 
                 username={this.state.username}
               />
-              <div className="row chalDelay">
+
+            {/* BANNER */}
+              {/* <div className="row chalDelay">
                 <div className="col-12">
                   <ChallengeDelay 
                     challengeDelay={this.state.challengeDelay}
                   />
                 </div>
-              </div>
+              </div> */}
+
+
               <div className='row homePageBoard'>
                 <div className="col-3 myChallenges">
                   <h1>

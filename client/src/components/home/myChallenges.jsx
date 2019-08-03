@@ -16,6 +16,7 @@ class MyChallenges extends Component {
           profPic: '',
           wins: {},
           winsCount: '',
+          value: '',
           myChallenges: [],
           favoriteTeam: '',
           redirect: false,
@@ -77,6 +78,7 @@ class MyChallenges extends Component {
                 profPic: response.data[0].img,
                 wins: response.data[0].wins,
                 winsCount: winsCount,
+                value: response.data[0].points,
                 myChallenges: this.props.myChallenges,
                 favoriteTeam: response.data[0].favoriteTeam
               })

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'react-chat-elements/dist/main.css';
 import '../../css/home.css'
 import { MessageList } from 'react-chat-elements'
+import { Button } from 'reactstrap'
 // import { MessageBox } from 'react-chat-elements';
 // import { ChatItem } from 'react-chat-elements'
 import moment from 'moment'
@@ -90,7 +91,7 @@ class MessageBoard extends Component {
                 dateString: moment(allRecentMessages[w].date).format('ddd, hA')
             }
             recentMessages.push(thisMessage)
-        }
+          }
 
         this.setState({
             recentMessageData: recentMessages
@@ -127,12 +128,15 @@ class MessageBoard extends Component {
         // let uuidv4 = require('uuid/v4')
         
         return(
-          <div className="row">
             <div className="row messageBoard">
                 <MessageList
                     className='messageList'
                     dataSource={this.state.recentMessageData}
                 />
+
+                {
+                    this.state.recentMessageData[0] ? '' : <Button disabled={true} className='recentMessagesButton'>No Recent Messages</Button>
+                }
               
               <div className="row form-group messageBox">
                 <label htmlFor="messageText">Send a Message</label>
@@ -155,7 +159,6 @@ class MessageBoard extends Component {
                 </button>
               </div>
                 
-            </div>
             </div>
               
         )

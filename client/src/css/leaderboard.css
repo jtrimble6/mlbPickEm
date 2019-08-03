@@ -17,6 +17,20 @@
     margin-bottom: 5%;
 }
 
+.winsHeaderModal {
+    margin: 0 !important;
+}
+
+.nflLeaderboard {
+    background-color: slategray;
+    border: solid 2px gold !important;
+}
+
+#leaderboardPage .nflLeaderboard {
+    margin: 0 auto !important;
+    margin-right: 1% !important;
+}
+
 @media (min-width: 1300px) {
     .leaderboard {
         color: gold;
@@ -24,7 +38,7 @@
         margin-left: 10% !important;
         overflow: auto;
         margin-bottom: 25px;
-        min-width: 100% !important;
+        /* min-width: 100% !important; */
         box-sizing: content-box;
         border: dashed 3px #209CEE;
         border-radius: 5%;
@@ -41,8 +55,8 @@
         border: none;
     }
 
-    td.leaderRow.username:hover {
-        cursor: pointer;
+    .allRows.username:hover {
+        cursor: pointer !important;
         background-color: gold !important;
         color: #209CEE !important;
         font-size: 100% !important;
@@ -105,7 +119,7 @@
         margin-left: 15% !important;
         overflow: auto;
         margin-bottom: 25px;
-        min-width: 100% !important;
+        /* min-width: 100% !important; */
     }
     .playerModal {
         min-width: 90%;
@@ -151,7 +165,7 @@
         margin-left: 15% !important;
         overflow: auto;
         margin-bottom: 25px;
-        min-width: 100% !important;
+        /* min-width: 100% !important; */
     }
     th.leaderboardHeader {
         color: gold !important;
@@ -201,6 +215,30 @@
         font-size: 65% !important;
         padding-right: 0 !important;
     }
+    .nflLeaderboard {
+        /* min-width: 90% !important; */
+        height: 250px !important;
+        margin-left: 0 !important;
+    }
+
+    .nflLeaderboard .allRows {
+        font-size: 16px !important;
+        line-height: 1em !important;
+    }
+
+    .nflLeaderboard .username {
+        font-size: 16px !important;
+    }
+
+    .nflLeaderboard .leaderRow {
+        padding-bottom: 0px !important;
+        
+    }
+
+    .nflLeaderboard .leaderboardRow {
+        /* width: 100% !important; */
+        flex: 100%;
+    }
 }
 
 @media (min-width: 550px) and (max-width: 764px) {
@@ -212,7 +250,7 @@
         margin-bottom: 25px;
         margin-left: 10% !important;
         margin-right: 10%;
-        max-width: 80% !important;
+        /* max-width: 80% !important; */
     }
     .leaderboard :active {
         overflow: auto;
@@ -264,7 +302,7 @@
         margin-bottom: 25px;
         margin-left: 10% !important;
         margin-right: 10%;
-        max-width: 80% !important;
+        /* max-width: 80% !important; */
     }
     .leaderboard :active {
         overflow: auto;
@@ -281,6 +319,7 @@
         padding: 7px;
         padding-left: 0;
         background-color: #209CEE;
+        overflow: auto !important;
     }
 
     .profilePicks {
@@ -313,6 +352,26 @@
         color: #209CEE !important;
         font-size: 65% !important;
         padding-right: 0 !important;
+    }
+
+    .nflLeaderboard {
+        /* max-width: 50% !important; */
+        height: 250px !important;
+        margin-left: 0 !important;
+    }
+
+    .nflLeaderboard .allRows {
+        font-size: 12px !important;
+        line-height: 1em !important;
+    }
+
+    .nflLeaderboard .username {
+        font-size: 12px !important;
+    }
+
+    .nflLeaderboard .leaderRow {
+        padding-bottom: 0px !important;
+        width: .25em !important;
     }
     
 }
@@ -347,10 +406,14 @@
     text-align: center;
     margin-left: 10% !important;
     overflow: auto;
-    margin-bottom: 25px;
-    min-width: 100% !important;
+    margin-bottom: 15%;
+    /* min-width: 100% !important; */
     box-sizing: content-box;
     border: dashed 3px #209CEE;
     border-radius: 5%;
     padding: 5%;
+}
+
+.leaders {
+    margin-bottom: 25%;
 }
