@@ -918,7 +918,7 @@ class NflDivisionCalendar extends Component {
         .then(res => {
             let teams = res.data
             let lastTeams = teams.slice(0, 32)
-            // console.log('MOST RECENT TEAMS: ', lastTeams)
+            console.log('MOST RECENT TEAMS: ', lastTeams)
             this.setState({
                 lastTeams: lastTeams
             }, () =>{
