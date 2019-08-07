@@ -390,7 +390,7 @@ class NflDivisionBar extends Component {
 
       API.getNflTeam(teamAbbr)
         .then(res => {
-          // console.log('TEAM DATA: ', res.data[0])
+          console.log('TEAM DATA: ', res.data[0])
           let origTeam = res.data[0]
           this.setState({
             homeGames: origTeam.homeGames,
