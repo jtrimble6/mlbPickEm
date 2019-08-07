@@ -425,21 +425,13 @@ class NflDivisionChallengePage extends Component {
             let teamTier = options[g]
             
             if (teamTier === 'option1') {
-              teamValue = -4
-            } else if (teamTier === 'option2') {
-              teamValue = -3
-            } else if (teamTier === 'option3') {
-              teamValue = -2
-            } else if (teamTier === 'option4') {
-              teamValue = -1
-            } else if (teamTier === 'option5') {
-              teamValue = 1
-            } else if (teamTier === 'option6') {
               teamValue = 2
-            } else if (teamTier === 'option7') {
-              teamValue = 3
-            } else if (teamTier === 'option8') {
-              teamValue = 4
+            } else if (teamTier === 'option2') {
+              teamValue = 1
+            } else if (teamTier === 'option3') {
+              teamValue = -1
+            } else if (teamTier === 'option4') {
+              teamValue = -2
             } else {
               teamValue = 0
             }
@@ -603,7 +595,8 @@ class NflDivisionChallengePage extends Component {
 
                         }
                     </div> <hr />
-                    <h2 className="nflTitle">Tier Selection</h2>
+                    <h1 className="nflTitle">Tier Selection</h1>
+                    <h2 className='nflLegend'>Tier 1 = 2pts | Tier 2 = 1pt | Tier 3 = -1pt | Tier 4 = -2pts</h2>
                     <div className="row nflTeamTable">
                       
 
@@ -622,21 +615,21 @@ class NflDivisionChallengePage extends Component {
                                   1
                                 </Label>
                                 <Label check className='check2'>
-                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio5" value='option5' checked={this.state.selectedOptions[y] === 'option5'} />{' '}
-                                  5
+                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio2" value='option2' checked={this.state.selectedOptions[y] === 'option2'} />{' '}
+                                  2
                                 </Label>
                               </FormGroup>
                               <FormGroup check>
                                 <Label check>
-                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio2" value='option2' checked={this.state.selectedOptions[y] === 'option2'} />{' '}
-                                  2
+                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio3" value='option3' checked={this.state.selectedOptions[y] === 'option3'} />{' '}
+                                  3
                                 </Label>
                                 <Label check className='check2'>
-                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio6" value='option6' checked={this.state.selectedOptions[y] === 'option6'} />{' '}
-                                  6
+                                  <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio4" value='option4' checked={this.state.selectedOptions[y] === 'option4'} />{' '}
+                                  4
                                 </Label>
                               </FormGroup>
-                              <FormGroup check>
+                              {/* <FormGroup check>
                                 <Label check>
                                   <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio3" value='option3' checked={this.state.selectedOptions[y] === 'option3'} />{' '}
                                   3
@@ -655,7 +648,7 @@ class NflDivisionChallengePage extends Component {
                                   <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio8" value='option8' checked={this.state.selectedOptions[y] === 'option8'} />{' '}
                                   8
                                 </Label>
-                              </FormGroup>
+                              </FormGroup> */}
                             </Form> 
                           ))
                         }
