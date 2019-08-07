@@ -247,7 +247,7 @@ class NflDivisionActionPage extends Component {
                 challengeName={this.state.challengeData.challengeName}
               />
               
-              <NflDivisionBar
+                <NflDivisionBar
                   username={this.state.username}
                   winsCount={this.state.winsCount}
                   myValue={this.state.myValue}

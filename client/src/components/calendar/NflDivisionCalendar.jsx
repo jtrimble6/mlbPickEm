@@ -917,7 +917,10 @@ class NflDivisionCalendar extends Component {
       API.getNflTeams()
         .then(res => {
             let teams = res.data
-            let lastTeams = teams.slice(0, 32)
+            let returnThisWeek = (theTeams) => {
+              return theTeams.valueWeek === this.props.thisWeek
+            }
+            let lastTeams = teams.filter(returnThisWeek)
             console.log('MOST RECENT TEAMS: ', lastTeams)
             this.setState({
                 lastTeams: lastTeams
