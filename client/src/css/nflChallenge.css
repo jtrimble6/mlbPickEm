@@ -8,6 +8,8 @@
 
 .nflTitle {
     margin: 0 auto;
+    font-size: 30px;
+    margin-bottom: 1%;
 }
 
 .nflLegend {
@@ -65,7 +67,9 @@
 }
 
 .check2 {
-    margin-left: 40%;
+    margin: 0 auto;
+    padding: 10%;
+    font-size: 30px !important;
 }
 
 .buttonRow {
@@ -83,10 +87,15 @@
 
 .form-check-label {
     font-size: 15px;
+    margin-right: 30px !important;
 }
 
 .form-check-input {
-    font-size: 30px;
+    height: 30px !important;
+    width: 30px !important;
+    position: relative;
+    right: 5px;
+    top: 5px;
 }
 
 .nflTeamOption {
@@ -100,13 +109,13 @@
 }
 
 .teamNum {
-    font-size: 12px;
+    font-size: 18px;
     position: absolute;
     left: 15px !important;
     top: 10px !important;
     background-color: #209CEE;
-    color: gold;
-    padding: 3%;
+    color: white;
+    padding: 5%;
     border-radius: 30%;
 }
 
@@ -117,6 +126,14 @@
     .fa-football-ball {
         font-size: 65%;
     }
+    .nflTitle {
+        font-size: 20px;
+    }
+    .teamNum {
+        font-size: 14px;
+        padding: 3%;
+    }
+    
 }
 
 @media (max-width: 600px) {
@@ -136,6 +153,10 @@
         margin-top: 25%;
     }
 
+    .nflTitle {
+        font-size: 60%;
+    }
+
     .form-check-label {
         font-size: 14px;
         margin-right: 0px !important;
@@ -143,8 +164,9 @@
     
     .form-check-input {
         font-size: 8px;
-        margin-left: -25% !important;
-        
+        /* margin-left: -25% !important; */
+        /* height: 90% !important;
+        width: 90% !important; */
     }
     
     .teamNum {
@@ -153,7 +175,7 @@
         left: 5px !important;
         top: 3px !important;
         background-color: #209CEE;
-        color: gold;
+        color: white;
         padding: 3%;
         border-radius: 30%;
     }

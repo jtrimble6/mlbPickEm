@@ -610,7 +610,7 @@ class NflDivisionChallengePage extends Component {
                                 <Label className='nflTeamLabel' for='nflTeam'>{team.teamName}</Label>
                               </FormGroup>
                               <FormGroup check>
-                                <Label check>
+                                <Label check className='check2'>
                                   <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio1" value='option1' checked={this.state.selectedOptions[y] === 'option1'} />{' '}
                                   1
                                 </Label>
@@ -620,7 +620,7 @@ class NflDivisionChallengePage extends Component {
                                 </Label>
                               </FormGroup>
                               <FormGroup check>
-                                <Label check>
+                                <Label check className='check2'>
                                   <Input type="radio" data-num={y} onChange={this.handleOptionChange} name="radio3" value='option3' checked={this.state.selectedOptions[y] === 'option3'} />{' '}
                                   3
                                 </Label>
