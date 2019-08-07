@@ -120,7 +120,7 @@ class NflDivisionChallengePage extends Component {
         this.getTeams()
         this.getWeek()
         // this.postTeams()
-        this.postTeamGames()
+        // this.postTeamGames()
         // this.getGames()
       }
 
