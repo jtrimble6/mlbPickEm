@@ -596,7 +596,7 @@ class NflDivisionChallengePage extends Component {
                         }
                     </div> <hr />
                     <h1 className="nflTitle">Tier Selection</h1>
-                    <h2 className='nflLegend'>Tier 1 = 2pts | Tier 2 = 1pt | Tier 3 = -1pt | Tier 4 = -2pts</h2>
+                    <h2 className='nflTitle'>Tier 1 = 2pts | Tier 2 = 1pt | Tier 3 = -1pt | Tier 4 = -2pts</h2>
                     <div className="row nflTeamTable">
                       
 
