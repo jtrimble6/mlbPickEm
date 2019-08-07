@@ -119,8 +119,8 @@ class NflDivisionChallengePage extends Component {
         // this.getSchedule()
         this.getTeams()
         this.getWeek()
-        this.postTeams()
-        // this.postTeamGames()
+        // this.postTeams()
+        this.postTeamGames()
         // this.getGames()
       }
 
