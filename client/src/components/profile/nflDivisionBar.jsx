@@ -394,12 +394,14 @@ class NflDivisionBar extends Component {
             let returnThisTeam = (theTeams) => {
               return theTeams.valueWeek === 0 && theTeams.teamAlias === teamAbbr
             }
+            
             let origTeam = teams.filter(returnThisTeam)
+            console.log('THIS TEAM: ', origTeam)
             this.setState({
-              homeGames: origTeam.homeGames,
-              awayGames: origTeam.awayGames
+              homeGames: origTeam[0].homeGames,
+              awayGames: origTeam[0].awayGames
             })
-            this.sortTeamGames(origTeam.homeGames, origTeam.awayGames)
+            this.sortTeamGames(origTeam[0].homeGames, origTeam[0].awayGames)
         })
         .catch(err => {
           console.log(err)
