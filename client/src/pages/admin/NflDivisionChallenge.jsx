@@ -120,8 +120,8 @@ class NflDivisionChallengePage extends Component {
         this.getTeams()
         this.getWeek()
         // this.postTeams()
-        // this.postTeamGames()
-        this.getGames()
+        this.postTeamGames()
+        // this.getGames()
       }
 
     handleOptionChange = changeEvent => {
