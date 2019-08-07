@@ -287,7 +287,7 @@ class NflDivisionCalendar extends Component {
         });
          let noPickAlert = <div className='row invalidPick'>Sorry, your pick has already locked!</div>
          $('.modal-open .modal-header').prepend(noPickAlert)
-        }
+      }
 
     toggleNoPick() {
       this.setState({
@@ -339,7 +339,7 @@ class NflDivisionCalendar extends Component {
           nestedModalDivisionWon: !this.state.nestedModalDivisionWon,
           closeAllDivisionWon: true
         });
-        }
+      }
 
     toggleAllExpPick() {
       this.setState({
@@ -353,7 +353,7 @@ class NflDivisionCalendar extends Component {
           nestedModalOverdraft: !this.state.nestedModalOverdraft,
           closeAllOverdraft: true
         });
-        }
+      }
 
     toggleAllNoPick() {
       this.setState({
@@ -367,7 +367,7 @@ class NflDivisionCalendar extends Component {
         nestedModalLockedPick: !this.state.nestedModalLockedPick,
         closeAllLockedPick: true
       })
-    }
+      }
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value})
@@ -917,7 +917,7 @@ class NflDivisionCalendar extends Component {
       API.getNflTeams()
         .then(res => {
             let teams = res.data
-            let lastTeams = teams.slice(Math.max(teams.length - 32))
+            let lastTeams = teams.slice(0, 32)
             // console.log('MOST RECENT TEAMS: ', lastTeams)
             this.setState({
                 lastTeams: lastTeams
