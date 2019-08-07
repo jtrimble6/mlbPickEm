@@ -388,17 +388,34 @@ class NflDivisionBar extends Component {
         activeTeamName: team.dataset.teamname,
       })
 
-      API.getNflTeam(teamAbbr)
+      API.getNflTeams()
         .then(res => {
-          console.log('TEAM DATA: ', res.data[0])
-          let origTeam = res.data[0]
-          this.setState({
-            homeGames: origTeam.homeGames,
-            awayGames: origTeam.awayGames
-          })
-          this.sortTeamGames(origTeam.homeGames, origTeam.awayGames)
+            let teams = res.data
+            let returnThisTeam = (theTeams) => {
+              return theTeams.valueWeek === 0 && theTeams.teamAlias === teamAbbr
+            }
+            let origTeam = teams.filter(returnThisTeam)
+            this.setState({
+              homeGames: origTeam.homeGames,
+              awayGames: origTeam.awayGames
+            })
+            this.sortTeamGames(origTeam.homeGames, origTeam.awayGames)
         })
-        .catch(err => {console.log(err)})
+        .catch(err => {
+          console.log(err)
+        })
+
+      // API.getNflTeam(teamAbbr)
+      //   .then(res => {
+      //     console.log('TEAM DATA: ', res.data[0])
+      //     let origTeam = res.data[0]
+      //     this.setState({
+      //       homeGames: origTeam.homeGames,
+      //       awayGames: origTeam.awayGames
+      //     })
+      //     this.sortTeamGames(origTeam.homeGames, origTeam.awayGames)
+      //   })
+      //   .catch(err => {console.log(err)})
 
       }
 
