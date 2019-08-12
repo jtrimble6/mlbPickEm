@@ -15,6 +15,8 @@ class NflDivisionActionPage extends Component {
     super(props)
     this.state = {
       thisWeek: '',
+      thisWeekGames: [],
+      thisWeekGamesIds: [],
       prevWeek: 0,
       redirect: false,
       challengeId: '',
@@ -38,6 +40,7 @@ class NflDivisionActionPage extends Component {
     this.getUserData = this.getUserData.bind(this)
     this.getTodaysPick = this.getTodaysPick.bind(this)
     this.getWeek = this.getWeek.bind(this)
+    this.getSchedule = this.getSchedule.bind(this)
   }
 
     componentDidMount() {
@@ -157,12 +160,59 @@ class NflDivisionActionPage extends Component {
           _this.setState({
             thisWeek: nflWeeks[w].week
           })
+          this.getSchedule(nflWeeks[w].week)
         } else {
           // console.log('NOT THIS WEEK: ', nflWeeks[w].week)
         } 
       }
 
     }
+
+    getSchedule = (week) => {
+      // let week = this.state.thisWeek
+      
+      let self = this
+      // self.setState({ yesterday: week })
+      // this.getGames()
+
+      // PULL GAMES FROM LAST WEEK
+      API.getNflGamesByDate(week)
+        .then(res => {
+            let games = []
+            let thisWeeksGameIds = []
+            // console.log('LAST WEEKS GAMES: ', res.data)
+            res.data.forEach((game) => {
+              let splitDate = game.gameDate.split('T')
+              let gameDate = splitDate[0]
+              let gameInfo = {
+                  gameWeek: game.gameWeek,
+                  id: game.gameId,
+                  date: gameDate,
+                  start: game.gameDate,
+                  status: game.gameStatus,
+                  homeTeam: game.homeTeam,
+                  awayTeam: game.awayTeam,
+                  gameWinner: game.gameResult,
+                  title: game.homeAlias + ' vs ' + game.awayAlias,
+                  color: 'yellow',
+                  textColor: 'black',
+                  borderColor: 'blue'
+                }
+                games.push(gameInfo)
+                thisWeeksGameIds.push(gameInfo.id)
+                self.setState({ 
+                  thisWeeksGames: games, 
+                  thisWeeksGameIds: thisWeeksGameIds 
+                })
+                // self.setState({ lastWeeksGameIds: lastWeeksGameIds })
+                // console.log('LAST WEEKS GAMES: ', games)
+              })
+
+            
+
+        })
+          .catch(err => console.log(err))
+      }
 
     getUserData = () => {
       window.addEventListener('load', this.handlePreloader());

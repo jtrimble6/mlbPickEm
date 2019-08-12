@@ -77,6 +77,7 @@ class NflDivisionLeaderboard extends Component {
           challengeStartDate: ''
         }
         this.toggle = this.toggle.bind(this);
+        this.toggleClose = this.toggleClose.bind(this);
         // this.toggleHover = this.toggleHover.bind(this);
         this.handlePreloader = this.handlePreloader.bind(this);
         this.getUser = this.getUser.bind(this);
@@ -106,6 +107,14 @@ class NflDivisionLeaderboard extends Component {
     toggle() {
         this.setState({
           modal: !this.state.modal
+        });
+      }
+
+    toggleClose() {
+        this.setState({
+          modal: !this.state.modal,
+          activeUserWeekPick: '',
+          activeUserPickValue: ''
         });
       }
 
@@ -698,7 +707,7 @@ class NflDivisionLeaderboard extends Component {
                                         <h4 className='winsHeader winsHeaderModal'>Users Locked Line</h4> {this.state.activeUserLine}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader winsHeaderModal'>Division's Won</h4> {this.state.activeUserWins.length} <small>out of</small> 8
+                                        <h4 className='winsHeader winsHeaderModal'>Division's Won</h4> {this.state.activeUserWins.length} <small>/</small> 8
                                       </div> 
                                       <div className="col-md-3">
                                         <h4 className='winsHeader winsHeaderModal'>Record</h4> {this.state.activeUserWins.length} - {record}
@@ -775,7 +784,7 @@ class NflDivisionLeaderboard extends Component {
                             </span>
                           </ModalBody>
                           <ModalFooter>
-                            <Button color="secondary" onClick={this.toggle}>Close</Button>
+                            <Button color="secondary" onClick={this.toggleClose}>Close</Button>
                           </ModalFooter>
                 
                         </Modal>
