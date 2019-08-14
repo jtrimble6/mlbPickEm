@@ -195,6 +195,7 @@ class NflDivisionLeaderboard extends Component {
           let points = 0
           let pickCount = 0
           for (let h=0; h<user.picks.length; h++) {
+            console.log('USER PICKS: ', user.picks)
             pickCount++
             let thisPickValue = user.picks[h].teamValue
             if (pickCount === user.picks.length) {
@@ -238,7 +239,7 @@ class NflDivisionLeaderboard extends Component {
         // console.log('PLACED USERS: ', placedUsers)
         this.setState({ leaders: placedUsers })
 
-        // console.log('NEW LEADERBOARD: ', this.state.allUsers)
+        console.log('NEW LEADERBOARD: ', placedUsers)
         
       }
 
@@ -505,13 +506,13 @@ class NflDivisionLeaderboard extends Component {
             // console.log('PICK GAME TIME: ', user.picks[h].gameTime)
             let gameTime = thisPlayer[0].picks[p].gameTime
             let currentTime = moment().format()
-            console.log('game time: ', gameTime)
-            console.log('current time: ', currentTime)
+            // console.log('game time: ', gameTime)
+            // console.log('current time: ', currentTime)
             if (moment(gameTime).isAfter(moment(currentTime))) {
-              console.log('THE GAME HAS NOT STARTED')
+              // console.log('THE GAME HAS NOT STARTED')
               thisPickValue = 0
             } else {
-              console.log('THE GAME HAS STARTED')
+              // console.log('THE GAME HAS STARTED')
               if (thisPlayer[0].picks[p].gameWeek === _this.props.thisWeek) {
                 // console.log('HAVE THIS WEEKS PICK: ', thisPlayer[0].picks[h])
                 _this.setState({
