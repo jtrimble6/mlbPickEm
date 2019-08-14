@@ -53,6 +53,7 @@ class NflDivisionChallengePage extends Component {
             nflTeamSuccess: false,
             nflTeamError: false,
             week: '',
+            lastWeek: '',
             users: [],
             teams: data.nflTeams,
             fullSchedule: [],
@@ -221,7 +222,8 @@ class NflDivisionChallengePage extends Component {
           if(moment(today).isSameOrAfter(thisWeek) && moment(today).isBefore(moment(thisWeek).add(7, 'days').format('YYYY-MM-DD'))) {
             // console.log('THIS WEEK: ', nflWeeks[w].week)
             _this.setState({
-              week: nflWeeks[w].week
+              week: nflWeeks[w].week,
+              lastWeek: nflWeeks[w-1].week
             })
           } else {
             // console.log('NOT THIS WEEK: ', nflWeeks[w].week)
@@ -511,8 +513,12 @@ class NflDivisionChallengePage extends Component {
         API.getNflTeams()
           .then(res => {
               let teams = res.data
-              let lastTeams = teams.slice(Math.max(teams.length - 32))
-              console.log('MOST RECENT TEAMS: ', lastTeams)
+              let returnThisWeek = (theTeams) => {
+                return theTeams.valueWeek === this.state.lastWeek
+              }
+              let lastTeams = teams.filter(returnThisWeek)
+              // let lastTeams = teams.slice(Math.max(teams.length - 32))
+              // console.log('MOST RECENT TEAMS: ', lastTeams)
               let orderedTeams = lastTeams.sort(function(a,b){
                 if(a.teamName < b.teamName) { return -1; }
                 if(a.teamName > b.teamName) { return 1; }

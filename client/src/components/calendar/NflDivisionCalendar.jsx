@@ -921,7 +921,7 @@ class NflDivisionCalendar extends Component {
               return theTeams.valueWeek === this.props.thisWeek
             }
             let lastTeams = teams.filter(returnThisWeek)
-            console.log('MOST RECENT TEAMS: ', lastTeams)
+            // console.log('MOST RECENT TEAMS: ', lastTeams)
             this.setState({
                 lastTeams: lastTeams
             }, () =>{
