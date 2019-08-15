@@ -202,10 +202,10 @@ class NflDivisionLeaderboard extends Component {
               // console.log('PICK GAME TIME: ', user.picks[h].gameTime)
               let gameTime = user.picks[h].gameTime
               let currentTime = moment().format()
-              // console.log('game time: ', gameTime)
-              // console.log('current time: ', currentTime)
+              console.log('game time: ', gameTime)
+              console.log('current time: ', currentTime)
               if (moment(gameTime).isAfter(moment(currentTime))) {
-                // console.log('THE GAME HAS NOT STARTED')
+                console.log('THE GAME HAS NOT STARTED')
                 thisPickValue = 0
               } 
             } 
