@@ -1292,11 +1292,13 @@ class NflDivisionCalendar extends Component {
           let result = 'loss'
           let newPick = {
             team: thisPick[0].team,
+            teamDiv: thisPick[0].teamDiv,
             teamValue: thisPick[0].teamValue,
             gameDate: thisPick[0].gameDate,
             gameWeek: thisPick[0].gameWeek,
             gameId: thisPick[0].gameId,
-            result: result
+            result: result,
+            gameTime: thisPick[0].gameTime
           }
             // console.log('THIS IS A LOSS: ', thisPick)
             // console.log('RESULT: ', newPick)
@@ -1334,11 +1336,13 @@ class NflDivisionCalendar extends Component {
             // CHANGE PICK RESULT IF WIN
             let newPick = {
               team: thisPick[0].team,
+              teamDiv: thisPick[0].teamDiv,
               teamValue: thisPick[0].teamValue,
               gameDate: thisPick[0].gameDate,
               gameWeek: thisPick[0].gameWeek,
               gameId: thisPick[0].gameId,
-              result: result
+              result: result,
+              gameTime: thisPick[0].gameTime
               
             }
             // console.log('NEW PICK: ', newPick)
@@ -1376,7 +1380,7 @@ class NflDivisionCalendar extends Component {
             gameDate: thisWeek.toString(),
             gameId: 'none', 
             result: 'loss',
-            gameTime: Date.now()
+            gameTime: moment().format()
           }
 
           API.saveNflPick(this.state.challengeId, userId, thisPick)
