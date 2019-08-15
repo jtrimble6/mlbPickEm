@@ -213,7 +213,7 @@ class NflDivisionLeaderboard extends Component {
           }
           return { index: i, value: user.wins.length, line: points, username: user.username }
         })
-        // console.log('PLACED USERS: ', placedUsers)
+        console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
             if (a.value > b.value) {
                 return -1;
@@ -269,8 +269,8 @@ class NflDivisionLeaderboard extends Component {
       } 
 
       let prevPicks = sortedPicks.filter(prevPicksFunc)
-      console.log('SORTED ARRAY: ', sortedPicks)
-      console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
+      // console.log('SORTED ARRAY: ', sortedPicks)
+      // console.log('ONLY PICKS BEFORE TODAY: ', prevPicks)
 
       this.setState({
           todaysPick: todaysUserPick,
