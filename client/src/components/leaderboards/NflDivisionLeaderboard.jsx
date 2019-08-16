@@ -4,13 +4,7 @@ import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFoote
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
-// import Countdown from 'react-countdown-now';
-// import ReactHintFactory from 'react-hint'
 import $ from 'jquery'
-// import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
-
-//import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-// import { ari2, atl3, bal2, buf, car, chi2, cin2, cle3, dal2, den, det3, gb, hou2, ind2, jac, kc, lac2, la, mia2, min2, ne, no, nyg, nyj, oak, phi, pit, sea, sf, tb, ten, was2 } from '../../css/nflLogos'
 
 class NflDivisionLeaderboard extends Component {
     constructor(props) {
@@ -78,14 +72,12 @@ class NflDivisionLeaderboard extends Component {
         }
         this.toggle = this.toggle.bind(this);
         this.toggleClose = this.toggleClose.bind(this);
-        // this.toggleHover = this.toggleHover.bind(this);
         this.handlePreloader = this.handlePreloader.bind(this);
         this.getUser = this.getUser.bind(this);
         this.getFirstGame = this.getFirstGame.bind(this);
         this.createTimer = this.createTimer.bind(this);
         this.findRecentPicks = this.findRecentPicks.bind(this);
         this.changeLogo = this.changeLogo.bind(this);
-        // this.loadLogo = this.loadLogo.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.createLeaderboard = this.createLeaderboard.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
@@ -117,11 +109,6 @@ class NflDivisionLeaderboard extends Component {
           activeUserPickValue: ''
         });
       }
-
-    // toggleHover(e) {
-    //   e.preventDefault()
-    //   this.setState({hover: !this.state.hover})
-    // }
 
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
@@ -179,7 +166,6 @@ class NflDivisionLeaderboard extends Component {
       }
 
     createLeaderboard = () => {
-        // let _this = this
         let users = this.state.allUsers
         let testFilter = (allChallengers) => {
           return allChallengers.username !== 'test'
@@ -190,7 +176,7 @@ class NflDivisionLeaderboard extends Component {
         // if(thisUser === 'test') {
         //   return
         // }
-        // console.log('Create leaderboard with this data: ', users)
+        // console.log('Create leaderboard with this data: ', users
         let placedUsers = newUsers.map(function(user, i) {
           let points = 0
           let pickCount = 0
@@ -202,10 +188,10 @@ class NflDivisionLeaderboard extends Component {
               // console.log('PICK GAME TIME: ', user.picks[h].gameTime)
               let gameTime = user.picks[h].gameTime
               let currentTime = moment().format()
-              console.log('game time: ', gameTime)
-              console.log('current time: ', currentTime)
+              // console.log('game time: ', gameTime)
+              // console.log('current time: ', currentTime)
               if (moment(gameTime).isAfter(moment(currentTime))) {
-                console.log('THE GAME HAS NOT STARTED')
+                // console.log('THE GAME HAS NOT STARTED')
                 thisPickValue = 0
               } 
             } 
@@ -213,7 +199,7 @@ class NflDivisionLeaderboard extends Component {
           }
           return { index: i, value: user.wins.length, line: points, username: user.username }
         })
-        console.log('PLACED USERS: ', placedUsers)
+        // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
             if (a.value > b.value) {
                 return -1;
@@ -239,7 +225,7 @@ class NflDivisionLeaderboard extends Component {
         // console.log('PLACED USERS: ', placedUsers)
         this.setState({ leaders: placedUsers })
 
-        console.log('NEW LEADERBOARD: ', placedUsers)
+        // console.log('NEW LEADERBOARD: ', placedUsers)
         
       }
 
@@ -376,104 +362,6 @@ class NflDivisionLeaderboard extends Component {
         
         }
 
-    // loadLogo = (team) => {
-    //   switch (true) {
-    //     case (team === 'atl'):
-    //       return atl2;
-          
-    //     case (team === 'bal'):
-    //       return bal;
-          
-    //     case (team === 'bos'):
-    //       return bos2;
-          
-    //     case (team === 'chc'):
-    //       return chc;
-          
-    //     case (team === 'cws'):
-    //       return cws;
-            
-    //     case (team === 'cle'):
-    //       return cle2;
-            
-    //     case (team === 'cin'):
-    //       return cin;
-            
-    //     case (team === 'col'):
-    //       return col;
-            
-    //     case (team === 'det'):
-    //       return det2;
-            
-    //     case (team === 'mia'):
-    //       return mia2;
-            
-    //     case (team === 'hou'):
-    //       return hou2;
-            
-    //     case (team === 'kc'):
-    //       return kc;
-            
-    //     case (team === 'laa'):
-    //       return laa;
-            
-    //     case (team === 'lad'):
-    //       return lad;
-            
-    //     case (team === 'nym'):
-    //       return nym;
-            
-    //     case (team === 'nyy'):
-    //       return nyy;
-        
-    //     case (team === 'mil'):
-    //       return mil2;
-            
-    //     case (team === 'min'):
-    //       return min2;
-            
-    //     case (team === 'oak'):
-    //       return oak;
-            
-    //     case (team === 'pit'):
-    //       return pit;
-            
-    //     case (team === 'sd'):
-    //       return sd;
-            
-    //     case (team === 'sf'):
-    //       return sf;
-            
-    //     case (team === 'phi'):
-    //       return phi2;
-            
-    //     case (team === 'sea'):
-    //       return sea;
-            
-    //     case (team === 'stl'):
-    //       return stl;
-            
-    //     case (team === 'tb'):
-    //       return tb;
-            
-    //     case (team === 'tex'):
-    //       return tex;
-            
-    //     case (team === 'tor'):
-    //       return tor2;
-            
-    //     case (team === 'ari'):
-    //       return ari;
-            
-    //     case (team === 'wsh'):
-    //       return wsh;
-            
-    //     default:
-    //       return ari;
-    //     }  
-
-    //   }
-
     handleClick = e => {
       // let self = this
       let _this = this
@@ -601,19 +489,6 @@ class NflDivisionLeaderboard extends Component {
           }
         let userPicks = this.state.activeUserPrevPicks
         let username = this.state.activeUserUsername
-        // let timerDiff = this.state.timeDiff
-        // const ReactHint = ReactHintFactory(React)
-        // let todaysPick = (this.state.todaysPick[0] ? this.state.todaysPick[0].name : 'No Pick' )
-        // let challengeStartDate = moment(startDate).format('MM-DD-YYYY')
-        // let today = moment().format('MM-DD-YYYY')
-        // let timerEnded = false;
-        // let EndTimer = () => {
-        //   // timerEnded = true
-        //   // console.log('TODAYS PICK: ', todaysPick)
-        //   return (
-        //     <span>{todaysPick}</span>
-        //   )
-        // }
 
         return(
           <div className='leaderboard nflLeaderboard'>
@@ -756,32 +631,7 @@ class NflDivisionLeaderboard extends Component {
                             </div>
 
                             <span className="col-md"> 
-                              {/* <div className="row teamLogos">
-                                
-                                {
-                                  this.state.nflTeams.map((team, i) => (
-                                  
-                                    <Button 
-                                      key={uuidv4()}
-                                      onClick={this.findTeamGames}
-                                      color={team.status} 
-                                      className='teamButton'
-                                      data={team.abbr}
-                                    >
-                                      <img
-                                        className='profLogo'
-                                        src={this.loadLogo(team.abbr)}
-                                        alt={team.abbr}
-                                        fluid='true'
-                                      />
-                                      <br />
-                                      {team.abbr.toUpperCase()}
-                                    </Button>
-                            
-                                  ))
-                                }
-                                
-                              </div> */}
+                             
                             </span>
                           </ModalBody>
                           <ModalFooter>

@@ -3,16 +3,12 @@ import '../../css/calendar/calendar.css'
 import '../../css/nflChallenge.css'
 import LoadingOverlay from 'react-loading-overlay';
 import PickError from "../alerts/PickError";
-// import FullCalendar from 'fullcalendar-reactwrapper';
-// import Countdown from 'react-countdown-now';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone'
-// import ReactHintFactory from 'react-hint'
 import { nfl, ari2, atl3, bal2, buf, car, chi2, cin2, cle3, dal2, den, det3, gb, hou2, ind2, jac, kc, lac2, la, mia2, min2, ne, no, nyg, nyj, oak, phi, pit, sea, sf, tb, ten, was2 } from '../../css/nflLogos'
 
 class NflDivisionCalendar extends Component {
@@ -145,7 +141,6 @@ class NflDivisionCalendar extends Component {
         this.toggleAllGames = this.toggleAllGames.bind(this);
         this.togglePastResults = this.togglePastResults.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
-        // this.checkPrevPicks = this.checkPrevPicks.bind(this);
         this.checkPrevWeeksPicked = this.checkPrevWeeksPicked.bind(this);
         this.overridePick = this.overridePick.bind(this);
         this.getSchedule = this.getSchedule.bind(this);
@@ -161,10 +156,7 @@ class NflDivisionCalendar extends Component {
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.getYesterdaysResults = this.getYesterdaysResults.bind(this)
-        // this.getAllGames = this.getAllGames.bind(this)
-        // this.addWeek = this.addWeek.bind(this)
         this.addWeekResult = this.addWeekResult.bind(this)
-        // this.subWeek = this.subWeek.bind(this)
         this.subWeekResult = this.subWeekResult.bind(this)
         this.findPastResults = this.findPastResults.bind(this)
         this.matchTeamValues = this.matchTeamValues.bind(this)
@@ -485,9 +477,9 @@ class NflDivisionCalendar extends Component {
         // console.log('CURRENT TIME: ', currentTime)
         // console.log('PICK START TIME: ', todaysPickStart)
         let gameStarted = moment(currentTime).isAfter(todaysPickStart)
-        console.log('game started? ', gameStarted)
+        // console.log('game started? ', gameStarted)
         if (gameStarted) {
-          console.log('TOGGLE LOCKED PICK')
+          // console.log('TOGGLE LOCKED PICK')
           this.toggleLockedPick()
           return;
         }
@@ -531,11 +523,11 @@ class NflDivisionCalendar extends Component {
         // console.log('MY NEW VALUE: ', newValue)
         
         if (newValue < chalValue) {
-          console.log('OVERDRAFT PICK')
+          // console.log('OVERDRAFT PICK')
           this.toggleOverdraft()
           return
         } else {
-          console.log('VALID PICK')
+          // console.log('VALID PICK')
         }
 
         // debugger;
@@ -595,7 +587,7 @@ class NflDivisionCalendar extends Component {
               if (pickHasWon !== undefined) {
                 // toggle = false
                 self.toggleInvalidPick()
-                console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
+                // console.log('YOU HAVE ALREADY WON WITH THIS TEAM', teamPick)
                 return;
                 } 
               }
@@ -606,7 +598,7 @@ class NflDivisionCalendar extends Component {
                 if (pickHasWon !== undefined) {
                   // toggle = false
                   self.toggleDivisionWon()
-                  console.log('YOU HAVE ALREADY WON WITH A TEAM IN THIS DIVISION', teamPick)
+                  // console.log('YOU HAVE ALREADY WON WITH A TEAM IN THIS DIVISION', teamPick)
                   return;
                   } 
                 }
@@ -665,10 +657,10 @@ class NflDivisionCalendar extends Component {
       }
     
     overridePick(week, newPick) {
-      console.log('THIS CHALLENGE: ', this.state.challengeId)
-      console.log('THIS USER: ', this.props.username)
-      console.log('OVERRIDE THIS WEEK: ', week)
-      console.log('OVERRIDE WITH NEW PICK: ', newPick)
+      // console.log('THIS CHALLENGE: ', this.state.challengeId)
+      // console.log('THIS USER: ', this.props.username)
+      // console.log('OVERRIDE THIS WEEK: ', week)
+      // console.log('OVERRIDE WITH NEW PICK: ', newPick)
       // debugger;
       API.deleteNflPick(this.state.challengeId, this.props.username, week)
         .then(res => {
@@ -1310,7 +1302,7 @@ class NflDivisionCalendar extends Component {
           let newWin = null
 
           let findWinFunc = (games) => {
-            console.log('THIS WINNING TEAM: ', games.gameWinner.gameResult)
+            // console.log('THIS WINNING TEAM: ', games.gameWinner.gameResult)
             return games.gameWinner.gameResult === thisPickTeam.trim()
           }
 
@@ -1330,7 +1322,7 @@ class NflDivisionCalendar extends Component {
               win: thisPickTeam, 
               division: thisPickDiv 
             }
-            console.log('NEW WIN: ', newWin)
+            // console.log('NEW WIN: ', newWin)
             // debugger;
 
             // CHANGE PICK RESULT IF WIN
