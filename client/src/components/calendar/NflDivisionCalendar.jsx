@@ -1208,6 +1208,7 @@ class NflDivisionCalendar extends Component {
                   })
                   
                   let users = []
+                  let thisWeek = this.props.prevWeek
                   chalUsers.forEach((chalUser) => {
                     users.push(chalUser)
                     let thisUserObj = {
@@ -1219,6 +1220,31 @@ class NflDivisionCalendar extends Component {
                     if (chalUser.picks[0]) {
                       self.findUserWins(thisUserObj)
                       }
+                    else {
+                      let thisPick = { 
+                        team: 'No Pick', 
+                        teamDiv: 'none',
+                        teamValue: 1,
+                        gameWeek: thisWeek, 
+                        gameDate: thisWeek.toString(),
+                        gameId: 'none', 
+                        result: 'loss',
+                        gameTime: moment().format()
+                      }
+            
+                      API.saveNflPick(this.state.challengeId, thisUserObj.userId, thisPick)
+                      .then(res => { 
+                        console.log(res)
+                        this.toggle()
+                        document.location.reload()
+                       })
+                      .catch(err => { 
+                        console.log(err) 
+                        this.setState({
+                          pickError: true
+                        })
+                      })  
+                    }
     
                   })
   
@@ -1881,7 +1907,7 @@ class NflDivisionCalendar extends Component {
               </div>
             </div>
         )
-    }
+      }
 }
 
 export default NflDivisionCalendar

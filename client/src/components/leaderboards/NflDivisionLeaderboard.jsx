@@ -181,7 +181,7 @@ class NflDivisionLeaderboard extends Component {
           let points = 0
           let pickCount = 0
           for (let h=0; h<user.picks.length; h++) {
-            console.log('USER PICKS: ', user.picks)
+            // console.log('USER PICKS: ', user.picks)
             pickCount++
             let thisPickValue = user.picks[h].teamValue
             if (pickCount === user.picks.length) {
@@ -231,6 +231,9 @@ class NflDivisionLeaderboard extends Component {
 
     findRecentPicks = () => {
       let userPicks = this.state.activeUserPicks
+      // console.log('USER PICKS: ', userPicks)
+      // console.log('PREV PICKS: ', this.state.activeUserPrevPicks)
+      // console.log('USER WINS: ', this.state.activeUserWins)
       let sortedPicks = userPicks.sort(function(a, b) {
         if (a.gameWeek < b.gameWeek) {
           return -1;
@@ -240,7 +243,8 @@ class NflDivisionLeaderboard extends Component {
         }
         return 0;
       })
-
+      // console.log('SORTED PICKS: ', sortedPicks)
+      // console.log('THIS WEEK: ', this.props.thisWeek)
       let todaysPickFunc = (userPicks) => {
         return userPicks.gameWeek === this.props.thisWeek
       }
@@ -360,7 +364,7 @@ class NflDivisionLeaderboard extends Component {
 
         }
         
-        }
+      }
 
     handleClick = e => {
       // let self = this

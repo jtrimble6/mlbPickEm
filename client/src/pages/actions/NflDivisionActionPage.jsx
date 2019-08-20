@@ -70,7 +70,7 @@ class NflDivisionActionPage extends Component {
           self.getUserData()
         })
         .catch(err => console.log(err))
-    }
+      }
 
     getWeek = () => {
       let nflWeeks = [
