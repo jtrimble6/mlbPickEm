@@ -9,7 +9,7 @@
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "fullcalendar-reactwrapper": "^1.0.7",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "mongoose": "^5.4.0",
     "passport": "^0.4.0",
     "react": "^16.6.3",
