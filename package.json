@@ -19,7 +19,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "history": "^4.9.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "match-sorter": "^2.3.0",
     "moment": "^2.23.0",
     "moment-timezone": "^0.5.23",
