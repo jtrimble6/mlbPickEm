@@ -5,7 +5,7 @@
   "proxy": "http://localhost:3001",
   "homepage": "https://jtrimbl6.github.io/mlbPickEm/",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "fullcalendar-reactwrapper": "^1.0.7",
