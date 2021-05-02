@@ -389,7 +389,7 @@ class NbaPickEmCalendar extends Component {
         }
 
     getSchedule = () => {
-      let date = moment().subtract(2, 'day').format('YYYY-MM-DD')
+      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       self.setState({ yesterday: date })
       this.getGames()
