@@ -1,46 +1,76 @@
 #homePage {
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 8%;
-    margin-bottom: 10%;
-    font-family: 'Audiowide', cursive;
-    /* font-family: 'Special Elite', cursive; */
+  max-width: 100vw !important;
+  max-height: 100%;
+  margin: 0 auto;
+  margin-top: 8%;
+  font-family: "Audiowide", cursive;
+  /* font-family: 'Special Elite', cursive; */
 }
 
 .homePageBoard {
-    /* margin-top: 8%; */
-    color: gold;
-    margin-bottom: 30%;
+  /* margin-top: 8%; */
+  max-width: 100vw !important;
+  color: white;
+  justify-content: center;
+  margin-bottom: 10vh;
+}
+
+.myChallengesCol,
+.messageBoardCol {
+  width: 100%;
+  margin: 0 auto;
+  margin-left: 1vw;
+}
+
+.myChallengesCol h1,
+.messageBoardCol h1,
+.upcomingChallengesCol h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.myChallengesCol,
+.upcomingChallengesCol,
+.messageBoardCol {
+  border-radius: 1rem;
 }
 
 /* MY CHALLENGES */
 .myChallenges {
-    text-align: center;
-    overflow: auto !important;
+  width: 100%;
+  max-height: 40vh;
+  overflow-y: scroll;
 }
-.myChallenges .challengeButton {
-    margin: 1%;
-    margin-top: 5%;
-    
+.myChallengesCol {
+  text-align: center;
+  overflow: auto !important;
+  margin-bottom: 5vh;
+  padding-bottom: 5vh;
 }
-
-.myChallenges .btn {
-    white-space: pre-wrap !important;
-    background-color: #209CEE;
-    border: solid 2px gold;
-}
-
-.myChallenges, .upcomingChallengesCol {
-    color: #209CEE;
-    border-radius: 5%;
-    background-color: rgb(58, 56, 56);
-    margin: 1%;
+.myChallengesCol .challengeButton {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  text-align: center;
 }
 
-.messageBoardPage {
-    border-radius: 5%;
-    background-color: rgb(58, 56, 56);
-    margin: 1%;
+.myChallengesCol .btn {
+  white-space: pre-wrap !important;
+  background-color: #209cee;
+  border: solid 2px gold;
+}
+
+.myChallengesCol,
+.upcomingChallengesCol,
+.messageBoardCol {
+  color: #209cee;
+  background-color: rgb(58, 56, 56);
+}
+
+.messageBoardCol {
+  background-color: rgb(58, 56, 56);
 }
 
 /* .upcomingChallengesCol {
@@ -48,502 +78,755 @@
 } */
 
 .homePageBoard h1 {
-    margin-top: 5%;
-    margin-bottom: 2%;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  font-size: 1.5rem;
+  color: white;
 }
 
+.upcomingChallengesHr {
+  margin: 1vh;
+}
 
 /* UPCOMING CHALLENGES */
 .upcomingChallenges {
-    text-align: center;
-    overflow: auto !important;
+  text-align: center;
+  overflow-y: scroll !important;
+  max-height: 150vh !important;
+  width: 100%;
 }
 .upcomingChallengesCol {
-    text-align: center;
-    overflow: auto;
+  text-align: center;
+  overflow: auto;
+  width: 90%;
+  margin: 0 auto;
 }
 .upcomingChallenges .challengeButton {
-    white-space: pre-wrap
+  white-space: pre-wrap;
 }
 .upcomingChallenges .card {
-    border: none;
+  border: none;
+  width: 100%;
 }
 .upcomingChallenges .challengeCard {
-    /* float: left; */
-    display: inline-block;
-    margin: 0 auto ;
-    margin-bottom: 5%;
-    margin: 1%;
-    width: 95%;
-    height: 30%;
-    border: solid 8px gold;
-    border-radius: 1%;
+  /* float: left; */
+  /* display: inline-block; */
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  height: auto;
+  border: solid 8px gold;
+  border-radius: 1%;
 }
 .challengeCard .titleCol {
-    float: left;
-    margin: 0 auto;
-    margin-top: 8%;
-    background-color: rgb(58, 56, 56);
-    padding: 5%;
-    border-radius: 4%;
+  float: left;
+  margin: 0 auto;
+  background-color: rgb(58, 56, 56);
+  padding: 5%;
+  border-radius: 4%;
+  height: auto;
+  /* min-height: 100%; */
 }
 
 .challengeCard .details {
-    float: left;
-    margin: 0 auto;
+  float: left;
+  margin: 0 auto;
 }
-.challengeCard .card-title {
-    font-weight: bolder;
-    font-size: 16px;
+.challengeCardTitle {
+  font-weight: bolder;
+  font-size: 16px;
+  margin-bottom: 5vh;
 }
 .challengeCard .card-subtitle {
-    font-size: 12px;
-    margin: 5px;
+  font-size: 12px;
+  margin: 5px;
 }
 .challengeCard .card-body {
-    color: gold;
-    background-color: #209CEE;
+  color: gold;
+  background-color: #209cee;
 }
-.challengeCard .card-link {
-    color: gold;
-    padding: 2%;
-    font-weight: bolder;
-}
-.challengeCard .card-link:hover {
-    background-color: gold !important;
-    color: #209CEE !important;
-    cursor: pointer !important;
+
+.challengeCard .rulesLink:hover {
+  background-color: gold !important;
+  color: #209cee !important;
+  cursor: pointer !important;
 }
 .challengeCard .signUpDate {
-    color: white !important;
+  color: white !important;
 }
 .challengeCard .rulesLink {
-    color: white !important;
-    border-radius: 5%;
+  position: relative;
+  color: gold !important;
+  border-radius: 1vw;
+  padding: 1rem !important;
+  margin: 1vw !important;
 }
 .challengeCard .signUp {
-    border: solid 2px gold;
-    border-radius: 5%;
-    padding: 2%;
-    color: lightgreen !important;
-    margin-bottom: 1%;
+  border: solid 2px gold;
+  font-weight: bolder;
+  border-radius: 5%;
+  padding: 2%;
+  color: lightgreen !important;
+  margin-bottom: 1%;
+  margin-top: 3vh;
+  cursor: pointer;
 }
-.challengeCard .challengeInfo {
-    font-size: 22px;
-    
+.challengeCard .signUp:hover {
+  background-color: gold;
+  color: white !important;
+}
+.challengeInfo {
+  font-size: 22px;
+  padding: 1vw !important;
+  margin-bottom: 1vw;
 }
 .titleCol .card-title {
-    font-size: 24px;
+  font-size: 24px;
 }
-
-
 
 /* CHALLENGE MODAL */
 .challengeModal {
-    align-content: center;
-    color: gold;
+  align-content: center;
+  color: gold;
 }
 
 .challengeModal strong {
-    margin-left: 1%;
-    margin-right: 1%;
-    color: lightgreen !important;
+  margin-left: 1%;
+  margin-right: 1%;
+  color: lightgreen !important;
 }
 
-.thisChallenge, .challengeStatus {
-    margin: 0 auto;
+.thisChallenge,
+.challengeStatus {
+  margin: 0 auto;
 }
 
 .buyIn {
-    color: lightgreen !important;
+  color: lightgreen !important;
 }
 
-.signUpDate, .remainingSpots {
-    color: red !important;
+.signUpDate,
+.remainingSpots {
+  color: red !important;
 }
-
 
 /* MESSAGE BOARD */
-.messageBoardPage {
-    height: 600px;
-    text-align: center;
+.messageBoardCol {
+  text-align: center;
 }
+
 .messageBoard {
-    max-height: 400px !important;
-    text-align: center;
-    margin-bottom: 5% !important;
+  height: auto !important;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 5% !important;
 }
 
 .recentMessagesButton {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .messageList {
-    max-height: 400px !important;
-    min-width: 100%;
-    overflow-y: scroll !important;
-    text-align: center !important;
+  max-height: 50vh;
+  min-width: 100%;
+  overflow-y: scroll !important;
+  text-align: center !important;
 }
 
 .messageBox {
-    width: 90%;
-    position: relative;
-    bottom: 0;
-    color: white;
-    margin: 0 auto;
-    margin-top: 10%;
-    /* margin-top: 10%; */
-    padding-top: 5%;
-    border-top: solid 3px gold;
-    text-align: center !important;
+  width: 90%;
+  position: relative;
+  bottom: 0;
+  color: white;
+  margin: 0 auto;
+  margin-top: 10%;
+  /* margin-top: 10%; */
+  padding-top: 5%;
+  border-top: solid 3px gold;
+  text-align: center !important;
 }
 
 .messageBox label {
-    margin: 0 auto !important;
-    margin-bottom: 2% !important;
+  margin: 0 auto !important;
+  margin-bottom: 2% !important;
 }
 
 #messageType {
-    margin-bottom: 1%;
+  margin-bottom: 1%;
 }
 
 .messageBox .submit {
-    margin: 0 auto;
-    margin-top: 2%;
+  margin: 0 auto;
+  margin-top: 2%;
 }
 
 .rce-mbox-text {
-    color: black !important;
-    font-size: 12px;
-    margin: 2%;
-    text-align: left !important;
+  color: black !important;
+  font-size: 12px;
+  margin: 2%;
+  text-align: left !important;
 }
 
 .rce-mbox-time {
-    font-size: 8px;
+  font-size: 8px;
 }
 
 .challengeCard .card-subtitle {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 @media (min-width: 930px) and (max-width: 1100px) {
-    .homePageBoard h1 {
-        font-size: 20px !important;
-    }
-    .upcomingChallengesCol, .myChallenges {
-        min-width: 100%;
-        padding-right: 1%;
-        padding-left: 1%;
-    }
+  .homePageBoard h1 {
+    font-size: 20px !important;
+  }
 
-    .messageBoard {
-        min-width: 100%;
-    }
+  .messageBoard {
+    min-width: 100%;
+  }
 
-    .messageBoardPage {
-        min-width: 100%;
-    }
+  .messageBoardCol {
+    min-width: 100%;
+  }
 
-    .challengeCard {
-        margin: 0 auto;
-        width: 100%; 
-        max-height: 100% !important; 
-        height: 300px;
-        overflow: auto !important;
-    }
-    .challengeCard .card-subtitle {
-        font-size: 14px;
-    }
-    .challengeCard .challengeInfo {
-        font-size: 12px;
-    }
-    .challengeCard .card-title {
-        font-size: 16px;
-    }
-    .signUp {
-        font-size: 12px !important;
-    }
+  .challengeCard {
+    margin: 0 auto;
+    width: 100%;
+    max-height: 100% !important;
+    height: 300px;
+    overflow: auto !important;
+  }
+  .challengeCard .card-subtitle {
+    font-size: 14px;
+  }
+  .challengeCard .challengeInfo {
+    font-size: 12px;
+  }
+  .challengeCard .card-title {
+    font-size: 16px;
+  }
+  .signUp {
+    font-size: 12px !important;
+  }
 }
 
 @media (min-width: 640px) and (max-width: 929px) {
-    /* .homePageBoard {
+  /* .homePageBoard {
         margin-top: 14% !important;
     } */
-    .homePageBoard h1 {
-        font-size: 18px !important;
-    }
+  .homePageBoard h1 {
+    font-size: 18px !important;
+  }
 
-    .homePageBoard h1 {
-        font-size: 20px !important;
-    }
-    .upcomingChallengesCol, .myChallenges {
-        min-width: 100%;
-        padding-right: 1%;
-        padding-left: 1%;
-    }
+  .homePageBoard h1 {
+    font-size: 20px !important;
+  }
+  .messageBoard {
+    min-width: 100%;
+  }
 
-    .messageBoard {
-        min-width: 100%;
-    }
+  .messageBoardCol {
+    min-width: 100%;
+  }
+  .challengeCard {
+    font-size: 15px;
+    margin: 0 auto;
+    width: 100%;
+    max-height: 100% !important;
+    height: 200px;
+    overflow: auto !important;
+  }
 
-    .messageBoardPage {
-        min-width: 100%;
-    }
-    .challengeCard {
-        font-size: 15px;
-        margin: 0 auto;
-        width: 100%; 
-        max-height: 100% !important; 
-        height: 200px;
-        overflow: auto !important;
-    }
+  .challengeCard .card-title {
+    font-weight: bolder;
+    font-size: 13px !important;
+  }
+  .challengeCard .card-subtitle {
+    font-size: 12px;
+    margin: 5px;
+  }
 
-    .challengeCard .card-title {
-        font-weight: bolder;
-        font-size: 13px !important;
-    }
-    .challengeCard .card-subtitle {
-        font-size: 12px;
-        margin: 5px;
-    }
+  .rce-mbox {
+    width: 70%;
+  }
+  .rce-mbox-text {
+    font-size: 15px;
+  }
 
-    .rce-mbox {
-        width: 70%;
-    }
-    .rce-mbox-text {
-        font-size: 15px;
-    }
-    
-    .rce-mbox-time {
-        font-size: 10px;
-    }
+  .rce-mbox-time {
+    font-size: 10px;
+  }
 
-    .myChallenges .challengeButton {
-        font-size: 10px;
-    }
+  .myChallengesCol .challengeButton {
+    font-size: 10px;
+  }
 
-    .myChallenges {
-        padding: 0;
-    }
+  .myChallengesCol {
+    padding: 0;
+  }
 
-    .messageBoardPage {
-        margin-top: 8%;
-        min-width: 100%;
-        text-align: center;
-        border-top: solid 2px gold;
-    }
+  .messageBoardCol {
+    margin-top: 8%;
+    min-width: 100%;
+    text-align: center;
+    border-top: solid 2px gold;
+  }
 
-    .messageBoardPage h1 {
-        padding-top: 5%;
-    }
-    
-    .messageBox {
-        position: relative !important;
-        width: 90%;
-        text-align: center;
-        /* align-content: center; */
-        margin-left: 5% !important;
-    }
+  .messageBoardCol h1 {
+    padding-top: 5%;
+  }
 
-    .messageBoard {
-        height: 700px;
-        padding: 0;
-    }
+  .messageBox {
+    position: relative !important;
+    width: 90%;
+    text-align: center;
+    /* align-content: center; */
+    margin-left: 5% !important;
+  }
+
+  .messageBoard {
+    height: 700px;
+    padding: 0;
+  }
 }
 
 @media (min-width: 470px) and (max-width: 639px) {
-    /* .homePageBoard {
+  /* .homePageBoard {
         margin-top: 18% !important;
     } */
-    .homePageBoard h1 {
-        font-size: 18px !important;
-    }
+  .homePageBoard h1 {
+    font-size: 18px !important;
+  }
 
-    .upcomingChallenges {
-        min-width: 70%;
-        padding-right: 0;
-    }
+  .upcomingChallenges {
+    min-width: 70%;
+    padding-right: 0;
+  }
 
-    .challengeCard {
-        font-size: 12px;
-        margin: 0 auto;
-        width: 90% !important; 
-        /* max-height: 100% !important;  */
-        height: 200px;
-        overflow: auto !important;
-    }
+  .challengeCard {
+    font-size: 12px;
+    margin: 0 auto;
+    width: 90% !important;
+    /* max-height: 100% !important;  */
+    height: 200px;
+    overflow: auto !important;
+  }
 
-    .challengeCard .card-title {
-        font-weight: bolder;
-        font-size: 16px !important;
-    }
-    .challengeCard .card-subtitle {
-        font-size: 14px;
-        margin: 5px;
-    }
+  .challengeCard .card-title {
+    font-weight: bolder;
+    font-size: 16px !important;
+  }
+  .challengeCard .card-subtitle {
+    font-size: 14px;
+    margin: 5px;
+  }
 
-    .challengeInfo {
-        font-size: 12px !important;
-    }
-    .rulesLink {
-        font-size: 13px;
-    }
-    .signUp {
-        font-size: 13px;
-    }
-    .rce-mbox {
-        width: 70%;
-    }
-    .rce-mbox-text {
-        font-size: 12px;
-    }
-    
-    .rce-mbox-time {
-        font-size: 8px;
-    }
+  .challengeInfo {
+    font-size: 12px !important;
+  }
+  .rulesLink {
+    font-size: 13px;
+  }
+  .signUp {
+    font-size: 13px;
+  }
+  .rce-mbox {
+    width: 70%;
+  }
+  .rce-mbox-text {
+    font-size: 12px;
+  }
 
-    .myChallenges .challengeButton {
-        font-size: 10px;
-    }
+  .rce-mbox-time {
+    font-size: 8px;
+  }
 
-    .myChallenges {
-        margin: 1%;
-    }
+  .myChallengesCol .challengeButton {
+    font-size: 10px;
+  }
 
-    .messageBoardPage {
-        margin-top: 8%;
-        min-width: 100%;
-        text-align: center;
-        border-top: solid 2px gold;
-    }
+  .messageBoardCol {
+    margin-top: 8%;
+    min-width: 100%;
+    text-align: center;
+    border-top: solid 2px gold;
+  }
 
-    .messageBoardPage h1 {
-        padding-top: 5%;
-    }
-    
-    .messageBox {
-        position: relative !important;
-        width: 90%;
-        text-align: center;
-        /* align-content: center; */
-        margin-left: 5% !important;
-    }
+  .messageBoardCol h1 {
+    padding-top: 5%;
+  }
 
-    .messageBoard {
-        height: 700px;
-        padding: 0;
-    }
+  .messageBox {
+    position: relative !important;
+    width: 90%;
+    text-align: center;
+    /* align-content: center; */
+    margin-left: 5% !important;
+  }
+
+  .messageBoard {
+    height: 700px;
+    padding: 0;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 469px) {
-    .homePageBoard h1 {
-        font-size: 12px !important;
-        margin-bottom: 5px;
-    }
+  .homePageBoard h1 {
+    font-size: 12px !important;
+    margin-bottom: 5px;
+  }
 
-    .upcomingChallengesCol {
-        min-width: 98%;
-        padding-right: 0;
-        padding-left: 5%;
-    }
+  .challengeCard {
+    font-size: 9px;
+    margin: 0 auto;
+    width: 100% !important;
+    /* max-height: 100% !important;  */
+    height: 100%;
+    overflow: auto !important;
+  }
 
-    .challengeCard {
-        font-size: 9px;
-        margin: 0 auto;
-        width: 100% !important; 
-        /* max-height: 100% !important;  */
-        height: 100%;
-        overflow: auto !important;
-    }
+  .challengeCard .card-title {
+    font-weight: bolder;
+    font-size: 12px !important;
+  }
+  .challengeCard .card-subtitle {
+    font-size: 12px;
+    margin: 5px;
+  }
 
-    .challengeCard .card-title {
-        font-weight: bolder;
-        font-size: 12px !important;
-    }
-    .challengeCard .card-subtitle {
-        font-size: 12px;
-        margin: 5px;
-    }
+  .challengeInfo {
+    font-size: 10px !important;
+  }
+  .rulesLink {
+    font-size: 11px;
+  }
+  .signUp {
+    font-size: 11px;
+  }
+  .rce-mbox {
+    width: 70%;
+  }
+  .rce-mbox-text {
+    font-size: 12px;
+  }
 
-    .challengeInfo {
-        font-size: 10px !important;
-    }
-    .rulesLink {
-        font-size: 11px;
-    }
-    .signUp {
-        font-size: 11px;
-    }
-    .rce-mbox {
-        width: 70%;
-    }
-    .rce-mbox-text {
-        font-size: 12px;
-    }
-    
-    .rce-mbox-time {
-        font-size: 8px;
-    }
+  .rce-mbox-time {
+    font-size: 8px;
+  }
 
-    .myChallenges .challengeButton {
-        font-size: 10px;
-    }
+  .myChallengesCol .challengeButton {
+    font-size: 10px;
+  }
 
-    .myChallenges {
-        padding: 0;
-        min-width: 99%;
-    }
+  .myChallengesCol {
+    padding: 0;
+    /* min-width: 99%; */
+  }
 
-    .messageBoardPage {
-        margin-top: 8%;
-        min-width: 99%;
-        text-align: center;
-        border-top: solid 2px gold;
-        margin-bottom: 20% !important;
-    }
+  .messageBoardCol {
+    margin-top: 8%;
+    min-width: 99%;
+    text-align: center;
+    border-top: solid 2px gold;
+    margin-bottom: 20% !important;
+  }
 
-    .messageBoardPage h1 {
-        padding-top: 5%;
-    }
-    
-    .messageBox {
-        position: relative !important;
-        width: 90%;
-        text-align: center;
-        /* align-content: center; */
-        margin-left: 5% !important;
-    }
+  .messageBoardCol h1 {
+    padding-top: 5%;
+  }
 
-    .messageBoard {
-        height: 700px;
-        padding: 0;
-        
-    }
-}
+  .messageBox {
+    position: relative !important;
+    width: 90%;
+    text-align: center;
+    /* align-content: center; */
+    margin-left: 5% !important;
+  }
 
-#homePage {
-    margin-bottom: 10%;
+  .messageBoard {
+    height: 700px;
+    padding: 0;
+  }
 }
 
 .fa-strikethrough {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 @media (max-width: 900px) {
-    #homePage {
-        margin-top: 20%;
-        margin-bottom: 20%;
-    }
-    .fa-strikethrough {
-        font-size: 8px;
-    }
-    .upcomingChallenges {
-        max-height: 400px;
-        padding-right: 6%;
-    }
+  #homePage {
+    margin-top: 20%;
+  }
+  .fa-strikethrough {
+    font-size: 8px;
+  }
+  .upcomingChallenges {
+    max-height: 400px;
+    padding-right: 6%;
+  }
 }
 
 .chalDelay {
-    text-align: center;
+  text-align: center;
+}
+
+
+
+
+
+/* ----------- LAPTOPS ----------- */
+
+/* ----------- Non-Retina Screens ----------- */
+
+@media screen and (min-device-height: 1000px) and (max-device-width: 699px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+@media screen and (min-device-width: 700px) and (max-device-width: 2200px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* ----------- iPads ----------- */
+
+/* ----------- iPad 1, 2, Mini and Air ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPad Pro 10.5" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 834px) and (max-device-width: 1112px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 834px) and (max-device-width: 834px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1112px) and (max-device-width: 1112px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPad Pro 12.9" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1366px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPhones ----------- */
+
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  #homePage {
+    margin-top: 15vh;
+  }
+  .challengeName {
+    font-size: 2rem;
+  }
+  .homeBoardLeftColumn {
+    min-width: 90% !important;
+    margin: 0 auto;
+    /* padding-left: 1px !important;
+    padding-right: 1px !important; */
+    padding: 1px !important!
+  }
+  .homeBoardRightColumn {
+    min-width: 90% !important;
+    margin: 0 auto;
+    /* padding-left: 1px !important;
+    padding-right: 1px !important; */
+    padding: 1px !important!
+  }
+  .myChallengesCol {
+    padding-bottom: 2vh;
+  }
+  .myChallengesCol, .upcomingChallengesCol {
+    min-width: 100% !important;
+    padding: 1px !important!;
+    margin-left: 0 !important;
+  }
+  .upcomingChallenges {
+    padding-right: 0 !important;
+  }
+  .challengeCard {
+    width: 90% !important;
+  }
+  .challengeCardTitle {
+    margin-bottom: 2vh;
+  }
+  .titleCol {
+    padding-bottom: 3vh !important;
+  }
+  .challengeCard .titleCol, .details {
+    min-width: 100% !important;
+    height: auto;
+  }
+  .details {
+    margin-top: 3vh !important;
+  }
+  .challengeCardTitle {
+    line-height: 1.5;
+  }
+  .challengeCard .card-title {
+    font-size: 1rem !important;
+  }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  #homePage {
+    margin-top: 25vh;
+  }
+  .challengeName {
+    font-size: 2rem;
+  }
+  .homeBoardLeftColumn {
+    min-width: 90% !important;
+    margin: 0 auto;
+    margin-bottom: 5vh;
+    padding: 1px !important!
+  }
+  .homeBoardRightColumn {
+    min-width: 90% !important;
+    margin: 0 auto;
+    /* padding-left: 1px !important;
+    padding-right: 1px !important; */
+    padding: 1px !important!
+  }
+  .myChallengesCol {
+    padding-bottom: 2vh;
+  }
+  .myChallengesCol, .upcomingChallengesCol {
+    min-width: 100% !important;
+    padding: 1px !important!;
+    margin-left: 0 !important;
+  }
+  .upcomingChallenges {
+    padding-right: 0 !important;
+  }
+  .challengeCard {
+    width: 90% !important;
+  }
+  .challengeCardTitle {
+    margin-bottom: 5vh;
+  }
+  .titleCol {
+    padding-bottom: 8vh !important;
+  }
+  .challengeCard .titleCol, .details {
+    min-width: 100% !important;
+    height: auto;
+  }
+  .details {
+    margin-top: 3vh !important;
+  }
+  .challengeCardTitle {
+    line-height: 1.5;
+  }
+  .challengeCard .card-title {
+    font-size: 1rem !important;
+  }
+  .messageBoardCol {
+    margin-left: 0 !important;
+  }
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (min-device-height: 365px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
 }

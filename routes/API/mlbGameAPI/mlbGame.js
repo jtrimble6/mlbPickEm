@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const mlbGameController = require("../../../controllers/mlbGameController");
+const mlbGameController = require("../../../controllers/mlbPickEm/mlbGameController");
 
 router.route('/')
   .get(mlbGameController.findAll)

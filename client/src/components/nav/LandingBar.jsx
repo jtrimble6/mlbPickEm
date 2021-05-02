@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import API from '../../utils/API'
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 import '../../css/navbar.css'
+import logo from '../../css/images/logo2.png'
 
 class LandingBar extends Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class LandingBar extends Component {
                 <div className="container">
                     {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     <a className="navbar-brand" href="/">
-                        <img src={require('../../css/images/logo2.png')} alt='SportHabits' />
+                        <img src={logo} alt='SportHabits' />
                     </a>
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>
@@ -73,10 +74,6 @@ class LandingBar extends Component {
                       </ul>
                     </div>
                 </div>
-                <footer className="footer">
-                  <p>WWW.SPORTHABITS.COM</p>
-                  <small className='disclaimer'>*DISCLAIMER: THIS SITE IS FOR ENTERTAINMENT PURPOSES ONLY*</small>
-                </footer>
             </nav>
         )
     }

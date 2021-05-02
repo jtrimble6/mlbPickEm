@@ -1,419 +1,433 @@
-.playerRow .recentPicks {
-    margin-top: 2% !important;
-    margin-bottom: 0 !important;
-    height: 250px !important;
-    width: 37% !important;
+.leaderboardModalTitle {
+  font-size: 2rem;
+  font-weight: 900;
 }
 
-.playerRow .jumbotron {
-    margin-top: 2% !important;
-    margin-bottom: 0 !important;
-    height: 250px !important;
-    max-width: 40% !important;
+.playerModal {
+  min-width: 90%;
+  min-height: 80vh;
 }
 
-.userTimer {
-    margin-top: 0;
-    margin-bottom: 5%;
+.playerModal .modal-content {
+  min-height: 60vh;
+}
+
+.leaderboardModalPlayerJumbo {
+  width: 100%;
+  min-height: 50vh !important;
+  background-color: #209cee;
+  padding: 1rem 1rem !important;
+}
+
+.leaderboardModalRecentPicks {
+  margin-left: 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 50vh !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+.leaderboardModalUserTimer {
+  margin-top: 0;
+  margin-bottom: 1vh;
+}
+
+.leaderboardModalUserTitle {
+  width: 100%;
+  font-size: 2rem;
 }
 
 .winsHeaderModal {
-    margin: 0 !important;
+  margin: 0 !important;
+}
+
+.leaderboardModalTodaysPickHeader {
+  margin-bottom: 1vh !important;
 }
 
 .nflLeaderboard {
-    background-color: slategray;
-    border: solid 2px gold !important;
+  background-color: slategray;
+  border: solid 2px gold !important;
 }
 
 #leaderboardPage .nflLeaderboard {
-    margin: 0 auto !important;
-    margin-right: 1% !important;
+  margin: 0 auto !important;
+  margin-right: 1% !important;
+}
+
+.leaderboard {
+  width: 90vw;
+  height: 100vh;
+}
+
+.actionPageLeaderboard {
+  padding: 1rem;
+}
+
+.leaderboardHeader {
+  font-family: "Special Elite", cursive;
+  text-transform: uppercase;
+  margin: 0 auto;
+  font-size: 30px;
+  color: white;
+  font-weight: 900;
+}
+
+.btn-success {
+  background-color: lightgreen !important;
 }
 
 @media (min-width: 1300px) {
-    .leaderboard {
-        color: gold;
-        text-align: center;
-        margin-left: 10% !important;
-        overflow: auto;
-        margin-bottom: 25px;
-        /* min-width: 100% !important; */
-        box-sizing: content-box;
-        border: dashed 3px #209CEE;
-        border-radius: 5%;
-        padding: 5%;
-    }
-    th.leaderboardHeader {
-        color: gold !important;
-        max-width: 5%;
-        font-size: 80% !important;
-    }
-    td.leaderRow {
-        color: gold !important;
-        font-size: 100% !important;
-        border: none;
-    }
+  .leaderboard {
+    color: gold;
+    text-align: center;
+    overflow: auto;
+    /* min-width: 100% !important; */
+    box-sizing: content-box;
+    border: dashed 3px #209cee;
+    border-radius: 5%;
+  }
+  th.leaderboardHeader {
+    color: gold !important;
+    max-width: 5%;
+    font-size: 80% !important;
+  }
+  td.leaderRow {
+    color: gold !important;
+    font-size: 100% !important;
+    border: none;
+  }
 
-    .allRows.username:hover {
-        cursor: pointer !important;
-        background-color: gold !important;
-        color: #209CEE !important;
-        font-size: 100% !important;
-    }
+  .allRows.username:hover {
+    cursor: pointer !important;
+    background-color: gold !important;
+    color: #209cee !important;
+    font-size: 100% !important;
+  }
 
-    .playerModal {
-        min-width: 90%;
-    }
+  .teamLogos {
+    margin-left: 3%;
+  }
 
-    .playerRow .jumbotron {
-        margin-left: 4%;
-        padding: 8px;
-        /* min-width: 55%; */
-        height: 220px;
-        background-color: #209CEE;
-    }
+  .no-js #loader {
+    color: gold;
+    display: none;
+  }
+  .js #loader {
+    color: gold;
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: 0;
+  }
+  .se-pre-con {
+    position: fixed;
+    color: gold;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(images/Preloader_5.gif) center no-repeat black;
+  }
 
-    .playerRow .playerJumbo {
-        width: 40% !important;
-    }
+  .win {
+    background-color: lightgreen !important;
+    color: #209cee !important;
+  }
 
-    .teamLogos {
-        margin-left: 3%;
-    }
+  .loss {
+    background-color: red !important;
+    color: white !important;
+  }
 
-    .no-js #loader { color: gold; display: none;  }
-    .js #loader { color: gold; display: block; position: absolute; left: 100px; top: 0; }
-    .se-pre-con {
-        position: fixed;
-        color: gold;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background: url(images/Preloader_5.gif) center no-repeat black;
-    }
-
-    .win {
-        background-color: lightgreen !important;
-        color: #209CEE !important;
-    }
-
-    .loss {
-        background-color: red !important;
-        color: white !important;
-    }
-
-    ._loading_overlay_content {
-        color: gold !important;
-        background-color: #209CEE !important;
-        padding: 10px;
-    }
-    
+  ._loading_overlay_content {
+    color: gold !important;
+    background-color: #209cee !important;
+    padding: 10px;
+  }
 }
 
 @media (min-width: 1000px) and (max-width: 1299px) {
-    .leaderboard {
-        color: gold;
-        margin-left: 15% !important;
-        overflow: auto;
-        margin-bottom: 25px;
-        /* min-width: 100% !important; */
-    }
-    .playerModal {
-        min-width: 90%;
-    }
+  .leaderboard {
+    color: gold;
+    overflow: auto;
+    /* min-width: 100% !important; */
+  }
+  .playerModal {
+    min-width: 90%;
+  }
 
-    .playerRow .jumbotron {
-        min-width: 50% !important;
-        margin-left: 3%;
-        padding: 10px;
-        height: 200px;
-        margin-top: 2%;
-        background-color: #209CEE;
-    }
+  .playerRow .jumbotron {
+    min-width: 50% !important;
+    margin-left: 3%;
+    padding: 10px;
+    height: 200px;
+    margin-top: 2%;
+    background-color: #209cee;
+  }
 
-    .teamLogos {
-        margin-left: 3%;
-    }
-    .win {
-        background-color: lightgreen !important;
-        color: #209CEE !important;
-    }
+  .teamLogos {
+    margin-left: 3%;
+  }
+  .win {
+    background-color: lightgreen !important;
+    color: #209cee !important;
+  }
 
-    .loss {
-        background-color: red !important;
-        color: white !important;
-    }
-    ._loading_overlay_content {
-        color: gold !important;
-        background-color: #209CEE !important;
-        padding: 10px;
-    }
-    .leaderRow :hover {
-        background-color: gold !important;
-        color: #209CEE !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
-    }
-
+  .loss {
+    background-color: red !important;
+    color: white !important;
+  }
+  ._loading_overlay_content {
+    color: gold !important;
+    background-color: #209cee !important;
+    padding: 10px;
+  }
+  .leaderRow :hover {
+    background-color: gold !important;
+    color: #209cee !important;
+    font-size: 65% !important;
+    padding-right: 0 !important;
+  }
 }
 @media (min-width: 765px) and (max-width: 999px) {
-    .leaderboard {
-        color: gold;
-        margin-left: 15% !important;
-        overflow: auto;
-        margin-bottom: 25px;
-        /* min-width: 100% !important; */
-    }
-    th.leaderboardHeader {
-        color: gold !important;
-        max-width: 5%;
-        font-size: 60% !important;
-        padding-right: 0 !important;
-        font-size: 80% !important;
-    }
-    td.leaderRow {
-        color: gold !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
-    }
-    .playerModal {
-        min-width: 90%;
-    }
+  .leaderboard {
+    color: gold;
+    overflow: auto;
+    /* min-width: 100% !important; */
+  }
+  th.leaderboardHeader {
+    color: gold !important;
+    max-width: 5%;
+    font-size: 60% !important;
+    padding-right: 0 !important;
+    font-size: 80% !important;
+  }
+  td.leaderRow {
+    color: gold !important;
+    font-size: 65% !important;
+    padding-right: 0 !important;
+  }
+  .playerModal {
+    min-width: 90%;
+  }
 
-    .playerRow .jumbotron {
-        min-width: 45% !important;
-        margin-left: 3%;
-        padding: 13px;
-        height: 190px;
-        margin-top: 5%;
-        background-color: #209CEE;
-    }
+  .playerRow .jumbotron {
+    min-width: 45% !important;
+    margin-left: 3%;
+    padding: 13px;
+    height: 190px;
+    margin-top: 5%;
+    background-color: #209cee;
+  }
 
-    .teamLogos {
-        margin-left: 3%;
-    }
-    .win {
-        background-color: lightgreen !important;
-        color: #209CEE !important;
-    }
+  .teamLogos {
+    margin-left: 3%;
+  }
+  .win {
+    background-color: lightgreen !important;
+    color: #209cee !important;
+  }
 
-    .loss {
-        background-color: red !important;
-        color: white !important;
-    }
-    ._loading_overlay_content {
-        color: gold !important;
-        background-color: #209CEE !important;
-        padding: 10px;
-    }
-    .leaderRow :hover {
-        background-color: gold !important;
-        color: #209CEE !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
-    }
-    .nflLeaderboard {
-        /* min-width: 90% !important; */
-        height: 250px !important;
-        margin-left: 0 !important;
-    }
+  .loss {
+    background-color: red !important;
+    color: white !important;
+  }
+  ._loading_overlay_content {
+    color: gold !important;
+    background-color: #209cee !important;
+    padding: 10px;
+  }
+  .leaderRow :hover {
+    background-color: gold !important;
+    color: #209cee !important;
+    font-size: 65% !important;
+    padding-right: 0 !important;
+  }
+  .nflLeaderboard {
+    /* min-width: 90% !important; */
+    height: 250px !important;
+    margin-left: 0 !important;
+  }
 
-    .nflLeaderboard .allRows {
-        font-size: 16px !important;
-        line-height: 1em !important;
-    }
+  .nflLeaderboard .allRows {
+    font-size: 16px !important;
+    line-height: 1em !important;
+  }
 
-    .nflLeaderboard .username {
-        font-size: 16px !important;
-    }
+  .nflLeaderboard .username {
+    font-size: 16px !important;
+  }
 
-    .nflLeaderboard .leaderRow {
-        padding-bottom: 0px !important;
-        
-    }
+  .nflLeaderboard .leaderRow {
+    padding-bottom: 0px !important;
+  }
 
-    .nflLeaderboard .leaderboardRow {
-        /* width: 100% !important; */
-        flex: 100%;
-    }
+  .nflLeaderboard .leaderboardRow {
+    /* width: 100% !important; */
+    flex: 100%;
+  }
 }
 
 @media (min-width: 550px) and (max-width: 764px) {
-    .leaderboard {
-        font-size: 50% !important;
-        color: gold;
-        overflow: auto;
-        margin-top: 0 !important;
-        margin-bottom: 25px;
-        margin-left: 10% !important;
-        margin-right: 10%;
-        /* max-width: 80% !important; */
-    }
-    .leaderboard :active {
-        overflow: auto;
-    }
-    .playerModal {
-        min-width: 90%;
-    }
-    .playerRow .jumbotron {
-        min-width: 32% !important;
-        margin-left: 3%;
-        margin-top: 7%;        
-        height: 190px;
-        padding: 7px;
-        background-color: #209CEE;
-    }
+  .leaderboard {
+    font-size: 50% !important;
+    color: gold;
+    overflow: auto;
+    margin-top: 0 !important;
+    /* max-width: 80% !important; */
+  }
+  .leaderboard :active {
+    overflow: auto;
+  }
+  .playerModal {
+    min-width: 90%;
+  }
+  .playerRow .jumbotron {
+    min-width: 32% !important;
+    margin-left: 3%;
+    margin-top: 7%;
+    height: 190px;
+    padding: 7px;
+    background-color: #209cee;
+  }
 
-    .teamLogos {
-        margin-left: 1%;
-    }
-    .win {
-        background-color: lightgreen !important;
-        color: #209CEE !important;
-    }
+  .teamLogos {
+    margin-left: 1%;
+  }
+  .win {
+    background-color: lightgreen !important;
+    color: #209cee !important;
+  }
 
-    .loss {
-        background-color: red !important;
-        color: white !important;
-    }
-    ._loading_overlay_content {
-        color: gold !important;
-        background-color: #209CEE !important;
-        padding: 10px;
-    }
-    .leaderRow :hover {
-        background-color: gold !important;
-        color: #209CEE !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
-    }
-    
+  .loss {
+    background-color: red !important;
+    color: white !important;
+  }
+  ._loading_overlay_content {
+    color: gold !important;
+    background-color: #209cee !important;
+    padding: 10px;
+  }
+  .leaderRow :hover {
+    background-color: gold !important;
+    color: #209cee !important;
+    font-size: 65% !important;
+    padding-right: 0 !important;
+  }
 }
 
 @media (max-width: 549px) {
-    .leaderboard {
-        font-size: 30% !important;
-        color: gold;
-        overflow: auto;
-        margin-top: 0 !important;
-        margin-bottom: 25px;
-        margin-left: 10% !important;
-        margin-right: 10%;
-        /* max-width: 80% !important; */
-    }
-    .leaderboard :active {
-        overflow: auto;
-    }
-    .playerModal {
-        min-width: 90%;
-    }
+  .leaderboard {
+    font-size: 30% !important;
+    color: gold;
+    overflow: auto;
+    margin-top: 0 !important;
+    /* max-width: 80% !important; */
+  }
+  .leaderboard :active {
+    overflow: auto;
+  }
+  .playerModal {
+    min-width: 90%;
+  }
 
-    .playerRow .jumbotron {
-        max-width: 35% !important;
-        margin-left: 5%;
-        margin-top: 5%;
-        min-height: 220px;
-        padding: 7px;
-        padding-left: 0;
-        background-color: #209CEE;
-        overflow: auto !important;
-    }
+  .playerRow .jumbotron {
+    max-width: 35% !important;
+    margin-left: 5%;
+    margin-top: 5%;
+    min-height: 220px;
+    padding: 7px;
+    padding-left: 0;
+    background-color: #209cee;
+    overflow: auto !important;
+  }
 
-    .profilePicks {
-        max-width: 53% !important;
-    }
+  /* .profilePicks {
+    max-width: 53% !important;
+  } */
 
-    .profilePicks .col-10 {
-        padding: 0 !important;
-    }
+  /* .profilePicks .col-10 {
+    padding: 0 !important;
+  } */
 
-    .teamLogos {
-        margin-left: 1%;
-    }
-    .win {
-        background-color: lightgreen !important;
-        color: #209CEE !important;
-    }
+  .teamLogos {
+    margin-left: 1%;
+  }
+  .win {
+    background-color: lightgreen !important;
+    color: #209cee !important;
+  }
 
-    .loss {
-        background-color: red !important;
-        color: white !important;
-    }
-    ._loading_overlay_content {
-        color: gold !important;
-        background-color: #209CEE !important;
-        padding: 10px;
-    }
-    .leaderRow :hover {
-        background-color: gold !important;
-        color: #209CEE !important;
-        font-size: 65% !important;
-        padding-right: 0 !important;
-    }
+  .loss {
+    background-color: red !important;
+    color: white !important;
+  }
+  ._loading_overlay_content {
+    color: gold !important;
+    background-color: #209cee !important;
+    padding: 10px;
+  }
+  .leaderRow :hover {
+    background-color: gold !important;
+    color: #209cee !important;
+    font-size: 65% !important;
+    padding-right: 0 !important;
+  }
 
-    .nflLeaderboard {
-        /* max-width: 50% !important; */
-        height: 250px !important;
-        margin-left: 0 !important;
-    }
+  .nflLeaderboard {
+    /* max-width: 50% !important; */
+    height: 250px !important;
+    margin-left: 0 !important;
+  }
 
-    .nflLeaderboard .allRows {
-        font-size: 12px !important;
-        line-height: 1em !important;
-    }
+  .nflLeaderboard .allRows {
+    font-size: 12px !important;
+    line-height: 1em !important;
+  }
 
-    .nflLeaderboard .username {
-        font-size: 12px !important;
-    }
+  .nflLeaderboard .username {
+    font-size: 12px !important;
+  }
 
-    .nflLeaderboard .leaderRow {
-        padding-bottom: 0px !important;
-        width: .25em !important;
-    }
-    
+  .nflLeaderboard .leaderRow {
+    padding-bottom: 0px !important;
+    width: 0.25em !important;
+  }
 }
 
-.playerRow .profilePicks {
-    min-width: 40%;
-}
-
-.playerRow .playerJumbo {
-    width: 130% !important;
-}
+/* .playerRow .profilePicks {
+  min-width: 40%;
+} */
 
 .display-4 .recordRow {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .golferButton {
-    background-color: darkgreen !important;
-    margin: 0 auto;
+  background-color: darkgreen !important;
+  margin: 0 auto;
 }
 
 .userHeader {
-    text-align: center;
-    color: #209CEE;
-    font-weight: bolder;
-    margin-bottom: 3%;
+  text-align: center;
+  color: #209cee;
+  font-weight: bolder;
+  margin-bottom: 3%;
 }
 
-
 .leaderboard {
-    color: gold;
-    text-align: center;
-    margin-left: 10% !important;
-    overflow: auto;
-    margin-bottom: 15%;
-    /* min-width: 100% !important; */
-    box-sizing: content-box;
-    border: dashed 3px #209CEE;
-    border-radius: 5%;
-    padding: 5%;
+  color: gold;
+  text-align: center;
+  overflow: auto;
+  width: 90vw !important;
+  margin: 0 auto !important;
+  box-sizing: content-box;
+  border: dashed 3px #209cee;
+  border-radius: 5%;
 }
 
 .leaders {
-    margin-bottom: 25%;
+  margin-bottom: 25%;
 }

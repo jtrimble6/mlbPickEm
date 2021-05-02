@@ -6,7 +6,7 @@
 .teamButton {
   width: 90px;
   height: 100px;
-  border: solid 2px #209CEE
+  border: solid 2px #209cee;
 }
 
 .teamButton img {
@@ -42,81 +42,109 @@
 .teamLogos {
   margin: 0 auto !important;
   flex-wrap: nowrap;
-  overflow: auto;
+  width: 100% !important;
+  overflow-x: scroll !important;
   text-align: center;
-  justify-content: center;
+  padding-bottom: 1vw;
+  padding-right: 3vw;
+  padding-top: 0;
+}
+
+.teamLogos .teamButton {
+  height: 100%;
+  width: 100% !important;
 }
 
 .profileBar .jumbotron {
   padding: 8px;
   height: 220px;
-  background-color: #209CEE;
+  background-color: #6c757d;
+  /* background-color: #209cee; */
   /* border: 4px gold solid */
+}
+
+.profileBar {
+  margin-bottom: 1vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.recentPicksRow {
+  margin: 0 auto;
+}
+
+.recentPicksRow .title {
+  font-size: 1.5rem;
+}
+
+.recentPicksDateHeader,
+.recentPicksPickHeader {
+  background-color: #6c757d;
 }
 
 .reactHint {
   padding: 5px;
-	position: absolute;
-	z-index: 9999;
-	cursor: default;
-  animation: .5s fadeIn;
+  position: absolute;
+  z-index: 9999;
+  cursor: default;
+  animation: 0.5s fadeIn;
   font-size: 50%;
   text-align: center;
 }
 
 .reactHint__content {
-	padding: 10px;
-	border-radius: 5px;
-	background: #000;
-	color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
 }
 
 .reactHint:after {
-	content: '';
-	width: 0;
-	height: 0;
-	margin: auto;
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border: 5px solid transparent;
+  content: "";
+  width: 0;
+  height: 0;
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 5px solid transparent;
 }
 
 .reactHint--top:after {
-	top: auto;
-	border-bottom: none;
-	border-top-color: #000;
+  top: auto;
+  border-bottom: none;
+  border-top-color: #000;
 }
 
 .reactHint--left:after {
-	left: auto;
-	border-right: none;
-	border-left-color: #000;
+  left: auto;
+  border-right: none;
+  border-left-color: #000;
 }
 
 .reactHint--right:after {
-	right: auto;
-	border-left: none;
-	border-right-color: #000;
+  right: auto;
+  border-left: none;
+  border-right-color: #000;
 }
 
 .reactHint--bottom:after {
-	bottom: auto;
-	border-top: none;
-	border-bottom-color: #000;
+  bottom: auto;
+  border-top: none;
+  border-bottom-color: #000;
 }
 
 @keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
+  from {
+    opacity: 0;
+  }
 
-	to {
-		opacity: 1;
-	}
+  to {
+    opacity: 1;
+  }
 }
 
 .display-4 {
@@ -128,12 +156,12 @@
 
 .recentPicks {
   color: white;
-  background-color: #209CEE;
+  background-color: #209cee;
   height: 220px !important;
   /* width: 90%; */
   padding: 1%;
   padding-left: 0;
-  padding-right: 0 !important;
+  padding-right: 0;
   padding-top: 0;
   margin-left: 2%;
   margin-bottom: 2%;
@@ -151,7 +179,7 @@
 
 .win {
   background-color: lightgreen !important;
-  color: #209CEE !important;
+  color: #209cee !important;
 }
 .loss {
   background-color: red !important;
@@ -159,46 +187,46 @@
 }
 .todaysPick {
   background-color: gold !important;
-  color: #209CEE !important;
+  color: #209cee !important;
 }
 .futurePick {
   background-color: lightgrey !important;
-  color: #209CEE !important;
+  color: #209cee !important;
 }
 .pending {
-  background-color: #209CEE !important;
+  background-color: #209cee !important;
   color: gold !important;
 }
 .today {
   background-color: gold !important;
-  color: #209CEE;
-  border: solid #209CEE 2px;
+  color: #209cee;
+  border: solid #209cee 2px;
 }
 .noGame {
   background-color: lightgrey !important;
-  color: #209CEE !important;
+  color: #209cee !important;
 }
 
 .future {
-  background-color: #209CEE !important;
+  background-color: #209cee !important;
   color: white !important;
 }
 
 .past {
   background-color: darkgrey !important;
-  color: #209CEE !important;
+  color: #209cee !important;
 }
 
 th {
-  background-color: #209CEE;
+  background-color: #209cee;
   color: gold;
   border-top: none !important;
 }
 
 .table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .title {
@@ -215,14 +243,13 @@ th {
   transform: rotate(90deg);
   /* line-height: 25px; */
   white-space: nowrap;
-  
 }
 
 h4.winsTitle {
   font-size: 60%;
   /* max-width: 20%; */
   font-weight: bolder;
-  color: #209CEE;
+  color: #209cee;
   background-color: gold;
   padding: 5px;
   margin-bottom: 0;
@@ -232,7 +259,7 @@ h4.winsHeader {
   margin-top: 5%;
   font-size: 60%;
   font-weight: bolder;
-  color: #209CEE;
+  color: #209cee;
   background-color: gold;
   padding: 5px;
   margin-bottom: 5%;
@@ -260,7 +287,6 @@ h2 {
   }
   h4.winsHeader {
     margin-top: 2%;
-    
   }
   .golfHeader {
     white-space: nowrap !important;
@@ -315,7 +341,7 @@ h2 {
     margin-top: 13% !important;
   } */
   .recentPicksRow {
-     margin: 0 auto;
+    margin: 0 auto;
   }
   .recentPicks {
     max-width: 75%;
@@ -353,10 +379,10 @@ h2 {
     /* margin-bottom: 3%;
     margin: 2%; */
   }
-  .afcButton, .nfcButton {
+  .afcButton,
+  .nfcButton {
     font-size: 55%;
   }
-  
 }
 
 @media (min-width: 580px) and (max-width: 694px) {
@@ -366,9 +392,9 @@ h2 {
   .recentPicks {
     max-width: 60% !important;
   }
-  .recentPicksRow {
-     min-width: 170%; 
-  }
+  /* .recentPicksRow {
+    min-width: 170%;
+  } */
   .recentPicks tr {
     line-height: 1.5em;
     font-size: 12px;
@@ -382,13 +408,7 @@ h2 {
   .display-4 {
     font-size: 17px;
   }
-  h4.winsHeader {
-    width: 70%;
-    margin: 0;
-  }
-  h4.winsTitle {
-    width: 70%;
-  }
+ 
   .recordRow {
     width: 40%;
   }
@@ -400,7 +420,8 @@ h2 {
     /* margin-bottom: 3%;
     margin: 2%; */
   }
-  .afcButton, .nfcButton {
+  .afcButton,
+  .nfcButton {
     font-size: 35%;
   }
 }
@@ -422,13 +443,8 @@ h2 {
   .title h3 {
     font-size: 13px;
   }
-  h4.winsHeader {
-    width: 70%;
-    margin: 0;
-  }
-  h4.winsTitle {
-    width: 70%;
-  }
+ 
+ 
   .display-4 {
     font-size: 15px;
   }
@@ -443,7 +459,8 @@ h2 {
     /* margin-bottom: 3%;
     margin: 2%; */
   }
-  .afcButton, .nfcButton {
+  .afcButton,
+  .nfcButton {
     font-size: 8px;
   }
 }
@@ -474,20 +491,15 @@ h2 {
   .title h3 {
     font-size: 10px;
   }
-  h4.winsHeader {
-    width: 100%;
-    margin: 0;
-  }
-  h4.winsTitle {
-    width: 70%;
-  }
+
+
   .display-4 h4 {
     font-size: 13px;
   }
   .display-4 {
     font-size: 14px;
   }
-  
+
   .recordRow {
     width: 70%;
   }
@@ -515,7 +527,8 @@ h2 {
     /* margin-bottom: 3%;
     margin: 2%; */
   }
-  .afcButton, .nfcButton {
+  .afcButton,
+  .nfcButton {
     font-size: 6px;
   }
   .divisionTitle {
@@ -542,11 +555,10 @@ h2 {
   .recentPicks tr {
     font-size: 9px;
     line-height: 1em;
-  } 
+  }
   .recentPicks td {
     max-height: 5px !important;
     padding-right: 1% !important;
-    
   }
   .title {
     float: left;
@@ -555,14 +567,7 @@ h2 {
   .title h3 {
     font-size: 12px;
   }
-  h4.winsHeader {
-    font-size: 8px !important;
-    width: 75%;
-    margin: 0;
-  }
-  h4.winsTitle {
-    width: 70%;
-  }
+ 
   .display-4 {
     font-size: 10px;
   }
@@ -608,7 +613,6 @@ h2 {
 
   .teamsRow .teamsCol {
     padding: 5%;
-    
   }
 
   .fas {
@@ -618,14 +622,13 @@ h2 {
   .recordRow {
     width: 40%;
   }
-  .recentPicksRow {
+  /* .recentPicksRow {
     min-width: 180%;
-  }
+  } */
 
   small {
     font-size: 50%;
   }
-
 }
 
 @media (min-width: 372px) and (max-width: 376px) {
@@ -633,10 +636,10 @@ h2 {
     padding-right: 0 !important;
     width: 60% !important;
   } */
-  .recentPicksRow {
+  /* .recentPicksRow {
     min-width: 200%;
     padding-right: 15% !important;
-  }
+  } */
 }
 
 @media (max-width: 450px) {
@@ -669,3 +672,194 @@ h2 {
 }
 
 
+/* ----------- LAPTOPS ----------- */
+
+/* ----------- Non-Retina Screens ----------- */
+
+@media screen and (min-device-height: 1000px) and (max-device-width: 699px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+@media screen and (min-device-width: 700px) and (max-device-width: 2200px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* ----------- iPads ----------- */
+
+/* ----------- iPad 1, 2, Mini and Air ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPad Pro 10.5" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 834px) and (max-device-width: 1112px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 834px) and (max-device-width: 834px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1112px) and (max-device-width: 1112px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPad Pro 12.9" ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Landscape */
+/* Declare the same value for min- and max-width to avoid colliding with desktops */
+/* Source: https://medium.com/connect-the-dots/css-media-queries-for-ipad-pro-8cad10e17106*/
+@media only screen and (min-device-width: 1366px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* ----------- iPhones ----------- */
+
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .profileBar {
+    padding-left: 0vw !important;
+    padding-right: 0vw !important;
+    margin: 0 auto !important;
+  }
+  .jumbotronCol {
+    max-width: 50% !important;
+  }
+  .recentPicks {
+    max-width: 80%;
+  }
+  .recentPicksCol {
+    min-width: 50% !important;
+    padding: 0vw !important;
+  }
+  .recentPicks td {
+    padding: 0.4rem !important;
+  }
+  .winsTitle, .winsHeader {
+    margin-top: 1vh !important;
+    margin-bottom: 1vh !important;
+    font-size: 0.75rem !important;
+  }
+
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  .profileBar {
+    padding-left: 0vw !important;
+    padding-right: 0vw !important;
+    margin: 0 auto !important;
+  }
+  .recentPicks {
+    max-width: 75%;
+  }
+  .recentPicksCol {
+    padding: 0vw !important;
+  }
+  .recentPicks td {
+    padding: 0.5rem !important;
+  }
+  .winsTitle, .winsHeader {
+    width: 100% !important;
+    margin-top: 1vh !important;
+    margin-bottom: 1vh !important;
+  }
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (min-device-height: 365px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
+}

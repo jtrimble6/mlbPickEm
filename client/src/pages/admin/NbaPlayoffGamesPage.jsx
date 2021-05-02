@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import ReactTable from "react-table";
-import matchSorter from 'match-sorter'
+import {matchSorter} from 'match-sorter'
 // import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment'
 import $ from 'jquery'
-import 'react-table/react-table.css'
+import ReactTable from "react-table-6";  
+import "react-table-6/react-table.css" 
 import '../../css/gamesPage.css'
 
 class NbaPlayoffGamesPage extends Component {

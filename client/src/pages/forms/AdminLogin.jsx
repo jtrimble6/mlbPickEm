@@ -120,8 +120,8 @@ class Login extends Component {
                 <div id="loginPageAdmin">
                 
                 {this.renderRedirect()}
-                    <div className="formContainer">    
-                        <form className="formLogin" action="index.html">
+                    <div className="formContainer formAdminLoginContainer">    
+                        <form className="formAdminLogin" action="index.html">
                             <h2 className="formLoginHeading">Admin Sign In</h2> <br />
                             <div className="loginWrap">
                                 <input
@@ -142,7 +142,7 @@ class Login extends Component {
                                     className="form-control"
                                     placeholder="Password (case sensitive)"
                                 />
-                                <label className="checkbox">
+                                <label className="checkbox forgotLabel">
                                     <span className="pull-right">
                                         <a data-toggle="modal" href="login.html#myModal">Forgot Password?</a>               
                                     </span>

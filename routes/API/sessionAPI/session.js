@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const sessionController = require("../../../controllers/sessionController");
+const sessionController = require("../../../controllers/user/sessionController");
 
 router.route("/")
   .post(sessionController.createUserSession)

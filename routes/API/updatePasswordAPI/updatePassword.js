@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const updatePasswordController = require("../../../controllers/updatePasswordController");
+const updatePasswordController = require("../../../controllers/user/updatePasswordController");
 // const express = require("express");
 
 // router.route("/")

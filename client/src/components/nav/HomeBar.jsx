@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import API from '../../utils/API'
 import { Redirect } from 'react-router-dom';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
+import logo from '../../css/images/logo2.png'
 import '../../css/navbar.css'
 
 class HomeBar extends Component {
@@ -37,7 +38,7 @@ class HomeBar extends Component {
                 <div className="container">
                     {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     <a className="navbar-brand" href="/">
-                        <img src={require('../../css/images/logo2.png')} alt="" />
+                        <img src={logo} alt="" />
                     </a>
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" onClick={this.toggleNavbar}>
@@ -74,10 +75,6 @@ class HomeBar extends Component {
             <div className="row">
               <h2 className="navbar-brand js-scroll-trigger challengeName">{this.props.username}</h2>
             </div>
-            <footer className="footer">
-              <p>WWW.SPORTHABITS.COM</p>
-              <small className='disclaimer'>*DISCLAIMER: THIS SITE IS FOR ENTERTAINMENT PURPOSES ONLY*</small>
-            </footer>
           </div>
         )
     }

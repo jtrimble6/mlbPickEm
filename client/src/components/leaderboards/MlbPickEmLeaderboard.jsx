@@ -4,7 +4,7 @@ import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFoote
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
-import Countdown from 'react-countdown-now';
+import Countdown from 'react-countdown';
 import $ from 'jquery'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
@@ -17,7 +17,27 @@ class Leaderboard extends Component {
         this.state = {
           challengeId: '',
           challengeData: {},
+          challengeUsers: [],
           currentUser: {},
+          isActive: false,
+          hover: false,
+          allUsers: [],
+          leaders: [],
+          modal: false,
+          activeUser: {},
+          activeUserUsername: '',
+          activeUserWins: [],
+          activeUserPicks: [],
+          activeUserPrevPicks: [],
+          prevPicks: [],
+          thisRecentPick: '',
+          userWin: '',
+          todaysPick: 'No Pick',
+          firstGameTime: '',
+          thisDate: '',
+          thisTeam: '',
+          userPlace: {},
+          challengeStartDate: '',
           teams: [
             { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
             { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
@@ -50,25 +70,6 @@ class Leaderboard extends Component {
             { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary' },
             { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary' }
           ],
-          isActive: false,
-          hover: false,
-          allUsers: [],
-          leaders: [],
-          modal: false,
-          activeUser: {},
-          activeUserUsername: '',
-          activeUserWins: [],
-          activeUserPicks: [],
-          activeUserPrevPicks: [],
-          prevPicks: [],
-          thisRecentPick: '',
-          userWin: '',
-          todaysPick: 'No Pick',
-          firstGameTime: '',
-          thisDate: '',
-          thisTeam: '',
-          userPlace: {},
-          challengeStartDate: ''
         }
         this.toggle = this.toggle.bind(this);
         // this.toggleHover = this.toggleHover.bind(this);
@@ -83,12 +84,13 @@ class Leaderboard extends Component {
         this.createLeaderboard = this.createLeaderboard.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.findChallengeUsers = this.findChallengeUsers.bind(this);
 
     }
     componentDidMount() {
-      this.getChallengeData()
-      this.getFirstGame()
-        
+        this.getChallengeData()
+        this.getFirstGame()
+        this.findChallengeUsers()
       }
 
     handlePreloader() {
@@ -101,12 +103,30 @@ class Leaderboard extends Component {
         this.setState({
           modal: !this.state.modal
         });
+        this.getFirstGame()
       }
 
     // toggleHover(e) {
     //   e.preventDefault()
     //   this.setState({hover: !this.state.hover})
     // }
+
+    findChallengeUsers = () => {
+      let challengeId = localStorage.getItem('userChallengeId')
+      console.log('CHALLENGE ID: ', challengeId)
+      API.findUsersByChallengeId(challengeId)
+          .then(res => {
+            console.log('found challenge users: ', res.data)     
+            this.setState({
+              allUsers: res.data
+            }, () => {
+              this.getUserData()
+            })     
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
 
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
@@ -121,10 +141,9 @@ class Leaderboard extends Component {
           self.setState({
             challengeData: res.data[0],
             challengeStartDate: res.data[0].startDate,
-            allUsers: res.data[0].users
             // teams: res.data[0].teams
           })
-          self.getUserData()
+          // self.getUserData()
   
         })
         .catch(err => console.log(err))
@@ -132,27 +151,34 @@ class Leaderboard extends Component {
 
     getUserData = () => {
       let localUser = localStorage.getItem('user')
-      let chalUsers = this.state.challengeData.users
+      let challengeId = localStorage.getItem('userChallengeId')
+      let chalUsers = this.state.allUsers
       
       // FILTER OUT THIS USER AND SET STATE
       let chalFilter = (challengers) => {
         return challengers.username === localUser
       }
       let thisUser = chalUsers.filter(chalFilter)
-      
+      // console.log('REAL USER: ', thisUser)
+      let filterWins = (picks) => {
+        return picks.result === 'win' && picks.challengeId === challengeId
+      }
+      let filteredWins = thisUser[0].picks?.filter(filterWins)
+      console.log('FILTERED WINS: ', filteredWins)
       this.setState({
         currentUser: thisUser[0],
         username: thisUser[0].username,
         firstName: thisUser[0].firstName,
         lastName: thisUser[0].lastName,
-        wins: thisUser[0].wins,
-        winsCount: thisUser[0].wins.length,
+        wins: filteredWins,
+        winsCount: filteredWins.length,
         myPicks: thisUser[0].picks,
+      }, () => {
+        this.createLeaderboard()
       })
 
-      this.createLeaderboard()
       // console.log('CURRENT USER: ', this.state.currentUser)
-      // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
+      console.log('CHAL USERS DATA: ', this.state.challengeData.users)
       }
 
     getUser = () => {
@@ -164,19 +190,23 @@ class Leaderboard extends Component {
       }
 
     createLeaderboard = () => {
-        let users = this.state.challengeData.users
+      let challengeId = localStorage.getItem('userChallengeId')
+        let users = this.state.allUsers
         let testFilter = (allChallengers) => {
-          return allChallengers.username !== 'test'
+          return allChallengers.username !== 'testtest'
         }
         let newUsers = users.filter(testFilter)
-        
-        // console.log('NEW USERS FOR LEADERBOARD: ', newUsers)
-        // if(thisUser === 'test') {
-        //   return
-        // }
-        // console.log('Create leaderboard with this data: ', users)
+        // console.log('newUsers: ', newUsers)
+        let filterWins = (picks) => {
+          return picks.result === 'win' && picks.challengeId === challengeId
+        }
+
         let placedUsers = newUsers.map(function(el, i) {
-            return { index: i, value: el.wins.length, username: el.username }
+            let filteredWins = el.picks.filter(filterWins)
+            console.log('FILTERED WINS: ', filteredWins)
+            el.wins = filteredWins
+            console.log('NEW NEW USERS: ', el)
+            return { index: i, value: filteredWins.length, username: el.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
@@ -191,7 +221,7 @@ class Leaderboard extends Component {
         let leaders = placedUsers.map(function(el) {
             return newUsers[el.index]
         })
-        // console.log('LEADERS: ', leaders)
+        console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
 
         // console.log('NEW LEADERBOARD: ', this.state.allUsers)
@@ -235,7 +265,7 @@ class Leaderboard extends Component {
       
       }
 
-      changeLogo = () => {
+    changeLogo = () => {
         let wins = this.state.activeUserWins
         let teams = [
           { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
@@ -292,7 +322,8 @@ class Leaderboard extends Component {
 
         // FIND MATCHING WINS
         let matchingWins = (winningTeams) => {
-          return winningTeams.win.trim() === thisTeam.trim()
+          // console.log('winning teams: ', winningTeams)
+          return winningTeams.team.trim() === thisTeam.trim()
         }
 
         for (var j=0; j<allTeams.length; j++) {
@@ -329,109 +360,112 @@ class Leaderboard extends Component {
         
       }
 
-      loadLogo = (team) => {
-        switch (true) {
-          case (team === 'atl'):
-            return atl2;
-            
-          case (team === 'bal'):
-            return bal;
-            
-          case (team === 'bos'):
-            return bos2;
-            
-          case (team === 'chc'):
-            return chc;
-            
-          case (team === 'cws'):
-            return cws;
-             
-          case (team === 'cle'):
-            return cle2;
-             
-          case (team === 'cin'):
-            return cin;
-             
-          case (team === 'col'):
-            return col;
-             
-          case (team === 'det'):
-            return det2;
-             
-          case (team === 'mia'):
-            return mia2;
-             
-          case (team === 'hou'):
-            return hou2;
-             
-          case (team === 'kc'):
-            return kc;
-             
-          case (team === 'laa'):
-            return laa;
-             
-          case (team === 'lad'):
-            return lad;
-             
-          case (team === 'nym'):
-            return nym;
-             
-          case (team === 'nyy'):
-            return nyy;
+      loadLogo = (teamLogo) => {
+    
+        switch (true) {  
+        case (teamLogo === 'ari'):
+            return ari.default;
+              
+        case (teamLogo === 'atl'):
+          return atl2.default;
           
-          case (team === 'mil'):
-            return mil2;
-             
-          case (team === 'min'):
-            return min2;
-             
-          case (team === 'oak'):
-            return oak;
-             
-          case (team === 'pit'):
-            return pit;
-             
-          case (team === 'sd'):
-            return sd;
-             
-          case (team === 'sf'):
-            return sf;
-             
-          case (team === 'phi'):
-            return phi2;
-             
-          case (team === 'sea'):
-            return sea;
-             
-          case (team === 'stl'):
-            return stl;
-             
-          case (team === 'tb'):
-            return tb;
-             
-          case (team === 'tex'):
-            return tex;
-             
-          case (team === 'tor'):
-            return tor2;
-             
-          case (team === 'ari'):
-            return ari;
-             
-          case (team === 'wsh'):
-            return wsh;
-             
-          default:
-            return ari;
-          }  
+        case (teamLogo === 'bal'):
+          return bal.default;
+          
+        case (teamLogo === 'bos'):
+          return bos2.default;
+          
+        case (teamLogo === 'chc'):
+          return chc.default;
+          
+        case (teamLogo === 'cws'):
+          return cws.default;
+            
+        case (teamLogo === 'cle'):
+          return cle2.default;
+            
+        case (teamLogo === 'cin'):
+          return cin.default;
+            
+        case (teamLogo === 'col'):
+          return col.default;
+            
+        case (teamLogo === 'det'):
+          return det2.default;
+            
+        case (teamLogo === 'mia'):
+          return mia2.default;
+            
+        case (teamLogo === 'hou'):
+          return hou2.default;
+            
+        case (teamLogo === 'kc'):
+          return kc.default;
+            
+        case (teamLogo === 'laa'):
+          return laa.default;
+            
+        case (teamLogo === 'lad'):
+          return lad.default;
+            
+        case (teamLogo === 'nym'):
+          return nym.default;
+            
+        case (teamLogo === 'nyy'):
+          return nyy.default;
+        
+        case (teamLogo === 'mil'):
+          return mil2.default;
+            
+        case (teamLogo === 'min'):
+          return min2.default;
+            
+        case (teamLogo === 'oak'):
+          return oak.default;
+            
+        case (teamLogo === 'pit'):
+          return pit.default;
+            
+        case (teamLogo === 'sd'):
+          return sd.default;
+            
+        case (teamLogo === 'sf'):
+          return sf.default;
+            
+        case (teamLogo === 'phi'):
+          return phi2.default;
+            
+        case (teamLogo === 'sea'):
+          return sea.default;
+            
+        case (teamLogo === 'stl'):
+          return stl.default;
+            
+        case (teamLogo === 'tb'):
+          return tb.default;
+            
+        case (teamLogo === 'tex'):
+          return tex.default;
+            
+        case (teamLogo === 'tor'):
+          return tor2.default;
+        
+        case (teamLogo === 'wsh'):
+          return wsh.default;
+            
+        default:
+          return ari;
+        }  
+        
   
         }
 
     handleClick = e => {
       // let self = this
+      let challengeId = localStorage.getItem('userChallengeId')
       let user = e.target
       let player = user.textContent
-      let allUsers = this.state.challengeData.users
+      let allUsers = this.state.allUsers
       // console.log('ALL USERs: ', allUsers)
       if (isNaN(player)) {
         let thisPlayer = []
@@ -445,11 +479,25 @@ class Leaderboard extends Component {
         let thisPlayerObj = allUsers.filter(thisPlayerFunc)
         // console.log('THIS PLAYER: ', thisPlayerObj[0])
         thisPlayer.push(thisPlayerObj[0])
+
+        // FILTER THIS USERS PICKS
+        let filterChallengePicks = (picks) => {
+          return picks.challengeId === challengeId
+        }
+        let filteredPicks = thisPlayerObj[0].picks.filter(filterChallengePicks)
+
+        // FILTER THIS USERS WINS
+        let filterWins = (picks) => {
+          return picks.result === 'win' && picks.challengeId === challengeId
+        }
+        let filteredWins = thisPlayerObj[0].picks.filter(filterWins)
+        // console.log('FILTERED WINS: ', filteredWins)
+
         this.setState({
-          activeUser: thisPlayer[0],
-          activeUserUsername: thisPlayer[0].username,
-          activeUserWins: thisPlayer[0].wins,
-          activeUserPicks: thisPlayer[0].picks
+          activeUser: thisPlayerObj[0],
+          activeUserUsername: thisPlayerObj[0].username,
+          activeUserWins: filteredWins,
+          activeUserPicks: filteredPicks,
         }, () => {
           this.getUser()
         })
@@ -460,44 +508,48 @@ class Leaderboard extends Component {
       }
 
     getFirstGame = () => {
-      let now = moment().format()
-      let date = moment(now).format('YYYY-MM-DD')
+        // let now = moment().format()
+        // let date = moment(now).format('YYYY-MM-DD')
+        let date = moment().format('YYYY-MM-DD')
+        let self = this
+  
+        // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
+        API.getMlbGamesByDate(date)
+          .then (res => {
+            let games = res.data
+            let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
+  
+            // CHECK TO SEE IF THERE ARE NO GAMES TODAY
+            if (!sortedGames[0]) {
+              // console.log('THERE MUST BE NO GAMES TODAY')
+              // $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+              return;
+            }
+  
+            let firstGame = sortedGames[0]
+            let firstGameTime = firstGame.gameTime
+            let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
+            let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+            let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
+            let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+            let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
 
-      // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getMlbGamesByDate(date)
-        .then (res => {
-          let games = res.data
-          let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
+            console.log('REAL TIME: ', realTime)
 
-          // CHECK TO SEE IF THERE ARE NO GAMES TODAY
-          if (!sortedGames[0]) {
-            // console.log('THERE MUST BE NO GAMES TODAY')
-            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
-            return;
-          }
-
-          let firstGame = sortedGames[0]
-          let firstGameTime = firstGame.gameTime
-          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
-          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          
-          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
-          this.setState({
-            firstGameTime: firstGameTimeAdj
+            self.setState({
+              firstGameTime: realGameTimeAdj
+            })
+            this.createTimer(timeDiff)
           })
-          this.createTimer(timeDiff)
-        })
-        .catch(err => console.log(err))
-      
-      }
+          .catch(err => console.log(err))
+        
+        }
 
     createTimer = (timeDiff) => {
-      // console.log('Time until first game: ', timeDiff)
-      let seconds = moment.duration(timeDiff).asSeconds() * 1000
-      //console.log('In seconds milliseconds: ', seconds)
-      this.setState({ timeDiff: seconds })
+        // console.log('Time until first game: ', timeDiff)
+        let seconds = moment.duration(timeDiff).asSeconds() * 1000
+        //console.log('In seconds milliseconds: ', seconds)
+        this.setState({ timeDiff: seconds })
       }
 
     render() {
@@ -533,7 +585,7 @@ class Leaderboard extends Component {
         }
 
         return(
-          <div className='leaderboard'>
+          <div className='leaderboard actionPageLeaderboard'>
             <LoadingOverlay
               active={this.state.isActive}
               spinner
@@ -549,7 +601,7 @@ class Leaderboard extends Component {
               text='Loading user...'
               >
             </LoadingOverlay>
-              <h2>Leaderboard</h2>
+              <h2 className='leaderboardHeader'>Leaderboard</h2>
                 {
 
                   moment(challengeStartDate).isBefore(today) ? 
@@ -588,22 +640,23 @@ class Leaderboard extends Component {
                         size='lg'
                         className='playerModal'
                       >
-                          <ModalHeader id='modalTitle'>
-                            USER PROFILE ({username})
+                          <ModalHeader id='modalTitle' className='leaderboardModalTitle'>
+                            {/* USER PROFILE ({username}) */}
+                            {/* USER PROFILE ({username}) */}
                           </ModalHeader>
                           <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                             <div className="row playerRow">
-                              <Jumbotron className='playerJumbo'>
-                                <Container fluid>
-                                  <div className="display-4">
-                                    <h2>{username}</h2> <hr />
-                                    <h4 className="winsHeader">Today's Pick</h4>
-                                      <div className="userTimer">
+                              <div className='col-6'>
+                                <Jumbotron className='playerJumbo leaderboardModalPlayerJumbo'>
+                                  <Container fluid>
+                                    <div className="display-4">
+                                      <h2>{username}</h2> <hr />
+                                      <h4 className="winsHeader leaderboardModalTodaysPickHeader">Today's Pick</h4>
+                                        <div className="userTimer leaderboardModalUserTimer">
 
                                         {
-                                          (!timerDiff) ? <p>No Games Today</p> :
+                                          (this.state.timeDiff.length) ? <p>No Games Today</p> :
 
-                                          <div>
                                           <Countdown 
                                             date={Date.now() + this.state.timeDiff}
                                             zeroPadTime={2} 
@@ -611,92 +664,111 @@ class Leaderboard extends Component {
                                             renderer={this.timerRender}
                                             className='userTimer'
                                           >
-                                            <EndTimer />
+                                            <span> 
+                                              {todaysPick}
+                                              {/* <EndTimer /> */}
+                                            </span>
+                                            
                                           </Countdown> 
-                                          </div>
                                         }
 
-                                      </div>
-                                    <div className="row recordRow">
-                                      <div className="col-md-3">
-                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
-                                      </div>
-                                      <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
-                                      </div>  
-                                      {/* <div className="col-md-3">
-                                        <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
-                                      </div>   */}
-                                    </div>  
-                                  </div>
-                                </Container>
-                              </Jumbotron>
-                              <span className='row recentPicks profilePicks'>
-                                <div className="col-10">
-                                  <table className='table table-hover'>
-                                    <thead>
-                                      <tr>
-                                        <th>Date</th>
-                                        <th>Pick</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                          
-                                      {
-                                        // userPicks[0] ? 
-                                        
-                                        userPicks.map((newRecentPick, i) => (
-                                          <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
-                                            <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
-                                            <td>{newRecentPick.team}</td>
-                                          </tr> 
-                                          )
-                                        )                                            
+                                          {/* {
+                                            (!timerDiff) ? <p>No Games Today</p> :
 
-                                        // : <tr className='loss'>
-                                        //     <td>--</td>
-                                        //     <td>No Previous Picks</td>
-                                        //   </tr>
+                                            <div>
+                                            <Countdown 
+                                              date={Date.now() + this.state.timeDiff}
+                                              zeroPadTime={2} 
+                                              daysInHours={true} 
+                                              renderer={this.timerRender}
+                                              className='userTimer'
+                                            >
+                                              <EndTimer />
+                                            </Countdown> 
+                                            </div>
+                                          } */}
+
+                                        </div>
+                                      <div className="row recordRow">
+                                        <div className="col-md-3">
+                                          <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
+                                        </div>
+                                        <div className="col-md-3">
+                                          <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
+                                        </div>  
+                                        {/* <div className="col-md-3">
+                                          <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
+                                        </div>   */}
+                                      </div>  
+                                    </div>
+                                  </Container>
+                                </Jumbotron>
+                              </div>
+                              <div className='col-6'>
+                                <div className='row leaderboardModalRecentPicks recentPicks profilePicks'>
+                                  <div className="col-12">
+                                    <table className='table table-hover'>
+                                      <thead>
+                                        <tr>
+                                          <th>Date</th>
+                                          <th>Pick</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                            
+                                        {
+                                          userPicks[0] ? 
+                                          
+                                          userPicks.map((newRecentPick, i) => (
+                                            <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
+                                              <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
+                                              <td>{newRecentPick.team}</td>
+                                            </tr> 
+                                            )
+                                          )                                            
+
+                                          : <tr className='loss'>
+                                              <td>--</td>
+                                              <td>No Previous Picks</td>
+                                            </tr>
+                                          
+                                        }
                                         
-                                      }
-                                      
-                                    </tbody>
-                                  </table>
+                                      </tbody>
+                                    </table>
                                 </div>
-                                <div className="col-2 title">
-                                  <h3>{username}'s Picks</h3>
+                              </div>
+                            </div>
+
+                              <span className="col-md"> 
+                                <div className="row teamLogos">
+                                  
+                                  {
+                                    this.state.teams.map((team, i) => (
+                                    
+                                      <Button 
+                                        key={uuidv4()}
+                                        onClick={this.findTeamGames}
+                                        color={team.status} 
+                                        className='teamButton'
+                                        data={team.abbr}
+                                      >
+                                        <img
+                                          className='profLogo'
+                                          src={this.loadLogo(team.abbr)}
+                                          alt={team.abbr}
+                                          fluid='true'
+                                        />
+                                        <br />
+                                        {team.abbr.toUpperCase()}
+                                      </Button>
+                              
+                                    ))
+                                  }
+                                  
                                 </div>
                               </span>
                             </div>
-
-                            <span className="col-md"> 
-                              <div className="row teamLogos">
-                                
-                                {
-                                  this.state.teams.map((team, i) => (
-                                  
-                                    <Button 
-                                      key={uuidv4()}
-                                      onClick={this.findTeamGames}
-                                      color={team.status} 
-                                      className='teamButton'
-                                      data={team.abbr}
-                                    >
-                                      <img
-                                        className='profLogo'
-                                        src={this.loadLogo(team.abbr)}
-                                        alt={team.abbr}
-                                        fluid='true'
-                                      />
-                                      <br />
-                                      {team.abbr.toUpperCase()}
-                                    </Button>
-                            
-                                  ))
-                                }
-                                
-                              </div>
-                            </span>
                           </ModalBody>
                           <ModalFooter>
                             <Button color="secondary" onClick={this.toggle}>Close</Button>

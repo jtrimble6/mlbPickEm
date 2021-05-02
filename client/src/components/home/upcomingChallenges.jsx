@@ -44,7 +44,7 @@ class UpcomingChallenges extends Component {
         
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.getUser()
       }
 
@@ -174,12 +174,18 @@ class UpcomingChallenges extends Component {
             losses: [],
             teams: []
         }
-        // console.log('USER DATA: ', userData)
+        
         let myCurrentChallenges = userData.challenges
+        console.log('USER DATA: ', userData)
+        console.log('USER CHALLENGES: ', myCurrentChallenges)
+
         let myChallengesFunc = (myChallenges) => {
             return myChallenges.challengeId === challengeData.challengeId
         }
         let challengeMatch = myCurrentChallenges.filter(myChallengesFunc)
+
+        console.log('CHALLENGE MATCH: ', challengeMatch)
+        // debugger;
 
         if (challengeMatch[0]) {
             this.toggleDupAdd()
@@ -195,21 +201,30 @@ class UpcomingChallenges extends Component {
                       return;
                   } else {
                       // console.log('THE CHALLENGE REALLY ISNT FULL')
+                  // ADD USER TO CHALLENGE
+                  console.log('ADD USER TO CHALLENGE: ', this.state.currentChallengeId, userData)
+                  API.addUserToChallenge(this.state.currentChallengeId, userData)
+                    .then(res => { 
+                      console.log('ADD USER TO CHALLENGE RESPONSE: ', res) 
+                      API.saveUserChallenge(username, challengeData)
+                        .then(res => {
+                          console.log('ADD CHALLENGE TO USER DATA RESPONSE: ', res)
+                          this.toggle()
+                          window.location.reload()
+                        })
+                        .catch(err => console.log(err))
+                      })
+                    .catch(err => console.log(err))
+                  // ADD CHALLENGE TO USER DB
+                  console.log('ADD CHALLENGE TO USER: ', username, challengeData)
+                  
                   }
               })
               .catch(err => console.log(err))
+              
             // console.log('YOU CAN JOIN THIS CHALLENGE')
         }
 
-        // ADD USER TO CHALLENGE
-        API.addUserToChallenge(this.state.currentChallengeId, userData)
-          .then(
-            res => { console.log('RESPONSE: ', res) 
-            API.saveUserChallenge(username, challengeData)
-              .then(res => console.log(res))
-              .catch(err => console.log(err))
-            })
-          .catch(err => console.log(err))
         
         // console.log('THIS USER: ', user.username)
         // console.log('THIS CHALLENGE DATA: ', challengeData)
@@ -218,8 +233,7 @@ class UpcomingChallenges extends Component {
         // ADD CHALLENGE TO USER DB
         
         // debugger;
-        this.toggle()
-        window.location.reload()
+        
       }
     
     setRedirect = (challenge) => {
@@ -263,7 +277,8 @@ class UpcomingChallenges extends Component {
                     <Card>
                       <CardBody>
                         <div className="col-6 titleCol">
-                          <CardTitle>{challenge.challengeName}</CardTitle><hr />
+                          <CardTitle className='challengeCardTitle'>{challenge.challengeName}</CardTitle>
+                          {/* <hr className='upcomingChallengesHr'/> */}
                           <CardLink className='signUp' onClick={this.toggleEvent} data-buyin={challenge.buyIn} data-id={challenge._id} data-name={challenge.challengeName} data-url={challenge.url} data-startdate={challenge.startDate} data-signup={challenge.openSignUp} data-max={challenge.maxEntries} data-users={challenge.users.length}>
                             Sign Up Now
                           </CardLink>

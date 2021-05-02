@@ -35,12 +35,12 @@ class LogoutPage extends Component {
         let loggedOut = this.state.loggedOut
         return (
             <div id='logoutPage'>
-              <h2>Thank you for doing your chores!</h2>
+              <h2 className='logoutPageHeader'>Thank you for doing your chores!</h2>
                 {
-                  (loggedOut) ? <small id="logoutSuccess" className="form-text text-muted">You have successfully logged out!</small> :
+                  (loggedOut) ? <small id="logoutSuccess" className="form-text text-muted logoutPageNote">You have successfully logged out!</small> :
                   <small id="logoutFailure" className="form-text text-muted">There was an error logging you out!</small>
                 }
-                <a href='/login'>Back to login</a>
+                <a className='logoutPageLink' href='/login'>Back to login</a>
             </div>
         )
     }

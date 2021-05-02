@@ -68,12 +68,12 @@ class Games extends Component {
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
       // API CALL TO PULL ENTIRE SEASON SCHEDULE
       $.ajax({
         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
+        url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/2020/REG/schedule.json?api_key=' + nbaKey,
         type: 'GET',
         success: function(data) {
           self.setState({ fullSchedule: data.games });
@@ -92,7 +92,7 @@ class Games extends Component {
       
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
       // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
       for (let m=0; m<gameIds.length; m++) {
@@ -100,7 +100,7 @@ class Games extends Component {
         setTimeout ( 
           function() {
             $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + gameIds[k] + '/boxscore.json?api_key=' + nbaKey,
               type: 'GET',
               success: function(data) {
                 console.log('Game results: ', data)

@@ -4,7 +4,7 @@ import '../../css/calendar/fullcalendar.css'
 import '../../css/calendar/fullcalendar.print.css'
 import '../../css/calendar/fullcalendar.min.css'
 import FullCalendar from 'fullcalendar-reactwrapper';
-import Countdown from 'react-countdown-now';
+import Countdown from 'react-countdown';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +12,7 @@ import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone';
-import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
+// import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class Calendar extends Component {
     constructor(props) {
@@ -41,7 +41,6 @@ class Calendar extends Component {
           winningTeams: [],
           gameDate: '',
           title: '', 
-          teams: '', 
           status: '', 
           id: '', 
           activePick: '', 
@@ -53,7 +52,8 @@ class Calendar extends Component {
           homeTeam: '', 
           awayTeam: '', 
           homeAlias: '', 
-          awayAlias: ''
+          awayAlias: '',
+          teams: []
         };
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeTeams = this.handleChangeTeams.bind(this);
@@ -73,6 +73,7 @@ class Calendar extends Component {
         this.overridePick = this.overridePick.bind(this);
         this.getSchedule = this.getSchedule.bind(this);
         this.createTimer = this.createTimer.bind(this);
+        this.timerRender = this.timerRender.bind(this);
         this.getTodaysFirstGame = this.getTodaysFirstGame.bind(this);
         this.postGames = this.postGames.bind(this);
         this.getGames = this.getGames.bind(this);
@@ -87,7 +88,7 @@ class Calendar extends Component {
 
     componentDidMount() {
       this.getChallengeData()
-      this.getTodaysFirstGame()
+      // this.getTodaysFirstGame()
       this.checkPrevDatesPicked()
       }
 
@@ -205,10 +206,12 @@ class Calendar extends Component {
       API.getChallenge(challengeId)
         .then(res => {
           self.setState({
-            challengeData: res.data[0]
+            challengeData: res.data[0],
+            teams: res.data[0].teams
           })
           self.getUserData()
           self.getSchedule()
+          self.getTodaysFirstGame()
         })
         .catch(err => console.log(err))
       }
@@ -252,11 +255,15 @@ class Calendar extends Component {
         let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
 
         // TODAY'S TIMER STATUS
-        let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+        let realTime = moment().tz('America/New_York').format()
         let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-        let timeDiff = moment.duration(this.state.firstGameTime.diff(realTimeAdj))
-        // console.log('REAL TIME DIFF: ', timeDiff._milliseconds)
-        if (timeDiff._milliseconds > 0) {
+        console.log('REAL TIME ADJ: ', realTimeAdj)
+        // console.log('FIRST GAME TIME: ', this.state.firstGameTime)
+        let firstGameTimeMoment = moment(this.state.firstGameTime, 'HH:mm:ss a')
+        console.log('FIRST GAME TIME: ', firstGameTimeMoment)
+        let timeDiff = realTimeAdj.diff(firstGameTimeMoment, 'milliseconds')
+        console.log('REAL TIME DIFF: ', timeDiff)
+        if (timeDiff > 0) {
           // console.log('TIMER STILL RUNNING')
         } else {
           // console.log('TIMER HAS ENDED NO MORE PICKS')
@@ -397,8 +404,8 @@ class Calendar extends Component {
                 }
                 games.push(gameInfo)
                 yesterdaysGameIds.push(gameInfo.id)
-                self.setState({ yesterdaysGames: games })
-                self.setState({ yesterdaysGameIds: yesterdaysGameIds })
+                this.setState({ yesterdaysGames: games })
+                this.setState({ yesterdaysGameIds: yesterdaysGameIds })
               })
 
             // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
@@ -417,34 +424,38 @@ class Calendar extends Component {
     getTodaysFirstGame = () => {
       let date = moment().format('YYYY-MM-DD')
       let self = this
-
+      let todaysGames = []
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getNbaGamesByDate(date)
         .then (res => {
           let games = res.data
           let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
-
+          console.log('GAMES TODAY: ', res.data)
+          console.log('SORTED GAMES: ', sortedGames)
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
-          if (!sortedGames[0]) {
+          todaysGames = games
+          if (todaysGames.length === 0) {
+            console.log('NO GAMES TODAY MAN')
             // console.log('THERE MUST BE NO GAMES TODAY')
-            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+            $('.timeToPick').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
+          } else {
+            let firstGame = sortedGames[0]
+            let firstGameTime = firstGame.gameTime
+            let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
+            let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+            let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
+            let realTimeAdj = moment(realTime, 'HH:mm:ss a')
+            let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
+            self.setState({
+              firstGameTime: firstGameTimeAdj
+            })
+            self.createTimer(timeDiff)
           }
-
-          let firstGame = sortedGames[0]
-          let firstGameTime = firstGame.gameTime
-          let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
-          let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
-          let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          
-          let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
-          self.setState({
-            firstGameTime: firstGameTimeAdj
-          })
-          this.createTimer(timeDiff)
         })
         .catch(err => console.log(err))
+
+        
       
       }
 
@@ -511,12 +522,12 @@ class Calendar extends Component {
       // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      // const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
       // API CALL TO PULL ENTIRE SEASON SCHEDULE
       // $.ajax({
       //   // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.yesterday + "/schedule.json?api_key=" + mlbKey,
-      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
+      //   url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/2018/REG/schedule.json?api_key=' + nbaKey,
       //   type: 'GET',
       //   success: function(data) {
       //     self.setState({ fullSchedule: data.games });
@@ -533,7 +544,7 @@ class Calendar extends Component {
       
       // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
       // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+      const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
       // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
       for (let m=0; m<yesterdaysGameIds.length; m++) {
@@ -541,7 +552,7 @@ class Calendar extends Component {
         setTimeout ( 
           function() {
             $.ajax({
-              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+              url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey,
               type: 'GET',
               success: function(data) {
                 // console.log('Game results: ', data)
@@ -768,108 +779,130 @@ class Calendar extends Component {
       }
 
     createTimer = (timeDiff) => {
+        let self = this
         //console.log('Time until first game: ', timeDiff)
         let seconds = moment.duration(timeDiff).asSeconds() * 1000
-        //console.log('In seconds milliseconds: ', seconds)
-        this.setState({ timeDiff: seconds })
+        console.log('In seconds milliseconds: ', seconds)
+        self.setState({ timeDiff: seconds })
         // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
       }
 
+    timerRender = ({ hours, minutes, seconds, completed }) => {
+      if (completed) {
+        // Render a completed state
+        return <span>You are good to go!</span>;
+      } else {
+        // Render a countdown
+        return <span>{hours}:{minutes}:{seconds}</span>;
+      }
+    };
+
     loadLogo = (team) => {
-      switch (true) {
-        case (team === 'atl'):
-          return atl;
+      // console.log('TEAMS: ', this.state.teams)
+      // console.log('THIS TEAM: ', team)
+      let logo = this.state.teams.filter(teamLogo => {
+        return teamLogo.abbr === team
+      })
+      if (logo[0]) {
+        // console.log('TEAM LOGO: ', logo[0].logo.default)
+        return logo[0].logo.default
+      }
+      
+      // return logo
+      // switch (true) {
+      //   case (team === 'atl'):
+      //     return atl;
           
-        case (team === 'bkn'):
-          return bkn;
+      //   case (team === 'bkn'):
+      //     return bkn;
           
-        case (team === 'bos'):
-          return bos;
+      //   case (team === 'bos'):
+      //     return bos;
           
-        case (team === 'cha'):
-          return cha;
+      //   case (team === 'cha'):
+      //     return cha;
           
-        case (team === 'chi'):
-          return chi;
+      //   case (team === 'chi'):
+      //     return chi;
            
-        case (team === 'cle'):
-          return cle;
+      //   case (team === 'cle'):
+      //     return cle;
            
-        case (team === 'dal'):
-          return dal;
+      //   case (team === 'dal'):
+      //     return dal;
            
-        case (team === 'den'):
-          return den;
+      //   case (team === 'den'):
+      //     return den;
            
-        case (team === 'det'):
-          return det;
+      //   case (team === 'det'):
+      //     return det;
            
-        case (team === 'gsw'):
-          return gsw;
+      //   case (team === 'gsw'):
+      //     return gsw;
            
-        case (team === 'hou'):
-          return hou;
+      //   case (team === 'hou'):
+      //     return hou;
            
-        case (team === 'ind'):
-          return ind;
+      //   case (team === 'ind'):
+      //     return ind;
            
-        case (team === 'lac'):
-          return lac;
+      //   case (team === 'lac'):
+      //     return lac;
            
-        case (team === 'lal'):
-          return lal;
+      //   case (team === 'lal'):
+      //     return lal;
            
-        case (team === 'mem'):
-          return mem;
+      //   case (team === 'mem'):
+      //     return mem;
            
-        case (team === 'mia'):
-          return mia;
+      //   case (team === 'mia'):
+      //     return mia;
         
-        case (team === 'mil'):
-          return mil;
+      //   case (team === 'mil'):
+      //     return mil;
            
-        case (team === 'min'):
-          return min;
+      //   case (team === 'min'):
+      //     return min;
            
-        case (team === 'nop'):
-          return nop;
+      //   case (team === 'nop'):
+      //     return nop;
            
-        case (team === 'nyk'):
-          return nyk;
+      //   case (team === 'nyk'):
+      //     return nyk;
            
-        case (team === 'okc'):
-          return okc;
+      //   case (team === 'okc'):
+      //     return okc;
            
-        case (team === 'orl'):
-          return orl;
+      //   case (team === 'orl'):
+      //     return orl;
            
-        case (team === 'phi'):
-          return phi;
+      //   case (team === 'phi'):
+      //     return phi;
            
-        case (team === 'phx'):
-          return phx;
+      //   case (team === 'phx'):
+      //     return phx;
            
-        case (team === 'por'):
-          return por;
+      //   case (team === 'por'):
+      //     return por;
            
-        case (team === 'sac'):
-          return sac;
+      //   case (team === 'sac'):
+      //     return sac;
            
-        case (team === 'sas'):
-          return sas;
+      //   case (team === 'sas'):
+      //     return sas;
            
-        case (team === 'tor'):
-          return tor;
+      //   case (team === 'tor'):
+      //     return tor;
            
-        case (team === 'uta'):
-          return uta;
+      //   case (team === 'uta'):
+      //     return uta;
            
-        case (team === 'was'):
-          return was;
+      //   case (team === 'was'):
+      //     return was;
            
-        default:
-          return uta;
-        }  
+      //   default:
+      //     return uta;
+      //   }  
 
       }
 
@@ -957,8 +990,8 @@ class Calendar extends Component {
 
               <div className="row countdown">
               <div className="col-3"></div>
-              <div className="col-6 timer">
-                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+              <div className="col-6 timeToPick">
+                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true}>
                     <EndTimer />
                   </Countdown>
               </div>

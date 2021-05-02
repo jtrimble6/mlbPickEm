@@ -1,21 +1,39 @@
 #editChallengePage {
-    color: gold;
-    /* margin: 0 auto; */
-    margin-bottom: 10%;
+  color: gold;
+  /* margin: 0 auto; */
+  /* margin-bottom: 10%; */
 }
 
 #editChalForm {
-    justify-content: center;
-    /* margin-top: 5%; */
+  justify-content: center;
+  /* margin-top: 5%; */
 }
 
 .formPlaceholder {
-    text-align: center;
+  text-align: center;
+  margin-bottom: 5vh;
+}
+
+.adminEditChallengeFormDiv {
+  width: 70vw;
+  margin: 0 auto;
+}
+
+.adminEditChallengeTitle {
+  margin-bottom: 3vh;
+  font-size: 1.5rem;
+}
+
+.challengeSelectorTitle {
+  margin-bottom: 2vh;
+}
+
+.adminEditChallengeForm {
+  margin-bottom: 5vh;
 }
 
 @media (max-width: 900px) {
-    #editChallengePage {
-        margin-bottom: 20%;
-    }
+  #editChallengePage {
+    margin-bottom: 20%;
   }
-
+}

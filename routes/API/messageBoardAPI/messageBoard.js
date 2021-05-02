@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const messageBoardController = require("../../../controllers/messageBoardController");
+const messageBoardController = require("../../../controllers/user/messageBoardController");
 const express = require("express");
 
 router.route("/")

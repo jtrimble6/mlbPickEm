@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import AdminBar from '../../components/nav/AdminBar'
+// import AdminBar from '../../components/nav/AdminBar'
+import { UncontrolledCollapse, Button } from 'reactstrap';
 import '../../css/editChallenge.css'
 import ExistingAccount from "../../components/alerts/ExistingAccount";
 import PasswordError from '../../components/alerts/PasswordError';
@@ -379,14 +380,26 @@ class EditChallenge extends Component {
         // let chalUrl = 
         return (
             <div id="editChallengePage">
-            <AdminBar />
+            {/* <AdminBar /> */}
               {/* {this.renderRedirect()} */}
-              <div className="formContainer">    
+              <Button color="primary" id="togglerEditChallenge" style={{ marginBottom: '1rem' }}>
+                  Edit Challenge <i class="fas fa-caret-down"></i>
+                </Button>
+              <UncontrolledCollapse toggler="#togglerEditChallenge">
+              <div className="formContainer adminEditChallengeFormDiv">    
                 <form className="formSignup" action="index.html">                    
                   <div id='editChalForm' className='signupWrap'>
-                    <h2 className="formSignup-heading">Edit Challenge ({this.state.challengeName})</h2>
+                    <h2 
+                    className="formSignup-heading adminEditChallengeTitle"
+                    > 
+                    { 
+                      this.state.challengeName.length ? 
+                      'Currently Editing Challenge (' + this.state.challengeName + ')' 
+                      : '' 
+                    }
+                    </h2>
                       <div className="form-group">
-                        <label htmlFor="challengeEditName">Select Challenge</label>
+                        <label htmlFor="challengeEditName" className='challengeSelectorTitle'>Select Challenge</label>
                           <select 
                             value={this.state.challengeData}
                             name="challengeData"
@@ -425,9 +438,9 @@ class EditChallenge extends Component {
                     <p>Form selection will appear here</p>
                 </div>
                 :
-                <div className="formContainer">    
-                  <form className="formSignup" action="index.html">                    
-                    <div className="signupWrap">
+                <div className="formContainer adminEditChallengeFormDiv">    
+                  <form className="formSignUp" action="index.html">                    
+                    <div className="signUpWrap adminEditChallengeForm">
                         <div className="form-group">
                             <label htmlFor="challengeName">Challenge Name</label>
                                 <input 
@@ -717,6 +730,7 @@ class EditChallenge extends Component {
                   </form>
                 </div>
                 }
+                </UncontrolledCollapse>
               </div> 
         
         )

@@ -1,106 +1,105 @@
 #leaderboardPage.leaderboard {
-    margin: 0 auto !important;
-    min-width: 80% !important;
+  margin: 0 auto !important;
+  /* min-width: 80% !important; */
 }
 
 @media (min-width: 751px) {
-    #leaderboardPage.thead {
-        font-size: 200%;
-        border: none;
-    }
-    
-    #leaderboardPage.allRows {
-        max-height: 30% !important;
-        overflow: auto;
-        font-size: 150%;
-    }
-    
-    #leaderboardPage {
-        /* position: relative; */
-        margin-top: 10%;
-        margin-left: 1% !important;
-    }
-    
-    .leaderRow {
-        position: relative !important;
-        overflow: auto !important;
-        top: auto;
-        width: 10em !important;
-        left: 0;
-    }
-    
-    .teamLogos {
-        position: relative;
-        flex-wrap: nowrap;
-    }
+  #leaderboardPage.thead {
+    font-size: 200%;
+    border: none;
+  }
+
+  #leaderboardPage.allRows {
+    max-height: 30% !important;
+    overflow: auto;
+    font-size: 150%;
+  }
+
+  #leaderboardPage {
+    /* position: relative; */
+    margin-top: 10%;
+    /* margin-left: 1% !important; */
+  }
+
+  .leaderRow {
+    position: relative !important;
+    overflow: auto !important;
+    top: auto;
+    width: 10em !important;
+    left: 0;
+  }
+
+  .teamLogos {
+    position: relative;
+    flex-wrap: nowrap;
+  }
 }
 
 @media (min-width: 451px) and (max-width: 750px) {
-    #leaderboardPage.thead {
-        border: none;
-    }
-    
-    #leaderboardPage.allRows {
-        max-height: 30% !important;
-        overflow: auto;
-    }
-    
-    #leaderboardPage.leaderboard {
-        /* position: relative; */
-        margin-top: 20%;
-        max-width: 80%;
-        margin-left: 10%;
-    }
-    
-    .leaderRow {
-        position: relative !important;
-        overflow: auto !important;
-        top: auto;
-        width: 10em !important;
-        left: 0;
-    }
-    
-    .teamLogos {
-        position: relative;
-        flex-wrap: nowrap;
-    }
+  #leaderboardPage.thead {
+    border: none;
+  }
+
+  #leaderboardPage.allRows {
+    max-height: 30% !important;
+    overflow: auto;
+  }
+
+  #leaderboardPage.leaderboard {
+    /* position: relative; */
+    margin-top: 20%;
+    max-width: 80%;
+    /* margin-left: 10%; */
+  }
+
+  .leaderRow {
+    position: relative !important;
+    overflow: auto !important;
+    top: auto;
+    width: 10em !important;
+    left: 0;
+  }
+
+  .teamLogos {
+    position: relative;
+    flex-wrap: nowrap;
+  }
 }
 
 @media (max-width: 450px) {
-    #leaderboardPage.thead {
-        border: none;
-    }
-    
-    #leaderboardPage.allRows {
-        max-height: 30% !important;
-        overflow: auto;
-    }
-    
-    #leaderboardPage.leaderboard {
-        /* position: relative; */
-        margin-top: 20%;
-        max-width: 80%;
-        margin-left: 10%;
-    }
-    
-    .leaderRow {
-        position: relative !important;
-        overflow: auto !important;
-        top: auto;
-        width: 10em !important;
-        left: 0;
-    }
-    
-    .teamLogos {
-        position: relative;
-        flex-wrap: nowrap;
-    }
+  #leaderboardPage.thead {
+    border: none;
+  }
+
+  #leaderboardPage.allRows {
+    max-height: 30% !important;
+    overflow: auto;
+  }
+
+  #leaderboardPage.leaderboard {
+    /* position: relative; */
+    margin-top: 20%;
+    max-width: 80%;
+    /* margin-left: 10%; */
+  }
+
+  .leaderRow {
+    position: relative !important;
+    overflow: auto !important;
+    top: auto;
+    width: 10em !important;
+    left: 0;
+  }
+
+  .teamLogos {
+    position: relative;
+    flex-wrap: nowrap;
+  }
 }
 
-
 @media (max-width: 900px) {
-    #leaderboardPage {
-        margin-top: 15%;
-        margin-bottom: 20%;
-    }
+  #leaderboardPage {
+    margin-top: 15%;
+    margin-bottom: 20%;
+  }
 }

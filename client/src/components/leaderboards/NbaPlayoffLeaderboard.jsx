@@ -4,7 +4,7 @@ import { Jumbotron, Container, Button, Modal, ModalHeader, ModalBody, ModalFoote
 import API from '../../utils/API'
 import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
-import Countdown from 'react-countdown-now';
+import Countdown from 'react-countdown';
 import $ from 'jquery'
 import { mil, tor, phi, ind, bos, bkn, det, orl, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nbaLogos'
 

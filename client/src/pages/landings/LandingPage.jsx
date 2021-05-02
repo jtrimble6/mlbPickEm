@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import LazyHero from 'react-lazy-hero'
+// import LazyHero from 'react-lazy-hero'
 import { Button } from 'reactstrap'
 import LandingBar from '../../components/nav/LandingBar'
+import Footer from '../../components/nav/Footer'
 // import moment from 'moment';
 import $ from 'jquery'
 import '../../css/landing.css'
+// import background1 from '../../css/images/landing5.jpg'
 
 class LandingPage extends Component {
 
@@ -49,7 +51,7 @@ class LandingPage extends Component {
       }
 
     render() {
-        let background1 = require('../../css/images/landing5.jpg')
+        // let background1 = require('../../css/images/landing5.jpg')
         return (
             <div id='landingPage'>
               {this.renderRedirect()}
@@ -57,24 +59,28 @@ class LandingPage extends Component {
               <LandingBar 
                 username={this.state.username}
               />
-              <LazyHero 
+              {/* <LazyHero 
                 imageSrc={background1}
                 className='lazyHero'
                 parallaxOffset={100}
                 minHeight='700px'
-              >
+              > */}
+              <div className='landingHeader'>
                 <p className='heroTitle'>Home of sports <em className='emphasis'>Challenges!</em></p> <br />
                 <p className='heroText'>
                   Join today and begin competing in the ultimate sports <em>Challenges</em> ranging across all major sports leagues and events! 
                 </p> <br />
-                <Button outline color='warning' className='signUpButton' onClick={this.setRedirect}>
-                  SIGN UP
-                </Button>
-                <Button outline color='warning' className='loginButton' onClick={this.setLoginRedirect}>
-                  LOGIN
-                </Button>
-              </LazyHero>
-              
+                <div className='row landingActionButtonRow'>
+                  <Button outline color='warning' className='signUpButton' onClick={this.setRedirect}>
+                    SIGN UP
+                  </Button>
+                  <Button outline color='warning' className='loginButton' onClick={this.setLoginRedirect}>
+                    LOGIN
+                  </Button>
+                </div>
+              </div>
+              {/* </LazyHero> */}
+              <Footer />
             </div>
         )
     }

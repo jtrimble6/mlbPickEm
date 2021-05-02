@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import ReactTable from "react-table";
+import ReactTable from "react-table-6";  
+import "react-table-6/react-table.css" 
 // import { Redirect } from 'react-router-dom'
-import matchSorter from 'match-sorter'
+import {matchSorter} from 'match-sorter'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment'
 import $ from 'jquery'
-import 'react-table/react-table.css'
 import '../../css/gamesPage.css'
 
 class MlbGamesPage extends Component {
@@ -142,7 +142,7 @@ class MlbGamesPage extends Component {
 
   getGames = () => {
     let self = this
-    const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+    const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
     // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
     // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
     // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
@@ -151,7 +151,7 @@ class MlbGamesPage extends Component {
     $.ajax({
       // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
       // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
-      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/2019/REG/schedule.json?api_key=' + mlbKey,
+      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/2021/REG/schedule.json?api_key=' + mlbKey,
       type: 'GET',
       success: function(data) {
         self.setState({ fullSchedule: data.games });
@@ -172,7 +172,7 @@ class MlbGamesPage extends Component {
     console.log('GETTING RESULTS: ', yesterdayGamesIds)
     console.log('YESTERDAY: ', yesterday)
 
-    const mlbKey = 'm8nv9rkvt8ct9wkd85frt5zt'
+    const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
 
     // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
     for (let m=0; m<yesterdayGamesIds.length; m++) {
@@ -180,7 +180,7 @@ class MlbGamesPage extends Component {
       setTimeout ( 
         function() {
           $.ajax({
-            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
+            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
             // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
             type: 'GET',
             success: function(data) {

@@ -1,59 +1,88 @@
-#adminPage .formContainer {
-    margin-top: 100px;
-  }
+#adminPage {
+  margin-top: 100px;
+}
 
 .formAdmin {
-    color: gold;
-    max-width: 60%;
-    margin-left: 20%;
-  }
+  color: gold;
+  max-width: 60%;
+  margin-left: 20%;
+}
+
+.adminFormHeading {
+  font-size: 3rem !important;
+  margin-bottom: 5vh;
+  color: white;
+  font-family: "Special Elite", cursive;
+}
+
+.adminFormLabel {
+  font-size: 2rem;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  width: 100%;
+}
+
+.adminFormOption {
+  max-width: 100%;
+}
+
+.adminChallengeButtonRow {
+  width: 100%;
+}
+
+.adminChallengeButton {
+  width: 30vw;
+  margin: 0 auto;
+}
 
 a {
-    color: white;
-  }
+  color: white;
+}
 
 #adminPage {
-    font-family: 'Special Elite', cursive;
-    margin-top: 7%;
-    text-align: center;
-  }
+  font-family: "Special Elite", cursive;
+  margin-top: 7%;
+  text-align: center;
+}
 
 #adminPage h1 {
-    color: gold !important;
-    margin-bottom: 2%;
+  color: gold !important;
+  margin-bottom: 2%;
 }
 
 #adminPage h3 {
   color: white;
 }
 
+.adminTablePage {
+  margin-top: 7%;
+  margin-bottom: 10%;
+}
+
 #chalDeletionPage {
-    font-family: 'Special Elite', cursive;
-    margin-bottom: 10%;
+  font-family: "Special Elite", cursive;
+  margin-bottom: 10%;
 }
 
 .challengeDeletionModal {
-    font-family: 'Special Elite', cursive;
-    color: gold;
+  font-family: "Special Elite", cursive;
+  color: gold;
 }
 
 .deletionRow p {
-    font-size: 22px;
-    margin: 0 auto;
+  font-size: 22px;
+  margin: 0 auto;
 }
 
 .deletionRow strong {
-    color: red;
-    font-size: 14px;
-    margin: 0 auto;
-}
-
-.adminRow {
-  justify-content: center;
+  color: red;
+  font-size: 14px;
+  margin: 0 auto;
 }
 
 #adminActions {
-  margin: 1%;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
   text-align: center;
   width: 100%;
 }
@@ -67,7 +96,8 @@ a {
   margin: 1%;
 }
 
-#adminChals, #adminUsers {
+#adminChals,
+#adminUsers {
   margin-top: 10% !important;
 }
 
@@ -81,6 +111,20 @@ a {
 .usersTable {
   text-align: center;
   margin: 0 auto;
+  width: 60vw;
+}
+
+.userDataRowHeader {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffc107;
+  margin-bottom: 5vh;
+}
+
+.userDataPickSpan p {
+  margin-bottom: 2vh;
+  color: white;
+  /* background-color: white; */
 }
 
 #adminUsers {
@@ -92,7 +136,7 @@ a {
 }
 
 #challengePage {
-  margin-top: 5%;
+  margin-top: 20vh;
   margin-bottom: 10%;
   text-align: center;
 }
@@ -100,6 +144,27 @@ a {
 .chalUsers {
   color: gold;
   font-size: 24px;
+}
+
+.adminDatabaseHeader {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.adminDatabaseControlsRow {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.adminDatabaseControlsButton {
+  width: 25%;
+  margin: 0 auto;
+  background-color: #ffc107;
+  color: darkblue;
 }
 
 @media (min-width: 200px) and (max-width: 900px) {
@@ -124,14 +189,11 @@ a {
     margin-bottom: 40%;
     text-align: center;
   }
-  
+
   .chalUsers {
     color: gold;
     font-size: 16px;
   }
-  
-  
-
 }
 
 #adminPage {
@@ -140,7 +202,7 @@ a {
 
 @media (max-width: 900px) {
   #adminPage {
-      margin-top: 30%;
-      margin-bottom: 40%;
+    margin-top: 30%;
+    margin-bottom: 40%;
   }
 }

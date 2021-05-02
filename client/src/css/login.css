@@ -1,76 +1,92 @@
-/* .formContainer {
-    margin-top: 100px;
-} */
+#loginPage {
+  min-height: 100vh;
+}
 
-.formLogin {
-    color: gold;
-    max-width: 60%;
-    margin-left: 20%;
-    text-align: center !important;
+#loginPage .formLogin {
+  position: relative;
+  top: 20vh;
+}
+
+.formLoginContainer {
+  position: relative;
+  min-height: 100vh;
+}
+
+.formAdminLoginContainer {
+  border-radius: 1rem;
+}
+
+.formLogin,
+.formAdminLogin {
+  color: gold;
+  max-width: 60%;
+  margin-left: 20%;
+  text-align: center !important;
+  border-radius: 1rem;
 }
 
 .formLoginHeading {
-    text-align: center;
+  text-align: center;
 }
 
 .registration {
-    text-align: center;
+  text-align: center;
 }
 
 a {
-    color: white;
+  color: white;
 }
 
 .btnMaster {
-    color: #209CEE;
-    background-color: gold !important;
+  color: #209cee;
+  background-color: gold !important;
 }
 
 .invalidToken {
-    color: red;
-    font-weight: bolder;
-    font-size: 110%;
-    text-align: center !important;
+  color: red;
+  font-weight: bolder;
+  font-size: 110%;
+  text-align: center !important;
 }
 
 #loginPageAdmin {
-    margin: 0 auto;
-    margin-top: 15%;
-    height: 100%;
-    width: 80%;
-    background-color: gold;
-    border-radius: 20%;
+  margin: 0 auto;
+  margin-top: 25vh;
+  height: 100%;
+  width: 80%;
+  background-color: gold;
+  border-radius: 1rem;
+  padding: 5vw;
 }
 
 #loginPageAdmin .formLoginHeading {
-    color: #209CEE;
+  color: #209cee;
 }
 
 #loginPageAdmin a {
-   color: #209CEE;
+  color: #209cee;
 }
 
-        .formContainer {
-    margin: 0 auto !important;
-    padding: 5%;
+.forgotLabel {
+  padding: 1vw;
 }
 
 @media (min-width: 501px) and (max-width: 1300px) {
-    .formLogin {
-        margin-top: 20%;
-    }
+  .formLogin {
+    margin-top: 20%;
+  }
 
-    .formLogin .checkbox {
-        margin: 5% !important;
-    }
+  .formLogin .checkbox {
+    margin: 5% !important;
+  }
 }
 
 @media (max-width: 500px) {
-    .formLogin {
-        margin-top: 40%;
-    }
+  .formLogin {
+    margin-top: 40%;
+  }
 
-    .formLogin .checkbox {
-        margin: 5% !important;
-    }
+  .formLogin .checkbox {
+    margin: 5% !important;
+  }
 }

@@ -28,7 +28,7 @@ class MessageBoard extends Component {
         
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.getUser()
         this.getMessageBoard()
       }

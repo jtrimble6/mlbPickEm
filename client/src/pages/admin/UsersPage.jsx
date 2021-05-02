@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
-import ReactTable from "react-table";
-import matchSorter from 'match-sorter'
+import ReactTable from "react-table-6";  
+import "react-table-6/react-table.css" 
+import {matchSorter} from 'match-sorter'
 // import moment from 'moment'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
@@ -75,20 +76,21 @@ class UsersPage extends Component {
       ]
 
         return(
-            <div id='editUsersPage'>
+            <div className='adminTablePage'>
               <AdminBar />
+              <div id='nbaGames'>
+                <h1 className='adminDatabaseHeader'>Active Users</h1>
 
-              <h1>Active Users</h1>
-
-              <ReactTable
-                    filterable
-                    defaultFilterMethod={(filter, row) =>
-                      String(row[filter.id]) === filter.value}
-                    data={users}
-                    resolveData={data => data.map(row => row)}
-                    columns={columns}
-                    className='usersTable'
-                  />
+                <ReactTable
+                  filterable
+                  defaultFilterMethod={(filter, row) =>
+                    String(row[filter.id]) === filter.value}
+                  data={users}
+                  resolveData={data => data.map(row => row)}
+                  columns={columns}
+                  className='usersTable'
+                />
+              </div>
             </div>
         )
     }

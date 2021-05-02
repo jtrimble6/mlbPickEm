@@ -1,5 +1,24 @@
 #logoutPage {
-    text-align: center;
-    margin-top: 10%;
-    color: gold;
+  text-align: center;
+  margin-top: 10%;
+  color: gold;
+}
+
+.logoutPageHeader {
+  font-size: 3rem;
+  margin-bottom: 1vh;
+}
+
+.logoutPageNote {
+  font-size: 1.5rem;
+  margin-bottom: 2vh;
+}
+
+.logoutPageLink {
+  text-decoration: none !important;
+  line-height: 1.5 !important;
+}
+
+.logoutPageLink:hover {
+  text-decoration: none !important;
 }

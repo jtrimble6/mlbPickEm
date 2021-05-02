@@ -80,7 +80,7 @@ renderRedirect = () => {
                     <Button
                         color='warning'
                         className='adminSignup'
-                        data-url='/adminSignup'
+                        data-url='/manageAdmins'
                         onClick={this.setRedirect}
                       >
                       Add Admin
@@ -88,38 +88,30 @@ renderRedirect = () => {
                     <Button
                         color='warning'
                         className='addChallengeButton'
-                        data-url='/addDeleteChallenge'
+                        data-url='/manageChallenges'
                         onClick={this.setRedirect}
                       >
-                      Add/Delete Challenges
+                      Manage Challenges
                     </Button>
-                    <Button
+                    {/* <Button
                         color='warning'
                         className='editChallengeButton'
                         data-url='/editChallenge'
                         onClick={this.setRedirect}
                       >
                       Edit Challenges
-                    </Button>
+                    </Button> */}
                     </div>
 
                     <div id='adminActions' className='col-6' >
-                      <h3>Sporting Event Database</h3>
+                      <h3>Sporting Event Schedules</h3>
                       <Button
                           color='primary'
                           className='nbaGamesButton'
                           data-url='/nbaGames'
                           onClick={this.setRedirect}
                         >
-                        NBA Games (2018-19)
-                      </Button>
-                      <Button
-                          color='primary'
-                          className='nbaGamesButton'
-                          data-url='/mlbGames'
-                          onClick={this.setRedirect}
-                        >
-                        MLB Games (2018-19) 
+                        NBA Season
                       </Button>
                       <Button
                           color='primary'
@@ -127,7 +119,15 @@ renderRedirect = () => {
                           data-url='/nbaPlayoffGames'
                           onClick={this.setRedirect}
                         >
-                        NBA Playoff Games (2018-19)
+                        NBA Playoffs
+                      </Button>
+                      <Button
+                          color='primary'
+                          className='nbaGamesButton'
+                          data-url='/mlbGames'
+                          onClick={this.setRedirect}
+                        >
+                        MLB Season
                       </Button>
                     </div>
                   </div>
@@ -156,6 +156,14 @@ renderRedirect = () => {
 
                   <div id='adminActions' className='col-6'> 
                     <h3>Challenge Data</h3>
+                      <Button
+                        color='success'
+                        className='challengeButtons'
+                        data-url='/challengeTeams'
+                        onClick={this.setRedirect}
+                      >
+                      Challenge Teams
+                    </Button>
                     <Button
                       color='success'
                       className='challengeButtons'
@@ -163,6 +171,15 @@ renderRedirect = () => {
                       onClick={this.setRedirect}
                     >
                       MLB Pick Em Challenges 
+                    </Button>
+                    <Button
+                      color='success'
+                      className='challengeButtons'
+                      data-url='/nbaPickEmDB'
+                      data-challengeid='6080977b16093c2245f11ffd'
+                      onClick={this.setRedirect}
+                    >
+                      NBA Pick Em Challenges
                     </Button>
                     <Button
                       color='success'
@@ -184,7 +201,7 @@ renderRedirect = () => {
                     </Button>
                     <Button
                           color='success'
-                          className='nbaGamesButton'
+                          className='challengeButtons'
                           data-url='/nflDivisionAdmin'
                           onClick={this.setRedirect}
                         >

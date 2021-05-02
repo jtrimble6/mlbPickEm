@@ -52,7 +52,7 @@ class NbaPlayoffDBPage extends Component {
               let challenges = res.data
               console.log('CHALLENGES: ', challenges)
               let filteredChals = challenges.filter(findSport)
-              console.log('ONLY NBA PLAYOFF CHALLENGES: ', filteredChals)
+              console.log('ONLY NBA CHALLENGES: ', filteredChals)
               self.setState({
                   allChallenges: filteredChals
               })

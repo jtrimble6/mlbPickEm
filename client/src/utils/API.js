@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-export default {
-
+const API = {
     // ADMIN API CALLS
     saveAdmin: function(adminData) {
         return axios.post('/api/admins', adminData)
@@ -49,8 +48,20 @@ export default {
     getUser: function(id) {
         return axios.get('/api/users/' + id)
     },
+    findUsersByChallengeId: function(challengeId) {
+        return axios.get('/api/users/find/' + challengeId)
+    },
     deleteUser: function(id) {
         return axios.delete('/api/users/' + id)
+    },
+    addUserPick: function(id, pick) {
+        return axios.post('/api/users/' + id, pick)
+    },
+    updateUserPick: function(id, gameId, result) {
+        return axios.put('/api/users/' + id + '/' + gameId + '/' + result)
+    },
+    overrideUserPick: function(id, challengeId, gameDate, pick) {
+        return axios.put('/api/users/update/' + id + '/' + challengeId + '/' + gameDate, pick)
     },
 
     // PASSWORD RESET API CALLS
@@ -92,6 +103,9 @@ export default {
     },
     addNbaGamesByTeam: function(team, game) {
         return axios.put('/api/nbateams/' + team, game)
+    },
+    removeNbaGamesByTeam: function(team) {
+        return axios.delete('/api/nbateams/' + team)
     },
     getNbaTeam: function(team) {
         return axios.get('/api/nbateams/' + team)
@@ -305,13 +319,10 @@ export default {
     updateNbaPick: function(id, user, date, result) {
         return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
     },
+    // updateUserPick: function(id, user, gameId, result) {
+    //     return axios.put('/api/challenges/' + id + '/users/' + user + '/' + gameId + '/' + result)
+    // }
 
-    
+};
 
-
-
-    
-    
-    
-        
-}
+export default API;

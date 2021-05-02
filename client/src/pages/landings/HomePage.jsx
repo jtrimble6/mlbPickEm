@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
 import HomeBar from '../../components/nav/HomeBar'
+import Footer from '../../components/nav/Footer'
 import MyChallenges from '../../components/home/myChallenges'
 import UpcomingChallenges from '../../components/home/upcomingChallenges'
 import MessageBoard from '../../components/home/messageBoard'
@@ -44,7 +45,7 @@ class HomePage extends Component {
 
     getActiveChallenges() {
       let self = this
-      let recentDate = moment().subtract(3, 'days').format('YYYY-MM-DDT00:00:00.000Z')
+      let recentDate = moment().subtract(31, 'days').format('YYYY-MM-DDT00:00:00.000Z')
       console.log('RECENT DATE: ', recentDate)
       API.getChallenges()
         .then(res => {
@@ -132,34 +133,43 @@ class HomePage extends Component {
               </div> */}
 
 
-              <div className='row homePageBoard'>
-                <div className="col-3 myChallenges">
-                  <h1>
-                      My Challenges
-                  </h1>
-                  <MyChallenges 
-                    username={this.state.username}
-                    myChallenges={this.state.myChallenges}
-                  />
+              <div className='homePageBoard'>
+                <div className='row'>
+                  <div className='col-3 homeBoardLeftColumn'>
+                    <div className="row myChallengesCol">
+                      <h1>
+                          My Challenges
+                      </h1>
+                      <MyChallenges 
+                        username={this.state.username}
+                        myChallenges={this.state.myChallenges}
+                      />
+                    </div>
+                    <div className="row messageBoardCol">
+                      <h1>
+                          Message Board
+                      </h1>
+                      <MessageBoard
+                        username={this.state.username}
+                      />
+                    </div>
+                  </div>
+                
+                  <div className='col-9 homeBoardRightColumn'>
+                    <div className="row upcomingChallengesCol">
+                      <h1>
+                          Open Challenges
+                      </h1>
+                      <UpcomingChallenges 
+                        username={this.state.username}
+                        challenges={this.state.allRecentChallenges}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="col-5 upcomingChallengesCol">
-                  <h1>
-                      Open Challenges
-                  </h1>
-                  <UpcomingChallenges 
-                    username={this.state.username}
-                    challenges={this.state.allRecentChallenges}
-                  />
-                </div>
-                <div className="col-3 messageBoardPage">
-                  <h1>
-                      Message Board
-                  </h1>
-                  <MessageBoard
-                    username={this.state.username}
-                  />
-                </div>
+
               </div>
+              <Footer />
             </div>
         )
     }

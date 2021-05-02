@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import AdminBar from '../../components/nav/AdminBar'
 import '../../css/createChallenge.css'
+import { UncontrolledCollapse, Button } from 'reactstrap';
 import ExistingChallenge from "../../components/alerts/ExistingChallenge";
 import PasswordError from '../../components/alerts/PasswordError';
 import CreationSuccess from '../../components/alerts/CreationSuccess';
@@ -28,6 +28,16 @@ class CreateChallenge extends Component {
             maxEntries: 0,
             buyIn: 0,
             url: '',
+            nflPickEmUrl: '/actionNfl',
+            mlbPickEmUrl: '/actionMlb',
+            nbaPickEmUrl: '/actionNba',
+            mastersPickEmUrl: '/masters',
+            nbaPlayoffsUrl: '/nbaPlayoffs',
+            nflPickEmRulesUrl: '/nflRules',
+            mlbPickEmRulesUrl: '/mlbRules',
+            nbaPickEmRulesUrl: '/nbaPickEmRules',
+            mastersPickEmRulesUrl: '/mastersRules',
+            nbaPlayoffsRulesUrl: '/nbaPlayoffRules',
             rulesUrl: '',
             creator: localStorage.getItem('user'),
             sport: '',
@@ -36,6 +46,8 @@ class CreateChallenge extends Component {
             img: '',
             password: '',
             confirmPassword: '',
+            allNbaGames: [],
+            allMlbGames: [],
             golfers: [],
             nbaTeams: [
               { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
@@ -161,11 +173,80 @@ class CreateChallenge extends Component {
           this.handleFormSubmit = this.handleFormSubmit.bind(this)
           this.handleFormError = this.handleFormError.bind(this)
           this.getAllTeams = this.getAllTeams.bind(this)
+          this.getNbaGames = this.getNbaGames.bind(this)
+          this.getMlbGames = this.getMlbGames.bind(this)
     }
 
     componentDidMount() {
         // this.getAllTeams()
       }
+
+    getMlbGames = () => {
+      API.getMlbGames()
+        .then(res => {
+          let games = []
+          res.data.forEach((game) => {
+            let splitDate = game.gameDate.split('T')
+            let gameDate = splitDate[0]
+            let homeAlias = game.homeAlias.toLowerCase()
+            let awayAlias = game.awayAlias.toLowerCase()
+            let startTime = moment(game.gameTime).add(6, 'hours')
+            let gameInfo = {
+                id: game.gameId,
+                date: gameDate,
+                start: startTime,
+                status: game.gameStatus,
+                result: game.gameResult,
+                homeTeam: game.homeTeam,
+                awayTeam: game.awayTeam,
+                homeAlias: homeAlias,
+                awayAlias: awayAlias,
+                title: game.homeAlias + ' vs ' + game.awayAlias,
+                color: 'yellow',
+                textColor: 'white',
+                borderColor: 'blue'
+
+              }
+              games.push(gameInfo)
+            })
+            this.setState({ allMlbGames: games })
+            // this.sortAllGames()
+        })
+          .catch(err => console.log(err))
+    }
+
+    getNbaGames = () => {
+      console.log('GET NBA GAMES')
+      API.getNbaGames()
+        .then(res => {
+          let games = []
+          res.data.forEach((game) => {
+            let splitDate = game.gameDate.split('T')
+            let gameDate = splitDate[0]
+            let homeAlias = game.homeAlias.toLowerCase()
+            let awayAlias = game.awayAlias.toLowerCase()
+            let gameInfo = {
+                id: game.gameId,
+                date: gameDate,
+                start: game.gameTime,
+                status: game.gameStatus,
+                homeTeam: game.homeTeam,
+                awayTeam: game.awayTeam,
+                homeAlias: homeAlias,
+                awayAlias: awayAlias,
+                title: game.homeAlias + ' vs ' + game.awayAlias,
+                color: 'yellow',
+                textColor: 'white',
+                borderColor: 'blue'
+
+              }
+              games.push(gameInfo)
+            })
+            this.setState({ allNbaGames: games })
+        })
+        .catch(err => console.log(err))
+
+    }
 
     getAllTeams = () => {
       let self = this
@@ -260,10 +341,76 @@ class CreateChallenge extends Component {
 
     handleFormSubmit = event => {
         let self = this
-        // this.setState({
-        //     nameTaken: false,
-        // })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nfl' ? this.state.nflTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
+        
+        let sport = ( 
+            this.state.challengeType === 'nbaPickEm' ? 
+            'nba' : 
+            this.state.challengeType === 'mlbPickEm' ? 
+            'mlb' : 
+            this.state.challengeType === 'nflPickEm' ? 
+            'nfl' : 
+            this.state.challengeType === 'nbaPlayoffs' ? 
+            'nba' : 
+            this.state.challengeType === 'mastersPickEm' ? 
+            'golf' : 
+            '' 
+          ) 
+        let teams = ( 
+            this.state.challengeType === 'nbaPickEm' ? 
+            this.state.nbaTeams : 
+            this.state.challengeType === 'mlbPickEm' ? 
+            this.state.mlbTeams : 
+            this.state.challengeType === 'nflPickEm' ? 
+            this.state.nflTeams : 
+            this.state.challengeType === 'nbaPlayoffs' ? 
+            this.state.nbaPlayoffTeams : 
+            this.state.challengeType === 'mastersPickEm' ? 
+            this.state.golfers : '' 
+          ) 
+        // let games = ( 
+        //     this.state.challengeType === 'nbaPickEm' ? 
+        //     this.state.allNbaGames : 
+        //     this.state.challengeType === 'mlbPickEm' ? 
+        //     this.state.allMlbGames : 
+        //     [] 
+        //   ) 
+        let url = ( 
+            this.state.challengeType === 'nbaPickEm' ? 
+            this.state.nbaPickEmUrl : 
+            this.state.challengeType === 'mlbPickEm' ? 
+            this.state.mlbPickEmUrl : 
+            this.state.challengeType === 'nflPickEm' ? 
+            this.state.nflPickEmUrl : 
+            this.state.challengeType === 'nbaPlayoffs' ? 
+            this.state.nbaPlayoffsUrl : 
+            this.state.challengeType === 'mastersPickEm' ? 
+            this.state.mastersPickEmUrl : '' 
+          ) 
+        let rulesUrl = ( 
+            this.state.challengeType === 'nbaPickEm' ? 
+            this.state.nbaPickEmRulesUrl : 
+            this.state.challengeType === 'mlbPickEm' ? 
+            this.state.mlbPickEmRulesUrl : 
+            this.state.challengeType === 'nflPickEm' ? 
+            this.state.nflPickEmRulesUrl : 
+            this.state.challengeType === 'nbaPlayoffs' ? 
+            this.state.nbaPlayoffsRulesUrl : 
+            this.state.challengeType === 'mastersPickEm' ? 
+            this.state.mastersPickEmRulesUrl : '' 
+          ) 
+        let img = ( 
+            this.state.challengeType === 'nbaPickEm' ? 
+            'nbaplayoffchallenge.jpg' : 
+            this.state.challengeType === 'mlbPickEm' ? 
+            'mlbpickemchallenge.jpeg' : 
+            this.state.challengeType === 'nflPickEm' ? 
+            'nfldivisionchallenge.jpeg' : 
+            this.state.challengeType === 'nbaPlayoffs' ? 
+            'nbaplayoffchallenge.jpg' : 
+            this.state.challengeType === 'mastersPickEm' ? 
+            'masterschallenge.jpg' : '' 
+          ) 
+          
         event.preventDefault();
         //console.log(this.state)
         let challengeData = {
@@ -274,13 +421,14 @@ class CreateChallenge extends Component {
             endDate: this.state.endDate,
             buyIn: this.state.buyIn,
             maxEntries: this.state.maxEntries,
-            url: this.state.url,
-            rulesUrl: this.state.rulesUrl,
             creator: this.state.creator,
-            sport: this.state.sport,
-            teams: teams,
             info: this.state.challengeInfo,
-            img: this.state.img,
+            url: url,
+            rulesUrl: rulesUrl,
+            sport: sport,
+            teams: teams,
+            // games: games,
+            img: img,
         };
         console.log('NEW CHALLENGE DATA: ', challengeData);
         // debugger
@@ -297,6 +445,7 @@ class CreateChallenge extends Component {
                 buyIn: 0,
                 url: '',
                 sport: '',
+                challengeType: '',
                 teams: '',
                 challengeInfo: '',
                 img: '',
@@ -316,14 +465,17 @@ class CreateChallenge extends Component {
     render() {
         return (
             <div id="createChal">
-            <AdminBar />
               {/* {this.renderRedirect()} */}
-                <div className="formContainer">    
-                  <form className="formSignup" action="index.html">
-                    <h2 className="formSignup-heading">Create Challenge</h2>
-                      <div className="signupWrap">
-                        <div className="form-group">
-                            <label htmlFor="challengeName">Challenge Name</label>
+              <Button color="primary" id="togglerCreateChallenge" style={{ marginBottom: '1rem' }}>
+                  Create Challenge <i class="fas fa-caret-down"></i>
+                </Button>
+              <UncontrolledCollapse toggler="#togglerCreateChallenge">
+                <div className="formContainer formSignUpContainer">    
+                  <form className="formSignUp" action="index.html">
+                    <h2 className="formSignUp-heading formSignUpHeading">Create Challenge</h2>
+                      <div className="signUpWrap">
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="challengeName">Challenge Name</label>
                                 <input 
                                 value={this.state.challengeName}
                                 name="challengeName"
@@ -336,7 +488,7 @@ class CreateChallenge extends Component {
                             <small id="challengeNameError" className="form-text text-muted">{this.state.nameError}</small>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="challengeStatus">Challenge Status</label>
+                            <label className="formSignUpLabel" htmlFor="challengeStatus">Challenge Status</label>
                               <select
                                     name="challengeStatus"
                                     value={this.state.challengeStatus}
@@ -351,7 +503,7 @@ class CreateChallenge extends Component {
                               </select>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="openSignUp">Open Sign Up Date</label>
+                            <label className="formSignUpLabel" htmlFor="openSignUp">Open Sign Up Date</label>
                             <input 
                                 value={this.state.openSignUp}
                                 name="openSignUp"
@@ -363,7 +515,7 @@ class CreateChallenge extends Component {
                               />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="startDate">Challenge Start Date</label>
+                            <label className="formSignUpLabel" htmlFor="startDate">Challenge Start Date</label>
                             <input 
                                 value={this.state.startDate}
                                 name="startDate"
@@ -375,7 +527,7 @@ class CreateChallenge extends Component {
                               />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="endDate">End Date (optional)</label>
+                            <label className="formSignUpLabel" htmlFor="endDate">End Date (optional)</label>
                             <input 
                                 value={this.state.endDate}
                                 name="endDate"
@@ -387,7 +539,7 @@ class CreateChallenge extends Component {
                               />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="buyIn">Entry Fee</label>
+                          <label className="formSignUpLabel" htmlFor="buyIn">Entry Fee</label>
                             <select
                                     name="buyIn"
                                     value={this.state.buyIn}
@@ -418,7 +570,7 @@ class CreateChallenge extends Component {
                             </select>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="maxEntries">Max Entries</label>
+                            <label className="formSignUpLabel" htmlFor="maxEntries">Max Entries</label>
                             <select
                                     name="maxEntries"
                                     value={this.state.maxEntries}
@@ -448,7 +600,25 @@ class CreateChallenge extends Component {
                             </select>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="sport">Sport</label>
+                            <label className="formSignUpLabel" htmlFor="challengeType">Challenge Type</label>
+                              <select
+                                    name="challengeType"
+                                    value={this.state.challengeType}
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    className="form-control"
+                                    id="challengeType"                                       
+                                >
+                                <option value=''>Select One</option>
+                                <option value='nflPickEm'>NFL Pick Em</option>
+                                <option value='mlbPickEm'>MLB Pick Em</option>
+                                <option value='nbaPickEm'>NBA Pick Em</option>
+                                <option value='nbaPlayoffs'>NBA Playoffs</option>
+                                <option value='mastersPickEm'>Masters Pick Em</option>
+                              </select>
+                        </div>
+                        {/* <div className="form-group">
+                            <label className="formSignUpLabel" htmlFor="sport">Sport</label>
                               <select
                                     name="sport"
                                     value={this.state.sport}
@@ -463,9 +633,9 @@ class CreateChallenge extends Component {
                                 <option value='nba'>NBA</option>
                                 <option value='golf'>MASTERS</option>
                               </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="teams">Teams</label>
+                        </div> */}
+                        {/* <div className="form-group">
+                            <label className="formSignUpLabel" htmlFor="teams">Teams</label>
                               <select
                                     name="teams"
                                     value={this.state.teams}
@@ -481,9 +651,9 @@ class CreateChallenge extends Component {
                                 <option value='nbaPlayoff'>NBA 2018-19 PLAYOFF TEAMS</option>
                                 <option value='masters'>PGA 2018-19 MASTERS</option>
                               </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="url">URL</label>
+                        </div> */}
+                        {/* <div className="form-group">
+                            <label className="formSignUpLabel" htmlFor="url">URL</label>
                               <select
                                     name="url"
                                     value={this.state.url}
@@ -499,9 +669,9 @@ class CreateChallenge extends Component {
                                   <option value='/nbaPlayoffs'>NBA Playoff Challenge</option>
                                   <option value='/masters'>MASTERS Challenge</option>
                                 </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="rulesUrl">Rules URL</label>
+                        </div> */}
+                        {/* <div className="form-group">
+                            <label className="formSignUpLabel" htmlFor="rulesUrl">Rules URL</label>
                               <select
                                     name="rulesUrl"
                                     value={this.state.rulesUrl}
@@ -517,9 +687,9 @@ class CreateChallenge extends Component {
                                   <option value='/nbaPlayoffRules'>NBA Playoff Rules</option>
                                   <option value='/mastersRules'>Masters Rules</option>
                               </select>
-                        </div>
+                        </div> */}
                         <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Creator</label>
+                            <label className="formSignUpLabel" htmlFor="exampleInputEmail1">Creator</label>
                                 <input
                                     readOnly
                                     value={this.state.creator}
@@ -532,7 +702,7 @@ class CreateChallenge extends Component {
                                 />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="challengeInfo">Challenge Info</label>
+                            <label className="formSignUpLabel" htmlFor="challengeInfo">Challenge Info</label>
                                 <textarea 
                                   value={this.state.challengeInfo}
                                   name="challengeInfo"
@@ -543,8 +713,8 @@ class CreateChallenge extends Component {
                                   placeholder="Add some info about the challenge!"
                                 />
                         </div>
-                        <div className="form-group">
-                          <label htmlFor="img">Image</label>
+                        {/* <div className="form-group">
+                          <label className="formSignUpLabel" htmlFor="img">Image</label>
                             <select
                                 name="img"
                                 value={this.state.img}
@@ -559,9 +729,9 @@ class CreateChallenge extends Component {
                                 <option value='nbaplayoffchallenge.jpg'>NBA</option>
                                 <option value='masterschallenge.jpg'>MASTERS</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Create Password (optional)</label>
+                            <label className="formSignUpLabel" htmlFor="exampleInputPassword1">Create Password (optional)</label>
                             <input
                                 value={this.state.password}
                                 name="password"
@@ -573,7 +743,7 @@ class CreateChallenge extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                            <label className="formSignUpLabel" htmlFor="exampleInputPassword1">Confirm Password</label>
                             <input
                                 value={this.state.confirmPassword}
                                 name="confirmPassword"
@@ -607,6 +777,7 @@ class CreateChallenge extends Component {
                         </div>
                     </form>
                 </div>
+                </UncontrolledCollapse>
             </div>
         
         )

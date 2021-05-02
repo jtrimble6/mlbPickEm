@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const challengeController = require("../../../controllers/challengeController");
+const challengeController = require("../../../controllers/admin/challengeController");
 
 router.route('/')
   .get(challengeController.findAll)
@@ -11,12 +11,16 @@ router.route('/:id')
   .get(challengeController.findById)
   .put(challengeController.remove)
 
+
 // router.route('/:id/games')
 //   .post(challengeController.addGames)
 
 router.route('/:id/users/:user')
   .put(challengeController.addUserPick)
   .post(challengeController.addUserWin)
+
+router.route('/:id/users/:user/:gameId/:result')
+  .put(challengeController.updateUserPick)
   
 
 router.route('/:id/users/:user/:date')

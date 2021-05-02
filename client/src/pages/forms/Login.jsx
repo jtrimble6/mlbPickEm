@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
 import LoginBar from '../../components/nav/LoginBar'
+import Footer from '../../components/nav/Footer'
 import SignInError from "../../components/alerts/SignInError";
 import '../../css/login.css'
 
@@ -112,7 +113,7 @@ class Login extends Component {
             <div id="loginPage">
             <LoginBar />
               {this.renderRedirect()}
-                <div className="formContainer">    
+                <div className="formContainer formLoginContainer">    
                     <form className="formLogin" action="index.html">
                         <h2 className="formLoginHeading">Sign In</h2> <br />
                         <div className="loginWrap">
@@ -134,7 +135,7 @@ class Login extends Component {
                                 className="form-control"
                                 placeholder="Password (case sensitive)"
                             />
-                            <label className="checkbox">
+                            <label className="checkbox forgotLabel">
                                 <span className="pull-right">
                                     <a href="/passwordReset">Forgot Password?</a>               
                                 </span>
@@ -160,6 +161,7 @@ class Login extends Component {
                         </div> 
                     </form>	  	
                 </div>
+                <Footer />
             </div>
         )
     }

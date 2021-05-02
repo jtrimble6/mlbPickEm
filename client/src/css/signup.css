@@ -1,29 +1,61 @@
-#signUpPage .formContainer {
-    margin-top: 100px;
-    margin-bottom: 10%;
+#signUpPage .formSignUp {
+  position: relative;
+  top: 5vh;
+  /* margin-bottom: 10%; */
 }
 
-.formSignup {
-    color: gold;
-    max-width: 60%;
-    margin-left: 20%;
+#togglerCreateAdmin {
+  margin: 0 auto;
 }
 
-.formSignup-heading {
-    text-align: center;
+.formSignUpContainer {
+  padding-bottom: 20vh;
+}
+
+.userFormSignUpContainer {
+  padding-top: 20vh;
+}
+
+.formSignUp {
+  color: gold;
+  max-width: 60%;
+  margin-left: 20%;
+}
+
+.formSignUpGroup {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.formSignUpHeading {
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Special Elite", cursive;
+  margin-bottom: 1vh;
+}
+
+.formSignUpLabel {
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  width: 100%;
 }
 
 #usernameError {
-    color: white !important;
+  color: white !important;
 }
 
-.btnMaster {
-    min-width: 100%;
-    max-height: 40px !important;
+.formSignUpSubmitButtonDiv {
+  width: 100%;
+}
+
+.formSignUpSubmitButton {
+  width: 100%;
+  margin-top: 5vh;
+  max-height: 40px !important;
 }
 
 .text-muted {
-    color: white !important;
+  color: white !important;
 }
 
 /* input {

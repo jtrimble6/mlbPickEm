@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import { Collapse, Nav, NavItem, NavLink } from 'reactstrap';
+import logo from '../../css/images/logo2.png'
 import '../../css/navbar.css'
 
 class SignupBar extends Component {
@@ -24,7 +25,7 @@ class SignupBar extends Component {
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
                     <a className="navbar-brand" href="/">
-                        <img src={require('../../css/images/logo2.png')} alt='SportHabits' />
+                        <img src={logo} alt='SportHabits' />
                     </a>
                     {/* <a className="navbar-brand js-scroll-trigger" href="/">SportHabits</a> */}
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,10 +53,6 @@ class SignupBar extends Component {
                     </ul>
                     </div>
                 </div>
-                <footer className="footer">
-                  <p>WWW.SPORTHABITS.COM</p>
-                  <small className='disclaimer'>*DISCLAIMER: THIS SITE IS FOR ENTERTAINMENT PURPOSES ONLY*</small>
-                </footer>
             </nav>
         )
     }

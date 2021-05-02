@@ -1,171 +1,174 @@
+/* #landingPage {
+  min-height: 100vh;
+  background-color: #209cee;
+} */
+
 #landingPage {
-    margin-top: 5%;
-    min-height: 1000px;
-    background-color: #209CEE;
+  background: linear-gradient(rgba(206, 217, 238, 0.35), #209cee),
+    url("./images/landing5.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .lazyHero {
-    margin-top: 305px;
+  position: relative;
+  margin-top: 0vh;
+  height: 100vh;
+}
+
+.landingHeader {
+  position: relative;
+  padding-top: 20vh;
+  height: 100vh;
 }
 
 .jIyzwq {
-    opacity: 1 !important;
-    height: 100%;
+  opacity: 1 !important;
+  height: 100vh;
 }
 
 .cfRRNW {
-    height: 100%;
-    background-position-y: -550px !important;
+  height: 100vh;
+  background-position-y: -550px !important;
 }
 
 .bRjMMg {
-    position: relative !important;
-    min-height: 370px !important;
+  position: relative !important;
+  min-height: 370px !important;
 }
 
 .heroTitle {
-    position: relative;
-    top: -220px;
-    /* margin: 0 auto; */
-    font-family: 'Audiowide', cursive;
-    text-shadow: 2px 2px black;
-    font-size: 50px !important;
-    color: gold;
-    margin-top: 5% !important;
-    margin-bottom: 3%;
-    font-weight: 500;
+  position: relative;
+  top: 5vh;
+  width: 100%;
+  text-align: center;
+  font-family: "Audiowide", cursive;
+  text-shadow: 2px 2px black;
+  font-size: 50px !important;
+  color: #209cee;
+  /* margin-top: 5% !important; */
+  /* margin-bottom: 3%; */
+  font-weight: 500;
 }
 
 .heroText {
-    position: relative;
-    top: -290px;
-    font-family: 'Audiowide', cursive;
-    font-family: 'Special Elite', cursive;
-    font-size: 32px;
-    font-weight: 900;
-    color: gold;
-    padding: 45px;
-    width: 80%;
-    margin: 0 auto;
-    margin-bottom: 5%;
-    text-shadow: 2px 2px black;
+  position: relative;
+  top: 0;
+  font-family: "Audiowide", cursive;
+  font-family: "Special Elite", cursive;
+  font-size: 32px;
+  font-weight: 900;
+  color: #209cee;
+  padding: 45px;
+  width: 80%;
+  margin: 0 auto;
+  text-shadow: 2px 2px black;
+  text-align: center;
+}
+
+.landingActionButtonRow {
+  width: 50vw;
+  margin: 0 auto;
 }
 
 .signUpButton {
-    position: relative;
-    top: -340px;
-    font-family: 'Special Elite', cursive;
-    color: gold;
-    text-shadow: 1px 1px black;
-    border: solid 3px #209CEE;
+  position: relative;
+  top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: gold;
+  text-shadow: 1px 1px black;
+  border: solid 3px white;
+  font-size: 1rem;
+  font-weight: 900;
+  width: 30%;
+  margin: 0 auto;
 }
 
 .loginButton {
-    position: relative;
-    top: -340px;
-    font-family: 'Special Elite', cursive;
-    color: gold;
-    text-shadow: 1px 1px black;
-    border: solid 3px #209CEE;
-    margin-left: 1%;
+  position: relative;
+  top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: gold;
+  text-shadow: 1px 1px black;
+  border: solid 3px white;
+  margin-left: 1%;
+  font-size: 1rem;
+  font-weight: 900;
+  width: 30%;
+  margin: 0 auto;
 }
 
 .emphasis {
-    color: white;
-    font-size: 60px;
-    font-weight: 600;
-    text-shadow: 7px 7px 50px gold;
-    border-bottom: solid 10px gold;
-    border-radius: 5%;
-    padding-bottom: 2px;
+  color: gold;
+  font-size: 60px;
+  font-weight: 600;
+  text-shadow: 5px 5px 5px #209cee;
+  border-bottom: solid 10px #209cee;
+  border-radius: 5%;
+  padding-bottom: 2px;
 }
 
 .landingBoard {
-    margin-top: 10%;
+  margin-top: 10%;
 }
 
 .landingBoard h1 {
-    color: gold;
+  color: gold;
 }
 
 @media (min-width: 200px) and (max-width: 500px) {
-    .heroTitle {
-        font-size: 18px !important;
-        top: -230px;
-    }
-    .heroTitle .emphasis {
-        font-size: 20px;
-    }
-    .heroText {
-        top: -280px;
-        font-size: 16px;
-    }
-    .signUpButton {
-        font-size: 14px;
-        top: -300px;
-    }
-    .loginButton {
-        font-size: 14px;
-        top: -300px;
-    }
+  .heroTitle {
+    font-size: 18px !important;
+  }
+  .heroTitle .emphasis {
+    font-size: 20px;
+  }
+  .heroText {
+    font-size: 16px;
+  }
+  .signUpButton {
+    font-size: 14px;
+  }
+  .loginButton {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 501px) and (max-width: 800px) {
-    .heroTitle {
-        font-size: 24px !important;
-        top: -230px;
-    }
-    .heroTitle .emphasis {
-        font-size: 28px;
-    }
-    .heroText {
-        top: -280px;
-        font-size: 20px;
-    }
-    .signUpButton {
-        top: -300px;
-    }
-    .loginButton {
-        top: -300px;
-    }
+  .heroTitle {
+    font-size: 24px !important;
+  }
+  .heroTitle .emphasis {
+    font-size: 28px;
+  }
+  .heroText {
+    font-size: 20px;
+  }
 }
 
 @media (min-width: 801px) and (max-width: 1000px) {
-    .heroTitle {
-        font-size: 40px !important;
-    }
-    .heroTitle .emphasis {
-        font-size: 45px;
-    }
-    .heroText {
-        font-size: 28px;
-    }
-    .signUpButton {
-        top: -300px;
-    }
-    .loginButton {
-        top: -300px;
-    }
+  .heroTitle {
+    font-size: 40px !important;
+  }
+  .heroTitle .emphasis {
+    font-size: 45px;
+  }
+  .heroText {
+    font-size: 28px;
+  }
 }
 
 @media (min-width: 1001px) {
-    .signUpButton {
-        font-size: 14px;
-        top: -300px;
-    }
-    .loginButton {
-        font-size: 14px;
-        top: -300px;
-    }
-}
-
-#landingPage {
-    margin-bottom: 10%;
+  /* .signUpButton {
+    font-size: 14px;
+  }
+  .loginButton {
+    font-size: 14px;
+  } */
 }
 
 @media (max-width: 900px) {
-    #landingPage {
-        margin-top: 20%;
-        margin-bottom: 20%;
-    }
 }

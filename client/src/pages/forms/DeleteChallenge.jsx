@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import AdminBar from '../../components/nav/AdminBar'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import AdminBar from '../../components/nav/AdminBar'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledCollapse } from 'reactstrap';
 import DeletionError from "../../components/alerts/DeletionError";
 import DeletionSuccess from "../../components/alerts/DeletionSuccess";
 import '../../css/createChallenge.css'
@@ -90,6 +90,7 @@ class DeleteChallenge extends Component {
         API.deleteChallenge(challengeId)
           .then(res => {
               console.log('RESULT: ', res)
+              // debugger;
               self.setState({
                 deletionSuccess: true
               })
@@ -114,10 +115,10 @@ class DeleteChallenge extends Component {
         let uuidv4 = require('uuid/v4')
         return (
           <div id="chalDeletionPage">
-            <AdminBar />
+            {/* <AdminBar /> */}
               {/* {this.renderRedirect()} */}
 
-            <Modal 
+              <Modal 
                 isOpen={this.state.modal} 
                 autoFocus={true}
                 centered={true}
@@ -137,8 +138,8 @@ class DeleteChallenge extends Component {
                         </ModalFooter>
                     </Modal> */}
                   <div className="deletionRow row">
-                    <p>Are you sure you want to delete {this.state.challengeName}?</p><br />
-                    <strong>*ALERT*  THIS CHALLENGE CANNOT BE RECOVERED ONCE DELETED *ALERT*</strong>
+                    <p>Are you sure you want to deactivate {this.state.challengeName}?</p><br />
+                    <strong>This challenge will be set as inactive and undiscoverable by users.</strong>
 
                   </div> <hr />
                 </ModalBody>
@@ -148,13 +149,16 @@ class DeleteChallenge extends Component {
                     </ModalFooter>
                   </form>
                 </Modal>
-
-                <div className="formContainer">    
-                  <form className="formSignup" action="index.html">
-                    <h2 className="formSignup-heading">Delete Challenge</h2>
-                      <div className="signupWrap">
-                        <div className="form-group">
-                            <label htmlFor="challengeDeletionName">Challenge Name</label>
+                <Button color="primary" id="togglerDeleteChallenge" style={{ marginBottom: '1rem' }}>
+                  Delete Challenge <i class="fas fa-caret-down"></i>
+                </Button>
+                <UncontrolledCollapse toggler="#togglerDeleteChallenge">
+                  <div className="formContainer formSignUpContainer">    
+                    <form className="formSignUp" action="index.html">
+                      <h2 className="formSignUp-heading formSignUpHeading">Delete Challenge</h2>
+                        <div className="signUpWrap">
+                          <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="challengeDeletionName">Challenge Name</label>
                               <select 
                                 value={this.state.challengeName}
                                 name="challengeName"
@@ -178,7 +182,7 @@ class DeleteChallenge extends Component {
                             <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="eraser">Eraser</label>
+                            <label className="formSignUpLabel" htmlFor="eraser">Eraser</label>
                                 <input
                                     readOnly
                                     value={this.state.eraser}
@@ -206,7 +210,9 @@ class DeleteChallenge extends Component {
                         </button>
                         </div>
                     </form>
-                </div>
+                  </div>
+                </UncontrolledCollapse>
+                
             </div>
         
         )

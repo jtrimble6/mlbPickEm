@@ -1,3 +1,23 @@
+.rulesHeader {
+    margin-bottom: 5vh;
+    margin-top: 5vh;
+}
+
+.rulesSubHeader {
+    margin-bottom: 3vh;
+}
+
+.rulesStrongTag {
+    font-weight: 900;
+    color: gold;
+}
+
+.rulesStrongLine {
+    line-height: 1.5;
+    font-weight: 900;
+    color: gold;
+}
+
 @media (min-width: 800px) {
     .nflRulesTitle {
         font-size: 40px;

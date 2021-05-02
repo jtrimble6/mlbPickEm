@@ -5,9 +5,9 @@ import { Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import API from './utils/API';
 import AdminLogin from './pages/forms/AdminLogin'
-import AdminSignup from './pages/forms/AdminSignup'
+import ManageAdminsPage from './pages/admin/ManageAdminsPage'
 import AdminPage from './pages/admin/AdminPage'
-import AddDeleteChallenge from './pages/admin/AddDeleteChallengePage'
+import ManageChallengePage from './pages/admin/ManageChallengePage'
 import EditChallengePage from './pages/admin/EditChallengePage'
 import ChallengePage from './pages/admin/ChallengePage';
 import MastersPage from './pages/admin/MastersPage';
@@ -16,7 +16,9 @@ import NbaGamesPage from './pages/admin/NbaGamesPage'
 import NflDivisionAdmin from './pages/admin/NflDivisionChallenge'
 import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
+import ChallengeTeamsPage from './pages/admin/ChallengeTeamsDB'
 import MlbPickEmDBPage from './pages/admin/MlbPickEmDB'
+import NbaPickEmDBPage from './pages/admin/NbaPickEmDB'
 import NbaPlayoffDBPage from './pages/admin/NbaPlayoffDB'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
@@ -29,23 +31,21 @@ import ContactUser from './pages/contacts/ContactPageUser'
 import AboutUser from './pages/abouts/AboutPageUser'
 import Rules from './pages/rules/RulesPage'
 import MlbRules from './pages/rules/MlbRulesPage'
+import NbaPickEmRules from './pages/rules/NbaPickEmRulesPage'
 import NflRules from './pages/rules/NflDivisionRulesPage'
 import NbaPlayoffRules from './pages/rules/NbaPlayoffRulesPage'
 import MastersRules from './pages/rules/MastersRulesPage';
 import HomePage from './pages/landings/HomePage'
 import LandingPage from './pages/landings/LandingPage'
-import MlbActionPage from './pages/actions/MlbActionPage'
+import MlbPickEmActionPage from './pages/actions/MlbPickEmActionPage'
 import NflDivisionActionPage from './pages/actions/NflDivisionActionPage'
-import NbaActionPage from './pages/actions/NbaActionPage'
+import NbaPickEmActionPage from './pages/actions/NbaPickEmActionPage'
 import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
 import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
+import NbaLeaderboard from './pages/leaderboards/NbaPickEmLeaderboardPage'
 import NflDivisionLeaderboard from './pages/leaderboards/NflDivisionLeaderboardPage'
 // import {DragDropContext} from 'react-beautiful-dnd'
-
-
-
-import './App.css';
 
 
 
@@ -71,6 +71,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser()
+    console.log('AT HOME PAGE')
     // this.getAdmin()
   }
 
@@ -102,7 +103,7 @@ class App extends Component {
     console.log('HISTORY: ', window.history)
     let localUser = localStorage.getItem('user')
     let localUserID = localStorage.getItem('userSessionId')
-    // console.log('USER ID: ', localUser)
+    console.log('USER ID: ', localUser)
     if (!localUserID || localUserID === 'null') {
       this.setState({
         userLoggedIn: false
@@ -139,7 +140,7 @@ class App extends Component {
     // history.push('/home', { some: 'state' });
     return (
       <Router>
-        <div className="App">
+        <div id='appRoot' className="App">
           <Switch>
           <Route exact path='/'
               render={() =>
@@ -181,9 +182,9 @@ class App extends Component {
                 />
               }
             />
-            <Route exact path='/adminSignup'
+            <Route exact path='/manageAdmins'
               render={() =>
-                <AdminSignup
+                <ManageAdminsPage
                   updateUser={this.updateUser}
                 />
               }
@@ -258,6 +259,17 @@ class App extends Component {
                 )
               }
             />
+            <Route exact path='/nbaPickEmRules'
+              render={() =>
+                this.state.userLoggedIn === true ? (
+                  <NbaPickEmRules />
+                ) : this.state.userLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )
+              }
+            />
             <Route exact path='/nbaPlayoffRules'
               render={() =>
                 this.state.userLoggedIn === true ? (
@@ -281,15 +293,18 @@ class App extends Component {
               }
             />
             <Route exact path='/adminPage' render={() => (
-              this.state.adminLoggedIn === true ? (
-                <AdminPage 
-                  username={this.state.userUsername}
-                />
-                ) : this.state.adminLoggedIn === false ? (
-                  <Redirect to='/login' />
-                ) : (
-                  null
-                )
+              <AdminPage 
+                username={this.state.userUsername}
+              />
+              // this.state.adminLoggedIn === true ? (
+              //   <AdminPage 
+              //     username={this.state.userUsername}
+              //   />
+              //   ) : this.state.adminLoggedIn === false ? (
+              //     <Redirect to='/login' />
+              //   ) : (
+              //     null
+              //   )
               )
             } 
             />
@@ -315,9 +330,9 @@ class App extends Component {
                 null
               )
             )} />
-            <Route exact path='/AddDeleteChallenge' render={() => (
+            <Route exact path='/manageChallenges' render={() => (
               this.state.adminLoggedIn === true ? (
-                <AddDeleteChallenge 
+                <ManageChallengePage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (
@@ -394,9 +409,31 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/challengeTeams' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <ChallengeTeamsPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/mlbPickEmDB' render={() => (
               this.state.adminLoggedIn === true ? (
                 <MlbPickEmDBPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nbaPickEmDB' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <NbaPickEmDBPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.adminLoggedIn === false ? (
@@ -449,7 +486,7 @@ class App extends Component {
             )} />
             <Route exact path='/actionNba' render={() => (
               this.state.userLoggedIn === true ? (
-                <NbaActionPage 
+                <NbaPickEmActionPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.userLoggedIn === false ? (
@@ -471,7 +508,7 @@ class App extends Component {
             )} />
             <Route exact path='/actionMlb' render={() => (
               this.state.userLoggedIn === true ? (
-                <MlbActionPage 
+                <MlbPickEmActionPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.userLoggedIn === false ? (
@@ -483,6 +520,15 @@ class App extends Component {
             <Route exact path='/leaderboard' render={() => (
               this.state.userLoggedIn === true ? (
                 <MlbLeaderboard />
+              ) : this.state.userLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nbaLeaderboard' render={() => (
+              this.state.userLoggedIn === true ? (
+                <NbaLeaderboard />
               ) : this.state.userLoggedIn === false ? (
                 <Redirect to='/login' />
               ) : (

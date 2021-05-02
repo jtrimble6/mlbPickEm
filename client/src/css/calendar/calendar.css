@@ -1,1038 +1,1092 @@
 .team {
-    color: gold
+  color: gold;
 }
 
 .team.active {
-    color: blue;
-    background-color: gold;
-    border-radius: 5%;
-    /* max-width: 50% !important; */
+  color: blue;
+  background-color: gold;
+  border-radius: 5%;
+  /* max-width: 50% !important; */
 }
 
 .status {
-    color: gold;
-    justify-content: center;
+  color: gold;
+  justify-content: center;
+}
+
+.calRow {
+  min-height: auto;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-bottom: 10vh;
 }
 
 .calBoard {
-    color: white;
-    padding: 10px;
-    border: solid 5px gold;
-    border-radius: 4%;
-    max-height: 550px;
-    overflow: auto;
+  color: white;
+  padding: 10px;
+  border: solid 5px gold;
+  border-radius: 4%;
+  min-height: 100%;
+  overflow: auto;
 }
 
-.calendar {
-    max-height: 100% !important;
+.calendarLoadingOverlay {
+  min-height: 100% !important;
 }
 
-
-.countdown {
-    max-width: 100%;
-}
-
-.fc {
-    border: none !important;
-}
-
-.fc-day {
-    margin: 0 auto;
-    border: none !important; 
-}
-
-.fc-content {
-    white-space: pre-wrap !important;
-    text-align: center;
-}
-
-td.fc-event-container {
-    border: none !important;
-    height: 40px;
-    margin: 10px;
-}
-
-td.fc-event-container a {
-    min-height: 95%;
-    font-size: 12px !important;
-}
-
-.fc-view-container {
-    background-color: #209CEE;
+.calendar,
+#calendar {
+  max-height: 100% !important;
+  background-color: transparent;
 }
 
 #modalBody {
-    font-size: 25px;
-    align-content: center;
-    background-color: #209CEE;
+  font-size: 25px;
+  align-content: center;
+  background-color: #209cee;
 }
 
 #modalTitle {
-    background-color: #209CEE;
-    color: gold;
-    border-bottom: solid 1px gold;
-    /* font-size: 40px !important; */
+  background-color: #209cee;
+  color: gold;
+  border-bottom: solid 1px gold;
+  /* font-size: 40px !important; */
 }
 
 .footer {
-    background-color: gold;
-    color: #209CEE
+  background-color: gold;
+  color: #209cee;
 }
 
 .modal-footer {
-    background-color: #209CEE;
-    color: gold;
-    border-top: solid 1px gold;
+  background-color: #209cee;
+  color: gold;
+  border-top: solid 1px gold;
 }
 
-.timer {
-    font-size: 14px;
-    text-align: center;
-    color: #209CEE;
-    background-color: gold;
-    min-width: 80%;
-    margin-left: 10%;
+.timeToPick {
+  font-size: 14px;
+  text-align: center;
+  color: #209cee;
+  background-color: gold;
+  min-width: 80%;
+  margin-left: 10%;
 }
 
-.fc-today {
-    background-color: gold;
-    border-color: gold !important;
-    color: blue !important;
-}
-
-.fc-today .fc-day-header {
-    color: blue;
-}
-
-.fc-future {
-    background-color: #209CEE;
-}
-
-.fc-past {
-    background-color: darkgray;
-    color: white;
-}
-
-.fc-view-container {
-    max-height: 100% !important;
-    overflow: auto !important;
-    border-radius: 1%;
-    margin-bottom: 5px;
-}
-
-.fc-day-header {
-    color: white;
-}
-
-.fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-    color: gold !important;
-    background-image: none !important;
-    background-color: #209CEE !important;
-    border-color: gold !important;
-}
-
-.atSymbol {
-    margin-top: 40px;
-    font-size: 120px;
-    color: gold;
+.mlbTimeToPick {
+  font-size: 14px;
+  text-align: center;
+  color: #209cee;
+  background-color: gold;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .teamLogo {
-    max-width: 70%;
-    max-height: 70%;
-    margin-top: 10px;
-    border-radius: 5%;
+  background-color: gold !important;
+  padding: 1%;
+}
+
+#est {
+  margin-top: 0;
+  color: #209cee !important;
+}
+
+.resultsButtonCol {
+  width: 100%;
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.resultsButton {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.scheduleListModal,
+.pastResultsModal,
+.yesterdaysResultsModal {
+  height: auto;
+}
+
+.scheduleListModalBody,
+.pastResultsModalBody,
+.yesterdaysResultsModalBody {
+  max-height: 70vh !important;
+  overflow-y: scroll !important;
+  padding: 0 !important;
+}
+
+.pastResultsModal {
+  text-align: center;
+}
+
+.closeButton {
+  position: fixed;
+  font-size: 30px;
+  right: 25px;
+  cursor: pointer;
+}
+
+.leftArrow {
+  position: fixed;
+  font-size: 30px;
+  right: 125px;
+  cursor: pointer;
+}
+
+.rightArrow {
+  position: fixed;
+  font-size: 30px;
+  right: 75px;
+  cursor: pointer;
+}
+
+/* CALENDAR */
+
+.fc {
+  border: none !important;
+}
+
+.fc-day {
+  margin: 0 auto;
+  border: none !important;
+}
+
+.fc-content {
+  white-space: pre-wrap !important;
+  text-align: center;
+}
+
+td.fc-event-container {
+  border: none !important;
+  height: 40px;
+  margin: 10px;
+}
+
+td.fc-event-container a {
+  min-height: 95%;
+  font-size: 12px !important;
+}
+
+.fc-view-container {
+  background-color: #209cee;
+}
+.fc-today {
+  background-color: gold;
+  border-color: gold !important;
+  color: blue !important;
+}
+
+.fc-today .fc-day-header {
+  color: blue;
+}
+
+.fc-future {
+  background-color: #209cee;
+}
+
+.fc-past {
+  background-color: darkgray;
+  /* background-color: transparent; */
+  color: white;
+}
+
+.fc-view-container {
+  max-height: 100% !important;
+  overflow: auto !important;
+  border-radius: 1%;
+  margin-bottom: 5px;
+}
+
+.fc-day-header {
+  color: white;
+}
+
+.fc-next-button,
+.fc-prev-button,
+.fc-today-button,
+.fc-month-button,
+.fc-basicWeek-button,
+.fc-basicDay-button {
+  color: gold !important;
+  background-image: none !important;
+  background-color: #209cee !important;
+  border-color: gold !important;
+}
+
+.atSymbol {
+  margin-top: 40px;
+  font-size: 120px;
+  color: gold;
+}
+
+.teamLogo {
+  max-width: 70%;
+  max-height: 70%;
+  margin-top: 10px;
+  border-radius: 5%;
 }
 
 .thisGame {
-    text-align: center;
-    align-content: center;
+  text-align: center;
+  align-content: center;
 }
 
-.timer {
-    color: #209CEE;
+.timeToPick {
+  color: #209cee;
+  background-color: gold;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  min-width: 80%;
+  margin-left: 10%;
+}
+
+.disclaimer {
+  margin: 0 auto;
+}
+
+.reactHint {
+  width: 100%;
+  padding: 5px;
+  position: absolute;
+  z-index: 9998;
+  cursor: default;
+  animation: 0.5s fadeIn;
+  font-size: 50%;
+  text-align: center;
+}
+
+.reactHint__content {
+  padding: 10px;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
+}
+
+.reactHint:after {
+  content: "";
+  width: 0;
+  height: 0;
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 5px solid transparent;
+}
+
+.reactHint--top:after {
+  top: auto;
+  border-bottom: none;
+  border-top-color: #000;
+}
+
+.reactHint--left:after {
+  left: auto;
+  border-right: none;
+  border-left-color: #000;
+}
+
+.reactHint--right:after {
+  right: auto;
+  border-left: none;
+  border-right-color: #000;
+}
+
+.reactHint--bottom:after {
+  bottom: auto;
+  border-top: none;
+  border-bottom-color: #000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1299px) {
+  .team {
+    color: gold;
+  }
+
+  /* .team:hover {
+        color: green
+    } */
+
+  .team.active {
+    color: blue;
+    background-color: gold;
+    border: 3px solid lightblue;
+  }
+
+  .calBoard {
+    color: white;
+    padding: 10px;
+    border: solid 5px gold;
+    max-height: 550px;
+  }
+
+  .calendar {
+    max-height: 100% !important;
+  }
+
+  table {
+    min-height: 100%;
+  }
+
+  td.fc-event-container {
+    height: 40px;
+    margin: 10px;
+  }
+
+  td.fc-event-container a {
+    min-height: 95%;
+    font-size: 10px !important;
+  }
+
+  .fc-view-container {
+    background-color: #209cee;
+  }
+
+  #modalBody {
+    font-size: 20px;
+    align-content: center;
+    background-color: #209cee;
+  }
+
+  #modalTitle {
+    font-size: 40px !important;
+  }
+
+  .timeToPick {
+    font-size: 14px;
+    text-align: center;
+    color: #209cee;
+    background-color: gold;
+    min-width: 80%;
+    margin-left: 10%;
+  }
+
+  .fc-today {
+    background-color: gold;
+    border-color: gold !important;
+    color: blue !important;
+  }
+
+  .fc-today .fc-day-header {
+    color: blue;
+  }
+
+  .fc-future {
+    background-color: #209cee;
+  }
+
+  .fc-past {
+    background-color: darkgray;
+    color: white;
+  }
+
+  .fc-view-container .fc-view {
+    max-height: 100% !important;
+    overflow: hidden !important;
+    /* overflow: auto !important; */
+  }
+
+  /* .fc-event-container {
+        overflow: scroll;
+    } */
+
+  .fc-day-header {
+    color: white;
+  }
+
+  .fc-next-button,
+  .fc-prev-button,
+  .fc-today-button,
+  .fc-month-button,
+  .fc-basicWeek-button,
+  .fc-basicDay-button {
+    color: gold !important;
+    background-image: none !important;
+    background-color: #209cee !important;
+    border-color: gold !important;
+  }
+
+  .atSymbol {
+    margin-top: 30px;
+    font-size: 120px;
+    color: gold;
+  }
+
+  .teamLogo {
+    max-width: 70%;
+    max-height: 70%;
+    margin-top: 10px;
+  }
+
+  .thisGame {
+    text-align: center;
+    align-content: center;
+  }
+
+  .timeToPick {
+    color: #209cee;
     background-color: gold;
     font-weight: bolder;
     margin-bottom: 10px;
     min-width: 80%;
     margin-left: 10%;
-}
-
-.disclaimer {
-    margin: 0 auto;
   }
-
-.reactHint {
-    width: 100%;
-    padding: 5px;
-    position: absolute;
-    z-index: 9998;
-    cursor: default;
-    animation: .5s fadeIn;
-    font-size: 50%;
-    text-align: center;
-  }
-  
-  .reactHint__content {
-      padding: 10px;
-      border-radius: 5px;
-      background: #000;
-      color: #fff;
-  }
-  
-  .reactHint:after {
-      content: '';
-      width: 0;
-      height: 0;
-      margin: auto;
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: 5px solid transparent;
-  }
-  
-  .reactHint--top:after {
-      top: auto;
-      border-bottom: none;
-      border-top-color: #000;
-  }
-  
-  .reactHint--left:after {
-      left: auto;
-      border-right: none;
-      border-left-color: #000;
-  }
-  
-  .reactHint--right:after {
-      right: auto;
-      border-left: none;
-      border-right-color: #000;
-  }
-  
-  .reactHint--bottom:after {
-      bottom: auto;
-      border-top: none;
-      border-bottom-color: #000;
-  }
-  
-  @keyframes fadeIn {
-      from {
-          opacity: 0;
-      }
-  
-      to {
-          opacity: 1;
-      }
-  }
-
-
-@media (min-width: 1000px) and (max-width: 1299px) {
-    .team {
-        color: gold
-    }
-    
-    /* .team:hover {
-        color: green
-    } */
-    
-    .team.active {
-        color: blue;
-        background-color: gold;
-        border: 3px solid lightblue;
-    }
-    
-    .calBoard {
-        color: white;
-        padding: 10px;
-        border: solid 5px gold;
-        max-height: 550px;
-    }
-    
-    .calendar {
-        max-height: 100% !important;
-    }
-    
-    table {
-        min-height: 100%;
-    }
-    
-    td.fc-event-container {
-        height: 40px;
-        margin: 10px;
-    }
-    
-    td.fc-event-container a {
-        min-height: 95%;
-        font-size: 10px !important;
-    }
-    
-    .fc-view-container {
-        background-color: #209CEE;
-    }
-    
-    #modalBody {
-        font-size: 20px;
-        align-content: center;
-        background-color: #209CEE;
-    }
-    
-    #modalTitle {
-        font-size: 40px !important;
-    }
-    
-    .timer {
-        font-size: 14px;
-        text-align: center;
-        color: #209CEE;
-        background-color: gold;
-        min-width: 80%;
-        margin-left: 10%;
-    }
-    
-    .fc-today {
-        background-color: gold;
-        border-color: gold !important;
-        color: blue !important;
-    }
-    
-    .fc-today .fc-day-header {
-        color: blue;
-    }
-    
-    .fc-future {
-        background-color: #209CEE;
-    }
-    
-    .fc-past {
-        background-color: darkgray;
-        color: white;
-    }
-    
-    .fc-view-container .fc-view {
-        max-height: 100% !important;
-        overflow: hidden !important;
-        /* overflow: auto !important; */
-    } 
-
-    /* .fc-event-container {
-        overflow: scroll;
-    } */
-    
-
-    .fc-day-header {
-        color: white;
-    }
-    
-    .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-        color: gold !important;
-        background-image: none !important;
-        background-color: #209CEE !important;
-        border-color: gold !important;
-    }
-    
-    .atSymbol {
-        margin-top: 30px;
-        font-size: 120px;
-        color: gold;
-    }
-    
-    .teamLogo {
-        max-width: 70%;
-        max-height: 70%;
-        margin-top: 10px;
-    }
-    
-    .thisGame {
-        text-align: center;
-        align-content: center;
-    }
-    
-    .timer {
-        color: #209CEE;
-        background-color: gold;
-        font-weight: bolder;
-        margin-bottom: 10px;
-        min-width: 80%;
-        margin-left: 10%;
-    }
 }
 
 @media (min-width: 776px) and (max-width: 999px) {
-    .team {
-        color: gold
-    }
-    
-    /* .team:hover {
+  .team {
+    color: gold;
+  }
+
+  /* .team:hover {
         color: green
     } */
-    
-    .team.active {
-        color: blue;
-        background-color: gold;
-        border: 3px solid lightblue;
-    }
-    
-    .calBoard {
-        color: white;
-        padding: 10px;
-        border: solid 5px gold;
-        max-height: 550px;
-    }
-    
-    .calendar {
-        max-height: 100% !important;
-    }
-    
-    table {
-        min-height: 100%;
-    }
-    
-    td.fc-event-container {
-        height: 40px;
-        margin: 10px;
-    }
-    
-    td.fc-event-container a {
-        min-height: 95%;
-        font-size: 9px !important;
-    }
-    
-    .fc-view-container {
-        background-color: #209CEE;
-    }
-    
-    #modalBody {
-        font-size: 23px;
-        align-content: center;
-        background-color: #209CEE;
-    }
-    
-    #modalTitle {
-        font-size: 40px !important;
-    }
-    
-    .timer {
-        font-size: 18px;
-        text-align: center;
-        color: #209CEE;
-        background-color: gold;
-        min-width: 80%;
-        margin-left: 10%;
-    }
-    
-    .fc-today {
-        background-color: gold;
-        border-color: gold !important;
-        color: blue !important;
-    }
-    
-    .fc-today .fc-day-header {
-        color: blue;
-    }
-    
-    .fc-future {
-        background-color: #209CEE;
-    }
-    
-    .fc-past {
-        background-color: darkgray;
-        color: white;
-    }
-    
-    .fc-view-container .fc-view {
-        max-height: 100% !important;
-        overflow: auto !important;
-    }
 
-    /* .fc-event-container {
+  .team.active {
+    color: blue;
+    background-color: gold;
+    border: 3px solid lightblue;
+  }
+
+  .calBoard {
+    color: white;
+    padding: 10px;
+    border: solid 5px gold;
+    max-height: 550px;
+  }
+
+  .calendar {
+    max-height: 100% !important;
+  }
+
+  table {
+    min-height: 100%;
+  }
+
+  td.fc-event-container {
+    height: 40px;
+    margin: 10px;
+  }
+
+  td.fc-event-container a {
+    min-height: 95%;
+    font-size: 9px !important;
+  }
+
+  .fc-view-container {
+    background-color: #209cee;
+  }
+
+  #modalBody {
+    font-size: 23px;
+    align-content: center;
+    background-color: #209cee;
+  }
+
+  #modalTitle {
+    font-size: 40px !important;
+  }
+
+  .timeToPick {
+    font-size: 18px;
+    text-align: center;
+    color: #209cee;
+    background-color: gold;
+    min-width: 80%;
+    margin-left: 10%;
+  }
+
+  .fc-today {
+    background-color: gold;
+    border-color: gold !important;
+    color: blue !important;
+  }
+
+  .fc-today .fc-day-header {
+    color: blue;
+  }
+
+  .fc-future {
+    background-color: #209cee;
+  }
+
+  .fc-past {
+    background-color: darkgray;
+    color: white;
+  }
+
+  .fc-view-container .fc-view {
+    max-height: 100% !important;
+    overflow: auto !important;
+  }
+
+  /* .fc-event-container {
         overflow: scroll;
     }
     */
-    
-    .fc-day-header {
-        color: white;
-    }
-    
-    .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-        color: gold !important;
-        background-image: none !important;
-        background-color: #209CEE !important;
-        border-color: gold !important;
-    }
-    
-    .atSymbol {
-        margin-top: 10%;
-        font-size: 60px;
-        color: gold;
-    }
-    
-    .teamLogo {
-        max-width: 70%;
-        max-height: 70%;
-        margin-top: 10px;
-    }
-    
-    .thisGame {
-        text-align: center;
-        align-content: center;
-    }
 
+  .fc-day-header {
+    color: white;
+  }
+
+  .fc-next-button,
+  .fc-prev-button,
+  .fc-today-button,
+  .fc-month-button,
+  .fc-basicWeek-button,
+  .fc-basicDay-button {
+    color: gold !important;
+    background-image: none !important;
+    background-color: #209cee !important;
+    border-color: gold !important;
+  }
+
+  .atSymbol {
+    margin-top: 10%;
+    font-size: 60px;
+    color: gold;
+  }
+
+  .teamLogo {
+    max-width: 70%;
+    max-height: 70%;
+    margin-top: 10px;
+  }
+
+  .thisGame {
+    text-align: center;
+    align-content: center;
+  }
 }
 
-@media (min-width: 760px)and (max-width: 775px) {
-    .team {
-        color: gold
-    }
-    
-    /* .team:hover {
+@media (min-width: 760px) and (max-width: 775px) {
+  .team {
+    color: gold;
+  }
+
+  /* .team:hover {
         color: green
     } */
-    
-    .team.active {
-        color: blue;
-        background-color: gold;
-    }
-    
-    .calBoard {
-        max-width: 100%;
-        color: white;
-        padding: 3px;
-        border: solid 2px gold;
-    }
-    
-    .calendar {
-        max-height: 100% !important;
-    }
-    
-    table {
-        min-height: 100%;
-    }
-    
-    td.fc-event-container {
-        height: 30px;
-        margin: 5px;
-    }
-    
-    td.fc-event-container a {
-        min-height: 95%;
-        font-size: 5px !important;
-    }
-    
-    .fc-view-container {
-        background-color: #209CEE;
-    }
-    
-    #modalBody {
-        font-size: 15px;
-        align-content: center;
-        background-color: #209CEE;
-        max-width: 100%;
-    }
-    
-    #modalTitle {
-        font-size: 25px !important;
-    }
-    
-    .timer {
-        font-size: 10px;
-        text-align: center;
-        color: #209CEE;
-        background-color: gold;
-        min-width: 80%;
-        margin-left: 10%;
-    }
-    
-    .fc-today {
-        background-color: gold;
-        border-color: gold !important;
-        color: blue !important;
-    }
-    
-    .fc-today .fc-day-header {
-        color: blue;
-    }
-    
-    .fc-future {
-        background-color: #209CEE;
-    }
-    
-    .fc-past {
-        background-color: darkgray;
-        color: white;
-    }
-    
-    .fc-view-container .fc-view {
-        max-height: 100% !important;
-        overflow: auto !important;
-    }
-    
-    .fc-day-header {
-        color: white;
-    }
-    
-    .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-        color: gold !important;
-        background-image: none !important;
-        background-color: #209CEE !important;
-        border-color: gold !important;
-    }
-    
-    .atSymbol {
-        margin-top: 0;
-        font-size: 40px;
-        color: gold;
-    }
-    
-    .teamLogo {
-        max-width: 70%;
-        max-height: 70%;
-        margin-top: 10px;
-        margin-bottom: 0;
-    }
-    
-    .team {
-        font-size: 30px;
-        max-height: 200px;
-        margin-bottom: 0;
-    }
 
-    .homeTeam {
-        margin-top: 15px;
-    }
+  .team.active {
+    color: blue;
+    background-color: gold;
+  }
 
-    .thisGame {
-        text-align: center;
-        align-content: center;
-    }
-    
-    .timer {
-        color: #209CEE;
-        font-weight: bolder;
-        margin-bottom: 10px;
-        min-width: 80%;
-        margin-left: 10%;
-    }
+  .calBoard {
+    max-width: 100%;
+    color: white;
+    padding: 3px;
+    border: solid 2px gold;
+  }
+
+  .calendar {
+    max-height: 100% !important;
+  }
+
+  table {
+    min-height: 100%;
+  }
+
+  td.fc-event-container {
+    height: 30px;
+    margin: 5px;
+  }
+
+  td.fc-event-container a {
+    min-height: 95%;
+    font-size: 5px !important;
+  }
+
+  .fc-view-container {
+    background-color: #209cee;
+  }
+
+  #modalBody {
+    font-size: 15px;
+    align-content: center;
+    background-color: #209cee;
+    max-width: 100%;
+  }
+
+  #modalTitle {
+    font-size: 25px !important;
+  }
+
+  .timeToPick {
+    font-size: 10px;
+    text-align: center;
+    color: #209cee;
+    background-color: gold;
+    min-width: 80%;
+    margin-left: 10%;
+  }
+
+  .fc-today {
+    background-color: gold;
+    border-color: gold !important;
+    color: blue !important;
+  }
+
+  .fc-today .fc-day-header {
+    color: blue;
+  }
+
+  .fc-future {
+    background-color: #209cee;
+  }
+
+  .fc-past {
+    background-color: darkgray;
+    color: white;
+  }
+
+  .fc-view-container .fc-view {
+    max-height: 100% !important;
+    overflow: auto !important;
+  }
+
+  .fc-day-header {
+    color: white;
+  }
+
+  .fc-next-button,
+  .fc-prev-button,
+  .fc-today-button,
+  .fc-month-button,
+  .fc-basicWeek-button,
+  .fc-basicDay-button {
+    color: gold !important;
+    background-image: none !important;
+    background-color: #209cee !important;
+    border-color: gold !important;
+  }
+
+  .atSymbol {
+    margin-top: 0;
+    font-size: 40px;
+    color: gold;
+  }
+
+  .teamLogo {
+    max-width: 70%;
+    max-height: 70%;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .team {
+    font-size: 30px;
+    max-height: 200px;
+    margin-bottom: 0;
+  }
+
+  .homeTeam {
+    margin-top: 15px;
+  }
+
+  .thisGame {
+    text-align: center;
+    align-content: center;
+  }
+
+  .timeToPick {
+    color: #209cee;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    min-width: 80%;
+    margin-left: 10%;
+  }
 }
 
 @media (min-width: 450px) and (max-width: 759px) {
-    .team {
-        color: gold;
-        margin-bottom: 50px;
-    }
-    
-    /* .team:hover {
+  .team {
+    color: gold;
+    margin-bottom: 50px;
+  }
+
+  /* .team:hover {
         color: green
     } */
-    
-    .team.active {
-        color: blue;
-        background-color: gold;
-        margin: 0 auto !important;
-    }
-    
-    .calBoard {
-        max-width: 91%;
-        margin-top: 2%;
-        margin-left: 1%;
-        /* margin-right: 6%; */
-        color: white;
-        padding: 5px;
-        border: solid 2px gold;
-    }
-    
-    .calendar {
-        max-height: 100% !important;
-    }
-    
-    table {
-        min-height: 100%;
-    }
-    
-    td.fc-event-container {
-        height: 30px;
-        margin: 5px;
-    }
-    
-    td.fc-event-container a {
-        min-height: 99%;
-        font-size: 7px !important;
-    }
-    
-    .fc-view-container {
-        background-color: #209CEE;
-    }
-    
-    #modalBody {
-        font-size: 15px;
-        align-content: center;
-        background-color: #209CEE;
-        max-width: 100%;
-    }
-    
-    #modalTitle {
-        font-size: 25px !important;
-    }
-    
-    .fc-today {
-        background-color: gold;
-        border-color: gold !important;
-        color: blue !important;
-    }
-    
-    .fc-today .fc-day-header {
-        color: blue;
-    }
-    
-    .fc-future {
-        background-color: #209CEE;
-    }
-    
-    .fc-past {
-        background-color: darkgray;
-        color: white;
-    }
-    
-    .fc-view-container .fc-view {
-        max-height: 100% !important;
-        overflow: auto !important;
-    }
-    
-    .fc-day-header {
-        color: white;
-    }
-    
-    .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-        color: gold !important;
-        background-image: none !important;
-        background-color: #209CEE !important;
-        border-color: gold !important;
-        margin-bottom: 8px !important;
-    }
-    
-    .atSymbol {
-        margin-top: 10px;
-        margin-bottom: 15px;
-        font-size: 40px;
-        color: gold;
-    }
-    
-    .teamLogo {
-        max-height: 20% !important;
-        margin-top: 10px;
-        margin-bottom: 0;
-    }
-    
-    .team {
-        font-size: 25px;
-        max-height: 150px;
-        margin-bottom: 0;
-    }
 
-    .homeTeam {
-        margin-top: 5px;
-        padding-bottom: 50px;
-        padding: 0;
-        max-height: 125px;
-    }
+  .team.active {
+    color: blue;
+    background-color: gold;
+    margin: 0 auto !important;
+  }
 
-    .awayTeam {
-        margin-top: 5px;
-        padding: 0;
-        padding-bottom: 40px;
-        max-height: 125px;
-    }
+  .calBoard {
+    max-width: 91%;
+    margin-top: 2%;
+    margin-left: 1%;
+    /* margin-right: 6%; */
+    color: white;
+    padding: 5px;
+    border: solid 2px gold;
+  }
 
-    .thisGame {
-        text-align: center;
-        align-content: center;
-    }
-    
-    .timer {
-        min-width: 90%;
-        margin-left: 5%;
-        color: #209CEE;
-        font-weight: bolder;
-        margin-bottom: 10px;
-        font-size: 15px;
-        text-align: center;
-        background-color: gold;
-    }
+  .calendar {
+    max-height: 100% !important;
+  }
 
-    .fc-event, .fc-content{
-        width: 90% !important;
-        /* word-wrap: pre-wrap !important; */
-    }
+  table {
+    min-height: 100%;
+  }
 
-    .fullCalModal {
-        max-width: 91%;
-    }
+  td.fc-event-container {
+    height: 30px;
+    margin: 5px;
+  }
 
-    .modal {
-        max-height: 650px !important;
-    }
+  td.fc-event-container a {
+    min-height: 99%;
+    font-size: 7px !important;
+  }
 
-    .invPick {
-        max-width: 89% !important;
-    }
+  .fc-view-container {
+    background-color: #209cee;
+  }
 
-    .fc-event-container {
-        overflow: wrap !important;
-    }
+  #modalBody {
+    font-size: 15px;
+    align-content: center;
+    background-color: #209cee;
+    max-width: 100%;
+  }
 
-    .fc-time {
-        box-sizing: border-box !important;
-        white-space: pre-wrap !important;
-    }
+  #modalTitle {
+    font-size: 25px !important;
+  }
 
-    .fc-day-header {
-        white-space: pre-wrap !important;
-    }
+  .fc-today {
+    background-color: gold;
+    border-color: gold !important;
+    color: blue !important;
+  }
 
+  .fc-today .fc-day-header {
+    color: blue;
+  }
+
+  .fc-future {
+    background-color: #209cee;
+  }
+
+  .fc-past {
+    background-color: darkgray;
+    color: white;
+  }
+
+  .fc-view-container .fc-view {
+    max-height: 100% !important;
+    overflow: auto !important;
+  }
+
+  .fc-day-header {
+    color: white;
+  }
+
+  .fc-next-button,
+  .fc-prev-button,
+  .fc-today-button,
+  .fc-month-button,
+  .fc-basicWeek-button,
+  .fc-basicDay-button {
+    color: gold !important;
+    background-image: none !important;
+    background-color: #209cee !important;
+    border-color: gold !important;
+    margin-bottom: 8px !important;
+  }
+
+  .atSymbol {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 40px;
+    color: gold;
+  }
+
+  .teamLogo {
+    max-height: 20% !important;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .team {
+    font-size: 25px;
+    max-height: 150px;
+    margin-bottom: 0;
+  }
+
+  .homeTeam {
+    margin-top: 5px;
+    padding-bottom: 50px;
+    padding: 0;
+    max-height: 125px;
+  }
+
+  .awayTeam {
+    margin-top: 5px;
+    padding: 0;
+    padding-bottom: 40px;
+    max-height: 125px;
+  }
+
+  .thisGame {
+    text-align: center;
+    align-content: center;
+  }
+
+  .timeToPick {
+    min-width: 90%;
+    margin-left: 5%;
+    color: #209cee;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-size: 15px;
+    text-align: center;
+    background-color: gold;
+  }
+
+  .fc-event,
+  .fc-content {
+    width: 90% !important;
+    /* word-wrap: pre-wrap !important; */
+  }
+
+  .fullCalModal {
+    max-width: 91%;
+  }
+
+  .modal {
+    max-height: 650px !important;
+  }
+
+  .invPick {
+    max-width: 89% !important;
+  }
+
+  .fc-event-container {
+    overflow: wrap !important;
+  }
+
+  .fc-time {
+    box-sizing: border-box !important;
+    white-space: pre-wrap !important;
+  }
+
+  .fc-day-header {
+    white-space: pre-wrap !important;
+  }
 }
 
 @media (max-width: 449px) {
-    .team {
-        color: gold;
-        margin-bottom: 50px;
-    }
-    
-    /* .team:hover {
+  .team {
+    color: gold;
+    margin-bottom: 50px;
+  }
+
+  /* .team:hover {
         color: green
     } */
-    
-    .team.active {
-        color: blue;
-        background-color: gold;
-    }
-    
-    .calBoard {
-        max-width: 91%;
-        /* margin-top: 2%;
+
+  .team.active {
+    color: blue;
+    background-color: gold;
+  }
+
+  .calBoard {
+    max-width: 91%;
+    /* margin-top: 2%;
         margin-left: 1%; */
-        margin: 0 auto;
-        /* margin-right: 6%; */
-        color: white;
-        padding: 5px;
-        border: solid 2px gold;
-    }
-    
-    .calendar {
-        max-height: 100% !important;
-    }
-
-    .nflColumn .btn {
-        white-space: pre-wrap;
-        font-size: 9px !important;
-    }
-    
-    table {
-        min-height: 100%;
-    }
-    
-    td.fc-event-container {
-        height: 30px;
-        margin: 5px;
-    }
-    
-    td.fc-event-container a {
-        min-height: 99%;
-        font-size: 7px !important;
-    }
-    
-    .fc-view-container {
-        background-color: #209CEE;
-    }
-    
-    #modalBody {
-        font-size: 15px;
-        align-content: center;
-        background-color: #209CEE;
-        max-width: 100%;
-    }
-    
-    #modalTitle {
-        font-size: 25px !important;
-    }
-    
-    .fc-today {
-        background-color: gold;
-        border-color: gold !important;
-        color: blue !important;
-    }
-    
-    .fc-today .fc-day-header {
-        color: blue;
-    }
-    
-    .fc-future {
-        background-color: #209CEE;
-    }
-    
-    .fc-past {
-        background-color: darkgray;
-        color: white;
-    }
-    
-    .fc-view-container .fc-view {
-        max-height: 100% !important;
-        overflow: auto !important;
-
-    }
-    
-    .fc-day-header {
-        color: white;
-    }
-    
-    .fc-next-button, .fc-prev-button, .fc-today-button, .fc-month-button, .fc-basicWeek-button, .fc-basicDay-button {
-        color: gold !important;
-        background-image: none !important;
-        background-color: #209CEE !important;
-        border-color: gold !important;
-        margin-bottom: 8px !important;
-    }
-    
-    .atSymbol {
-        margin-top: 10px;
-        margin-bottom: 15px;
-        font-size: 40px;
-        color: gold;
-    }
-    
-    .teamLogo {
-        /* max-height: 20% !important; */
-        /* max-width: 40% !important; */
-        margin-top: 10px;
-        margin-bottom: 0;
-    }
-    
-    .team {
-        font-size: 25px;
-        /* max-height: 50px; */
-        margin-bottom: 0;
-        
-    }
-
-    .homeTeam {
-        margin-top: 5px;
-        padding: 0;
-        max-height: 40% !important;
-    }
-
-    .awayTeam {
-        margin-top: 5px;
-        padding: 0;
-        max-height: 40% !important;
-    }
-
-    .thisGame {
-        text-align: center;
-        align-content: center;
-        max-height: 900px;
-    }
-
-    .thisGame img {
-        height: 50px !important;
-        width: 50px !important;
-    }
-    
-    .timer {
-        min-width: 90%;
-        margin-left: 5%;
-        color: #209CEE;
-        font-weight: bolder;
-        margin-bottom: 10px;
-        font-size: 15px;
-        text-align: center;
-        background-color: gold;
-    }
-
-    .fc-event, .fc-content{
-        width: 90% !important;
-        /* word-wrap: break-word !important; */
-    }
-
-    .fullCalModal {
-        max-width: 91%;
-    }
-
-    .modal {
-        max-height: 650px !important;
-    }
-
-    .invPick {
-        max-width: 89% !important;
-    }
-
-    .fc-event-container {
-        overflow: wrap !important;
-    }
-
-    .fc-time {
-        box-sizing: border-box !important;
-        white-space: pre-wrap !important;
-        min-width: 100% !important;
-    }
-
-    .fc-title {
-        white-space: pre-wrap !important;
-        color: black !important;
-    }
-
-    .fc-day-header {
-        white-space: pre-wrap !important;
-    }
-
-}
-
-.teamLogo {
-    background-color: gold !important;
-    padding: 1%;
-}
-
-#est {
-    margin-top: 0;
-    color: #209CEE !important;
-}
-
-.resultsButton {
     margin: 0 auto;
-    margin-top: 1%;
-    margin-bottom: 3%;
+    /* margin-right: 6%; */
+    color: white;
+    padding: 5px;
+    border: solid 2px gold;
+  }
 
-}
+  .calendar {
+    max-height: 100% !important;
+  }
 
-.allGamesModal {
+  .nflColumn .btn {
+    white-space: pre-wrap;
+    font-size: 9px !important;
+  }
+
+  table {
     min-height: 100%;
-    overflow: auto;
-}
+  }
 
-.pastResultsModal {
-    min-height: 100%;
-    overflow: auto;
+  td.fc-event-container {
+    height: 30px;
+    margin: 5px;
+  }
+
+  td.fc-event-container a {
+    min-height: 99%;
+    font-size: 7px !important;
+  }
+
+  .fc-view-container {
+    background-color: #209cee;
+  }
+
+  #modalBody {
+    font-size: 15px;
+    align-content: center;
+    background-color: #209cee;
+    max-width: 100%;
+  }
+
+  #modalTitle {
+    font-size: 25px !important;
+  }
+
+  .fc-today {
+    background-color: gold;
+    border-color: gold !important;
+    color: blue !important;
+  }
+
+  .fc-today .fc-day-header {
+    color: blue;
+  }
+
+  .fc-future {
+    background-color: #209cee;
+  }
+
+  .fc-past {
+    background-color: darkgray;
+    color: white;
+  }
+
+  .fc-view-container .fc-view {
+    max-height: 100% !important;
+    overflow: auto !important;
+  }
+
+  .fc-day-header {
+    color: white;
+  }
+
+  .fc-next-button,
+  .fc-prev-button,
+  .fc-today-button,
+  .fc-month-button,
+  .fc-basicWeek-button,
+  .fc-basicDay-button {
+    color: gold !important;
+    background-image: none !important;
+    background-color: #209cee !important;
+    border-color: gold !important;
+    margin-bottom: 8px !important;
+  }
+
+  .atSymbol {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 40px;
+    color: gold;
+  }
+
+  .teamLogo {
+    /* max-height: 20% !important; */
+    /* max-width: 40% !important; */
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .team {
+    font-size: 25px;
+    /* max-height: 50px; */
+    margin-bottom: 0;
+  }
+
+  .homeTeam {
+    margin-top: 5px;
+    padding: 0;
+    max-height: 40% !important;
+  }
+
+  .awayTeam {
+    margin-top: 5px;
+    padding: 0;
+    max-height: 40% !important;
+  }
+
+  .thisGame {
     text-align: center;
-}
+    align-content: center;
+    max-height: 900px;
+  }
 
-.closeButton {
-    position: fixed;
-    font-size: 30px;
-    right: 25px;
-    cursor: pointer;
-}
+  .thisGame img {
+    height: 50px !important;
+    width: 50px !important;
+  }
 
-.leftArrow {
-    position: fixed;
-    font-size: 30px;
-    right: 125px;
-    cursor: pointer;
-}
+  .timeToPick {
+    min-width: 90%;
+    margin-left: 5%;
+    color: #209cee;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-size: 15px;
+    text-align: center;
+    background-color: gold;
+  }
 
-.rightArrow {
-    position: fixed;
-    font-size: 30px;
-    right: 75px;
-    cursor: pointer;
-}
+  .fc-event,
+  .fc-content {
+    width: 90% !important;
+    /* word-wrap: break-word !important; */
+  }
 
+  .fullCalModal {
+    max-width: 91%;
+  }
+
+  .modal {
+    max-height: 650px !important;
+  }
+
+  .invPick {
+    max-width: 89% !important;
+  }
+
+  .fc-event-container {
+    overflow: wrap !important;
+  }
+
+  .fc-time {
+    box-sizing: border-box !important;
+    white-space: pre-wrap !important;
+    min-width: 100% !important;
+  }
+
+  .fc-title {
+    white-space: pre-wrap !important;
+    color: black !important;
+  }
+
+  .fc-day-header {
+    white-space: pre-wrap !important;
+  }
+}

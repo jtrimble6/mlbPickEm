@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userController = require("../../../controllers/userController");
+const userController = require("../../../controllers/user/userController");
 const passport = require("../../../server/userPassport");
 // const express = require("express");
 
@@ -41,8 +41,17 @@ router.get('/', (req, res, next) => {
 
 router.route('/:id')
   .get(userController.findById)
-  // .post(userController.addToken)
+  .post(userController.addPick)
   .put(userController.addChallenge)
+
+router.route('/find/:challengeId')
+  .get(userController.findByChallenge)
+
+router.route('/:id/:gameId/:result')
+  .put(userController.updatePick)
+
+router.route('/update/:id/:challengeId/:gameDate')
+  .put(userController.overridePick)
   
 //   .delete(userController.findOneAndDelete)
 

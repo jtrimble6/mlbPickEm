@@ -1,183 +1,166 @@
-@media (min-width: 1300px) {
-    #actionPage {
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-right: 10%;
-    }
-    
-    .calBoard {
-        height: 575px;
-        overflow: auto;
-        margin-bottom: 200px;
-    }
-    
-    .leaderboard {
-        height: 350px;
-        margin-left: 0;
-    }
-    
-    .winningTeams {
-        height: 300px;
-    }
-    
-    .leaderRow {
-        max-height: 20px;
-    }
+#actionPage {
+  margin-top: 15vh;
+}
 
+@media (min-width: 1300px) {
+  .calBoard {
+    min-height: 100%;
+    overflow: auto;
+    margin-bottom: 0px;
+  }
+
+  .leaderboard {
+    height: 350px;
+    margin-left: 0;
+  }
+
+  .winningTeams {
+    height: 300px;
+  }
+
+  .leaderRow {
+    max-height: 20px;
+  }
 }
 
 @media (min-width: 1000px) and (max-width: 1299px) {
-    #actionPage {
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-right: 10%;
-    }
-    
-    .calBoard {
-        height: 575px;
-        overflow: auto;
-        margin-bottom: 200px;
-    }
-    
-    .leaderboard {
-        height: 350px;
-        margin-left: 0;
-    }
-    
-    .winningTeams {
-        height: 300px;
-    }
-    
-    .leaderRow {
-        max-height: 20px;
-    }
+  #actionPage {
+    margin-top: 5%;
+  }
 
-    h2 {
-        font-size: 25px;
-    }
+  .calBoard {
+    height: 575px;
+    overflow: auto;
+    margin-bottom: 200px;
+  }
+
+  .leaderboard {
+    height: 350px;
+    margin-left: 0;
+  }
+
+  .winningTeams {
+    height: 300px;
+  }
+
+  .leaderRow {
+    max-height: 20px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
 }
 
 @media (min-width: 776px) and (max-width: 999px) {
-    #actionPage {
-        /* background-color: #4d4d4d; */
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-right: 10%;
-    }
-    
-    .calBoard {
-        height: 575px;
-        overflow: auto;
-        margin-bottom: 200px;
-    }
-    
-    .leaderboard {
-        height: 350px;
-        margin-left: 0;
-    }
-    
-    .winningTeams {
-        height: 300px;
-        font-size: 15px
-    }
-    
-    .leaderRow {
-        max-height: 20px;
-    }
+  #actionPage {
+    /* background-color: #4d4d4d; */
+    margin-top: 5%;
+  }
 
-    h2 {
-        font-size: 23px;
-    }
+  .calBoard {
+    height: 575px;
+    overflow: auto;
+    margin-bottom: 200px;
+  }
 
-    th {
-        font-size: 13px;
-    }
+  .leaderboard {
+    height: 350px;
+    margin-left: 0;
+  }
 
-    tr {
-        font-size: 15px;
-    }
+  .winningTeams {
+    height: 300px;
+    font-size: 15px;
+  }
+
+  .leaderRow {
+    max-height: 20px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+
+  th {
+    font-size: 13px;
+  }
+
+  tr {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 775px) {
-    /* #actionPage {
+  /* #actionPage {
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 5%;
     } */
 
-    #actionPage .username {
-        margin-top: 5%;
-        font-size: 20px;
-    }
-    
-    .calBoard {
-        height: 575px;
-        overflow: auto;
-        margin-bottom: 20px;
-    }
-    
-    .leaderboard {
-        height: 350px;
-        margin-left: 3%;
-    }
-    
-    .winningTeams {
-        margin-left: 10%;
-        min-width: 80%;
-        height: 300px;
-        font-size: 15px;
-        overflow: auto;
-    }
-    
-    .leaderRow {
-        max-height: 20px;
-    }
+  #actionPage .username {
+    margin-top: 5%;
+    font-size: 20px;
+  }
 
-    h2 {
-        font-size: 23px;
-    }
+  .calBoard {
+    height: 575px;
+    overflow: auto;
+    margin-bottom: 20px;
+  }
 
-    th {
-        font-size: 13px;
-    }
+  .leaderboard {
+    height: 350px;
+    margin-left: 3%;
+  }
 
-    tr {
-        font-size: 15px;
-    }
-    .winsTitle {
-        color: red;
-    }
-}
+  .winningTeams {
+    margin-left: 10%;
+    min-width: 80%;
+    height: 300px;
+    font-size: 15px;
+    overflow: auto;
+  }
 
-#actionPage {
-    margin-bottom: 10%;
+  .leaderRow {
+    max-height: 20px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+
+  th {
+    font-size: 13px;
+  }
+
+  tr {
+    font-size: 15px;
+  }
+  .winsTitle {
+    color: red;
+  }
 }
 
 @media (max-width: 700px) {
-    #actionPage {
-        margin-top: 15%;
-        margin-bottom: 25%;
-    }
-    .calBoard.col-md-9 {
-        max-width: 80% !important;
-    }
+  #actionPage {
+    margin-top: 15%;
   }
-
-  @media (max-width: 1300px) {
-    #actionPage {
-        margin-top: 15%;
-        margin-bottom: 25%;
-    }
-    .calBoard.col-md-9 {
-        min-width: 90% !important;
-        margin: 5%;
-    }
-    .profileBar {
-        max-width: 99%;
-    }
+  .calBoard.col-md-9 {
+    max-width: 80% !important;
   }
+}
 
-  .nameRow {
-      margin-bottom: 5%;
+@media (max-width: 1300px) {
+  #actionPage {
+    margin-top: 15%;
   }
+  .calBoard.col-md-9 {
+    min-width: 90% !important;
+    margin: 5%;
+  }
+}
 
+.nameRow {
+  margin-bottom: 5%;
+}

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const passwordResetController = require("../../../controllers/passwordResetController");
+const passwordResetController = require("../../../controllers/user/passwordResetController");
 // const express = require("express");
 
 router.route("/")

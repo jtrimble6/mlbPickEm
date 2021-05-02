@@ -371,13 +371,13 @@ class MlbPickEmDBPage extends Component {
             <div id='challengePage'>
               <AdminBar />
 
-              <h1>Challenge User Data</h1>
-
-              <form className="formSignup" action="index.html">                    
-                  <div id='editChalForm' className='signupWrap'>
+              <h1 className='adminFormHeading'>Challenge User Data</h1>
+              <div className="formContainer formSignUpContainer">    
+                <form className="formSignUp" action="index.html">                    
+                  <div id='editChalForm' className='signUpWrap'>
                     {/* <h2 className="formSignup-heading">Viewing Challenge ({this.state.currentChalName})</h2> */}
                       <div className="form-group">
-                        <label htmlFor="challengeEditName">Select Challenge</label>
+                        <label className="adminFormLabel" htmlFor="challengeEditName">Select Challenge</label>
                           <select 
                             value={this.state.challengeData}
                             name="challengeData"
@@ -408,7 +408,7 @@ class MlbPickEmDBPage extends Component {
                       this.state.currentChalUsers[0] ?
 
                         <div className="form-group">
-                          <label htmlFor="challengeEditName">Select User</label>
+                          <label className="adminFormLabel" htmlFor="challengeEditName">Select User</label>
                             <select 
                               value={this.state.userData}
                               name="userData"
@@ -417,7 +417,7 @@ class MlbPickEmDBPage extends Component {
                               className="form-control"
                               id="challengeEditName"
                             >
-                            <option value=''>Select One</option>
+                            <option className='adminFormOption' value=''>Select One</option>
                             {
                               this.state.currentChalUsers.map((user) => (
                                   <option 
@@ -427,6 +427,7 @@ class MlbPickEmDBPage extends Component {
                                     data-picks={user.picks}
                                     data-wins={user.wins}
                                     onClick={this.handleInputChange}
+                                    className='adminFormOption'
                                   //   name={challengeData}
                                   //   onClick={this.handleInputChange}
                                   //   className='challengeSelection'
@@ -445,8 +446,9 @@ class MlbPickEmDBPage extends Component {
 
                       </div>
                     }
-                  </div>
-                </form>
+                    </div>
+                  </form>
+                </div>
 
                 <hr />
 
@@ -462,7 +464,7 @@ class MlbPickEmDBPage extends Component {
                     <div className="row">
 
                       <div className="col-2">
-                        <h3>NL West</h3>
+                        <h3 className='userDataRowHeader'>NL West</h3>
                         <span>
                           {
                             this.state.nlWest.map((team) => (
@@ -475,7 +477,7 @@ class MlbPickEmDBPage extends Component {
                       </div>
 
                       <div className="col-2">
-                        <h3>NL East</h3>
+                        <h3 className='userDataRowHeader'>NL East</h3>
                         <span>
                           {
                             this.state.nlEast.map((team) => (
@@ -488,7 +490,7 @@ class MlbPickEmDBPage extends Component {
                       </div>
 
                       <div className="col-2">
-                        <h3>NL Central</h3>
+                        <h3 className='userDataRowHeader'>NL Central</h3>
                         <span>
                           {
                             this.state.nlCentral.map((team) => (
@@ -501,7 +503,7 @@ class MlbPickEmDBPage extends Component {
                       </div>
 
                       <div className="col-2">
-                        <h3>AL West</h3>
+                        <h3 className='userDataRowHeader'>AL West</h3>
                         <span>
                           {
                             this.state.alWest.map((team) => (
@@ -514,7 +516,7 @@ class MlbPickEmDBPage extends Component {
                       </div>
 
                       <div className="col-2">
-                        <h3>AL East</h3>
+                        <h3 className='userDataRowHeader'>AL East</h3>
                         <span>
                           {
                             this.state.alEast.map((team) => (
@@ -527,7 +529,7 @@ class MlbPickEmDBPage extends Component {
                       </div>
 
                       <div className="col-2">
-                        <h3>AL Central</h3>
+                        <h3 className='userDataRowHeader'>AL Central</h3>
                         <span>
                           {
                             this.state.alCentral.map((team) => (
@@ -544,14 +546,14 @@ class MlbPickEmDBPage extends Component {
 
                     <div className="row">
                       <div className="col-4">
-                        <h3>
+                        <h3 className='userDataRowHeader'>
                           All Picks
                         </h3>
                         {
                           this.state.currentUserPicks.length ? 
 
                           this.state.currentUserPicks.map((pick) => (
-                            <span className='pickInfo' key={uuidv4()}>
+                            <span className='userDataPickSpan' key={uuidv4()}>
                               <p>{pick.team} | {pick.gameDate} | {pick.result}</p>
                             </span>
                           ))
@@ -564,14 +566,14 @@ class MlbPickEmDBPage extends Component {
                         }
                       </div>
                       <div className="col-4">
-                        <h3>
+                        <h3 className='userDataRowHeader'>
                           Wins
                         </h3>
                         {
                           this.state.currentUserWins.length ? 
 
                           this.state.currentUserWins.map((pick) => (
-                            <span className='pickInfo' key={uuidv4()}>
+                            <span className='userDataPickSpan' key={uuidv4()}>
                               <p>{pick.team} | {pick.gameDate} | {pick.result}</p>
                             </span>
                           ))
@@ -584,14 +586,14 @@ class MlbPickEmDBPage extends Component {
                         }
                       </div>
                       <div className="col-4">
-                        <h3>
+                        <h3 className='userDataRowHeader'>
                           Losses
                         </h3>
                         {
                           this.state.currentUserLosses.length ? 
 
                           this.state.currentUserLosses.map((pick) => (
-                            <span className='pickInfo' key={uuidv4()}>
+                            <span className='userDataPickSpan' key={uuidv4()}>
                               <p>{pick.team} | {pick.gameDate} | {pick.result}</p>
                             </span>
                           ))

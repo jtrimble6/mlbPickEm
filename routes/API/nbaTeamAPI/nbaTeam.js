@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const nbaTeamController = require("../../../controllers/nbaTeamController");
+const nbaTeamController = require("../../../controllers/nbaPickEm/nbaTeamController");
 
 router.route('/')
   .get(nbaTeamController.findAll)
@@ -11,8 +11,9 @@ router.route('/')
 //   .put(nbaTeamController.findOneAndUpdate)
 
 router.route('/:abbr')
-.get(nbaTeamController.findByTeam)
-.put(nbaTeamController.findOneAndUpdate)
+  .get(nbaTeamController.findByTeam)
+  .put(nbaTeamController.findOneAndUpdate)
+  .delete(nbaTeamController.findOneAndEmpty)
 
 
 module.exports = router;

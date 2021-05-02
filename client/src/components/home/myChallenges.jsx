@@ -29,7 +29,7 @@ class MyChallenges extends Component {
         
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
       this.getUser()
     }
 
@@ -102,7 +102,7 @@ class MyChallenges extends Component {
             <div className="myChallenges">
             {this.renderRedirect()}
               {
-                (!challenges[0]) ? <Button className='challengeButton' color='warning'>Added Challenges Will Appear Here!</Button> :
+                (!challenges[0]) ? <Button className='challengeButton' color='warning'>Your Challenges Will Appear Here!</Button> :
 
                   this.props.myChallenges.map(myChallenge => (
                       <Button

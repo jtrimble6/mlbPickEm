@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import ReactTable from "react-table";
-import matchSorter from 'match-sorter'
+import ReactTable from "react-table-6";  
+import "react-table-6/react-table.css";
+import {matchSorter} from 'match-sorter'
 // import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
+import { Button } from 'reactstrap'
 import moment from 'moment'
 import $ from 'jquery'
-import 'react-table/react-table.css'
 import '../../css/gamesPage.css'
 
 class NbaGamesPage extends Component {
@@ -26,7 +27,7 @@ class NbaGamesPage extends Component {
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
-      this.getGames = this.getGames.bind(this)
+      this.getNBASeasonGames = this.getNBASeasonGames.bind(this)
       this.getResults = this.getResults.bind(this)
       this.findGameWinners = this.findGameWinners.bind(this)
       this.postGameWinners = this.postGameWinners.bind(this)
@@ -35,7 +36,7 @@ class NbaGamesPage extends Component {
 
   componentDidMount() {
       this.getAllGames()
-      // this.getGames()
+      // this.getNBASeasonGames()
     }
 
   getAllGames = () => {
@@ -81,7 +82,7 @@ class NbaGamesPage extends Component {
 
     console.log('GAME #1 RESULT: ', yesterdaysGames[0].gameResult)
 
-  }
+    }
 
   renderEditable(cellInfo) {
     return (
@@ -103,7 +104,11 @@ class NbaGamesPage extends Component {
 
   checkYesterday = () => {
     // GET RESULTS FROM YESTERDAY IF RESULTS EMPTY
-    if (this.state.yesterdaysGames[0].gameResult === 'none') {
+    let checkNoResult = this.state.yesterdaysGames.filter(game => {
+      return game.gameResult === 'none'
+    })
+    console.log('ANY GAMES WITHOUT RESULTS? ', checkNoResult)
+    if (checkNoResult.length) {
       console.log('THE STATE: ', this.state.yesterdaysGames)
       console.log('NEED TO GET RESULTS')
       this.getResults()
@@ -139,18 +144,18 @@ class NbaGamesPage extends Component {
       }
     }
 
-  getGames = () => {
+  getNBASeasonGames = () => {
     let self = this
 
     // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
     // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
     // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+    const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
     // API CALL TO PULL ENTIRE SEASON SCHEDULE
     $.ajax({
       // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
+      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/2020/REG/schedule.json?api_key=' + nbaKey,
       type: 'GET',
       success: function(data) {
         self.setState({ fullSchedule: data.games });
@@ -170,7 +175,7 @@ class NbaGamesPage extends Component {
     console.log('GETTING RESULTS: ', yesterdayGamesIds)
     // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
     // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+    const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
     // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
     for (let m=0; m<yesterdayGamesIds.length; m++) {
@@ -178,7 +183,7 @@ class NbaGamesPage extends Component {
       setTimeout ( 
         function() {
           $.ajax({
-            url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+            url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaKey,
             type: 'GET',
             success: function(data) {
               console.log('Game results: ', data)
@@ -292,12 +297,16 @@ class NbaGamesPage extends Component {
     ]
     
         return(
-            <div id='nbaGamesPage'>
+            <div className='adminTablePage'>
             
               <AdminBar />
-
                 <div id='nbaGames'>
-                  <h1>NBA GAMES DATABASE</h1>
+                  <h1 className='adminDatabaseHeader'>NBA GAMES DATABASE</h1>
+                  <div className='row adminDatabaseControlsRow'>
+                    <Button className='adminDatabaseControlsButton'>Upload Season Schedule</Button>
+                    <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
+                    <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
+                  </div>
                   <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) =>

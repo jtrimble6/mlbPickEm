@@ -1,313 +1,328 @@
 #mainNav {
-    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-    margin-bottom: 100px;
-    background-color: #fff;
-    font-family: 'Special Elite', cursive;
-    /* font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; */
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s;
-  }
-  
-  #mainNav .navbar-brand {
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #209CEE;
-    font-family: 'Special Elite', cursive;
-    /* font-family: 'Audiowide', cursive; */
+  border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+  background-color: #fff;
+  font-family: "Special Elite", cursive;
+  /* font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; */
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+  max-width: 100vw;
+}
+
+#mainNav .navbar-brand {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #209cee;
+  font-family: "Special Elite", cursive;
+  /* font-family: 'Audiowide', cursive; */
+}
+
+#mainNav .navbar-brand.username {
+  color: white;
+  margin: 0 auto;
+}
+
+#mainNav .navbar-brand:focus,
+#mainNav .navbar-brand:hover {
+  color: #209cee;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link,
+#mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+  font-family: "Audiowide", cursive;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #209cee;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
+#mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+  color: #209cee;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link.active,
+#mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
+  color: #209cee !important;
+  background-color: gold;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover,
+#mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active:hover {
+  background-color: gold;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-brand.username {
+  font-family: "Special Elite", cursive;
+  margin: 0 auto;
+  margin-top: 1%;
+  font-size: 30px;
+  color: white;
+  font-weight: 900;
+}
+
+.challengeNameHeaderRow {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.challengeName {
+  font-family: "Special Elite", cursive;
+  text-transform: uppercase;
+  margin: 0 auto;
+  margin-bottom: 5vh;
+  font-size: 30px;
+  color: white;
+  font-weight: 900;
+}
+
+.challengeNameHeader {
+  font-family: "Special Elite", cursive;
+  text-transform: uppercase;
+  margin: 0 auto;
+  font-size: 30px;
+  color: white;
+  font-weight: 900;
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  color: #209cee !important;
+  text-align: center;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+.footer p {
+  padding-top: 1vh !important;
+}
+
+@media (min-width: 992px) {
+  #mainNav {
+    border-color: gold;
+    background-color: gold;
   }
 
-  #mainNav .navbar-brand.username {
-    color: white;
-    margin: 0 auto;
+  /* logo  */
+  #mainNav .navbar-brand {
+    color: #209cee;
   }
-  
-  #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-    color: #209CEE;
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+    color: 212529 (131, 91, 91);
   }
-  
+  #mainNav .navbar-nav > li.nav-item > a.nav-link {
+    padding: 0.5rem 1rem;
+  }
   #mainNav .navbar-nav > li.nav-item > a.nav-link,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
-    font-family: 'Audiowide', cursive;
-    font-size: .9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color:#209CEE;
+    color: 212529 (255, 255, 255, 0.7);
   }
-  
   #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
   #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-    color: #209CEE;
+    color: white;
   }
-  
-  #mainNav .navbar-nav > li.nav-item > a.nav-link.active,
-  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
-    color: #209CEE !important;
+  #mainNav.navbar-shrink {
+    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+    background-color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-brand {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-brand:focus,
+  #mainNav.navbar-shrink .navbar-brand:hover {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+    color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+    color: #209cee;
+  }
+  .challengeName {
+    color: white;
+  }
+}
+
+@media (min-width: 776px) and (max-width: 992px) {
+  #mainNav {
+    border-color: gold;
     background-color: gold;
   }
-  
-  #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover,
-  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active:hover {
-    background-color: gold;
-  }
 
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
+  /* logo  */
+  #mainNav .navbar-brand {
+    color: #209cee;
   }
-
-  .navbar-brand.username {
-    font-family: 'Special Elite', cursive;
-    margin: 0 auto;
-    margin-top: 1%;
-    font-size: 30px;
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+    color: 212529 (131, 91, 91);
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link {
+    padding: 0.5rem 1rem;
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link,
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+    color: 212529 (255, 255, 255, 0.7);
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
     color: white;
-    font-weight: 900;
+  }
+  #mainNav.navbar-shrink {
+    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+    background-color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-brand {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-brand:focus,
+  #mainNav.navbar-shrink .navbar-brand:hover {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+    color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+    color: #209cee;
   }
 
-  .navbar-brand.challengeName {
-    font-family: 'Special Elite', cursive;
-    text-transform: uppercase;
-    margin: 0 auto;
-    margin-bottom: 1%;
-    font-size: 30px;
-    color: white;
-    font-weight: 900;
-  }
-
-  .footer {   
+  .navItems {
     position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #209CEE !important;
+    z-index: 0;
+    right: 0;
+    margin-right: 85px;
+    background-color: #209cee;
     color: gold !important;
-    text-align: center;
+    border: solid 1px gold;
   }
 
-  @media (min-width: 992px) {
-    #mainNav {
-      border-color: gold;
-      background-color: gold;
-    }
-  
-    /* logo  */
-    #mainNav .navbar-brand {
-      color: #209CEE; 
-    }
-    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-      color: 212529(131, 91, 91);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link {
-      padding: 0.5rem 1rem;
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: 212529(255, 255, 255, 0.7);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: white;
-    }
-    #mainNav.navbar-shrink {
-      border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-      background-color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-brand {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: #209CEE;
-    }
-    .challengeName {
-      margin-top: 6%;
-      color: white; 
-    }
+  .nav-link {
+    color: gold !important;
   }
-  
-  @media (min-width: 776px) and (max-width: 992px) {
-    #mainNav {
-      border-color: gold;
-      background-color: gold;
-    }
-  
-    /* logo  */
-    #mainNav .navbar-brand {
-    color: #209CEE; 
-    }
-    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-      color: 212529(131, 91, 91);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link {
-      padding: 0.5rem 1rem;
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: 212529(255, 255, 255, 0.7);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: white;
-    }
-    #mainNav.navbar-shrink {
-      border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-      background-color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-brand {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: #209CEE;
-    }
-
-    .navItems {
-      position: fixed;
-      z-index: 0;
-      right: 0;
-      margin-right: 85px;
-      background-color: #209CEE;
-      color: gold !important;
-      border: solid 1px gold;
-    }
-
-    .nav-link {
-      color: gold !important;
-    }
-    .challengeName {
-      margin-top: 10%;
-      color: white; 
-    }
-    
+  .challengeName {
+    color: white;
   }
-  
-  @media (max-width: 775px) {
-    #mainNav {
-      border-color: gold;
-      background-color: gold;
-    }
-  
-    /* logo  */
-    #mainNav .navbar-brand {
-    color: #209CEE; 
-    }
-    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-      color: 212529(131, 91, 91);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link {
-      padding: 0.5rem 1rem;
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: 212529(255, 255, 255, 0.7);
-    }
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: white;
-    }
-    #mainNav.navbar-shrink {
-      border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-      background-color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-brand {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-      color: #209CEE;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: #212529;
-    }
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
-    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-      color: gold !important;
-    }
-  
-    .navItems {
-      position: absolute;
-      z-index: 0;
-      top: 43px;
-      right: -22px;
-      margin-right: 60px;
-      background-color: #209CEE;
-      color: gold !important;
-      border: solid 1px gold;
-    }
+}
 
-    .nav-link {
-      color: gold !important;
-    }
-    .challengeName {
-      margin-top: 13%;
-      color: white; 
-    }
-
+@media (max-width: 775px) {
+  #mainNav {
+    border-color: gold;
+    background-color: gold;
   }
 
-  @media (max-width: 630px) {
-    .homePageBoard {
-      margin-top: 0 !important;
-    }
-    .navbar-brand {
-      font-size: 1px;
-    }
-    .username {
-      color: white;
-    }
-    .challengeName {
-      margin-top: 18%;
-      color: white; 
-    }
-    .container {
-      /* max-width: 80% !important; */
-      margin-left: 1%;
-    }
+  /* logo  */
+  #mainNav .navbar-brand {
+    color: #209cee;
+  }
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+    color: 212529 (131, 91, 91);
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link {
+    padding: 0.5rem 1rem;
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link,
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
+    color: 212529 (255, 255, 255, 0.7);
+  }
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
+  #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+    color: white;
+  }
+  #mainNav.navbar-shrink {
+    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+    background-color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-brand {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-brand:focus,
+  #mainNav.navbar-shrink .navbar-brand:hover {
+    color: #209cee;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+    color: #212529;
+  }
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+    color: gold !important;
   }
 
-  @media (max-width: 330px) {
-    .navbar-brand {
-      font-size: 10px;
-    }
-    .username {
-      margin: 0 auto;
-      margin-top: 20%;
-      
-    }
-    /* .container {
-      width: 100px !important;
-    } */
+  .navItems {
+    position: absolute;
+    z-index: 0;
+    top: 43px;
+    right: -22px;
+    margin-right: 60px;
+    background-color: #209cee;
+    color: gold !important;
+    border: solid 1px gold;
   }
-  
-  .disclaimer {
+
+  .nav-link {
+    color: gold !important;
+  }
+  .challengeName {
+    color: white;
+  }
+}
+
+@media (max-width: 630px) {
+  .homePageBoard {
+    margin-top: 0 !important;
+  }
+  .username {
+    color: white;
+  }
+  .challengeName {
+    color: white;
+  }
+  .container {
+    /* max-width: 80% !important; */
+    margin-left: 1%;
+  }
+}
+
+@media (max-width: 330px) {
+  .navbar-brand {
     font-size: 10px;
   }
-
-  @media (max-width: 900px) {
-    .disclaimer {
-      font-size: 6px;
-    }
+  .username {
+    margin: 0 auto;
+    margin-top: 20%;
   }
+  /* .container {
+      width: 100px !important;
+    } */
+}
 
-  #mainNav {
-    max-width: 100% !important
+.disclaimer {
+  font-size: 10px;
+}
+
+@media (max-width: 900px) {
+  .disclaimer {
+    font-size: 6px;
   }
-  
-  
-  
+}
+
+#mainNav {
+  max-width: 100% !important;
+}

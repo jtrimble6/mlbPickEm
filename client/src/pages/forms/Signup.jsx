@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import API from '../../utils/API'
 import SignupBar from '../../components/nav/SignupBar'
+import Footer from '../../components/nav/Footer'
 import '../../css/signup.css'
 import ExistingAccount from "../../components/alerts/ExistingAccount";
 import PasswordError from '../../components/alerts/PasswordError';
@@ -268,67 +269,67 @@ class Signup extends Component {
             <div id="signUpPage">
             <SignupBar />
               {this.renderRedirect()}
-                <div className="formContainer">    
-                  <form className="formSignup" action="index.html">
-                    <h2 className="formSignup-heading">Sign Up</h2>
-                      <div className="signupWrap">
-                        <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
+                <div className="formContainer formSignUpContainer userFormSignUpContainer">    
+                  <form className="formSignUp" action="index.html">
+                    <h2 className="formSignUp-heading formSignUpHeading">Sign Up</h2>
+                      <div className="signUpWrap">
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="firstName">First Name</label>
                                 <input 
                                 value={this.state.firstName}
                                 name="firstName"
                                 onChange={this.handleInputChange}
                                 type="text"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="firstName"
                                 placeholder="First name"
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="lastName">Last Name</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="lastName">Last Name</label>
                                 <input
                                     value={this.state.lastName}
                                     name="lastName"
                                     onChange={this.handleInputChange}
                                     type="text"
-                                    className="form-control"
+                                    className="form-control formSignUpControl"
                                     id="lastName"
                                     placeholder="Last name"                                        
                                 />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="favoriteTeam">Favorite Team</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="favoriteTeam">Favorite Team</label>
                                 <input
                                     value={this.state.favoriteTeam}
                                     name="favoriteTeam"
                                     onChange={this.handleInputChange}
                                     type="text"
-                                    className="form-control"
+                                    className="form-control formSignUpControl"
                                     id="favoriteTeam"
                                     placeholder="Favorite team"                                        
                                 />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="birthDate">Birth Date</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="birthDate">Birth Date</label>
                                 <input 
                                 value={this.state.birthDate}
                                 name="birthDate"
                                 onChange={this.handleInputChange}
                                 type="date"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="birthDate"
                                 placeholder="MM/DD/YYYY"
                             />
                             <small id="dateError" className="form-text text-muted">{this.state.dateError}</small>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="gender">Gender</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="gender">Gender</label>
                                 <select
                                     name="gender"
                                     value={this.state.gender}
                                     onChange={this.handleInputChange}
                                     type="text"
-                                    className="form-control"
+                                    className="form-control formSignUpControl"
                                     id="gender"                                       
                                 >
                                 <option value='optout'>(optional)</option>
@@ -336,65 +337,65 @@ class Signup extends Component {
                                 <option value='female'>Female</option>
                                 </select>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Email Address</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="exampleInputEmail1">Email Address</label>
                                 <input
                                     value={this.state.email}
                                     name="email"
                                     onChange={this.handleInputChange}
                                     type="email"
-                                    className="form-control"
+                                    className="form-control formSignUpControl"
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
                                     placeholder="Email"
                                 />
                             <small id="emailError" className="form-text text-muted">{this.state.emailError}</small>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="username">Username</label>
                             <input
                                 value={this.state.username}
                                 name="username"
                                 onChange={this.checkUserName}
                                 type="text"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="username"
                                 placeholder="Username"                                        
                             />
                             <small id="usernameError" className="form-text text-muted">{this.state.nameTaken}</small>
                         </div>
-                        {/* <div className="form-group">
-                            <label htmlFor="image">Image</label>
+                        {/* <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="image">Image</label>
                             <input
                                 value={this.state.img}
                                 name="img"
                                 onChange={this.handleInputChange}
                                 type="text"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="img"
                                 placeholder="Image URL"                                        
                             />
                         </div> */}
-                        <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Create Password</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="exampleInputPassword1">Create Password</label>
                             <input
                                 value={this.state.password}
                                 name="password"
                                 onChange={this.handleInputChange}
                                 type="password"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="password"
                                 placeholder="Password"
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                        <div className="form-group formSignUpGroup">
+                            <label className="formSignUpLabel" htmlFor="exampleInputPassword1">Confirm Password</label>
                             <input
                                 value={this.state.confirmPassword}
                                 name="confirmPassword"
                                 onChange={this.checkPassword}
                                 type="password"
-                                className="form-control"
+                                className="form-control formSignUpControl"
                                 id="confirmPassword"
                                 placeholder="Confirm Password"
                             />
@@ -415,16 +416,19 @@ class Signup extends Component {
                         <SignUpError
                           signUpError={this.state.signUpError}
                         />
-                        <button
-                            type="submit"
-                            className="btn btn-primary submit btnMaster"
-                            onClick={this.handleFormSubmit}
-                        >
-                        Submit
-                        </button>
+                        <div className='formSignUpGroup'>
+                          <button
+                              type="submit"
+                              className="btn btn-primary submit btnMaster formSignUpSubmitButton"
+                              onClick={this.handleFormSubmit}
+                          >
+                            Submit
+                          </button>
                         </div>
-                    </form>
+                    </div>
+                  </form>
                 </div>
+              <Footer />
             </div>
         
         )

@@ -6,7 +6,7 @@ import '../../css/calendar/fullcalendar.min.css'
 import LoadingOverlay from 'react-loading-overlay';
 import PickError from "../../components/alerts/PickError";
 import FullCalendar from 'fullcalendar-reactwrapper';
-import Countdown from 'react-countdown-now';
+import Countdown from 'react-countdown';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -428,7 +428,7 @@ class NbaPlayoffCalendar extends Component {
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
             // console.log('THERE MUST BE NO GAMES TODAY')
-            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+            // $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
           }
 

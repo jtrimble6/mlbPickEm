@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
-import ReactTable from "react-table";
-import matchSorter from 'match-sorter'
+import ReactTable from "react-table-6";  
+import "react-table-6/react-table.css" 
+import {matchSorter} from 'match-sorter'
 // import moment from 'moment'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
