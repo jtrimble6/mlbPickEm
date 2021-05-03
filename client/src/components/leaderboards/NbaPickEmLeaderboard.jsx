@@ -140,7 +140,7 @@ class NbaPickEmLeaderboard extends Component {
             // allUsers: res.data[0].users,
             // teams: res.data[0].teams
           })
-          self.getUserData()
+          // self.getUserData()
   
         })
         .catch(err => console.log(err))

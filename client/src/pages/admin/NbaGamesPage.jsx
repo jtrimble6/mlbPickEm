@@ -303,7 +303,7 @@ class NbaGamesPage extends Component {
                 <div id='nbaGames'>
                   <h1 className='adminDatabaseHeader'>NBA GAMES DATABASE</h1>
                   <div className='row adminDatabaseControlsRow'>
-                    <Button className='adminDatabaseControlsButton'>Upload Season Schedule</Button>
+                    <Button className='adminDatabaseControlsButton' onClick={this.getNBASeasonGames}>Upload Season Schedule</Button>
                     <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
                     <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
                   </div>

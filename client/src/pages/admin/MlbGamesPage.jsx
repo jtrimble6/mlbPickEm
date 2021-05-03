@@ -26,7 +26,7 @@ class MlbGamesPage extends Component {
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
-      this.getGames = this.getGames.bind(this)
+      this.getMLBSeasonGames = this.getMLBSeasonGames.bind(this)
       this.getResults = this.getResults.bind(this)
       this.findGameWinners = this.findGameWinners.bind(this)
       this.postGameWinners = this.postGameWinners.bind(this)
@@ -35,7 +35,7 @@ class MlbGamesPage extends Component {
 
   componentDidMount() {
       this.getAllGames()
-      // this.getGames()
+      // this.getMLBSeasonGames()
     }
 
   getAllGames = () => {
@@ -140,7 +140,7 @@ class MlbGamesPage extends Component {
       }
     }
 
-  getGames = () => {
+  getMLBSeasonGames = () => {
     let self = this
     const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
     // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
@@ -304,6 +304,9 @@ class MlbGamesPage extends Component {
 
                 <div id='nbaGames'>
                   <h1>MLB GAMES DATABASE</h1>
+                  <Button className='adminDatabaseControlsButton' onClick={this.getMLBSeasonGames}>Upload Season Schedule</Button>
+                  <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
+                  <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
                   <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) =>
