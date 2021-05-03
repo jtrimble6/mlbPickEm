@@ -7,6 +7,7 @@ import moment from 'moment'
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import '../../css/adminPage.css'
+import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class ChallengeTeamsDB extends Component {
     constructor(props) {
@@ -346,13 +347,13 @@ class ChallengeTeamsDB extends Component {
     handleAddTeamsSubmit = (event) => {
         event.preventDefault()
         console.log('HANDLE ADD TEAMS: ', this.state.challengeTeamsSelection)
-        // let teamsSelection = this.state.challengeTeamsSelection
+        let teamsSelection = this.state.challengeTeamsSelection
         if (teamsSelection === 'nbaTeams') {
             this.postNbaTeams()
         }
         if (teamsSelection === 'mlbTeams') {
           this.postMlbTeams()
-      }
+        }
       }
 
     handleAddTeamGamesSubmit = (event) => {
