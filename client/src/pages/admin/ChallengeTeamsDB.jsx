@@ -105,6 +105,7 @@ class ChallengeTeamsDB extends Component {
           this.findTeams = this.findTeams.bind(this)
           this.postNbaTeams = this.postNbaTeams.bind(this);
           this.postNbaTeamGames = this.postNbaTeamGames.bind(this);
+          this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
           this.removeNbaTeamGames = this.removeNbaTeamGames.bind(this);
           this.postMlbTeams = this.postMlbTeams.bind(this);
           // this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
@@ -256,6 +257,46 @@ class ChallengeTeamsDB extends Component {
         }
       }
 
+    postMlbTeamGames = () => {
+        let allGames = []
+        API.getMlbGames()
+          .then(res => {
+            allGames.push(res.data)
+            let theGames = allGames[0]
+            let theTeams = this.state.mlbTeams
+            for (var t=0; t<theTeams.length; t++) {
+              let thisTeam = theTeams[t].abbr.toUpperCase()
+              // console.log('ALL GAMES: ', theGames)
+              // console.log('THIS TEAM: ', thisTeam)
+              for (var p=0; p<theGames.length; p++) {
+                // let homeA = theGames[p].homeAlias
+                let awayA = theGames[p].awayAlias
+                // if (homeA === thisTeam) {
+                //   // console.log('THE GAME: ', theGames[p])
+                //   // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
+                //   API.addMlbGamesByTeam(thisTeam, theGames[p])
+                //     .then(res => {
+                //       console.log(res)
+                //     })
+                //     .catch(err => console.log(err))
+                // }
+                if (awayA === thisTeam) {
+                  // console.log('THE GAME: ', theGames[p])
+                  // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                  API.addMlbGamesByTeam(thisTeam, theGames[p])
+                    .then(res => {
+                      console.log(res)
+                    })
+                    .catch(err => console.log(err))
+                }
+              }
+            }
+            
+          })
+          .catch(err => console.log(err))
+  
+        }
+
     postNbaTeamGames = () => {
         let allGames = []
         // console.log('THIS CHALLENGE: ', this.state.thisChallenge)
@@ -296,8 +337,6 @@ class ChallengeTeamsDB extends Component {
             
           })
           .catch(err => console.log(err))
-  
-        
   
       }
 
@@ -351,7 +390,7 @@ class ChallengeTeamsDB extends Component {
         console.log('HANDLE ADD TEAMS: ', this.state.challengeTeamsSelection)
         let teamsSelection = this.state.challengeTeamsSelection
         if (teamsSelection === 'nbaTeams') {
-            this.postNbaTeams()
+          this.postNbaTeams()
         }
         if (teamsSelection === 'mlbTeams') {
           this.postMlbTeams()
@@ -363,7 +402,10 @@ class ChallengeTeamsDB extends Component {
         console.log('HANDLE ADD GAMES: ', this.state.challengeGamesSelection)
         let gamesSelection = this.state.challengeGamesSelection
         if (gamesSelection === 'nbaGames') {
-            this.postNbaTeamGames()
+          this.postNbaTeamGames()
+        }
+        if (teamsSelection === 'mlbTeams') {
+          this.postMlbTeamGames()
         }
     }
       
