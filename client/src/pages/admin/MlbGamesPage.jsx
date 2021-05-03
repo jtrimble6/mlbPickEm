@@ -203,7 +203,7 @@ class MlbGamesPage extends Component {
         return 0;
       })
 
-      console.log('SORTED SCHEDULE')
+      console.log('SORTED SCHEDULE: ', sortedGames)
       this.setState({
         sortedSchedule: sortedGames
       }, () => {
