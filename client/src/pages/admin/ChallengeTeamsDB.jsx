@@ -330,6 +330,12 @@ class ChallengeTeamsDB extends Component {
 
               <h1 className='adminFormHeading'>Challenge Teams Data</h1>
 
+              <div className='row adminChallengeButtonRow'>
+                  <Button className='adminChallengeButton' onClick={this.toggleAddTeamsModal}>Add Teams</Button>
+                  <Button className='adminChallengeButton' onClick={this.toggleAddGamesModal}>Add Games</Button>
+                  <Button className='adminChallengeButton' onClick={this.removeNbaTeamGames}>Remove Games</Button>
+              </div>
+
               <div className="formContainer formSignUpContainer">    
               <form className="formSignUp" action="index.html">                    
                   <div id='editChalForm' className='signUpWrap'>
@@ -410,17 +416,12 @@ class ChallengeTeamsDB extends Component {
                 </form>
 
                 {/* <hr className='adminFormHr' /> */}
-
+                
                 {
 
                   this.state.currentChallengeTeams[0] ? 
 
                   <div className='userDataDiv'>
-                    <div className='row adminChallengeButtonRow'>
-                        <Button className='adminChallengeButton' onClick={this.toggleAddTeamsModal}>Add Teams</Button>
-                        <Button className='adminChallengeButton' onClick={this.toggleAddGamesModal}>Add Games</Button>
-                        <Button className='adminChallengeButton' onClick={this.removeNbaTeamGames}>Remove Games</Button>
-                    </div>
                     {/* <h2>
                       {this.state.currentUserData[0].username}
                     </h2> */}
