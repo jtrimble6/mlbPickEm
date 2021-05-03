@@ -149,7 +149,7 @@ class MlbGamesPage extends Component {
         awayAlias: data[i].away.abbr,
         gameResult: 'none'
       }
-      console.log('GAME DATA: ', gameData)
+      // console.log('GAME DATA: ', gameData)
       // debugger;
 
       //POST ENTIRE SCHEDULE
