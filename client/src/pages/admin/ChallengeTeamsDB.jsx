@@ -107,12 +107,11 @@ class ChallengeTeamsDB extends Component {
           this.postNbaTeamGames = this.postNbaTeamGames.bind(this);
           this.removeNbaTeamGames = this.removeNbaTeamGames.bind(this);
           this.postMlbTeams = this.postMlbTeams.bind(this);
-          this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
-          this.removeMlbTeamGames = this.removeMlbTeamGames.bind(this);
+          // this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
+          // this.removeMlbTeamGames = this.removeMlbTeamGames.bind(this);
           this.findUserData = this.findUserData.bind(this)
           this.handleAddTeamsSubmit = this.handleAddTeamsSubmit.bind(this)
           this.handleAddTeamGamesSubmit = this.handleAddTeamGamesSubmit.bind(this)
-          this.removeNbaTeamGames = this.removeNbaTeamGames.bind(this)
         }
     
     componentDidMount() {
