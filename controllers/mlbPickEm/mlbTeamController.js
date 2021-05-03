@@ -24,8 +24,8 @@ module.exports = {
           db.MlbTeam
             .update(
                 { teamAlias: req.params.abbr },
-                { $push: { homeGames: req.body }})
-                // { $push: { awayGames: req.body }})
+                // { $push: { homeGames: req.body }})
+                { $push: { awayGames: req.body }})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err))
       },

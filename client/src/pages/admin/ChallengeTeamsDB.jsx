@@ -264,31 +264,32 @@ class ChallengeTeamsDB extends Component {
             allGames.push(res.data)
             let theGames = allGames[0]
             let theTeams = this.state.mlbTeams
-            for (var t=20; t<30; t++) {
+            for (var t=0; t<10; t++) {
               let thisTeam = theTeams[t].abbr.toUpperCase()
               // console.log('ALL GAMES: ', theGames)
               // console.log('THIS TEAM: ', thisTeam)
               for (var p=0; p<theGames.length; p++) {
-                let homeA = theGames[p].homeAlias
-                // let awayA = theGames[p].awayAlias
-                if (homeA === thisTeam) {
-                  // console.log('THE GAME: ', theGames[p])
-                  // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
-                  API.addMlbGamesByTeam(thisTeam, theGames[p])
-                    .then(res => {
-                      console.log(res)
-                    })
-                    .catch(err => console.log(err))
-                }
-                // if (awayA === thisTeam) {
+                // let homeA = theGames[p].homeAlias
+                // if (homeA === thisTeam) {
                 //   // console.log('THE GAME: ', theGames[p])
-                //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                //   // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
                 //   API.addMlbGamesByTeam(thisTeam, theGames[p])
                 //     .then(res => {
                 //       console.log(res)
                 //     })
                 //     .catch(err => console.log(err))
                 // }
+
+                let awayA = theGames[p].awayAlias
+                if (awayA === thisTeam) {
+                  // console.log('THE GAME: ', theGames[p])
+                  // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                  API.addMlbGamesByTeam(thisTeam, theGames[p])
+                    .then(res => {
+                      console.log(res)
+                    })
+                    .catch(err => console.log(err))
+                }
               }
             }
             
