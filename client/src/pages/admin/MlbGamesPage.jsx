@@ -194,10 +194,10 @@ class MlbGamesPage extends Component {
 
   sortSchedule = (allGames) => {
       let sortedGames = allGames.sort(function(a, b) {
-        if (moment(a.start).isBefore(moment(b.start))) {
+        if (moment(a.scheduled).isBefore(moment(b.scheduled))) {
             return -1;
         }
-        if (moment(a.start).isAfter(moment(b.start))) {
+        if (moment(a.scheduled).isAfter(moment(b.scheduled))) {
             return 1;
         }
         return 0;
