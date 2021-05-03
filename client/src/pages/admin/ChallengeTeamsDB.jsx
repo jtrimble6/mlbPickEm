@@ -264,7 +264,7 @@ class ChallengeTeamsDB extends Component {
             allGames.push(res.data)
             let theGames = allGames[0]
             let theTeams = this.state.mlbTeams
-            for (var t=0; t<10; t++) {
+            for (var t=10; t<20; t++) {
               let thisTeam = theTeams[t].abbr.toUpperCase()
               // console.log('ALL GAMES: ', theGames)
               // console.log('THIS TEAM: ', thisTeam)
