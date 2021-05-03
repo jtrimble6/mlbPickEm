@@ -34,7 +34,7 @@ module.exports = {
         db.NbaTeam
           .update(
               { teamAlias: req.params.abbr },
-              { $pull: { homeGames: {$exists: true} }}),
+              { $pull: { homeGames: {$exists: true} }})
               // { $pull: { awayGames: {$exists: true} }})
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err))
