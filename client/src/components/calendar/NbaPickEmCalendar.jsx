@@ -551,35 +551,6 @@ class NbaPickEmCalendar extends Component {
       }
     
     getResults = () => {
-      // let self = this
-      // let yesterdaysGameIds = self.state.yesterdaysGameIds
-      // let gameResults = []
-      
-      // // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-      // // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-      // const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
-
-      // // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
-      // for (let m=0; m<yesterdaysGameIds.length; m++) {
-      //   let k = m
-      //   setTimeout ( 
-      //     function() {
-      //       $.ajax({
-      //         url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey,
-      //         type: 'GET',
-      //         success: function(data) {
-      //           // console.log('Game results: ', data)
-      //           gameResults.push(data)
-      //           self.setState({ gameResults: gameResults })
-      //           self.findGameWinners()
-      //         }
-      //       })
-      //     }, 1500*k)
-
-      //     self.findUserPicks()
-      
-      //   }
-
       let self = this
       let yesterdaysGames = this.state.yesterdaysGames
       let yesterdaysGameIds = this.state.yesterdaysGameIds

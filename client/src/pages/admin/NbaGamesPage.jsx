@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ReactTable from "react-table-6";  
 import "react-table-6/react-table.css";
-import {matchSorter} from 'match-sorter'
-// import { Redirect } from 'react-router-dom'
+import { matchSorter } from 'match-sorter'
+import LoadingOverlay from 'react-loading-overlay';
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import { Button } from 'reactstrap'
@@ -14,16 +14,20 @@ class NbaGamesPage extends Component {
   constructor(props) {
     super(props) 
     this.state = {
+      isUploadScheduleLoaderActive: false,
+      isUpdateWinnersLoaderActive: false,
       username: localStorage.getItem('user'),
       allGames: [],
       todaysGames: [],
       yesterday: '',
       yesterdaysGames: [],
-      yesterdayGamesIds: [],
+      yesterdaysGameIds: [],
       gameResults: [],
       signInError: false,
       yesterdayPulled: false
       }
+      this.handleUploadSchedulePreloader = this.handleUploadSchedulePreloader.bind(this);
+      this.handleUpdateWinnersPreloader = this.handleUpdateWinnersPreloader.bind(this)
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
@@ -31,12 +35,24 @@ class NbaGamesPage extends Component {
       this.getResults = this.getResults.bind(this)
       this.findGameWinners = this.findGameWinners.bind(this)
       this.postGameWinners = this.postGameWinners.bind(this)
-      this.checkYesterday = this.checkYesterday.bind(this)
+      // this.checkYesterday = this.checkYesterday.bind(this)
     }
 
   componentDidMount() {
       this.getAllGames()
       // this.getNBASeasonGames()
+    }
+
+  handleUploadSchedulePreloader() {
+      this.setState({
+        isUploadScheduleLoaderActive: !this.state.isUploadScheduleLoaderActive
+      });
+    }
+
+  handleUpdateWinnersPreloader() {
+      this.setState({
+        isUpdateWinnersLoaderActive: !this.state.isUpdateWinnersLoaderActive
+      });
     }
 
   getAllGames = () => {
@@ -48,7 +64,7 @@ class NbaGamesPage extends Component {
             allGames: res.data
           })
           self.getYesterdaysGames()
-          self.checkYesterday()
+          self.getResults()
         })
         .catch(err => console.log(err))
     }
@@ -60,7 +76,7 @@ class NbaGamesPage extends Component {
     })
     let allGames = this.state.allGames
     let yesterdaysGames = []
-    let yesterdayGamesIds = []
+    let yesterdaysGameIds = []
 
     // FIND EACH GAME FROM YESTERDAY, SET STATE
     let findYesterdaysGames = (games) => {
@@ -70,17 +86,17 @@ class NbaGamesPage extends Component {
 
     // FIND EACH GAME ID FROM YESTERDAY, SET STATE
     yesterdaysGames.forEach(game => {
-      yesterdayGamesIds.push(game.gameId)
+      yesterdaysGameIds.push(game.gameId)
     })
 
     console.log('YESTERDAYS GAMES: ', yesterdaysGames)
-    // console.log('YESTERDAYS GAME IDS: ', yesterdayGamesIds)
+    // console.log('YESTERDAYS GAME IDS: ', yesterdaysGameIds)
     this.setState({
         yesterdaysGames: yesterdaysGames,
-        yesterdayGamesIds: yesterdayGamesIds
+        yesterdaysGameIds: yesterdaysGameIds
       })
 
-    console.log('GAME #1 RESULT: ', yesterdaysGames[0].gameResult)
+    // console.log('GAME #1 RESULT: ', yesterdaysGames[0].gameResult)
 
     }
 
@@ -102,23 +118,27 @@ class NbaGamesPage extends Component {
     );
     }
 
-  checkYesterday = () => {
-    // GET RESULTS FROM YESTERDAY IF RESULTS EMPTY
-    let checkNoResult = this.state.yesterdaysGames.filter(game => {
-      return game.gameResult === 'none'
-    })
-    console.log('ANY GAMES WITHOUT RESULTS? ', checkNoResult)
-    if (checkNoResult.length) {
-      console.log('THE STATE: ', this.state.yesterdaysGames)
-      console.log('NEED TO GET RESULTS')
-      this.getResults()
-    } else {
-      console.log('HAVE RESULTS')
-    }
-    }
+  // checkYesterday = () => {
+  //   // GET RESULTS FROM YESTERDAY IF RESULTS EMPTY
+  //   let checkNoResult = this.state.yesterdaysGames.filter(game => {
+  //     return game.gameResult === 'none'
+  //   })
+  //   console.log('ANY GAMES WITHOUT RESULTS? ', checkNoResult)
+  //   if (checkNoResult.length) {
+  //     console.log('THE STATE: ', this.state.yesterdaysGames)
+  //     console.log('NEED TO GET RESULTS')
+  //     this.handleUpdateWinnersPreloader()
+  //     this.getResults()
+  //   } else {
+  //     console.log('HAVE RESULTS')
+  //   }
+  //   }
 
   postGames = (data) => {
+    let postedGames = 0
     for (let i=0; i<data.length; i++) {
+      postedGames++
+      // console.log('GAME DATA LENGTH: ', data.length, postedGames)
       let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
       let splitDate = gameDateAdj.split('T')
       let gameDate = splitDate[0]
@@ -139,22 +159,30 @@ class NbaGamesPage extends Component {
 
       //POST ENTIRE SCHEDULE
       API.postNbaGames(gameData)
-        .then(res=> console.log(res))
+        .then( res => {
+          // console.log(res)
+        })
         .catch(err => console.log(err))
+        
+  
+      }
+      
+      
+      if (postedGames === data.length) {
+        setTimeout(() => {  
+          this.handleUploadSchedulePreloader()
+          this.getAllGames()
+         }, 5000);
       }
     }
 
   getNBASeasonGames = () => {
+    this.handleUploadSchedulePreloader()
     let self = this
-
-    // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
-    // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-    // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
     const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
     // API CALL TO PULL ENTIRE SEASON SCHEDULE
     $.ajax({
-      // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
       url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/2020/REG/schedule.json?api_key=' + nbaKey,
       type: 'GET',
       success: function(data) {
@@ -167,36 +195,53 @@ class NbaGamesPage extends Component {
       })
     }
   
-  getResults = () => {
-    console.log('GETTING RESULTS')
-    let self = this
-    let yesterdayGamesIds = this.state.yesterdayGamesIds
-    let gameResults = []
-    console.log('GETTING RESULTS: ', yesterdayGamesIds)
-    // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-    // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
-
-    // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
-    for (let m=0; m<yesterdayGamesIds.length; m++) {
-      let k = m
-      setTimeout ( 
-        function() {
-          $.ajax({
-            url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaKey,
-            type: 'GET',
-            success: function(data) {
-              console.log('Game results: ', data)
-              gameResults.push(data)
-              self.setState({
-                gameResults: gameResults
-              })
-              self.findGameWinners()
-            }
-          })
-        }, 1500*k)
+    getResults = () => {
+      let self = this
+      let yesterdaysGames = this.state.yesterdaysGames
+      let yesterdaysGameIds = this.state.yesterdaysGameIds
+      // let lastGame = yesterdaysGames.length - 1
+      let yesterdaysGameResultFunc = (games) => {
+        return games.gameResult === 'none'
       }
-    }
+      let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
+      // console.log('UNDEFINED GAMES: ', yesterdaysGameResultUndefined)
+      if (yesterdaysGameResultUndefined[0]) {
+        console.log('FOUND: ', yesterdaysGameResultUndefined)
+        this.handleUpdateWinnersPreloader()
+        // console.log('NO FOUND RESULTS FOR YESTERDAY')
+        // console.log('ALL THE GAMES: ', yesterdaysGames)
+        // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
+        // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+
+        let gameResults = []
+
+        const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
+
+        yesterdaysGameIds.forEach(function(gameId, k) {
+          setTimeout ( 
+            function() {
+              $.ajax({
+                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + yesterdaysGameIds[k] + '/boxscore.json?api_key=' + nbaKey,
+                type: 'GET',
+                success: function(data) {
+                  // console.log('RESPONSE: ', data)
+                  // console.log('Game results: ', data)
+                  gameResults.push(data)
+                  self.setState({ gameResults: gameResults })
+                  if (gameResults.length === yesterdaysGameIds.length) {
+                    self.findGameWinners()
+                  }
+                }
+              })
+            }, 1500*k)
+          })
+        } else {
+          // console.log('FOUND RESULTS FOR YESTERDAY')
+          // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+          return
+        }
+
+      }
 
   findGameWinners = () => {
     // FIND GAME RESULTS FROM YESTERDAY
@@ -229,10 +274,11 @@ class NbaGamesPage extends Component {
 
   postGameWinners = (data) => {
     console.log('GAME RESULTS: ', data)
-    
+    let postedWinners = 0
     for (let y=0; y<data.length; y++) {
+      postedWinners++
       // let thisDate = data[y].scheduled
-      let gameDate = moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let gameDate = data[y].gameDate
       let gameId = data[y].gameId
       let gameResult = { gameResult: data[y].winningTeam }
       console.log('ALL GAME DATA: ', gameDate, gameId, gameResult)
@@ -241,8 +287,15 @@ class NbaGamesPage extends Component {
           .then(res => console.log(res))
           .catch(err => console.log(err))
         }
+
+      if (postedWinners === this.state.yesterdaysGameIds.length) {
+          setTimeout(() => {  
+            console.log('POSTED WINNERS: ', this.state.yesterdaysGameIds.length, postedWinners)
+            this.handleUpdateWinnersPreloader()
+            
+           }, 5000);
+        }
       
-      // window.location.reload()
     }
 
     render() {
@@ -298,25 +351,63 @@ class NbaGamesPage extends Component {
     
         return(
             <div className='adminTablePage'>
-            
+              <LoadingOverlay
+                active={this.state.isUploadScheduleLoaderActive}
+                // active={true}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '50%',
+                    height: '50%',
+                    background: 'transparent',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Uploading Schedule... (this may take up to 30-45 seconds)'
+                >
+              </LoadingOverlay>
+              
+              <LoadingOverlay
+                active={this.state.isUpdateWinnersLoaderActive}
+                // active={true}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '50%',
+                    height: '50%',
+                    background: 'transparent',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Finding game results... (this may take up to 30-45 seconds)'
+                >
+              </LoadingOverlay>
+
               <AdminBar />
-                <div id='nbaGames'>
-                  <h1 className='adminDatabaseHeader'>NBA GAMES DATABASE</h1>
-                  <div className='row adminDatabaseControlsRow'>
-                    <Button className='adminDatabaseControlsButton' onClick={this.getNBASeasonGames}>Upload Season Schedule</Button>
-                    <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
-                    <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
-                  </div>
-                  <ReactTable
-                    filterable
-                    defaultFilterMethod={(filter, row) =>
-                      String(row[filter.id]) === filter.value}
-                    data={games}
-                    resolveData={data => data.map(row => row)}
-                    columns={columns}
-                    className='gamesTable'
-                  />
+
+              <div id='nbaGames'>
+                <h1 className='adminDatabaseHeader'>NBA GAMES DATABASE</h1>
+                <div className='row adminDatabaseControlsRow'>
+                  <Button className='adminDatabaseControlsButton' onClick={this.getNBASeasonGames}>Upload Season Schedule</Button>
+                  <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
+                  <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
                 </div>
+                <ReactTable
+                  filterable
+                  defaultFilterMethod={(filter, row) =>
+                    String(row[filter.id]) === filter.value}
+                  data={games}
+                  resolveData={data => data.map(row => row)}
+                  columns={columns}
+                  className='gamesTable'
+                />
+              </div>
             </div>
         )
     }

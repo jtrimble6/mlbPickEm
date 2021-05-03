@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import ReactTable from "react-table-6";  
 import "react-table-6/react-table.css" 
-// import { Redirect } from 'react-router-dom'
-import {matchSorter} from 'match-sorter'
+import { Button } from 'reactstrap'
+import { matchSorter } from 'match-sorter'
+import LoadingOverlay from 'react-loading-overlay';
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment'
@@ -13,16 +14,20 @@ class MlbGamesPage extends Component {
   constructor(props) {
     super(props) 
     this.state = {
+      isUploadScheduleLoaderActive: false,
+      isUpdateWinnersLoaderActive: false,
       username: localStorage.getItem('user'),
       allGames: [],
       todaysGames: [],
       yesterday: '',
       yesterdaysGames: [],
-      yesterdayGamesIds: [],
+      yesterdaysGameIds: [],
       gameResults: [],
       signInError: false,
       yesterdayPulled: false
       }
+      this.handleUploadSchedulePreloader = this.handleUploadSchedulePreloader.bind(this);
+      this.handleUpdateWinnersPreloader = this.handleUpdateWinnersPreloader.bind(this)
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
@@ -36,6 +41,18 @@ class MlbGamesPage extends Component {
   componentDidMount() {
       this.getAllGames()
       // this.getMLBSeasonGames()
+    }
+
+  handleUploadSchedulePreloader() {
+      this.setState({
+        isUploadScheduleLoaderActive: !this.state.isUploadScheduleLoaderActive
+      });
+    }
+
+  handleUpdateWinnersPreloader() {
+      this.setState({
+        isUpdateWinnersLoaderActive: !this.state.isUpdateWinnersLoaderActive
+      });
     }
 
   getAllGames = () => {
@@ -59,7 +76,7 @@ class MlbGamesPage extends Component {
     })
     let allGames = this.state.allGames
     let yesterdaysGames = []
-    let yesterdayGamesIds = []
+    let yesterdaysGameIds = []
 
     // FIND EACH GAME FROM YESTERDAY, SET STATE
     let findYesterdaysGames = (games) => {
@@ -69,14 +86,14 @@ class MlbGamesPage extends Component {
 
     // FIND EACH GAME ID FROM YESTERDAY, SET STATE
     yesterdaysGames.forEach(game => {
-      yesterdayGamesIds.push(game.gameId)
+      yesterdaysGameIds.push(game.gameId)
     })
 
     console.log('YESTERDAYS GAMES: ', yesterdaysGames)
-    // console.log('YESTERDAYS GAME IDS: ', yesterdayGamesIds)
+    // console.log('YESTERDAYS GAME IDS: ', yesterdaysGameIds)
     this.setState({
         yesterdaysGames: yesterdaysGames,
-        yesterdayGamesIds: yesterdayGamesIds
+        yesterdaysGameIds: yesterdaysGameIds
       })
 
     console.log('GAME #1 RESULT: ', yesterdaysGames[0].gameResult)
@@ -113,7 +130,9 @@ class MlbGamesPage extends Component {
     }
 
   postGames = (data) => {
+    let postedGames = 0
     for (let i=0; i<data.length; i++) {
+      postedGames++
       let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
       let splitDate = gameDateAdj.split('T')
       let gameDate = splitDate[0]
@@ -135,22 +154,29 @@ class MlbGamesPage extends Component {
 
       //POST ENTIRE SCHEDULE
       API.postMlbGames(gameData)
-        .then(res=> console.log(res))
+        .then(res => {
+          // console.log(res)
+        })
         .catch(err => console.log(err))
       }
+      
+
+      if (postedGames.length === data.length) {
+        setTimeout(() => {  
+          this.handleUploadSchedulePreloader()
+          this.getAllGames()
+         }, 5000);
+      }
+
     }
 
   getMLBSeasonGames = () => {
+    this.handleUploadSchedulePreloader()
     let self = this
     const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
-    // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-    // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    // const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
 
     // API CALL TO PULL ENTIRE SEASON SCHEDULE
     $.ajax({
-      // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-      // url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/REG/schedule.json?api_key=' + nbaKey3,
       url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/2021/REG/schedule.json?api_key=' + mlbKey,
       type: 'GET',
       success: function(data) {
@@ -164,38 +190,87 @@ class MlbGamesPage extends Component {
     }
   
   getResults = () => {
-    console.log('GETTING RESULTS')
+
     let self = this
-    let yesterday = moment(this.state.yesterday).format('YYYY/MM/DD')
-    let yesterdayGamesIds = this.state.yesterdayGamesIds
-    let gameResults = []
-    console.log('GETTING RESULTS: ', yesterdayGamesIds)
-    console.log('YESTERDAY: ', yesterday)
+    let yesterdaysGames = this.state.yesterdaysGames
+    let yesterdaysGameIds = this.state.yesterdaysGameIds
+    // let lastGame = yesterdaysGames.length - 1
+    let yesterdaysGameResultFunc = (games) => {
+      return games.gameResult === 'none'
+    }
+    let yesterdaysGameResultUndefined = yesterdaysGames.filter(yesterdaysGameResultFunc)
+    // console.log('UNDEFINED GAMES: ', yesterdaysGameResultUndefined)
+    if (yesterdaysGameResultUndefined[0]) {
+      console.log('FOUND: ', yesterdaysGameResultUndefined)
+      this.handleUpdateWinnersPreloader()
+      // console.log('NO FOUND RESULTS FOR YESTERDAY')
+      // console.log('ALL THE GAMES: ', yesterdaysGames)
+      // console.log('NUMBER OF GAMES: ', yesterdaysGames.length)
+      // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
 
-    const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
+      let gameResults = []
 
-    // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
-    for (let m=0; m<yesterdayGamesIds.length; m++) {
-      let k = m
-      setTimeout ( 
-        function() {
-          $.ajax({
-            url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/" + yesterdayGamesIds[m] + "/boxscore.json?api_key=" + mlbKey,
-            // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
-            type: 'GET',
-            success: function(data) {
-              console.log('Game results: ', data.game)
-              // debugger
-              gameResults.push(data.game)
-              self.setState({
-                gameResults: gameResults
-              })
-              // console.log('GAME RESULTS: ', gameResults)
-              self.findGameWinners()
-            }
-          })
-        }, 1500*k)
+      const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
+
+      yesterdaysGameIds.forEach(function(gameId, k) {
+        setTimeout ( 
+          function() {
+            $.ajax({
+              url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/" + yesterdaysGameIds[k] + "/boxscore.json?api_key=" + mlbKey,
+              // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+              type: 'GET',
+              success: function(data) {
+                console.log('Game results: ', data.game)
+                // debugger
+                gameResults.push(data.game)
+                self.setState({
+                  gameResults: gameResults
+                })
+                // console.log('GAME RESULTS: ', gameResults)
+                self.findGameWinners()
+              }
+            })
+          }, 1500*k)
+        })
+      } else {
+        // console.log('FOUND RESULTS FOR YESTERDAY')
+        // console.log('LAST GAME RESULT: ', yesterdaysGames[lastGame].gameWinner)
+        return
       }
+
+
+    // console.log('GETTING RESULTS')
+    // let self = this
+    // let yesterday = moment(this.state.yesterday).format('YYYY/MM/DD')
+    // let yesterdaysGameIds = this.state.yesterdaysGameIds
+    // let gameResults = []
+    // // console.log('GETTING RESULTS: ', yesterdaysGameIds)
+    // // console.log('YESTERDAY: ', yesterday)
+
+    // const mlbKey = '6xb38cgkgmt9yb7z6dz3qf4c'
+
+    // // API CALL TO GET EACH MLB GAME RESULT (DELAY 1.5 SECONDS)
+    // for (let m=0; m<yesterdaysGameIds.length; m++) {
+    //   let k = m
+    //   setTimeout ( 
+    //     function() {
+    //       $.ajax({
+    //         url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v7/en/games/" + yesterdaysGameIds[m] + "/boxscore.json?api_key=" + mlbKey,
+    //         // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + yesterday + "/schedule.json?api_key=" + mlbKey,
+    //         type: 'GET',
+    //         success: function(data) {
+    //           console.log('Game results: ', data.game)
+    //           // debugger
+    //           gameResults.push(data.game)
+    //           self.setState({
+    //             gameResults: gameResults
+    //           })
+    //           // console.log('GAME RESULTS: ', gameResults)
+    //           self.findGameWinners()
+    //         }
+    //       })
+    //     }, 1500*k)
+    //   }
     }
 
   findGameWinners = () => {
@@ -230,10 +305,11 @@ class MlbGamesPage extends Component {
 
   postGameWinners = (data) => {
     console.log('GAME RESULTS: ', data)
-    
+    let postedWinners = 0
     for (let y=0; y<data.length; y++) {
+      postedWinners++
       // let thisDate = data[y].scheduled
-      let gameDate = moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let gameDate = data[y].gameDate
       let gameId = data[y].gameId
       let gameResult = { gameResult: data[y].winningTeam }
       console.log('ALL GAME DATA: ', gameDate, gameId, gameResult)
@@ -242,8 +318,15 @@ class MlbGamesPage extends Component {
           .then(res => console.log(res))
           .catch(err => console.log(err))
         }
+
+      if (postedWinners === this.state.yesterdaysGameIds.length) {
+          setTimeout(() => {  
+            console.log('POSTED WINNERS: ', this.state.yesterdaysGameIds.length, postedWinners)
+            this.handleUpdateWinnersPreloader()
+            
+           }, 5000);
+        }
       
-      // window.location.reload()
     }
 
     render() {
@@ -299,24 +382,63 @@ class MlbGamesPage extends Component {
     
         return(
             <div id='nbaGamesPage'>
-            
+              <LoadingOverlay
+                active={this.state.isUploadScheduleLoaderActive}
+                // active={true}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '50%',
+                    height: '50%',
+                    background: 'transparent',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Uploading Schedule... (this may take up to 30-45 seconds)'
+                >
+              </LoadingOverlay>
+
+              <LoadingOverlay
+                active={this.state.isUpdateWinnersLoaderActive}
+                // active={true}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '50%',
+                    height: '50%',
+                    background: 'transparent',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Finding game results... (this may take up to 30-45 seconds)'
+                >
+              </LoadingOverlay>
+
               <AdminBar />
 
-                <div id='nbaGames'>
-                  <h1>MLB GAMES DATABASE</h1>
+              <div id='nbaGames'>
+                <h1 className='adminDatabaseHeader'>MLB GAMES DATABASE</h1>
+                <div className='row adminDatabaseControlsRow'>
                   <Button className='adminDatabaseControlsButton' onClick={this.getMLBSeasonGames}>Upload Season Schedule</Button>
                   <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
                   <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
-                  <ReactTable
-                    filterable
-                    defaultFilterMethod={(filter, row) =>
-                      String(row[filter.id]) === filter.value}
-                    data={games}
-                    resolveData={data => data.map(row => row)}
-                    columns={columns}
-                    className='gamesTable'
-                  />
                 </div>
+                <ReactTable
+                  filterable
+                  defaultFilterMethod={(filter, row) =>
+                    String(row[filter.id]) === filter.value}
+                  data={games}
+                  resolveData={data => data.map(row => row)}
+                  columns={columns}
+                  className='gamesTable'
+                />
+              </div>
             </div>
         )
     }
