@@ -404,7 +404,7 @@ class ChallengeTeamsDB extends Component {
         if (gamesSelection === 'nbaGames') {
           this.postNbaTeamGames()
         }
-        if (gamesSelection === 'mlbTeams') {
+        if (gamesSelection === 'mlbGames') {
           this.postMlbTeamGames()
         }
     }
