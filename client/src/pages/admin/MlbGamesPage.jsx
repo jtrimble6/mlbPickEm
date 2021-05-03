@@ -133,7 +133,7 @@ class MlbGamesPage extends Component {
 
   postGames = (data) => {
     let postedGames = 0
-    for (let i=0; i<1000; i++) {
+    for (let i=1001; i<2000; i++) {
       postedGames++
       let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
       let splitDate = gameDateAdj.split('T')
