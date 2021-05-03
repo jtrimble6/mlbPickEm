@@ -214,12 +214,13 @@ class ChallengeTeamsDB extends Component {
           API.postNbaTeams(newTeam)
             .then(res => {
               console.log(res.data)
+              this.toggleAddTeamsModal()
             })
             .catch(err => console.log(err))
           }
         }
 
-      postMlbTeams = () => {
+    postMlbTeams = () => {
           let teams = this.state.mlbTeams
           console.log('POSTING JUST THESE TEAMS: ', teams)
           // debugger;
@@ -236,6 +237,7 @@ class ChallengeTeamsDB extends Component {
             API.postMlbTeams(newTeam)
               .then(res => {
                 console.log(res.data)
+                this.toggleAddTeamsModal()
               })
               .catch(err => console.log(err))
             }
@@ -243,9 +245,9 @@ class ChallengeTeamsDB extends Component {
 
     removeNbaTeamGames = () => {
         console.log('THIS CHALLENGE: ', this.state.thisChallenge)
-        let theChallenge = this.state.thisChallenge[0]
-        for (var t=0; t<theChallenge.teams.length; t++) {
-            let thisTeam = theChallenge.teams[t].abbr.toUpperCase()
+        let theTeams = this.state.nbaTeams
+        for (var t=0; t<theTeams.length; t++) {
+            let thisTeam = theTeams[t].abbr.toUpperCase()
             API.removeNbaGamesByTeam(thisTeam)
                 .then(res => {
                     console.log('REMOVED GAMES BY TEAM: ', res)
@@ -256,14 +258,15 @@ class ChallengeTeamsDB extends Component {
 
     postNbaTeamGames = () => {
         let allGames = []
-        console.log('THIS CHALLENGE: ', this.state.thisChallenge)
+        // console.log('THIS CHALLENGE: ', this.state.thisChallenge)
         API.getNbaGames()
           .then(res => {
             allGames.push(res.data)
             let theGames = allGames[0]
-            let theChallenge = this.state.thisChallenge[0]
-            for (var t=0; t<theChallenge.teams.length; t++) {
-              let thisTeam = theChallenge.teams[t].abbr.toUpperCase()
+            let theTeams = this.state.nbaTeams
+            // let theChallenge = this.state.thisChallenge[0]
+            for (var t=0; t<theTeams.length; t++) {
+              let thisTeam = theTeams[t].abbr.toUpperCase()
               // console.log('ALL GAMES: ', theGames)
               // console.log('THIS TEAM: ', thisTeam)
               for (var p=0; p<theGames.length; p++) {
