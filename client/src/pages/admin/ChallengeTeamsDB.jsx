@@ -306,31 +306,31 @@ class ChallengeTeamsDB extends Component {
             let theGames = allGames[0]
             let theTeams = this.state.nbaTeams
             // let theChallenge = this.state.thisChallenge[0]
-            for (var t=0; t<theTeams.length; t++) {
+            for (var t=0; t<10; t++) {
               let thisTeam = theTeams[t].abbr.toUpperCase()
               // console.log('ALL GAMES: ', theGames)
               // console.log('THIS TEAM: ', thisTeam)
               for (var p=0; p<theGames.length; p++) {
-                // let homeA = theGames[p].homeAlias
-                let awayA = theGames[p].awayAlias
-                // if (homeA === thisTeam) {
-                //   // console.log('THE GAME: ', theGames[p])
-                //   // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
-                //   API.addNbaGamesByTeam(thisTeam, theGames[p])
-                //     .then(res => {
-                //       console.log(res)
-                //     })
-                //     .catch(err => console.log(err))
-                // }
-                if (awayA === thisTeam) {
+                let homeA = theGames[p].homeAlias
+                // let awayA = theGames[p].awayAlias
+                if (homeA === thisTeam) {
                   // console.log('THE GAME: ', theGames[p])
-                  // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                  // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
                   API.addNbaGamesByTeam(thisTeam, theGames[p])
                     .then(res => {
                       console.log(res)
                     })
                     .catch(err => console.log(err))
                 }
+                // if (awayA === thisTeam) {
+                //   // console.log('THE GAME: ', theGames[p])
+                //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                //   API.addNbaGamesByTeam(thisTeam, theGames[p])
+                //     .then(res => {
+                //       console.log(res)
+                //     })
+                //     .catch(err => console.log(err))
+                // }
               }
               this.toggleAddGamesModal()
             }
