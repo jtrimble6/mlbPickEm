@@ -24,13 +24,15 @@ class MlbGamesPage extends Component {
       yesterdaysGameIds: [],
       gameResults: [],
       signInError: false,
-      yesterdayPulled: false
+      yesterdayPulled: false,
+      sortedSchedule: []
       }
       this.handleUploadSchedulePreloader = this.handleUploadSchedulePreloader.bind(this);
       this.handleUpdateWinnersPreloader = this.handleUpdateWinnersPreloader.bind(this)
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
+      this.sortSchedule = this.sortSchedule.bind(this)
       this.getMLBSeasonGames = this.getMLBSeasonGames.bind(this)
       this.getResults = this.getResults.bind(this)
       this.findGameWinners = this.findGameWinners.bind(this)
@@ -131,7 +133,7 @@ class MlbGamesPage extends Component {
 
   postGames = (data) => {
     let postedGames = 0
-    for (let i=0; i<data.length; i++) {
+    for (let i=0; i<1000; i++) {
       postedGames++
       let gameDateAdj = moment(data[i].scheduled).subtract(5, 'hours').format()
       let splitDate = gameDateAdj.split('T')
@@ -184,10 +186,34 @@ class MlbGamesPage extends Component {
         console.log('ALL GAMES: ', data.games)
 
         // POST ENTIRE SCHEDULE
-        self.postGames(data.games)
+        // self.postGames(data.games)
+        self.sortSchedule(data.games)
         }
       })
     }
+
+  sortSchedule = (allGames) => {
+      let sortedGames = allGames.sort(function(a, b) {
+        if (moment(a.start).isBefore(moment(b.start))) {
+            return -1;
+        }
+        if (moment(a.start).isAfter(moment(b.start))) {
+            return 1;
+        }
+        return 0;
+      })
+
+      console.log('SORTED SCHEDULE')
+      this.setState({
+        sortedSchedule: sortedGames
+      }, () => {
+        this.postGames(sortedGames)
+      })
+      // console.log('THE SORTED GAMES: ', sortedGames)
+      //console.log('THE OLD PICKS: ', this.state.oldGames)
+      
+    
+      }
   
   getResults = () => {
 
