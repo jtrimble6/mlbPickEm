@@ -1,3 +1,18 @@
+@font-face {
+  font-family: bodyfont;
+  src: url("./fonts/bodyfont.ttf");
+}
+
+@font-face {
+  font-family: bodyfont-semibold;
+  src: url("./fonts/bodyfont-semibold.ttf");
+}
+
+@font-face {
+  font-family: bodyfont-bold;
+  src: url("./fonts/bodyfont-bold.ttf");
+}
+
 .profileData {
   font-size: 35px;
   margin-top: 3%;
@@ -154,6 +169,12 @@
   font-weight: bold;
 }
 
+.jumbotronHeader {
+  font-family: "Special Elite", cursive;
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
 .recentPicks {
   color: white;
   background-color: #209cee;
@@ -262,7 +283,7 @@ h4.winsHeader {
   color: #209cee;
   background-color: gold;
   padding: 5px;
-  margin-bottom: 5%;
+  margin-bottom: 0;
   /* width: 100%; */
 }
 

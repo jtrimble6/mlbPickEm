@@ -695,7 +695,7 @@ class MlbPickEmBar extends Component {
               <Jumbotron className='jumbotronMain'>
                 <Container fluid>
                   <div className="display-4">
-                    <h2>{this.props.username.toUpperCase()}</h2> <hr />
+                    <h2 className='jumbotronHeader'>{this.props.username.toUpperCase()}</h2> <hr />
                     <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
                     <div className="row recordRow">
                       <div className="col-md-3">
