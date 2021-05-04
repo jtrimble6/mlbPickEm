@@ -52,7 +52,8 @@ module.exports = {
     overridePick: function(req,res) {
       db.User
         .update(
-            { 'username': req.params.id, 'picks.gameDate': req.params.gameDate, 'picks.challengeId': req.params.challengeId },
+            // { 'username': req.params.id, 'picks.gameDate': req.params.gameDate, 'picks.challengeId': req.params.challengeId },
+            { 'username': req.params.id, "picks" : { "$elemMatch" : { "gameDate": req.params.gameDate, "challengeId": req.params.challengeId }}},
             { $set: { 'picks.$': req.body } }
           )
         .then(dbModel => res.json(dbModel))

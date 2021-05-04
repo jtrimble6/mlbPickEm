@@ -323,7 +323,7 @@ class NbaPickEmCalendar extends Component {
                 return;
                 } 
               }
-            if (thisPick.gameDate === myPicks[j].gameDate) {
+            if (thisPick.gameDate === myPicks[j].gameDate && challengeId === myPicks[j].challengeId) {
               let newPick = thisPick
               this.overridePick(pickDate, newPick) 
               return;
