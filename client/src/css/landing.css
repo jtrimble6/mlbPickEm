@@ -1,10 +1,20 @@
-/* #landingPage {
-  min-height: 100vh;
-  background-color: #209cee;
-} */
+@font-face {
+  font-family: bodyfont;
+  src: url("./fonts/bodyfont.ttf");
+}
+
+@font-face {
+  font-family: bodyfont-semibold;
+  src: url("./fonts/bodyfont-semibold.ttf");
+}
+
+@font-face {
+  font-family: bodyfont-bold;
+  src: url("./fonts/bodyfont-bold.ttf");
+}
 
 #landingPage {
-  background: linear-gradient(rgba(206, 217, 238, 0.35), #209cee),
+  background: linear-gradient(rgba(206, 217, 238, 0.25), #209cee),
     url("./images/landing5.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -45,23 +55,26 @@
   top: 5vh;
   width: 100%;
   text-align: center;
-  font-family: "Audiowide", cursive;
+  /* font-family: "Audiowide", cursive; */
+  font-family: "Special Elite";
   text-shadow: 2px 2px black;
   font-size: 50px !important;
   color: #209cee;
   /* margin-top: 5% !important; */
   /* margin-bottom: 3%; */
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .heroText {
   position: relative;
   top: 0;
-  font-family: "Audiowide", cursive;
-  font-family: "Special Elite", cursive;
+  /* font-family: "Audiowide", cursive;
+  font-family: "Special Elite", cursive; */
+  font-family: 'bodyfont-bold', sans;
   font-size: 32px;
   font-weight: 900;
-  color: #209cee;
+  /* color: #209cee; */
+  color: white;
   padding: 45px;
   width: 80%;
   margin: 0 auto;
