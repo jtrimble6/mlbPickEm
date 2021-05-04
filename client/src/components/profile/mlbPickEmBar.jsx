@@ -692,7 +692,7 @@ class MlbPickEmBar extends Component {
 
           <div className="row profileBar">
             <div className="col-8 jumbotronCol">
-              <Jumbotron className='jumbotronMain'>
+              <Jumbotron>
                 <Container fluid>
                   <div className="display-4">
                     <h2 className='jumbotronHeader'>{this.props.username.toUpperCase()}</h2> <hr />

@@ -802,6 +802,12 @@ h2 {
   .jumbotronCol {
     max-width: 50% !important;
   }
+  .jumbotronHeader {
+    padding: 0.3rem;
+  }
+  hr {
+    margin-top: 0;
+  }
   .recentPicks {
     max-width: 80%;
   }
@@ -816,6 +822,9 @@ h2 {
     margin-top: 1vh !important;
     margin-bottom: 1vh !important;
     font-size: 0.75rem !important;
+  }
+  .table {
+    margin-bottom: 0;
   }
 
 }

@@ -556,7 +556,7 @@
 
   .messageBoardCol {
     margin-top: 8%;
-    min-width: 99%;
+    min-width: 100%;
     text-align: center;
     border-top: solid 2px gold;
     margin-bottom: 20% !important;
@@ -717,22 +717,25 @@
     margin: 0 auto;
     /* padding-left: 1px !important;
     padding-right: 1px !important; */
-    padding: 1px !important!
+    padding: 1px !important
   }
   .homeBoardRightColumn {
     min-width: 90% !important;
     margin: 0 auto;
     /* padding-left: 1px !important;
     padding-right: 1px !important; */
-    padding: 1px !important!
+    padding: 1px !important
   }
   .myChallengesCol {
     padding-bottom: 2vh;
   }
   .myChallengesCol, .upcomingChallengesCol {
     min-width: 100% !important;
-    padding: 1px !important!;
+    padding: 1px !important;
     margin-left: 0 !important;
+  }
+  .messageBoardCol {
+    margin-left: 0;
   }
   .upcomingChallenges {
     padding-right: 0 !important;
@@ -759,6 +762,7 @@
   .challengeCard .card-title {
     font-size: 1rem !important;
   }
+  
 }
 
 /* Landscape */
@@ -773,21 +777,21 @@
     min-width: 90% !important;
     margin: 0 auto;
     margin-bottom: 5vh;
-    padding: 1px !important!
+    padding: 1px !important
   }
   .homeBoardRightColumn {
     min-width: 90% !important;
     margin: 0 auto;
     /* padding-left: 1px !important;
     padding-right: 1px !important; */
-    padding: 1px !important!
+    padding: 1px !important
   }
   .myChallengesCol {
     padding-bottom: 2vh;
   }
   .myChallengesCol, .upcomingChallengesCol {
     min-width: 100% !important;
-    padding: 1px !important!;
+    padding: 1px !important;
     margin-left: 0 !important;
   }
   .upcomingChallenges {
