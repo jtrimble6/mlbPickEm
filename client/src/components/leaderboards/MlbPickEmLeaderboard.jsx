@@ -38,6 +38,7 @@ class Leaderboard extends Component {
           thisTeam: '',
           userPlace: {},
           challengeStartDate: '',
+          timeDiff: '',
           teams: [
             { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary' },
             { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary' },
@@ -671,22 +672,6 @@ class Leaderboard extends Component {
                                             
                                           </Countdown> 
                                         }
-
-                                          {/* {
-                                            (!timerDiff) ? <p>No Games Today</p> :
-
-                                            <div>
-                                            <Countdown 
-                                              date={Date.now() + this.state.timeDiff}
-                                              zeroPadTime={2} 
-                                              daysInHours={true} 
-                                              renderer={this.timerRender}
-                                              className='userTimer'
-                                            >
-                                              <EndTimer />
-                                            </Countdown> 
-                                            </div>
-                                          } */}
 
                                         </div>
                                       <div className="row recordRow">
