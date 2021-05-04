@@ -368,7 +368,7 @@ class MlbCalendar extends Component {
                 return;
                 } 
               }
-            if (thisPick.gameDate === myPicks[j].gameDate && challengeId === myPicks[j].challengeId)) {
+            if (thisPick.gameDate === myPicks[j].gameDate && challengeId === myPicks[j].challengeId) {
               let newPick = thisPick
               // console.log('TEAM PICKED ALREADY: ', this.state.myPicks[j])
               // console.log('Prev Dates Picked: ', prevDates)
