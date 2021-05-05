@@ -203,8 +203,19 @@ class MlbCalendar extends Component {
         nestedModalExpPick: !this.state.nestedModalExpPick,
         closeAllExpPick: false
       });
-      let expPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
-      $('.modal-open .modal-header').prepend(expPickAlert)
+      let pickDate = this.state.activeDate
+      let todaysDate = this.state.today
+      console.log('ACTIVE DATE: ', pickDate, todaysDate)
+      // let expPickAlert = ''
+      if (pickDate === todaysDate) {
+        // expPickAlert = <div className='row invalidPick'></div>
+        $('#modalAlertHeader').html('Sorry, the games have already begun today!')
+      } else {
+        // expPickAlert = <div className='row invalidPick'>Sorry, this is an old game!</div>
+        $('#modalAlertHeader').html('Sorry, this is an old game!')
+      }
+      
+        
       }
 
     toggleAll() {
@@ -1411,7 +1422,7 @@ class MlbCalendar extends Component {
                     </Modal>
                     <Modal className='invPick' isOpen={this.state.nestedModalExpPick} toggle={this.toggleExpiredPick} onClosed={this.state.closeAllExpPick ? this.toggle : undefined}>
                       <ModalHeader>Invalid Pick</ModalHeader>
-                      <ModalBody>This is an old game!</ModalBody>
+                      <ModalBody id='modalAlertHeader'>This is an old game!</ModalBody>
                       <ModalFooter>
                         <Button color="secondary" onClick={this.toggleAllExpPick}>Close All</Button>
                       </ModalFooter>
