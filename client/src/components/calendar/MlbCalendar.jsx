@@ -726,7 +726,7 @@ class MlbCalendar extends Component {
             let gameDate = splitDate[0]
             let homeAlias = game.homeAlias.toLowerCase()
             let awayAlias = game.awayAlias.toLowerCase()
-            let startTime = moment(game.gameTime).add(6, 'hours')
+            let startTime = moment(game.gameTime).add(5, 'hours')
             let gameInfo = {
                 id: game.gameId,
                 date: gameDate,
