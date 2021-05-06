@@ -414,8 +414,8 @@ class MlbPickEmBar extends Component {
             challengeData: res.data[0]
           })
           self.getUserData()
-          self.postTeams()
-          // self.postTeamGames()
+          // self.postTeams()
+          self.postTeamGames()
         })
         .catch(err => console.log(err))
         }
