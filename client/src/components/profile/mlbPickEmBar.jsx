@@ -34,6 +34,7 @@ class MlbPickEmBar extends Component {
             allGames: [],
             homeGames: [],
             awayGames: [],
+            teams: [],
             mlbTeams: [
               { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary', division: 'NL West' },
               { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary', division: 'NL East' },
@@ -488,7 +489,7 @@ class MlbPickEmBar extends Component {
             thisTeam: teams[j].name.trim()
           })
           let thisTeam = teams[j].name.trim()
-          console.log('THIS TEAM: ', thisTeam)
+          // console.log('THIS TEAM: ', thisTeam)
           let teamMatched = teams.filter(matchingTeams)
           if (teamMatched[0]) {
             if (teamMatched[0].name.trim() === teams[j].name.trim()) {
