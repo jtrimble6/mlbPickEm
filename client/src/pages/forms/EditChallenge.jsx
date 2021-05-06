@@ -23,7 +23,7 @@ class EditChallenge extends Component {
             passwordError: false,
             saveChalError: false,
             formError: false,
-            allChallenges: [],
+            allActiveChallenges: [],
             activeChallenge: '',
             challengeData: '',
             challengeId: '',
@@ -205,8 +205,12 @@ class EditChallenge extends Component {
     getChallenges = () => {
         API.getChallenges()
           .then(res => {
+              let filterActiveChallenges = (challenges) => {
+                return challenges.challengeStatus === 'active'
+              }
+              let activeChallenges = res.data.filter(filterActiveChallenges)
               this.setState({
-                  allChallenges: res.data
+                  allActiveChallenges: activeChallenges
               })
           })
           .catch(err => console.log(err)) 
@@ -214,11 +218,11 @@ class EditChallenge extends Component {
 
     createForm = (challenge) => {
         console.log('CHALLENGE FORM DATA: ', challenge)
-        let allChallenges = this.state.allChallenges
+        let allActiveChallenges = this.state.allActiveChallenges
         let findChallengeFunc = (challenges) => {
             return challenges.challengeName === challenge
         }
-        let thisChallenge = allChallenges.filter(findChallengeFunc)
+        let thisChallenge = allActiveChallenges.filter(findChallengeFunc)
         console.log('EDIT THIS CHALLENGE: ', thisChallenge[0])
         let chal = thisChallenge[0]
         console.log('ABBR: ', chal.teams[0].abbr)
@@ -299,7 +303,14 @@ class EditChallenge extends Component {
         this.setState({
             nameTaken: false,
         })
-        let teams = ( this.state.teams === 'nba' ? this.state.nbaTeams : this.state.teams === 'mlb' ? this.state.mlbTeams : this.state.teams === 'nfl' ? this.state.nflTeams : this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : this.state.teams === 'masters' ? this.state.golfers : '' ) 
+        let teams = ( 
+          this.state.teams === 'nba' ? this.state.nbaTeams : 
+          this.state.teams === 'mlb' ? this.state.mlbTeams : 
+          this.state.teams === 'nfl' ? this.state.nflTeams : 
+          this.state.teams === 'nbaPlayoff' ? this.state.nbaPlayoffTeams : 
+          this.state.teams === 'masters' ? this.state.golfers : 
+          '' 
+          ) 
         let challengeDeletionId = this.state.challengeId
         //console.log(this.state)
         let challengeData = {
@@ -410,7 +421,7 @@ class EditChallenge extends Component {
                           >
                           <option value=''>Select One</option>
                           {
-                            this.state.allChallenges.map((challenge) => (
+                            this.state.allActiveChallenges.map((challenge) => (
                                 <option 
                                   key={(uuidv4())} 
                                   value={challenge.challengeName}
