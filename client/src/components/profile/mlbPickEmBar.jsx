@@ -34,39 +34,38 @@ class MlbPickEmBar extends Component {
             allGames: [],
             homeGames: [],
             awayGames: [],
-            teams: []
-          //   teams: [
-          //   { name: 'Atlanta Hawks', abbr: 'atl', logo: atl, status: 'secondary' },
-          //   { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary' },
-          //   { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary' },
-          //   { name: 'Charlotte Hornets', abbr: 'cha', logo: cha, status: 'secondary' },
-          //   { name: 'Chicago Bulls', abbr: 'chi', logo: chi, status: 'secondary' },
-          //   { name: 'Cleveland Cavaliers', abbr: 'cle', logo: cle, status: 'secondary' },
-          //   { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary' },
-          //   { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary' },
-          //   { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary' },
-          //   { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary' },
-          //   { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary' },
-          //   { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary' },
-          //   { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary' },
-          //   { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary' },
-          //   { name: 'Memphis Grizzlies', abbr: 'mem', logo: mem, status: 'secondary' },
-          //   { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary' },
-          //   { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary' },
-          //   { name: 'Minnesota Timberwolves', abbr: 'min', logo: min, status: 'secondary' },
-          //   { name: 'New Orleans Pelicans', abbr: 'nop', logo: nop, status: 'secondary' },
-          //   { name: 'New York Knicks', abbr: 'nyk', logo: nyk, status: 'secondary' },
-          //   { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary' },
-          //   { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary' },
-          //   { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary' },
-          //   { name: 'Pheonix Suns', abbr: 'phx', logo: phx, status: 'secondary' },
-          //   { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary' },
-          //   { name: 'Sacramento Kings', abbr: 'sac', logo: sac, status: 'secondary' },
-          //   { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary' },
-          //   { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary' },
-          //   { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
-          //   { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
-          // ]
+            mlbTeams: [
+              { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary', division: 'NL West' },
+              { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary', division: 'NL East' },
+              { name: 'Baltimore Orioles', abbr: 'bal', logo: 'bal', status: 'secondary', division: 'AL East' },
+              { name: 'Boston Red Sox', abbr: 'bos', logo: 'bos2', status: 'secondary', division: 'AL East' },
+              { name: 'Chicago White Sox', abbr: 'cws', logo: 'cws', status: 'secondary', division: 'AL Central' },
+              { name: 'Chicago Cubs', abbr: 'chc', logo: 'chc', status: 'secondary', division: 'NL Central' },
+              { name: 'Cincinnati Reds', abbr: 'cin', logo: 'cin', status: 'secondary', division: 'NL Central' },
+              { name: 'Cleveland Indians', abbr: 'cle', logo: 'cle2', status: 'secondary', division: 'AL Central' },
+              { name: 'Colorado Rockies', abbr: 'col', logo: 'col', status: 'secondary', division: 'NL West' },
+              { name: 'Detroit Tigers', abbr: 'det', logo: 'det2', status: 'secondary', division: 'AL Central' },
+              { name: 'Houston Astros', abbr: 'hou', logo: 'hou2', status: 'secondary', division: 'AL West' },
+              { name: 'Kansas City Royals', abbr: 'kc', logo: 'kc', status: 'secondary', division: 'AL Central' },
+              { name: 'Los Angeles Angels', abbr: 'laa', logo: 'laa', status: 'secondary', division: 'AL West' },
+              { name: 'Los Angeles Dodgers', abbr: 'lad', logo: 'lad', status: 'secondary', division: 'NL West' },
+              { name: 'Miami Marlins', abbr: 'mia', logo: 'mia2', status: 'secondary', division: 'NL East' },
+              { name: 'Milwaukee Brewers', abbr: 'mil', logo: 'mil2', status: 'secondary', division: 'NL Central' },
+              { name: 'Minnesota Twins', abbr: 'min', logo: 'min2', status: 'secondary', division: 'AL Central' },
+              { name: 'New York Yankees', abbr: 'nyy', logo: 'nyy', status: 'secondary', division: 'AL East' },
+              { name: 'New York Mets', abbr: 'nym', logo: 'nym', status: 'secondary', division: 'NL East' },
+              { name: 'Oakland Athletics', abbr: 'oak', logo: 'oak', status: 'secondary', division: 'AL West' },
+              { name: 'Philadelphia Phillies', abbr: 'phi', logo: 'phi2', status: 'secondary', division: 'NL East' },
+              { name: 'Pittsburgh Pirates', abbr: 'pit', logo: 'pit', status: 'secondary', division: 'NL Central' },
+              { name: 'San Diego Padres', abbr: 'sd', logo: 'sd', status: 'secondary', division: 'NL West' },
+              { name: 'San Francisco Giants', abbr: 'sf', logo: 'sf', status: 'secondary', division: 'NL West' },
+              { name: 'Seattle Mariners', abbr: 'sea', logo: 'sea', status: 'secondary', division: 'AL West' },
+              { name: 'St. Louis Cardinals', abbr: 'stl', logo: 'stl', status: 'secondary', division: 'NL Central' },
+              { name: 'Tampa Bay Rays', abbr: 'tb', logo: 'tb', status: 'secondary', division: 'AL East' },
+              { name: 'Texas Rangers', abbr: 'tex', logo: 'tex', status: 'secondary', division: 'AL West' },
+              { name: 'Toronto Blue Jays', abbr: 'tor', logo: 'tor2', status: 'secondary', division: 'AL East' },
+              { name: 'Washington Nationals', abbr: 'wsh', logo: 'wsh', status: 'secondary', division: 'NL East' }
+            ],
         }
 
         this.toggle = this.toggle.bind(this);
@@ -617,7 +616,7 @@ class MlbPickEmBar extends Component {
       }
 
     postTeams = () => {
-      let teams = this.state.challengeData.teams
+      let teams = this.state.mlbTeams
       console.log('POSTING JUST THESE TEAMS: ', teams)
       // debugger;
       for (var x=0; x<teams.length; x++) {
