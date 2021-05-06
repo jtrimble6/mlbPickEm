@@ -509,12 +509,13 @@ class MlbPickEmBar extends Component {
           }
           
           this.setState({
-              teams: teams,
-              todaysPick: teamMatched
+            teams: teams,
+            todaysPick: teamMatched
+          }, () => {
+            console.log('NEW TEAMS ARRAY: ', this.state.teams)
           })
 
           console.log('TEAMS: ', teams)
-          console.log('NEW TEAMS ARRAY: ', this.state.teams)
 
         }
         
@@ -754,7 +755,7 @@ class MlbPickEmBar extends Component {
             </div>
               <div className="row teamLogos">
                 {
-                  this.state.mlbTeams.map((team, i) => (
+                  this.state.teams.map((team, i) => (
                     <Button 
                       key={uuidv4()}
                       onClick={this.findTeamGames}
