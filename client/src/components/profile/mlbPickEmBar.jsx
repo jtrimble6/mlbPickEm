@@ -461,7 +461,7 @@ class MlbPickEmBar extends Component {
     changeLogo = () => {
         let wins = this.state.userWins
         let challengeId = localStorage.getItem('userChallengeId')
-        // console.log('THESE ARE WINS: ', this.state.userWins)
+        console.log('THESE ARE WINS: ', this.state.userWins)
         // console.log('THIS IS THE TEAM: ', this.state.thisTeam)
         let allPicks = this.state.userPicks
         //let matchedTeams = []
