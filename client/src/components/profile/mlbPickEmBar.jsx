@@ -466,7 +466,7 @@ class MlbPickEmBar extends Component {
         let allPicks = this.state.userPicks
         //let matchedTeams = []
         let theseMatchingWins = []
-        let teams = JSON.parse(JSON.stringify(this.state.challengeData.teams))
+        let teams = JSON.parse(JSON.stringify(this.state.mlbTeams))
 
         let todaysPickFunc = (picks) => {
           return picks.gameDate === moment().format('YYYY-MM-DD') && picks.challengeId === challengeId
