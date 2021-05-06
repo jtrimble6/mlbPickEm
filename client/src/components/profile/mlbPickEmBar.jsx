@@ -751,7 +751,7 @@ class MlbPickEmBar extends Component {
             </div>
               <div className="row teamLogos">
                 {
-                  this.state.teams.map((team, i) => (
+                  this.state.mlbTeams.map((team, i) => (
                     <Button 
                       key={uuidv4()}
                       onClick={this.findTeamGames}
