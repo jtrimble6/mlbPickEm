@@ -25,8 +25,11 @@ class NbaPlayoffActionPage extends Component {
       lastName: '',
       losses: [],
       lossesCount: 0,
-      winsLength: 0,
+      winsCount: 0,
+      pointsCount: 0,
       myPicks: [],
+      today: moment().subtract(262, 'days').format('YYYY-MM-DD'),
+      yesterday: moment().subtract(263, 'days').format('YYYY-MM-DD'),
       todaysPick: 'No Pick'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -65,34 +68,61 @@ class NbaPlayoffActionPage extends Component {
 
     getUserData = () => {
       window.addEventListener('load', this.handlePreloader());
-        let localUser = localStorage.getItem('user')
-        let chalUsers = this.state.challengeData.users
+      let localUser = localStorage.getItem('user')
+      let challengeId = localStorage.getItem('userChallengeId')
+      API.getUser(localUser)
+          .then(res => {
+            // console.log('THE USER: ', res.data)
+            let thisUser = res.data
+            let filterWins = (picks) => {
+              return picks.result === 'win' && picks.challengeId === challengeId
+            }
+            let filteredWins = thisUser[0].picks.filter(filterWins)
+            console.log('FILTERED WINS: ', filteredWins)
+            this.setState({
+              userData: thisUser[0],
+              currentUser: thisUser[0],
+              username: thisUser[0].username,
+              firstName: thisUser[0].firstName,
+              lastName: thisUser[0].lastName,
+              wins: filteredWins,
+              winsCount: filteredWins.length,
+              myPicks: thisUser[0].picks,
+            }, () => {
+              this.getTodaysPick()
+            })
+          })
+          .catch(err => {console.log(err)})
+      
+        // let localUser = localStorage.getItem('user')
+        // let chalUsers = this.state.challengeData.users
 
-        // FILTER OUT THIS USER AND SET STATE
-        let chalFilter = (challengers) => {
-          return challengers.username === localUser
-        }
-        let thisUser = chalUsers.filter(chalFilter)
+        // // FILTER OUT THIS USER AND SET STATE
+        // let chalFilter = (challengers) => {
+        //   return challengers.username === localUser
+        // }
+        // let thisUser = chalUsers.filter(chalFilter)
 
-        this.setState({
-          currentUser: thisUser[0],
-          username: thisUser[0].username,
-          firstName: thisUser[0].firstName,
-          lastName: thisUser[0].lastName,
-          losses: thisUser[0].points,
-          lossesCount: thisUser[0].points,
-          winsLength: thisUser[0].wins.length,
-          myPicks: thisUser[0].picks
-        })
+        // console.log('USER WINS: ', thisUser[0].wins)
 
-        this.getTodaysPick()
+        // this.setState({
+        //   currentUser: thisUser[0],
+        //   username: thisUser[0].username,
+        //   firstName: thisUser[0].firstName,
+        //   lastName: thisUser[0].lastName,
+        //   losses: thisUser[0].points,
+        //   lossesCount: thisUser[0].points,
+        //   winsCount: thisUser[0].wins.length,
+        //   myPicks: thisUser[0].picks
+        // })
 
-        console.log('CURRENT LOSSES: ', this.state.lossesCount)
+        // this.getTodaysPick()
+
         // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
     }
 
     getTodaysPick = () => {
-        let today = moment().format('YYYY-MM-DD')
+        let today = this.state.today
         let myPicks = this.state.myPicks
         for (var j=0; j<myPicks.length; j++) {
             let pickDate = myPicks[j].gameDate
@@ -106,7 +136,6 @@ class NbaPlayoffActionPage extends Component {
 
         return (
             <div id='actionPage'>
-              {/* <AdminBar /> */}
               <div className="se-pre-con"></div>
               <NbaPickEmActionNav 
                 challengeName={this.state.challengeData.challengeName}
@@ -115,29 +144,24 @@ class NbaPlayoffActionPage extends Component {
               <NbaPlayoffBar
                   username={this.state.username}
                   lossesCount={this.state.lossesCount}
-                  winsLength={this.state.winsLength}
+                  winsCount={this.state.winsCount}
+                  todaysDate={this.state.today}
                   todaysPick={this.state.todaysPick}
                 /> 
               
-              <div className='row'>
+              <div className='row calRow'>
                 <div className='calBoard col-md-9'>
                   <NbaPlayoffCalendar 
+                    todaysDate={this.state.today}
                     username={this.state.username}
                   />
                 </div>
                 <div className='col-md-3'>
-                {/* <NbaPlayoffGames
-                /> */}
                 <div className="leaders row">
                   <NbaPlayoffLeaderboard   
+                    todaysDate={this.state.today}
                   />
                 </div>
-
-                {/* <div className="winningTeams row">
-                  <Games 
-                    username={this.state.username}
-                  />
-                </div> */}
                   
                 </div>
               </div>

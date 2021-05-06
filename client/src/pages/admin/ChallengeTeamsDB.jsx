@@ -63,6 +63,24 @@ class ChallengeTeamsDB extends Component {
             { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary' },
             { name: 'Washington Wizards', abbr: 'was', logo: was, status: 'secondary' }
           ],
+          nbaPlayoffTeams: [
+            { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
+            { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
+            { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '3' },
+            { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '4' },
+            { name: 'Miami Heat', abbr: 'mia', logo: mia, status: 'secondary', conf: 'east', seed: '5' },
+            { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '6' },
+            { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '7' },
+            { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '8' },
+            { name: 'Los Angeles Lakers', abbr: 'lal', logo: lal, status: 'secondary', conf: 'west', seed: '1' },
+            { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '2' },
+            { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '3' },
+            { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '4' },
+            { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '5' },
+            { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '6' },
+            { name: 'Dallas Mavericks', abbr: 'dal', logo: dal, status: 'secondary', conf: 'west', seed: '7' },
+            { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '8' },
+          ],
           mlbTeams: [
             { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary', division: 'NL West' },
             { name: 'Atlanta Braves', abbr: 'atl', logo: 'atl2', status: 'secondary', division: 'NL East' },
@@ -105,8 +123,11 @@ class ChallengeTeamsDB extends Component {
           this.findTeams = this.findTeams.bind(this)
           this.postNbaTeams = this.postNbaTeams.bind(this);
           this.postNbaTeamGames = this.postNbaTeamGames.bind(this);
+          this.postNbaPlayoffTeams = this.postNbaPlayoffTeams.bind(this);
+          this.postNbaPlayoffTeamGames = this.postNbaPlayoffTeamGames.bind(this);
           this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
           this.removeNbaTeamGames = this.removeNbaTeamGames.bind(this);
+          this.removeNbaPlayoffTeamGames = this.removeNbaPlayoffTeamGames.bind(this);
           this.postMlbTeams = this.postMlbTeams.bind(this);
           // this.postMlbTeamGames = this.postMlbTeamGames.bind(this);
           // this.removeMlbTeamGames = this.removeMlbTeamGames.bind(this);
@@ -200,26 +221,50 @@ class ChallengeTeamsDB extends Component {
       }
 
     postNbaTeams = () => {
-        let teams = this.state.nbaTeams
-        console.log('POSTING JUST THESE TEAMS: ', teams)
-        // debugger;
-        for (var x=0; x<teams.length; x++) {
-          let teamNameCombo = teams[x].name
-          let newTeam = {
-            teamName: teamNameCombo,
-            teamAlias: teams[x].abbr.toUpperCase(),
-            homeGames: [],
-            awayGames: []
-          }
-          // debugger
-          API.postNbaTeams(newTeam)
-            .then(res => {
-              console.log(res.data)
-              this.toggleAddTeamsModal()
-            })
-            .catch(err => console.log(err))
-          }
+      let teams = this.state.nbaTeams
+      console.log('POSTING JUST THESE TEAMS: ', teams)
+      // debugger;
+      for (var x=0; x<teams.length; x++) {
+        let teamNameCombo = teams[x].name
+        let newTeam = {
+          teamName: teamNameCombo,
+          teamAlias: teams[x].abbr.toUpperCase(),
+          homeGames: [],
+          awayGames: []
         }
+        // debugger
+        API.postNbaTeams(newTeam)
+          .then(res => {
+            console.log(res.data)
+            this.toggleAddTeamsModal()
+          })
+          .catch(err => console.log(err))
+        }
+      }
+
+    postNbaPlayoffTeams = () => {
+          let teams = this.state.nbaPlayoffTeams
+          console.log('POSTING JUST THESE TEAMS: ', teams)
+          // debugger;
+          for (var x=0; x<teams.length; x++) {
+            let teamNameCombo = teams[x].name
+            let newTeam = {
+              teamName: teamNameCombo,
+              teamAlias: teams[x].abbr.toUpperCase(),
+              homeGames: [],
+              awayGames: [],
+              conf: teams[x].conf,
+              seed: teams[x].seed
+            }
+            // debugger
+            API.postNbaPlayoffTeams(newTeam)
+              .then(res => {
+                console.log(res.data)
+                this.toggleAddTeamsModal()
+              })
+              .catch(err => console.log(err))
+            }
+      }
 
     postMlbTeams = () => {
           let teams = this.state.mlbTeams
@@ -242,11 +287,24 @@ class ChallengeTeamsDB extends Component {
               })
               .catch(err => console.log(err))
             }
-          }
+      }
 
     removeNbaTeamGames = () => {
         console.log('THIS CHALLENGE: ', this.state.thisChallenge)
         let theTeams = this.state.nbaTeams
+        for (var t=0; t<theTeams.length; t++) {
+            let thisTeam = theTeams[t].abbr.toUpperCase()
+            API.removeNbaGamesByTeam(thisTeam)
+                .then(res => {
+                    console.log('REMOVED GAMES BY TEAM: ', res)
+                })
+                .catch(err => console.log(err))   
+        }
+      }
+
+    removeNbaPlayoffTeamGames = () => {
+        console.log('THIS CHALLENGE: ', this.state.thisChallenge)
+        let theTeams = this.state.nbaPlayoffTeams
         for (var t=0; t<theTeams.length; t++) {
             let thisTeam = theTeams[t].abbr.toUpperCase()
             API.removeNbaGamesByTeam(thisTeam)
@@ -296,7 +354,7 @@ class ChallengeTeamsDB extends Component {
           })
           .catch(err => console.log(err))
   
-        }
+      }
 
     postNbaTeamGames = () => {
         let allGames = []
@@ -332,6 +390,57 @@ class ChallengeTeamsDB extends Component {
                     })
                     .catch(err => console.log(err))
                 }
+              }
+              this.toggleAddGamesModal()
+            }
+            
+          })
+          .catch(err => console.log(err))
+  
+      }
+
+    postNbaPlayoffTeamGames = () => {
+        let allGames = []
+        // console.log('THIS CHALLENGE: ', this.state.thisChallenge)
+        API.getNbaPlayoffGames()
+          .then(res => {
+            allGames.push(res.data)
+            let theGames = allGames[0]
+            let theTeams = this.state.nbaPlayoffTeams
+            // let theChallenge = this.state.thisChallenge[0]
+            for (var t=0; t<theTeams.length; t++) {
+              let thisTeam = theTeams[t].abbr.toUpperCase()
+              // console.log('ALL GAMES: ', theGames)
+              // console.log('THIS TEAM: ', thisTeam)
+              for (var p=0; p<theGames.length; p++) {
+
+                // ADD HOME GAMES
+
+                let homeA = theGames[p].homeAlias
+                if (homeA === thisTeam) {
+                  // console.log('THE GAME: ', theGames[p])
+                  // console.log('THIS TEAM IS THE HOME TEAM', thisTeam)
+                  API.addNbaPlayoffGamesByTeam(thisTeam, theGames[p])
+                    .then(res => {
+                      console.log(res)
+                    })
+                    .catch(err => console.log(err))
+                }
+
+                // ADD AWAY GAMES
+
+                // let awayA = theGames[p].awayAlias
+                // if (awayA === thisTeam) {
+                //   // console.log('THE GAME: ', theGames[p])
+                //   // console.log('THIS TEAM IS THE AWAY TEAM', thisTeam)
+                //   API.addNbaPlayoffGamesByTeam(thisTeam, theGames[p])
+                //     .then(res => {
+                //       console.log(res)
+                //     })
+                //     .catch(err => console.log(err))
+                // }
+
+
               }
               this.toggleAddGamesModal()
             }
@@ -396,6 +505,9 @@ class ChallengeTeamsDB extends Component {
         if (teamsSelection === 'mlbTeams') {
           this.postMlbTeams()
         }
+        if (teamsSelection === 'nbaPlayoffTeams') {
+          this.postNbaPlayoffTeams()
+        }
       }
 
     handleAddTeamGamesSubmit = (event) => {
@@ -408,7 +520,10 @@ class ChallengeTeamsDB extends Component {
         if (gamesSelection === 'mlbGames') {
           this.postMlbTeamGames()
         }
-    }
+        if (gamesSelection === 'nbaPlayoffGames') {
+          this.postNbaPlayoffTeamGames()
+        }
+      }
       
 
     render() {
@@ -441,6 +556,7 @@ class ChallengeTeamsDB extends Component {
                             >
                                 <option value=''>Select One</option>
                                 <option value='nbaTeams'>NBA Teams</option>
+                                <option value='nbaPlayoffTeams'>NBA Playoff Teams</option>
                                 <option value='mlbTeams'>MLB Teams</option>
                                 <option value='nflTeams'>NFL Teams</option>
                             </select>
@@ -477,6 +593,7 @@ class ChallengeTeamsDB extends Component {
                             >
                                 <option value=''>Select One</option>
                                 <option value='nbaGames'>NBA Games</option>
+                                <option value='nbaPlayoffGames'>NBA Playoff Games</option>
                                 <option value='mlbGames'>MLB Games</option>
                                 <option value='nflGames'>NFL Games</option>
                             </select>
@@ -513,6 +630,7 @@ class ChallengeTeamsDB extends Component {
                           >
                           <option value=''>Select One</option>
                           <option value='nbaTeams'>NBA Teams</option>
+                          <option value='nbaPlayoffTeams'>NBA Playoff Teams</option>
                           <option value='mlbTeams'>MLB Teams</option>
                           <option value='nflTeams'>NFL Teams</option>
                           {/* {

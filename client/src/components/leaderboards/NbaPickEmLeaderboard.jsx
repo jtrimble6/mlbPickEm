@@ -548,7 +548,7 @@ class NbaPickEmLeaderboard extends Component {
 
     render() {
       let uuidv4 = require('uuid/v4')
-      let record = (this.state.activeUserPrevPicks.length - this.state.activeUserWins.length)
+      let record = (this.state.activeUserPrevPicks?.length - this.state.activeUserWins?.length)
       let leaderStyle = {
           overflow: 'scroll'
       }
@@ -658,10 +658,10 @@ class NbaPickEmLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
+                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins?.length}
                                       </div>
                                       <div className="col-md-3">
-                                      <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
+                                      <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins?.length} - {record}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='wins'>Streak</h4> {this.state.activeUserWinsCount}

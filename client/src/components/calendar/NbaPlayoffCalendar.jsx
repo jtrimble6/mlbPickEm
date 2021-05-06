@@ -14,7 +14,8 @@ import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone';
-import { mil, tor, phi, ind, bos, bkn, det, orl, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nbaLogos'
+import { mil, tor, bos, ind, mia, phi, bkn, orl, lal, lac, den, hou, okc, uta, dal, por } from '../../css/nbaLogos'
+import { ModalDialog, OverlayTrigger } from 'react-bootstrap'
 // import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
 
 class NbaPlayoffCalendar extends Component {
@@ -47,7 +48,7 @@ class NbaPlayoffCalendar extends Component {
           winningTeams: [],
           gameDate: '',
           title: '', 
-          teams: '', 
+          teams: [], 
           status: '', 
           id: '', 
           activePick: '', 
@@ -91,12 +92,13 @@ class NbaPlayoffCalendar extends Component {
         this.overridePickResult = this.overridePickResult.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.getTeamsData = this.getTeamsData.bind(this);
       }
 
     componentDidMount() {
       this.getChallengeData()
       this.getTodaysFirstGame()
-      
+      this.getTeamsData()
       // this.checkPrevDatesPicked()
       }
 
@@ -210,7 +212,7 @@ class NbaPlayoffCalendar extends Component {
         lastDate: event.date, 
         gameId: gameId 
       });
-      // console.log('Status: ', this.state.status)
+      // console.log('date: ', event.date)
       // console.log('Start Time: ', this.state.time)
       // console.log('Game ID: ', this.state.gameId)
       }
@@ -227,7 +229,7 @@ class NbaPlayoffCalendar extends Component {
         .then(res => {
           // console.log(res)
           self.setState({
-            challengeData: res.data[0]
+            challengeData: res.data[0],
           })
           self.getUserData()
           self.getSchedule()
@@ -236,47 +238,103 @@ class NbaPlayoffCalendar extends Component {
       }
 
     getUserData = () => {
-      let localUser = localStorage.getItem('user')
-      let chalUsers = this.state.challengeData.users
-
-      // FILTER OUT THIS USER AND SET STATE
-      let chalFilter = (challengers) => {
-        return challengers.username === localUser
+        let localUser = localStorage.getItem('user')
+        let challengeId = localStorage.getItem('userChallengeId')
+        API.getUser(localUser)
+            .then(res => {
+              // console.log('THE USER: ', res.data)
+              let thisUser = res.data
+              let filterWins = (picks) => {
+                return picks.result === 'win' && picks.challengeId === challengeId
+              }
+              let filteredWins = thisUser[0].picks.filter(filterWins)
+              // console.log('FILTERED WINS: ', filteredWins)
+              this.setState({
+                userData: thisUser[0],
+                currentUser: thisUser[0],
+                username: thisUser[0].username,
+                firstName: thisUser[0].firstName,
+                lastName: thisUser[0].lastName,
+                myWins: filteredWins,
+                winsCount: filteredWins.length,
+                myPicks: thisUser[0].picks,
+              })
+            })
+            .catch(err => {console.log(err)})
       }
-      let thisUser = chalUsers.filter(chalFilter)
 
-      this.setState({
-        currentUser: thisUser[0],
-        username: thisUser[0].username,
-        firstName: thisUser[0].firstName,
-        lastName: thisUser[0].lastName,
-        losses: thisUser[0].wins,
-        lossesCount: thisUser[0].wins.length,
-        myPicks: thisUser[0].picks,
-      })
+    // getUserData = () => {
+    //   let localUser = localStorage.getItem('user')
+    //   let chalUsers = this.state.challengeData.users
 
-      // console.log('CURRENT USER: ', this.state.currentUser)
-      // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
-      }
+    //   // FILTER OUT THIS USER AND SET STATE
+    //   let chalFilter = (challengers) => {
+    //     return challengers.username === localUser
+    //   }
+    //   let thisUser = chalUsers.filter(chalFilter)
+
+    //   this.setState({
+    //     currentUser: thisUser[0],
+    //     username: thisUser[0].username,
+    //     firstName: thisUser[0].firstName,
+    //     lastName: thisUser[0].lastName,
+    //     losses: thisUser[0].wins,
+    //     lossesCount: thisUser[0].wins.length,
+    //     myPicks: thisUser[0].picks,
+    //   })
+
+    //   // console.log('CURRENT USER: ', this.state.currentUser)
+    //   // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
+    //   }
+
+    getTeamsData = () => {
+      API.getNbaPlayoffTeams()
+        .then(res => {
+          console.log('GOT TEAMS: ', res.data)
+          this.setState({
+            teams: res.data
+          })
+        })
+        .catch(err => {
+          console.log('err: ', err)
+        })
+    }
 
     handleSubmit(event) {
         event.preventDefault();
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId
+        let teams = this.state.teams
         let myPicks = this.state.myPicks
         // let myLosses = this.state.myLosses
         let teamPick = this.state.activePick
+        console.log('TEAMS: ', teams)
+        console.log('ACTIVE PICK: ', this.state.activePick)
+        let findTeamSeed = (team) => {
+          return team.teamName.trim() === teamPick.trim()
+        }
+        let teamFound = teams.filter(findTeamSeed)
+        let teamSeed = parseInt(teamFound[0].seed)
+        // console.log('TEAM SEEDING: ', teamSeed)
+        // debugger;
         let pickDate = this.state.activeDate
         // let prevDates = this.state.myDatesPicked
         let gameId = this.state.gameId
         // let toggle = true
-        let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending' }
+        let thisPick = { 
+          team: teamPick.trim(), 
+          teamSeed: teamSeed,
+          gameDate: pickDate, 
+          gameId: gameId, 
+          result: 'pending',
+          challengeId: challengeId,
+        }
         let firstGameTime = this.state.firstGameTime
         // TODAY'S TIMER STATUS
         // console.log('FIRST GAME TIME: ', firstGameTime)
         if (firstGameTime !== '') {
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTime = moment(this.props.todaysDate).tz('America/New_York').format('HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           
           let timeDiff = moment.duration(firstGameTime.diff(realTimeAdj))
@@ -289,7 +347,7 @@ class NbaPlayoffCalendar extends Component {
               timerEnded: true
             })
             // DOUBLE CHECK TO SEE THAT TIMER HAS NOT ALREADY ENDED FOR TODAYS GAMES BEFORE SUBMITTING PICK FOR TODAY
-            if (pickDate === moment().format('YYYY-MM-DD')) {
+            if (pickDate === this.props.todaysDate) {
               // console.log('THIS IS A LATE PICK FOR TODAY')
               this.toggleLatePick()
               return;
@@ -305,7 +363,7 @@ class NbaPlayoffCalendar extends Component {
           }
         if (myPicks.length) {
           for (var j=0; j<myPicks.length; j++) {
-            if (thisPick.gameDate === myPicks[j].gameDate) {
+            if (thisPick.gameDate === myPicks[j].gameDate && challengeId === myPicks[j].challengeId) {
               let newPick = thisPick
               this.overridePick(pickDate, newPick) 
               return;
@@ -313,7 +371,7 @@ class NbaPlayoffCalendar extends Component {
             }
           }
         
-        API.saveNbaPlayoffPick(challengeId, myId, thisPick)
+        API.addUserPick(myId, thisPick)
           .then(res => { 
             console.log(res)
             this.toggle()
@@ -341,29 +399,18 @@ class NbaPlayoffCalendar extends Component {
       }
     
       overridePick(date, newPick) {
-        console.log(date)
-        API.deleteNbaPlayoffPick(this.state.challengeId, this.props.username, date)
-          .then(res => {
-          console.log(res)
-          API.saveNbaPlayoffPick(this.state.challengeId, this.props.username, newPick)
-            .then(res => { 
-              console.log(res)
+        let localUser = localStorage.getItem('user')
+        let challengeId = this.state.challengeId
+        // console.log('OVERRIDE THIS PICK: ', localUser, challengeId, date, newPick)
+  
+        API.overrideUserPick(localUser, challengeId, date, newPick)
+            .then(res => {
+              // console.log('override pick result: ', res)
               document.location.reload()
-              this.toggle()
             })
-            .catch(err => { 
-              console.log(err) 
-              this.setState({
-                pickError: true
-              })
-            })  
-          })
-          .catch(err => {
-            console.log(err)
-            this.setState({
-              pickError: true
+            .catch(err => {
+              console.log(err)
             })
-          })
         }
 
     getSchedule = () => {
@@ -416,7 +463,7 @@ class NbaPlayoffCalendar extends Component {
       }
 
     getTodaysFirstGame = () => {
-      let date = moment().format('YYYY-MM-DD')
+      let date = this.props.todaysDate
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
@@ -435,7 +482,7 @@ class NbaPlayoffCalendar extends Component {
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
           let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTime = moment(date).tz('America/New_York').format('HH:mm:ss a')
           let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
           
@@ -740,6 +787,7 @@ class NbaPlayoffCalendar extends Component {
       let yesterday = this.state.yesterday
       let userPicks = userData.userPicks
       let schedule = this.state.yesterdaysGames
+      let challengeId = this.state.challengeId
       // let userLosses = userData.userLosses
       // console.log('DA SCHEDULE: ', schedule)
     
@@ -779,16 +827,20 @@ class NbaPlayoffCalendar extends Component {
               team: foundWinner[0].gameWinner,
               gameDate: foundWinner[0].date,
               gameId: foundWinner[0].id,
+              challengeId: thisPick[0].challengeId,
+              seed: thisPick[0].seed,
               result: result
             }
+
+            this.overridePickResult(userId, newPick.gameId, newPick.result)
             
-            API.addNbaPlayoffWin(this.state.challengeId, userId, newWin)
-              .then (res => {
-                console.log(res)
-                this.overridePickResult(userId, yesterday, newPick) 
-                // debugger;
-              })
-              .catch(err => console.log(err))
+            // API.addNbaPlayoffWin(this.state.challengeId, userId, newWin)
+            //   .then (res => {
+            //     console.log(res)
+            //     this.overridePickResult(userId, yesterday, newPick) 
+            //     // debugger;
+            //   })
+            //   .catch(err => console.log(err))
 
             } else {
               let result = 'loss'
@@ -797,10 +849,12 @@ class NbaPlayoffCalendar extends Component {
                 team: thisPick[0].team,
                 gameDate: thisPick[0].gameDate,
                 gameId: thisPick[0].gameId,
+                challengeId: thisPick[0].challengeId,
+                seed: thisPick[0].seed,
                 result: result
               }
             
-              this.overridePickResult(userId, yesterday, newPick) 
+              this.overridePickResult(userId, newPick.gameId, newPick.result)
 
             }
           } else { return }
@@ -808,25 +862,16 @@ class NbaPlayoffCalendar extends Component {
 
       }
 
-    overridePickResult(userId, date, newPick) {
-      // console.log(date)
-      API.deleteNbaPlayoffPick(this.state.challengeId, userId, date)
-        .then(res => {
-            console.log(res)
-            API.saveNbaPlayoffPick(this.state.challengeId, userId, newPick)
-              .then(res => { 
-                console.log(res)
-                })
-              .catch(err => { console.log(err) } )
-        })
-        .catch(err => {console.log(err)})
-      // API.saveNbaPlayoffPick(this.state.challengeId, userId, newPick)
-      //   .then(res => { 
-      //     console.log(res)
-      //     })
-      //   .catch(err => { console.log(err) } )  
-        
-      }
+      overridePickResult(userId, gameId, gameResult) {
+        // console.log(date)
+        API.updateUserPick(userId, gameId, gameResult)
+          .then(res => {
+              console.log('UPDATING USER PICK: ', res)
+            })
+          .catch(err => {console.log(err)}) 
+          
+        }
+  
 
     createTimer = (timeDiff) => {
         //console.log('Time until first game: ', timeDiff)
@@ -837,57 +882,67 @@ class NbaPlayoffCalendar extends Component {
       }
 
     loadLogo = (team) => {
+      // console.log('TEAMS: ', this.state.teams)
+      // console.log('THIS TEAM: ', team)
+      // let logo = this.state.teams.filter(teamLogo => {
+      //   return teamLogo.teamAlias.toLowerCase() === team
+      // })
+      // if (logo[0]) {
+      //   console.log('TEAM LOGO: ', logo[0])
+      //   return logo[0]
+      // }
+
       switch (true) {
-        case (team === 'bkn'):
-          return bkn;
+        case (team === 'mil'):
+          return mil.default;
+          
+        case (team === 'tor'):
+          return tor.default;
           
         case (team === 'bos'):
-          return bos;
-          
-        case (team === 'den'):
-          return den;
-           
-        case (team === 'det'):
-          return det;
-           
-        case (team === 'gsw'):
-          return gsw;
-           
-        case (team === 'hou'):
-          return hou;
+          return bos.default;
            
         case (team === 'ind'):
-          return ind;
+          return ind.default;
            
-        case (team === 'lac'):
-          return lac;
-           
-        case (team === 'orl'):
-          return orl;
-        
-        case (team === 'mil'):
-          return mil;
-           
-        case (team === 'okc'):
-          return okc;
+        case (team === 'mia'):
+          return mia.default;
            
         case (team === 'phi'):
-          return phi;
+          return phi.default;
            
-        case (team === 'por'):
-          return por;
+        case (team === 'bkn'):
+          return bkn.default;
            
-        case (team === 'sas'):
-          return sas;
+        case (team === 'orl'):
+          return orl.default;
            
-        case (team === 'tor'):
-          return tor;
+        case (team === 'lal'):
+          return lal.default;
+        
+        case (team === 'lac'):
+          return lac.default;
+           
+        case (team === 'den'):
+          return den.default;
+           
+        case (team === 'hou'):
+          return hou.default;
+           
+        case (team === 'okc'):
+          return okc.default;
            
         case (team === 'uta'):
-          return uta;
+          return uta.default;
+           
+        case (team === 'dal'):
+          return dal.default;
+           
+        case (team === 'por'):
+          return por.default;
            
         default:
-          return uta;
+          return uta.default;
         }  
 
       }
@@ -995,7 +1050,7 @@ class NbaPlayoffCalendar extends Component {
 
               <div className="row countdown">
               <div className="col-3"></div>
-              <div className="col-6 timer">
+              <div className="col-6 timeToPick">
                 TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown>
@@ -1013,7 +1068,7 @@ class NbaPlayoffCalendar extends Component {
                     center: 'title',
                     right: 'month,basicWeek,basicDay'
                 }}
-                defaultDate={(lastDate) !== '' ? lastDate : moment().format()}
+                defaultDate={(this.props.todaysDate) !== '' ? this.props.todaysDate : moment().format()}
                 defaultView= 'basicWeek'
                 themeSystem= 'bootstrap4'
                 navLinks= {true} // can click day/week names to navigate views
@@ -1024,7 +1079,7 @@ class NbaPlayoffCalendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
-                  if(moment(calEvent.date).isBefore(moment().subtract(1, 'day'))) {
+                  if(moment(calEvent.date).isBefore(moment(this.props.todaysDate).subtract(1, 'day'))) {
                       // console.log('YOU CANT PICK THAT DATE')
                       // $('#calendar').fullCalendar('unselect');
                       this.handleChangeTeams(calEvent)

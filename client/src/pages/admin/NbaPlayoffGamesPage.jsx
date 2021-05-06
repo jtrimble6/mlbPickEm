@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import {matchSorter} from 'match-sorter'
-// import { Redirect } from 'react-router-dom'
+import LoadingOverlay from 'react-loading-overlay';
 import API from '../../utils/API'
 import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment'
+import { Button } from 'reactstrap'
 import $ from 'jquery'
 import ReactTable from "react-table-6";  
 import "react-table-6/react-table.css" 
@@ -13,20 +14,22 @@ class NbaPlayoffGamesPage extends Component {
   constructor(props) {
     super(props) 
     this.state = {
-      username: localStorage.getItem('user'),
-      allGames: [],
-      todaysGames: [],
-      yesterday: '',
-      yesterdaysGames: [],
-      yesterdayGamesIds: [],
-      gameResults: [],
-      signInError: false,
-      yesterdayPulled: false
+        isUploadScheduleLoaderActive: false,
+        username: localStorage.getItem('user'),
+        allGames: [],
+        todaysGames: [],
+        yesterday: '',
+        yesterdaysGames: [],
+        yesterdayGamesIds: [],
+        gameResults: [],
+        signInError: false,
+        yesterdayPulled: false
       }
+      this.handleUploadSchedulePreloader = this.handleUploadSchedulePreloader.bind(this);
       this.renderEditable = this.renderEditable.bind(this);
       this.getAllGames = this.getAllGames.bind(this)
       this.postGames = this.postGames.bind(this)
-      this.getGames = this.getGames.bind(this)
+      this.getNBAPlayoffGames = this.getNBAPlayoffGames.bind(this)
       this.getResults = this.getResults.bind(this)
       this.findGameWinners = this.findGameWinners.bind(this)
       this.postGameWinners = this.postGameWinners.bind(this)
@@ -35,7 +38,13 @@ class NbaPlayoffGamesPage extends Component {
 
   componentDidMount() {
       this.getAllGames()
-      // this.getGames()
+      // this.getNBAPlayoffGames()
+    }
+
+  handleUploadSchedulePreloader() {
+      this.setState({
+        isUploadScheduleLoaderActive: !this.state.isUploadScheduleLoaderActive
+      });
     }
 
   getAllGames = () => {
@@ -118,8 +127,8 @@ class NbaPlayoffGamesPage extends Component {
       let splitDate = gameDateAdj.split('T')
       let gameDate = splitDate[0]
 
-      if (moment(gameDate).isSame(moment().format())) {
-        console.log('TODAYS GAME')
+      // if (moment(gameDate).isSame(moment().format())) {
+      //   console.log('TODAYS GAME')
         let gameData = {
           gameDate: gameDate,
           gameTime: gameDateAdj,
@@ -138,8 +147,8 @@ class NbaPlayoffGamesPage extends Component {
         API.postNbaPlayoffGames(gameData)
           .then(res=> console.log(res))
           .catch(err => console.log(err))
-      } else {
-        console.log('NOT TODAY')
+      // } else {
+        // console.log('NOT TODAY')
         // let gameData = {
         //   gameDate: gameDate,
         //   gameTime: gameDateAdj,
@@ -158,22 +167,18 @@ class NbaPlayoffGamesPage extends Component {
         // API.postNbaPlayoffGames(gameData)
         //   .then(res=> console.log(res))
         //   .catch(err => console.log(err))
-        }
+        // }
       }
     }
 
-  getGames = () => {
+  getNBAPlayoffGames = () => {
+    this.handleUploadSchedulePreloader()
     let self = this
-
-    // const mlbKey = 't3ed9fy74zen5fynprhhkmw2'
-    // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
-    // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+    const nbaPlayoffKey = '34jjnkcxwesx9n9khfd6m3x3'
 
     // API CALL TO PULL ENTIRE SEASON SCHEDULE
     $.ajax({
-      // url: "https://cors-everywhere.herokuapp.com/http://api.sportradar.us/mlb/trial/v6.5/en/games/" + this.state.today + "/schedule.json?api_key=" + mlbKey,
-      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/2018/PST/schedule.json?api_key=' + nbaKey3,
+      url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/2019/PST/schedule.json?api_key=' + nbaPlayoffKey,
       type: 'GET',
       success: function(data) {
         self.setState({ fullSchedule: data.games });
@@ -193,7 +198,7 @@ class NbaPlayoffGamesPage extends Component {
     console.log('GETTING RESULTS: ', yesterdayGamesIds)
     // const nbaKey = '2kuh4yhq78h5rdmf9vrsprgg'
     // const nbaKey2 = '4y7q3vsbv9rdj9kbevdfng4j'
-    const nbaKey3 = 'pucmd9ehjna2p25aa2qzkvn3'
+    const nbaPlayoffKey = 'pucmd9ehjna2p25aa2qzkvn3'
 
     // API CALL TO GET EACH NBA GAME RESULT (DELAY 1.5 SECONDS)
     for (let m=0; m<yesterdayGamesIds.length; m++) {
@@ -201,7 +206,7 @@ class NbaPlayoffGamesPage extends Component {
       setTimeout ( 
         function() {
           $.ajax({
-            url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaKey3,
+            url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + yesterdayGamesIds[k] + '/boxscore.json?api_key=' + nbaPlayoffKey,
             type: 'GET',
             success: function(data) {
               console.log('Game results: ', data)
@@ -316,11 +321,33 @@ class NbaPlayoffGamesPage extends Component {
     
         return(
             <div id='nbaGamesPage'>
-            
+              <LoadingOverlay
+                active={this.state.isUploadScheduleLoaderActive}
+                // active={true}
+                spinner
+                styles={{
+                  spinner: (base) => ({
+                    ...base,
+                    width: '50%',
+                    height: '50%',
+                    background: 'transparent',
+                    '& svg circle': {
+                      stroke: 'gold'
+                    }
+                  })
+                }}
+                text='PLEASE WAIT... Uploading Schedule... (this may take up to 30-45 seconds)'
+                >
+              </LoadingOverlay>
               <AdminBar />
 
                 <div id='nbaGames'>
-                  <h1>NBA GAMES DATABASE</h1>
+                  <h1 className='adminDatabaseHeader'>NBA GAMES DATABASE</h1>
+                  <div className='row adminDatabaseControlsRow'>
+                    <Button className='adminDatabaseControlsButton' onClick={this.getNBAPlayoffGames}>Upload Season Schedule</Button>
+                    <Button className='adminDatabaseControlsButton'>Find Game Results By Date</Button>
+                    <Button className='adminDatabaseControlsButton'>Check Yesterday's Results</Button>
+                  </div>
                   <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) =>

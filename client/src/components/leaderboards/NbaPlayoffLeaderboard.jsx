@@ -37,6 +37,7 @@ class NbaPlayoffLeaderboard extends Component {
           todaysPick: 'No Pick',
           thisDate: '',
           userPlace: {},
+          timeDiff: '',
           teams: [
             { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
             { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
@@ -463,8 +464,8 @@ class NbaPlayoffLeaderboard extends Component {
       }
 
     getFirstGame = () => {
-      let now = moment().format()
-      let date = moment(now).format('YYYY-MM-DD')
+      // let now = moment().format()
+      let date = this.props.todaysDate
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
       API.getNbaPlayoffGamesByDate(date)
@@ -475,20 +476,22 @@ class NbaPlayoffLeaderboard extends Component {
           // CHECK TO SEE IF THERE ARE NO GAMES TODAY
           if (!sortedGames[0]) {
             // console.log('THERE MUST BE NO GAMES TODAY')
-            $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
+            // $('.timer').html('<div>THERE ARE NO GAMES TODAY</div>')
             return;
           }
 
           let firstGame = sortedGames[0]
           let firstGameTime = firstGame.gameTime
           let firstGameTimeAdj = moment(firstGameTime).add(5, 'hours').tz('America/New_York').format('HH:mm:ss a')
-          let realTime = moment().tz('America/New_York').format('HH:mm:ss a')
+          let realTime = moment(date).tz('America/New_York').format('HH:mm:ss a')
           let realGameTimeAdj = moment(firstGameTimeAdj, 'HH:mm:ss a')
           let realTimeAdj = moment(realTime, 'HH:mm:ss a')
-          
+          console.log('REAL TIME: ', realTime)
+          console.log('FIRST GAME TIME: ', firstGameTimeAdj)
           let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
+          console.log('TIME DIFF: ', timeDiff)
           this.setState({
-            firstGameTime: firstGameTimeAdj
+            firstGameTime: firstGameTimeAdj,
           })
           this.createTimer(timeDiff)
         })
@@ -499,7 +502,7 @@ class NbaPlayoffLeaderboard extends Component {
     createTimer = (timeDiff) => {
       // console.log('Time until first game: ', timeDiff)
       let seconds = moment.duration(timeDiff).asSeconds() * 1000
-      //console.log('In seconds milliseconds: ', seconds)
+      console.log('In seconds milliseconds: ', seconds)
       this.setState({ timeDiff: seconds })
       }
 
@@ -522,7 +525,7 @@ class NbaPlayoffLeaderboard extends Component {
         }
       let userPicks = this.state.activeUserPrevPicks
       let username = this.state.activeUserUsername
-      let timerDiff = this.state.timeDiff
+      // let timerDiff = this.state.timeDiff
       let todaysPick = (this.state.todaysPick !== 'No Pick' ? this.state.todaysPick : 'No Pick' )
       // console.log('THIS USERS PICK TODAY: ', this.state.todaysPick) 
       // let timerEnded = false;
@@ -532,7 +535,7 @@ class NbaPlayoffLeaderboard extends Component {
         return (
           <span>{todaysPick}</span>
         )
-        }
+      }
 
         return(
           <div className='leaderboard'>
@@ -551,14 +554,14 @@ class NbaPlayoffLeaderboard extends Component {
               text='Loading user...'
               >
             </LoadingOverlay>
-              <h2>Leaderboard</h2>
+              <h2 className='leaderboardHeader'>Leaderboard</h2>
               <hr />
               <table className='leaderboardData table table-hover'>
                 <thead>
                   <tr className='leaderboardHeader'>
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
-                    <th className='leaderboardHeader'>Strikes</th>
+                    <th className='leaderboardHeader'>Points</th>
                     {/* <th>Teams</th> */}
                   </tr>
                 </thead>
@@ -579,47 +582,50 @@ class NbaPlayoffLeaderboard extends Component {
                         size='lg'
                         className='playerModal'
                       >
-                          <ModalHeader id='modalTitle'>
-                            USER PROFILE ({username})
+                          <ModalHeader id='modalTitle' className='leaderboardModalTitle'>
+                            {/* USER PROFILE ({username}) */}
+                            USER PROFILE
                           </ModalHeader>
                           <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                             <div className="row playerRow">
-                              <Jumbotron className='playerJumbo'>
-                                <Container fluid>
-                                  <div className="display-4">
-                                    <h2>{username}</h2> <hr />
-                                    <h4 className="winsHeader">Today's Pick</h4>
-                                      <div className="userTimer">
+                              <div className='col-6'>
+                                <Jumbotron className='playerJumbo leaderboardModalPlayerJumbo'>
+                                  <Container fluid>
+                                    <div className="display-4">
+                                      <h2>{username}</h2> <hr />
+                                      <h4 className="winsHeader leaderboardModalTodaysPickHeader">Today's Pick</h4>
+                                        <div className="userTimer leaderboardModalUserTimer">
 
-                                        {
-                                          (!timerDiff) ? <p>No Games Today</p> :
+                                          {
+                                            (this.state.timeDiff.length) ? <p>No Games Today</p> :
 
-                                          <Countdown 
-                                            date={Date.now() + this.state.timeDiff}
-                                            zeroPadTime={2} 
-                                            daysInHours={true} 
-                                            renderer={this.timerRender}
-                                            className='userTimer'
-                                          >
-                                            <EndTimer />
-                                          </Countdown> 
-                                        }
+                                            <Countdown 
+                                              date={Date.now() + this.state.timeDiff}
+                                              zeroPadTime={2} 
+                                              daysInHours={true} 
+                                              renderer={this.timerRender}
+                                              className='userTimer'
+                                            >
+                                              <EndTimer />
+                                            </Countdown> 
+                                          }
 
-                                      </div>
-                                    <div className="row recordRow">
-                                      <div className="col-md-3">
-                                        <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserLossesCount}
-                                      </div>
-                                      <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {record}
+                                        </div>
+                                      <div className="row recordRow">
+                                        <div className="col-md-3">
+                                          <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserLossesCount}
+                                        </div>
+                                        <div className="col-md-3">
+                                          <h4 className='winsHeader'>Record</h4> {record}
+                                        </div>  
+                                        {/* <div className="col-md-3">
+                                          <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
+                                        </div>   */}
                                       </div>  
-                                      {/* <div className="col-md-3">
-                                        <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
-                                      </div>   */}
-                                    </div>  
-                                  </div>
-                                </Container>
-                              </Jumbotron>
+                                    </div>
+                                  </Container>
+                                </Jumbotron>
+                              </div>
                               <span className='row recentPicks profilePicks'>
                                 <div className="col-10">
                                   <table className='table table-hover'>

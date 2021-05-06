@@ -282,7 +282,13 @@ class NbaPickEmCalendar extends Component {
         // let prevDates = this.state.myDatesPicked
         let gameId = this.state.gameId
         // let toggle = true
-        let thisPick = { team: teamPick.trim(), gameDate: pickDate, gameId: gameId, result: 'pending', challengeId: challengeId }
+        let thisPick = { 
+          team: teamPick.trim(), 
+          gameDate: pickDate, 
+          gameId: gameId, 
+          result: 'pending', 
+          challengeId: challengeId 
+        }
 
         // TODAY'S TIMER STATUS
         let realTime = moment().tz('America/New_York').format()
@@ -865,6 +871,7 @@ class NbaPickEmCalendar extends Component {
               team: thisPick[0].team,
               gameDate: thisPick[0].gameDate,
               gameId: thisPick[0].gameId,
+              challengeId: thisPick[0].challengeId,
               result: result
             }
               // console.log('THIS IS A LOSS: ', thisPick)
@@ -1082,7 +1089,6 @@ class NbaPickEmCalendar extends Component {
             <div className='calendar'>
               <LoadingOverlay
                 active={this.state.isActive}
-                // active={true}
                 spinner
                 styles={{
                   spinner: (base) => ({

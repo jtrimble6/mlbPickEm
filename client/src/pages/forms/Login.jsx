@@ -52,7 +52,7 @@ class Login extends Component {
     handleFormSubmit = event => {
         event.preventDefault()
         let userData = {
-            username: this.state.username,
+            username: this.state.username.toLowerCase(),
             password: this.state.password
         }
         // console.log('LOGIN: ', userData)

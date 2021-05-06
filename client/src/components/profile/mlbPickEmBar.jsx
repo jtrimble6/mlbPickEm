@@ -201,21 +201,21 @@ class MlbPickEmBar extends Component {
         let thisGameMatch = this.state.allGames.filter(gameMatch)
         if (thisGameMatch[0]) {
           matchingGames.push(thisGameMatch[0])
-            if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isBefore(moment().format('YYYY-MM-DD'))) {
+            if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isBefore(this.props.todaysDate)) {
             // newGame.status = 'past'
             newGame = {
               game: thisGameMatch[0],
               gameDetails: (thisGameMatch[0].homeAlias === this.state.activeTeam.teamAlias) ? 'vs ' + thisGameMatch[0].awayAlias : '@ ' + thisGameMatch[0].homeAlias,
               status: 'past'
             } 
-          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isSame(moment().format('YYYY-MM-DD'))) {
+          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isSame(this.props.todaysDate)) {
             // newGame.status = 'today'
             newGame = {
               game: thisGameMatch[0],
               gameDetails: (thisGameMatch[0].homeAlias === this.state.activeTeam.teamAlias) ? 'vs ' + thisGameMatch[0].awayAlias : '@ ' + thisGameMatch[0].homeAlias , 
               status: 'today'
             }
-          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isAfter(moment().format('YYYY-MM-DD'))) {
+          } else if (thisGameMatch[0].gameDate === this.state.nextDays[u] && moment(this.state.nextDays[u]).isAfter(this.props.todaysDate)) {
             // newGame.status = 'future'
             newGame = {
               game: thisGameMatch[0],
@@ -250,7 +250,7 @@ class MlbPickEmBar extends Component {
       // console.log('USER PICKS: ', this.state.userPicks)
 
       let oldPicksFunc = (picks) => {
-        return picks.gameDate < moment().format('YYYY-MM-DD')
+        return picks.gameDate < this.props.todaysDate
       }
       let oldPicks = userPicks.filter(oldPicksFunc)
       let sortedPicks = userPicks.sort(function(a, b) {
@@ -307,7 +307,7 @@ class MlbPickEmBar extends Component {
                 gameDate: date.date,
                 gameID: '',
                 // style: (moment().format('YYYY-MM-DD').isAfter(moment(recentDates[t].date)) ? 'loss' : (moment().format('YYYY-MM-DD').isBefore(moment(recentDates[t].date)) ? 'futurePick' : 'todaysPick')),
-                style: ( moment().format('YYYY-MM-DD') === (date.date) ? 'todaysPick' : moment().format('YYYY-MM-DD') > (date.date) ? 'loss' : 'futurePick' )
+                style: ( this.props.todaysDate === (date.date) ? 'todaysPick' : this.props.todaysDate > (date.date) ? 'loss' : 'futurePick' )
               }
             )
           }
@@ -354,7 +354,7 @@ class MlbPickEmBar extends Component {
         },
         {
           name: 'today',
-          date: moment().format('YYYY-MM-DD')
+          date: this.props.todaysDate
         },
         {
           name: 'future',
@@ -470,7 +470,7 @@ class MlbPickEmBar extends Component {
         let teams = JSON.parse(JSON.stringify(this.state.mlbTeams))
 
         let todaysPickFunc = (picks) => {
-          return picks.gameDate === moment().format('YYYY-MM-DD') && picks.challengeId === challengeId
+          return picks.gameDate === this.props.todaysDate && picks.challengeId === challengeId
         }
         let todaysPickObj = allPicks.filter(todaysPickFunc)
         let todaysPick = ''
@@ -733,7 +733,7 @@ class MlbPickEmBar extends Component {
                       <tbody>
                         {
                           this.state.recentPicks.map((recentPick, i) => (
-                            <tr key={uuidv4()} className= {(recentPick.gameDate === moment().format('YYYY-MM-DD')) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
+                            <tr key={uuidv4()} className= {(recentPick.gameDate === this.props.todaysDate) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
                             {/* <tr key={uuidv4()} className={recentPick.result}> */}
                               <td>{moment(recentPick.gameDate).format('MM-DD')}</td>
                               <td>{recentPick.team}</td>
@@ -798,7 +798,7 @@ class MlbPickEmBar extends Component {
                           <tbody>
                           {
                             this.state.nextGames.map((nextGame) => (
-                              <tr key={uuidv4()} className={(moment().format('YYYY-MM-DD') === nextGame.game.gameDate) ? 'today' : nextGame.status} >
+                              <tr key={uuidv4()} className={(this.props.todaysDate === nextGame.game.gameDate) ? 'today' : nextGame.status} >
                                 <td>{moment(nextGame.game.gameDate).format('MM-DD')}</td>
                                 <td>{nextGame.gameDetails}</td>
                               </tr>

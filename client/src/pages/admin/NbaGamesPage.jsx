@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactTable from "react-table-6";  
-import "react-table-6/react-table.css";
 import { matchSorter } from 'match-sorter'
 import LoadingOverlay from 'react-loading-overlay';
 import API from '../../utils/API'
@@ -8,6 +7,7 @@ import AdminBar from '../../components/nav/AdminBar'
 import { Button } from 'reactstrap'
 import moment from 'moment'
 import $ from 'jquery'
+import "react-table-6/react-table.css";
 import '../../css/gamesPage.css'
 
 class NbaGamesPage extends Component {
