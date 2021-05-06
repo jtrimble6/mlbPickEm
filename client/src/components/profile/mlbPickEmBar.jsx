@@ -513,7 +513,8 @@ class MlbPickEmBar extends Component {
               todaysPick: teamMatched
           })
 
-          // console.log('NEW TEAMS ARRAY: ', this.state.challengeData.teams)
+          console.log('TEAMS: ', teams)
+          console.log('NEW TEAMS ARRAY: ', this.state.teams)
 
         }
         
