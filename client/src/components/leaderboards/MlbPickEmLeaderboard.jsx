@@ -191,7 +191,7 @@ class Leaderboard extends Component {
       }
 
     createLeaderboard = () => {
-      let challengeId = localStorage.getItem('userChallengeId')
+        let challengeId = localStorage.getItem('userChallengeId')
         let users = this.state.allUsers
         let testFilter = (allChallengers) => {
           return allChallengers.username !== 'testtest'
@@ -204,9 +204,9 @@ class Leaderboard extends Component {
 
         let placedUsers = newUsers.map(function(el, i) {
             let filteredWins = el.picks.filter(filterWins)
-            console.log('FILTERED WINS: ', filteredWins)
+            // console.log('FILTERED WINS: ', filteredWins)
             el.wins = filteredWins
-            console.log('NEW NEW USERS: ', el)
+            // console.log('NEW NEW USERS: ', el)
             return { index: i, value: filteredWins.length, username: el.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
@@ -222,7 +222,7 @@ class Leaderboard extends Component {
         let leaders = placedUsers.map(function(el) {
             return newUsers[el.index]
         })
-        console.log('LEADERS: ', leaders)
+        // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
 
         // console.log('NEW LEADERBOARD: ', this.state.allUsers)

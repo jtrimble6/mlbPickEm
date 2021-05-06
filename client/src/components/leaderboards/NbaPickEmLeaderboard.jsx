@@ -192,7 +192,7 @@ class NbaPickEmLeaderboard extends Component {
           return allChallengers.username !== 'testtest'
         }
         let newUsers = users.filter(testFilter)
-        // console.log('newUsers: ', newUsers)
+        console.log('newUsers: ', newUsers)
         let filterWins = (picks) => {
           return picks.result === 'win' && picks.challengeId === challengeId
         }
@@ -201,7 +201,7 @@ class NbaPickEmLeaderboard extends Component {
             let filteredWins = el.picks.filter(filterWins)
             // console.log('FILTERED WINS: ', filteredWins)
             el.wins = filteredWins
-            // console.log('NEW NEW USERS: ', el)
+            console.log('NEW NEW USERS: ', el)
             return { index: i, value: filteredWins.length, username: el.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
@@ -548,7 +548,7 @@ class NbaPickEmLeaderboard extends Component {
 
     render() {
       let uuidv4 = require('uuid/v4')
-      let record = (this.state.activeUserWinsCount + ' - ' + this.state.activeUserLossesCount)
+      let record = (this.state.activeUserPrevPicks.length - this.state.activeUserWins.length)
       let leaderStyle = {
           overflow: 'scroll'
       }
@@ -658,10 +658,10 @@ class NbaPickEmLeaderboard extends Component {
                                       </div>
                                     <div className="row recordRow">
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWinsCount}
+                                        <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins.length}
                                       </div>
                                       <div className="col-md-3">
-                                        <h4 className='winsHeader'>Record</h4> {record}
+                                      <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins.length} - {record}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='wins'>Streak</h4> {this.state.activeUserWinsCount}
