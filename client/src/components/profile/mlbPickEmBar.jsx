@@ -488,6 +488,7 @@ class MlbPickEmBar extends Component {
             thisTeam: teams[j].name.trim()
           })
           let thisTeam = teams[j].name.trim()
+          console.log('THIS TEAM: ', thisTeam)
           let teamMatched = teams.filter(matchingTeams)
           if (teamMatched[0]) {
             if (teamMatched[0].name.trim() === teams[j].name.trim()) {
@@ -502,7 +503,7 @@ class MlbPickEmBar extends Component {
           }
           theseMatchingWins = wins.filter(matchingWins)
           if (theseMatchingWins[0]) {
-            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
             teams[j].status = 'success'
           }
           
