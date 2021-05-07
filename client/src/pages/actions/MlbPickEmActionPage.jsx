@@ -26,6 +26,7 @@ class MlbActionPage extends Component {
       winsCount: 0,
       lossesCount: 0,
       myPicks: [],
+      todaysDate: moment().format('YYYY-MM-DD'),
       todaysPick: 'No Pick'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -124,6 +125,7 @@ class MlbActionPage extends Component {
                   winsCount={this.state.winsCount}
                   lossesCount={this.state.lossesCount}
                   todaysPick={this.state.todaysPick}
+                  todaysDate={this.state.todaysDate}
                 />
               
               <div className='row calRow'>
