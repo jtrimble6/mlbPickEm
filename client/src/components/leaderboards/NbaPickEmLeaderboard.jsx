@@ -661,7 +661,7 @@ class NbaPickEmLeaderboard extends Component {
                                         <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins?.length}
                                       </div>
                                       <div className="col-md-3">
-                                      <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins?.length} - {record}
+                                      {/* <h4 className='winsHeader'>Record</h4> {this.state.activeUserWins?.length} - {record} */}
                                       </div>  
                                       {/* <div className="col-md-3">
                                         <h4 className='wins'>Streak</h4> {this.state.activeUserWinsCount}

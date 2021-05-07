@@ -24,6 +24,7 @@ class MlbActionPage extends Component {
       lastName: '',
       wins: [],
       winsCount: 0,
+      lossesCount: 0,
       myPicks: [],
       todaysPick: 'No Pick'
     }
@@ -76,7 +77,11 @@ class MlbActionPage extends Component {
               return picks.result === 'win' && picks.challengeId === challengeId
             }
             let filteredWins = thisUser[0].picks.filter(filterWins)
-            console.log('FILTERED WINS: ', filteredWins)
+            let filterLosses = (picks) => {
+              return picks.result === 'loss' && picks.challengeId === challengeId
+            }
+            let filteredLosses = thisUser[0].picks.filter(filterLosses)
+            // console.log('FILTERED WINS: ', filteredWins)
             this.setState({
               userData: thisUser[0],
               currentUser: thisUser[0],
@@ -85,6 +90,7 @@ class MlbActionPage extends Component {
               lastName: thisUser[0].lastName,
               wins: filteredWins,
               winsCount: filteredWins.length,
+              lossesCount: filteredLosses.length,
               myPicks: filteredPicks,
             }, () => {
               this.getTodaysPick()
@@ -116,6 +122,7 @@ class MlbActionPage extends Component {
               <MlbPickEmBar
                   username={this.state.username}
                   winsCount={this.state.winsCount}
+                  lossesCount={this.state.lossesCount}
                   todaysPick={this.state.todaysPick}
                 />
               

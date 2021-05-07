@@ -28,8 +28,8 @@ class NbaPlayoffActionPage extends Component {
       winsCount: 0,
       pointsCount: 0,
       myPicks: [],
-      today: moment().subtract(262, 'days').format('YYYY-MM-DD'),
-      yesterday: moment().subtract(263, 'days').format('YYYY-MM-DD'),
+      today: moment().subtract(258, 'days').format('YYYY-MM-DD'),
+      yesterday: moment().subtract(261, 'days').format('YYYY-MM-DD'),
       todaysPick: 'No Pick'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -78,15 +78,29 @@ class NbaPlayoffActionPage extends Component {
               return picks.result === 'win' && picks.challengeId === challengeId
             }
             let filteredWins = thisUser[0].picks.filter(filterWins)
+            let filterLosses = (picks) => {
+              return picks.result === 'loss' && picks.challengeId === challengeId
+            }
+            let filteredLosses = thisUser[0].picks.filter(filterLosses)
             console.log('FILTERED WINS: ', filteredWins)
+            let pointsCount = 0
+            filteredWins.forEach(win => {
+              // console.log('THIS WIN: ', win)
+              let winSeeding = win.teamSeed
+              console.log('Addition',pointsCount, winSeeding)
+              pointsCount = pointsCount + winSeeding
+              console.log('Total: ', pointsCount)
+            })
             this.setState({
               userData: thisUser[0],
               currentUser: thisUser[0],
               username: thisUser[0].username,
               firstName: thisUser[0].firstName,
               lastName: thisUser[0].lastName,
+              pointsCount: pointsCount,
               wins: filteredWins,
               winsCount: filteredWins.length,
+              lossesCount: filteredLosses.length,
               myPicks: thisUser[0].picks,
             }, () => {
               this.getTodaysPick()
@@ -142,12 +156,13 @@ class NbaPlayoffActionPage extends Component {
               />
               
               <NbaPlayoffBar
-                  username={this.state.username}
-                  lossesCount={this.state.lossesCount}
-                  winsCount={this.state.winsCount}
-                  todaysDate={this.state.today}
-                  todaysPick={this.state.todaysPick}
-                /> 
+                username={this.state.username}
+                lossesCount={this.state.lossesCount}
+                winsCount={this.state.winsCount}
+                todaysDate={this.state.today}
+                todaysPick={this.state.todaysPick}
+                pointsCount={this.state.pointsCount}
+              /> 
               
               <div className='row calRow'>
                 <div className='calBoard col-md-9'>

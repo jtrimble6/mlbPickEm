@@ -93,12 +93,14 @@ class NbaPlayoffCalendar extends Component {
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.getTeamsData = this.getTeamsData.bind(this);
+        this.findChallengeUsers = this.findChallengeUsers.bind(this);
       }
 
     componentDidMount() {
       this.getChallengeData()
       this.getTodaysFirstGame()
       this.getTeamsData()
+      this.findChallengeUsers()
       // this.checkPrevDatesPicked()
       }
 
@@ -216,6 +218,22 @@ class NbaPlayoffCalendar extends Component {
       // console.log('Start Time: ', this.state.time)
       // console.log('Game ID: ', this.state.gameId)
       }
+
+      findChallengeUsers = () => {
+        let challengeId = localStorage.getItem('userChallengeId')
+        // console.log('CHALLENGE ID: ', challengeId)
+        API.findUsersByChallengeId(challengeId)
+            .then(res => {
+              // console.log('found challenge users: ', res.data)     
+              this.setState({
+                challengeUsers: res.data
+              })     
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
+  
 
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
@@ -414,7 +432,7 @@ class NbaPlayoffCalendar extends Component {
         }
 
     getSchedule = () => {
-      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let date = moment(this.props.todaysDate).subtract(1, 'day').format('YYYY-MM-DD')
       let self = this
       
       self.setState({ yesterday: date })
@@ -576,13 +594,13 @@ class NbaPlayoffCalendar extends Component {
 
         let gameResults = []
 
-        const nbaKey = 'pucmd9ehjna2p25aa2qzkvn3'
+        const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
 
         yesterdaysGameIds.forEach(function(gameId, k) {
           setTimeout ( 
             function() {
               $.ajax({
-                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v5/en/games/' + gameId + '/boxscore.json?api_key=' + nbaKey,
+                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + gameId + '/boxscore.json?api_key=' + nbaKey,
                 type: 'GET',
                 success: function(data) {
                   // console.log('Game results: ', data)
@@ -674,8 +692,8 @@ class NbaPlayoffCalendar extends Component {
     findUserPicks = () => {
       let self = this
       let localUser = localStorage.getItem('user')
-      let chalUsers = this.state.challengeData.users
-      let date = moment().subtract(1, 'day').format('YYYY-MM-DD')
+      let chalUsers = this.state.challengeUsers
+      let date = moment(this.props.todaysDate).subtract(1, 'day').format('YYYY-MM-DD')
 
       API.getNbaPlayoffGamesByDate(date)
         .then(res => {

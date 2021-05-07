@@ -705,7 +705,7 @@ class MlbPickEmBar extends Component {
                         <h4 className='winsHeader'>Wins</h4> {this.props.winsCount}
                       </div>
                       <div className="col-md-3">
-                        <h4 className='winsHeader'>Record</h4> {this.props.winsCount} - {this.state.oldPicks.length - this.props.winsCount}
+                        <h4 className='winsHeader'>Record</h4> {this.props.winsCount} - {this.props.lossesCount}
                       </div>  
                       { /* <div className="col-md-3">
                         <h4 className='winsHeader'>Place</h4> {this.props.winsCount}

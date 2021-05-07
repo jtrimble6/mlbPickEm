@@ -70,11 +70,12 @@ class NbaPlayoffLeaderboard extends Component {
         this.createLeaderboard = this.createLeaderboard.bind(this);
         this.getChallengeData = this.getChallengeData.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.findChallengeUsers = this.findChallengeUsers.bind(this);
     }
     componentDidMount() {
-      this.getChallengeData()
-      this.getFirstGame()
-        
+        this.getChallengeData()
+        this.getFirstGame()
+        this.findChallengeUsers()
       }
 
     handlePreloader() {
@@ -94,6 +95,23 @@ class NbaPlayoffLeaderboard extends Component {
     //   this.setState({hover: !this.state.hover})
     // }
 
+    findChallengeUsers = () => {
+      let challengeId = localStorage.getItem('userChallengeId')
+      // console.log('CHALLENGE ID: ', challengeId)
+      API.findUsersByChallengeId(challengeId)
+          .then(res => {
+            // console.log('found challenge users: ', res.data)     
+            this.setState({
+              allUsers: res.data
+            }, () => {
+              this.getUserData()
+            })     
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+
     getChallengeData = () => {
       // console.log('CHALLENGE ID: ', localStorage.getItem('userChallengeId'))
       let self = this
@@ -110,7 +128,7 @@ class NbaPlayoffLeaderboard extends Component {
           // console.log(res)
           self.setState({
             challengeData: res.data[0],
-            allUsers: res.data[0].users,
+            // allUsers: res.data[0].users,
             // teams: res.data[0].teams
           })
           self.getUserData()
@@ -153,26 +171,70 @@ class NbaPlayoffLeaderboard extends Component {
       }
 
     createLeaderboard = () => {
-        let users = this.state.challengeData.users
-        // console.log('Create leaderboard with this data: ', users)
-        let placedUsers = users.map(function(el, i) {
-            return { index: i, value: el.points }
+        let users = this.state.allUsers
+        let challengeId = localStorage.getItem('userChallengeId')
+        let testFilter = (allChallengers) => {
+          return allChallengers.username !== 'testtest'
+        }
+        let newUsers = users.filter(testFilter)
+        console.log('newUsers: ', newUsers)
+        let filterWins = (picks) => {
+          return picks.result === 'win' && picks.challengeId === challengeId
+        }
+
+        let placedUsers = newUsers.map(function(el, i) {
+            let filteredWins = el.picks.filter(filterWins)
+            let pointsCount = 0
+            filteredWins.forEach(win => {
+              // console.log('THIS WIN: ', win)
+              let winSeeding = win.teamSeed
+              console.log('Addition',pointsCount, winSeeding)
+              pointsCount = pointsCount + winSeeding
+              console.log('Total: ', pointsCount)
+            })
+            // console.log('FILTERED WINS: ', filteredWins)
+            el.wins = filteredWins
+            el.pointsCount = pointsCount
+            console.log('NEW LEADERBOARD USERS: ', el)
+            return { index: i, value: pointsCount, username: el.username }
         })
         // console.log('PLACED USERS: ', placedUsers)
         placedUsers.sort(function(a, b) {
-            if (a.value < b.value) {
+            if (a.value > b.value) {
                 return -1;
             }
-            if (a.value > b.value) {
+            if (a.value < b.value) {
                 return 1;
             }
             return 0;
         })
         let leaders = placedUsers.map(function(el) {
-            return users[el.index]
+            return newUsers[el.index]
         })
         // console.log('LEADERS: ', leaders)
         this.setState({ leaders: leaders })
+
+
+        // let users = this.state.challengeData.users
+        // // console.log('Create leaderboard with this data: ', users)
+        // let placedUsers = users.map(function(el, i) {
+        //     return { index: i, value: el.points }
+        // })
+        // // console.log('PLACED USERS: ', placedUsers)
+        // placedUsers.sort(function(a, b) {
+        //     if (a.value < b.value) {
+        //         return -1;
+        //     }
+        //     if (a.value > b.value) {
+        //         return 1;
+        //     }
+        //     return 0;
+        // })
+        // let leaders = placedUsers.map(function(el) {
+        //     return users[el.index]
+        // })
+        // // console.log('LEADERS: ', leaders)
+        // this.setState({ leaders: leaders })
 
         // console.log('NEW LEADERBOARD: ', this.state.allUsers)
         
@@ -573,7 +635,7 @@ class NbaPlayoffLeaderboard extends Component {
                     <tr key={uuidv4()} className='allRows'>
                       <td className='leaderRow' style={leaderStyle}>{i+1}</td>
                       <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.points}</td>
+                      <td className='leaderRow' style={leaderStyle}>{leader.pointsCount}</td>
                     
                       <Modal 
                         isOpen={this.state.modal} 
@@ -613,10 +675,10 @@ class NbaPlayoffLeaderboard extends Component {
                                         </div>
                                       <div className="row recordRow">
                                         <div className="col-md-3">
-                                          <h4 className='winsHeader'>Strikes</h4> {this.state.activeUserLossesCount}
+                                          <h4 className='winsHeader'>Points</h4> {}
                                         </div>
                                         <div className="col-md-3">
-                                          <h4 className='winsHeader'>Record</h4> {record}
+                                          <h4 className='winsHeader'>Record</h4> {}
                                         </div>  
                                         {/* <div className="col-md-3">
                                           <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
