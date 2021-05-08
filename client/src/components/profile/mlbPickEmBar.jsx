@@ -462,7 +462,7 @@ class MlbPickEmBar extends Component {
     changeLogo = () => {
         let wins = this.state.userWins
         let challengeId = localStorage.getItem('userChallengeId')
-        console.log('THESE ARE WINS: ', this.state.userWins)
+        // console.log('THESE ARE WINS: ', this.state.userWins)
         // console.log('THIS IS THE TEAM: ', this.state.thisTeam)
         let allPicks = this.state.userPicks
         //let matchedTeams = []
@@ -504,7 +504,7 @@ class MlbPickEmBar extends Component {
           }
           theseMatchingWins = wins.filter(matchingWins)
           if (theseMatchingWins[0]) {
-            console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
+            // console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
             teams[j].status = 'success'
           }
           
@@ -512,10 +512,10 @@ class MlbPickEmBar extends Component {
             teams: teams,
             todaysPick: teamMatched
           }, () => {
-            console.log('NEW TEAMS ARRAY: ', this.state.teams)
+            // console.log('NEW TEAMS ARRAY: ', this.state.teams)
           })
 
-          console.log('TEAMS: ', teams)
+          // console.log('TEAMS: ', teams)
 
         }
         

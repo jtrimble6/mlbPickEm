@@ -297,13 +297,13 @@ class MlbCalendar extends Component {
         let challengeId = localStorage.getItem('userChallengeId')
         API.getUser(localUser)
             .then(res => {
-              console.log('THE USER: ', res.data)
+              // console.log('THE USER: ', res.data)
               let thisUser = res.data
               let filterWins = (picks) => {
                 return picks.result === 'win' && picks.challengeId === challengeId
               }
               let filteredWins = thisUser[0].picks.filter(filterWins)
-              console.log('FILTERED WINS: ', filteredWins)
+              // console.log('FILTERED WINS: ', filteredWins)
               this.setState({
                 userData: thisUser[0],
                 currentUser: thisUser[0],
@@ -869,7 +869,7 @@ class MlbCalendar extends Component {
 
     findChallengeUsers = () => {
       let challengeId = localStorage.getItem('userChallengeId')
-      console.log('CHALLENGE ID: ', challengeId)
+      // console.log('CHALLENGE ID: ', challengeId)
       API.findUsersByChallengeId(challengeId)
           .then(res => {
             console.log('found challenge users: ', res.data)     
@@ -1000,7 +1000,7 @@ class MlbCalendar extends Component {
       // console.log('CHECKING THIS PICK FROM YESTERDAY: ', thisPick[0])
       if (thisPick[0]) {
         thisPickTeam = thisPick[0].team
-        console.log('THIS PICK RESULT: ', userId, thisPickTeam,thisPick[0].result)
+        console.log('THIS PICK RESULT: ', userId, thisPickTeam, thisPick[0].result)
 
         // ONLY CHECKING GAMES WITH 'PENDING' RESULT
         if (thisPick[0].result === 'pending') {
@@ -1045,8 +1045,6 @@ class MlbCalendar extends Component {
           if (foundWinner[0]) {
             let result = 'win'
             console.log('THIS IS A WINNER: ', thisPick)
-            // newWin = { win: thisPickTeam }
-
             // CHANGE PICK RESULT IF WIN
             let newPick = {
               team: foundWinner[0].gameWinner,
@@ -1056,13 +1054,6 @@ class MlbCalendar extends Component {
             }
             // console.log('NEW PICK: ', newPick)
             this.overridePickResult(userId, newPick.gameId, newPick.result) 
-            // API.addMlbWin(this.state.challengeId, userId, newWin)
-            //   .then (res => {
-            //     console.log(res)
-                
-            //     // debugger;
-            //   })
-            //   .catch(err => console.log(err))
 
             } else {
               let result = 'loss'
@@ -1085,32 +1076,17 @@ class MlbCalendar extends Component {
       }
 
     overridePickResult(userId, gameId, gameResult) {
-      // console.log(date)
-      // API.updateMlbPick(this.state.challengeId, userId, date, newPickResult)
-      //   .then(res => {
-      //     console.log(res)
-      //   })
-      //   .catch(err => {console.log(err)})
-      // console.log('UPDATE THIS PICK: ', userId, gameId, gameResult)
+      console.log('ALL THE INFO: ', userId, gameId, gameResult)
       API.updateUserPick(userId, gameId, gameResult)
         .then(res => {
             console.log('UPDATING USER PICK: ', res)
           })
         .catch(err => {console.log(err)})
-      // API.saveMlbPick(this.state.challengeId, userId, newPick)
-      //   .then(res => { 
-      //     console.log(res)
-      //     })
-      //   .catch(err => { console.log(err) } )  
-        
       }
 
     createTimer = (timeDiff) => {
-        // console.log('First game time: ', this.state.firstGameTime)
         let seconds = moment.duration(timeDiff).asSeconds() * 1000
-        //console.log('In seconds milliseconds: ', seconds)
         this.setState({ timeDiff: seconds })
-        // console.log('TIME TIL GAME STARTS: ', this.state.timeDiff / 1000)
       }
 
     loadLogo = (teamLogo) => {

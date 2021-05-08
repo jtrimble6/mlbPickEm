@@ -114,10 +114,10 @@ class Leaderboard extends Component {
 
     findChallengeUsers = () => {
       let challengeId = localStorage.getItem('userChallengeId')
-      console.log('CHALLENGE ID: ', challengeId)
+      // console.log('CHALLENGE ID: ', challengeId)
       API.findUsersByChallengeId(challengeId)
           .then(res => {
-            console.log('found challenge users: ', res.data)     
+            // console.log('found challenge users: ', res.data)     
             this.setState({
               allUsers: res.data
             }, () => {
@@ -138,7 +138,7 @@ class Leaderboard extends Component {
       })
       API.getChallenge(challengeId)
         .then(res => {
-          console.log('CHALLENGE START DATE: ', res.data[0])
+          // console.log('CHALLENGE START DATE: ', res.data[0])
           self.setState({
             challengeData: res.data[0],
             challengeStartDate: res.data[0].startDate,
@@ -165,7 +165,7 @@ class Leaderboard extends Component {
         return picks.result === 'win' && picks.challengeId === challengeId
       }
       let filteredWins = thisUser[0].picks?.filter(filterWins)
-      console.log('FILTERED WINS: ', filteredWins)
+      // console.log('FILTERED WINS: ', filteredWins)
       this.setState({
         currentUser: thisUser[0],
         username: thisUser[0].username,
@@ -535,7 +535,7 @@ class Leaderboard extends Component {
             let realTimeAdj = moment(realTime, 'HH:mm:ss a')
             let timeDiff = moment.duration(realGameTimeAdj.diff(realTimeAdj))
 
-            console.log('REAL TIME: ', realTime)
+            // console.log('REAL TIME: ', realTime)
 
             self.setState({
               firstGameTime: realGameTimeAdj
