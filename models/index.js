@@ -14,6 +14,8 @@ module.exports = {
     NbaTeam: require('./nbaPickEm/nbaTeam'),
     NbaPlayoffGame: require('./nbaPlayoffPickEm/nbaPlayoffGame'),
     NbaPlayoffTeam: require('./nbaPlayoffPickEm/nbaPlayoffTeam'),
+    NhlPlayoffGame: require('./nhlPlayoffPickEm/nhlPlayoffGame'),
+    NhlPlayoffTeam: require('./nhlPlayoffPickEm/nhlPlayoffTeam'),
     Golfer: require('./masters/golfer'),
     PLGame: require('./premierLeaguePickEm/pLGame'),
     PLTeam: require('./premierLeaguePickEm/pLTeam')

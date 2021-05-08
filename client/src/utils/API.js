@@ -171,8 +171,8 @@ const API = {
     updateNbaPlayoffGame: function(date, id, gameResult) {
         return axios.put('/api/nbaPlayoffGames/' + date + '/' + id, gameResult)
     },
-    addNbaPlayoffWin: function(id, user, newLoss) {
-        return axios.post('/api/challenges/' + id + '/users/' + user, newLoss)
+    addNbaPlayoffWin: function(id, user, newPick) {
+        return axios.post('/api/challenges/' + id + '/users/' + user, newPick)
     },
     saveNbaPlayoffPick: function(id, user, thisPick) {
         return axios.put('/api/challenges/' + id + '/users/' + user, thisPick)
@@ -182,6 +182,35 @@ const API = {
     },
     updateNbaPlayoffPick: function(id, user, date, result) {
         return axios.put('/api/challenges/' + id + '/users/' + user + '/' + date, result)
+    },
+
+    // NHL PLAYOFF API
+    postNhlPlayoffGames: function(data) {
+        return axios.post('/api/nhlPlayoffGames/', data)
+    },
+    getNhlPlayoffGames: function() {
+        return axios.get('/api/nhlPlayoffGames/')
+    },
+    getNhlPlayoffGamesByDate: function(date) {
+        return axios.get('/api/nhlPlayoffGames/' + date)
+    },
+    postNhlPlayoffTeams: function(data) {
+        return axios.post('/api/nhlPlayoffTeams/', data)
+    },
+    addNhlPlayoffGamesByTeam: function(team, game) {
+        return axios.put('/api/nhlPlayoffTeams/' + team, game)
+    },
+    getNhlPlayoffTeam: function(team) {
+        return axios.get('/api/nhlPlayoffTeams/' + team)
+    },
+    getNhlPlayoffTeams: function() {
+        return axios.get('/api/nhlPlayoffTeams/')
+    },
+    getNhlPlayoffGamesById: function(date, id) {
+        return axios.get('/api/nhlPlayoffGames/' + date + '/' + id)
+    },
+    updateNhlPlayoffGame: function(date, id, gameResult) {
+        return axios.put('/api/nhlPlayoffGames/' + date + '/' + id, gameResult)
     },
 
 

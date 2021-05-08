@@ -15,11 +15,13 @@ import UsersPage from './pages/admin/UsersPage'
 import NbaGamesPage from './pages/admin/NbaGamesPage'
 import NflDivisionAdmin from './pages/admin/NflDivisionChallenge'
 import NbaPlayoffGamesPage from './pages/admin/NbaPlayoffGamesPage'
+import NhlPlayoffGamesPage from './pages/admin/NhlPlayoffGamesPage'
 import MlbGamesPage from './pages/admin/MlbGamesPage'
 import ChallengeTeamsPage from './pages/admin/ChallengeTeamsDB'
 import MlbPickEmDBPage from './pages/admin/MlbPickEmDB'
 import NbaPickEmDBPage from './pages/admin/NbaPickEmDB'
 import NbaPlayoffDBPage from './pages/admin/NbaPlayoffDB'
+import NhlPlayoffDBPage from './pages/admin/NhlPlayoffDB'
 import LogoutPage from './pages/landings/LogoutPage'
 import Login from './pages/forms/Login'
 import PasswordReset from './pages/forms/PasswordReset'
@@ -34,6 +36,7 @@ import MlbRules from './pages/rules/MlbRulesPage'
 import NbaPickEmRules from './pages/rules/NbaPickEmRulesPage'
 import NflRules from './pages/rules/NflDivisionRulesPage'
 import NbaPlayoffRules from './pages/rules/NbaPlayoffRulesPage'
+import NhlPlayoffRules from './pages/rules/NhlPlayoffRulesPage'
 import MastersRules from './pages/rules/MastersRulesPage';
 import HomePage from './pages/landings/HomePage'
 import LandingPage from './pages/landings/LandingPage'
@@ -41,6 +44,7 @@ import MlbPickEmActionPage from './pages/actions/MlbPickEmActionPage'
 import NflDivisionActionPage from './pages/actions/NflDivisionActionPage'
 import NbaPickEmActionPage from './pages/actions/NbaPickEmActionPage'
 import NbaPlayoffActionPage from './pages/actions/NbaPlayoffActionPage'
+import NhlPlayoffActionPage from './pages/actions/NhlPlayoffActionPage'
 import MastersActionPage from './pages/actions/MastersActionPage'
 import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 import NbaLeaderboard from './pages/leaderboards/NbaPickEmLeaderboardPage'
@@ -281,6 +285,17 @@ class App extends Component {
                 )
               }
             />
+            <Route exact path='/nhlPlayoffRules'
+              render={() =>
+                this.state.userLoggedIn === true ? (
+                  <NhlPlayoffRules />
+                ) : this.state.userLoggedIn === false ? (
+                  <Redirect to='/login' />
+                ) : (
+                  null
+                )
+              }
+            />
             <Route exact path='/mastersRules'
               render={() =>
                 this.state.userLoggedIn === true ? (
@@ -398,6 +413,17 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/nhlPlayoffGames' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <NhlPlayoffGamesPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/mlbGames' render={() => (
               this.state.adminLoggedIn === true ? (
                 <MlbGamesPage 
@@ -453,9 +479,31 @@ class App extends Component {
                 null
               )
             )} />
+            <Route exact path='/nhlPlayoffDB' render={() => (
+              this.state.adminLoggedIn === true ? (
+                <NhlPlayoffDBPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.adminLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
             <Route exact path='/nbaPlayoffs' render={() => (
               this.state.userLoggedIn === true ? (
                 <NbaPlayoffActionPage 
+                  username={this.state.userUsername}
+                />
+              ) : this.state.userLoggedIn === false ? (
+                <Redirect to='/login' />
+              ) : (
+                null
+              )
+            )} />
+            <Route exact path='/nhlPlayoffs' render={() => (
+              this.state.userLoggedIn === true ? (
+                <NhlPlayoffActionPage 
                   username={this.state.userUsername}
                 />
               ) : this.state.userLoggedIn === false ? (

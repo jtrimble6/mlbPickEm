@@ -14,11 +14,11 @@ import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone';
-import { mil, tor, bos, ind, mia, phi, bkn, orl, lal, lac, den, hou, okc, uta, dal, por } from '../../css/nbaLogos'
-import { ModalDialog, OverlayTrigger } from 'react-bootstrap'
-// import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
+import { nsh, tb, wsh, bos2, car, nyi, cbj, wpg, vgk, col, dal2, stl, sjs, cgy, tor2, pit, nhl } from '../../css/nhlLogos'
+// import NhlPlayoffGamesPage from '../../pages/admin/NhlPlayoffGamesPage'
+// import { atl, cbj, wsh, cha, chi, cle, tor2, dal2, det, gsw, stl, bos2, col, vgk, mem, car, nsh, min, nop, nyk, sjs, wpg, nyi, phx, pit, sac, sas, tbl, cgy, was } from '../../css/nhlLogos'
 
-class NbaPlayoffCalendar extends Component {
+class NhlPlayoffCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -326,9 +326,9 @@ class NbaPlayoffCalendar extends Component {
     //   }
 
     getTeamsData = () => {
-      API.getNbaPlayoffTeams()
+      API.getNhlPlayoffTeams()
         .then(res => {
-          // console.log('GOT TEAMS: ', res.data)
+          console.log('GOT TEAMS: ', res.data)
           this.setState({
             teams: res.data
           }, () => {
@@ -461,7 +461,7 @@ class NbaPlayoffCalendar extends Component {
       this.getGames()
 
       // PULL GAMES FROM YESTERDAY
-      API.getNbaPlayoffGamesByDate(date)
+      API.getNhlPlayoffGamesByDate(date)
         .then(res => {
             let games = []
             let yesterdaysGameIds = []
@@ -507,7 +507,7 @@ class NbaPlayoffCalendar extends Component {
       let self = this
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getNbaPlayoffGamesByDate(date)
+      API.getNhlPlayoffGamesByDate(date)
         .then (res => {
           let games = res.data
           let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
@@ -555,7 +555,7 @@ class NbaPlayoffCalendar extends Component {
         }
     
         //POST ENTIRE SCHEDULE
-        API.postNbaPlayoffGames(gameData)
+        API.postNhlPlayoffGames(gameData)
           .then(res=> console.log(res))
           .catch(err => console.log(err))
         }
@@ -565,17 +565,19 @@ class NbaPlayoffCalendar extends Component {
       // let self = this
 
       // PULL FULL SCHEDULE FROM DATABASE
-      API.getNbaPlayoffGames()
+      API.getNhlPlayoffGames()
         .then(res => {
-          // console.log('A GAME: ', res.data)
+          console.log('A GAME: ', res.data)
           let games = []
           let teams = this.state.teams
           res.data.forEach((game) => {
-            let splitDate = game.gameDate.split('T')
-            let gameDate = splitDate[0]
+            console.log('THIS GAME: ', game)
+            // let splitDate = game.gameDate
+            let gameDate = game.gameDate
             let homeAlias = game.homeAlias.toLowerCase()
             let awayAlias = game.awayAlias.toLowerCase()
-            // console.log('THE TEAMS: ', teams)
+            console.log('HOME ALIAS: ', homeAlias)
+            console.log('THE TEAMS: ', teams)
             let findHomeTeamSeed = (theTeams) => {
               return theTeams.teamAlias === homeAlias.toUpperCase()
             }
@@ -583,11 +585,12 @@ class NbaPlayoffCalendar extends Component {
               return theTeams.teamAlias === awayAlias.toUpperCase()
             }
             let homeTeamFound = teams.filter(findHomeTeamSeed)
+            // console.log('HOME TEAM: ', homeTeamFound[0]?.seed)
             let awayTeamFound = teams.filter(findAwayTeamSeed)
-            let homeSeed = homeTeamFound[0].seed
-            let awaySeed = awayTeamFound[0].seed
-            // console.log('HOME SEED: ', homeSeed)
-            // console.log('AWAY SEED: ', awaySeed)
+            let homeSeed = homeTeamFound[0]?.seed
+            let awaySeed = awayTeamFound[0]?.seed
+            console.log('HOME SEED: ', homeSeed)
+            console.log('AWAY SEED: ', awaySeed)
             let gameInfo = {
                 id: game.gameId,
                 date: gameDate,
@@ -605,7 +608,7 @@ class NbaPlayoffCalendar extends Component {
               games.push(gameInfo)
             })
             this.setState({ allGames: games })
-            // console.log('ALL PLAYOFF GAMES: ', games)
+            console.log('ALL PLAYOFF GAMES: ', games)
         })
           .catch(err => console.log(err))
 
@@ -630,13 +633,13 @@ class NbaPlayoffCalendar extends Component {
 
         let gameResults = []
 
-        const nbaKey = '34jjnkcxwesx9n9khfd6m3x3'
+        const nhlPlayoffKey = 'y947xs7vmjgpugdgy59z5c2g'
 
         yesterdaysGameIds.forEach(function(gameId, k) {
           setTimeout ( 
             function() {
               $.ajax({
-                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nba/trial/v7/en/games/' + gameId + '/boxscore.json?api_key=' + nbaKey,
+                url: 'https://cors-everywhere.herokuapp.com/http://api.sportradar.us/nhl/trial/v7/en/games/' + gameId + '/boxscore.json?api_key=' + nhlPlayoffKey,
                 type: 'GET',
                 success: function(data) {
                   // console.log('Game results: ', data)
@@ -699,7 +702,7 @@ class NbaPlayoffCalendar extends Component {
         let gameDate = game.gameDate
         let gameId = game.gameId
         let gameResult = { gameResult: game.winningTeam }
-        API.updateNbaPlayoffGame(gameDate, gameId, gameResult)
+        API.updateNhlPlayoffGame(gameDate, gameId, gameResult)
           .then(res => {
             console.log(res)
             if (g === dataLen) {
@@ -731,7 +734,7 @@ class NbaPlayoffCalendar extends Component {
       let chalUsers = this.state.challengeUsers
       let date = moment(this.props.todaysDate).subtract(1, 'day').format('YYYY-MM-DD')
 
-      API.getNbaPlayoffGamesByDate(date)
+      API.getNhlPlayoffGamesByDate(date)
         .then(res => {
             let games = []
             let yesterdaysGameIds = []
@@ -939,56 +942,56 @@ class NbaPlayoffCalendar extends Component {
       // }
 
       switch (true) {
-        case (team === 'mil'):
-          return mil.default;
+        case (team === 'nsh'):
+          return nsh.default;
           
-        case (team === 'tor'):
-          return tor.default;
+        case (team === 'tb'):
+          return tb.default;
           
-        case (team === 'bos'):
-          return bos.default;
+        case (team === 'wsh'):
+          return wsh.default;
            
-        case (team === 'ind'):
-          return ind.default;
+        case (team === 'bos2'):
+          return bos2.default;
            
-        case (team === 'mia'):
-          return mia.default;
+        case (team === 'car'):
+          return car.default;
            
-        case (team === 'phi'):
-          return phi.default;
+        case (team === 'nyi'):
+          return nyi.default;
            
-        case (team === 'bkn'):
-          return bkn.default;
+        case (team === 'cbj'):
+          return cbj.default;
            
-        case (team === 'orl'):
-          return orl.default;
+        case (team === 'wpg'):
+          return wpg.default;
            
-        case (team === 'lal'):
-          return lal.default;
+        case (team === 'vgk'):
+          return vgk.default;
         
-        case (team === 'lac'):
-          return lac.default;
+        case (team === 'col'):
+          return col.default;
            
-        case (team === 'den'):
-          return den.default;
+        case (team === 'dal2'):
+          return dal2.default;
            
-        case (team === 'hou'):
-          return hou.default;
+        case (team === 'stl'):
+          return stl.default;
            
-        case (team === 'okc'):
-          return okc.default;
+        case (team === 'sjs'):
+          return sjs.default;
            
-        case (team === 'uta'):
-          return uta.default;
+        case (team === 'cgy'):
+          return cgy.default;
            
-        case (team === 'dal'):
-          return dal.default;
+        case (team === 'tor2'):
+          return tor2.default;
            
-        case (team === 'por'):
-          return por.default;
+        case (team === 'pit'):
+          return pit.default;
            
         default:
-          return uta.default;
+          return nhl.default;
         }  
 
       }
@@ -1157,5 +1160,5 @@ class NbaPlayoffCalendar extends Component {
     }
 }
 
-export default NbaPlayoffCalendar
+export default NhlPlayoffCalendar
 

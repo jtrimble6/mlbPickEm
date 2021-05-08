@@ -124,6 +124,14 @@ renderRedirect = () => {
                       <Button
                           color='primary'
                           className='nbaGamesButton'
+                          data-url='/nhlPlayoffGames'
+                          onClick={this.setRedirect}
+                        >
+                        NHL Playoffs
+                      </Button>
+                      <Button
+                          color='primary'
+                          className='nbaGamesButton'
                           data-url='/mlbGames'
                           onClick={this.setRedirect}
                         >
@@ -176,7 +184,6 @@ renderRedirect = () => {
                       color='success'
                       className='challengeButtons'
                       data-url='/nbaPickEmDB'
-                      data-challengeid='6080977b16093c2245f11ffd'
                       onClick={this.setRedirect}
                     >
                       NBA Pick Em Challenges
@@ -185,7 +192,6 @@ renderRedirect = () => {
                       color='success'
                       className='challengeButtons'
                       data-url='/nbaPlayoffDB'
-                      data-challengeid='5c9d00af9c45e400175c56a3'
                       onClick={this.setRedirect}
                     >
                       NBA Playoff Challenges
@@ -193,8 +199,15 @@ renderRedirect = () => {
                     <Button
                       color='success'
                       className='challengeButtons'
+                      data-url='/nhlPlayoffDB'
+                      onClick={this.setRedirect}
+                    >
+                      NHL Playoff Challenges
+                    </Button>
+                    <Button
+                      color='success'
+                      className='challengeButtons'
                       data-url='/mastersDB'
-                      data-challengeid='5caa6602ba5ec50017ed6184'
                       onClick={this.setRedirect}
                     >
                       Golf Challenges

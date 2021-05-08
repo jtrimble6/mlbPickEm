@@ -1,9 +1,9 @@
-#nbaGamesPage {
+#nbaGamesPage, #nhlGamesPage {
     margin-top: 7%;
     margin-bottom: 10%;
 }
 
-#nbaGames h1 {
+#nbaGames, #nhlGames h1 {
     color: gold;
     text-align: center;
     margin-bottom: 1%;
@@ -120,7 +120,7 @@
   }
 
   @media (min-width: 490px) and (max-width: 559px) {
-    #nbaGames h1 {
+    #nbaGames, #nhlGames h1 {
         font-size: 30px !important;
     }
     .gamesTable {
@@ -140,7 +140,7 @@
   }
 
   @media (min-width: 300px) and (max-width: 489px) {
-    #nbaGames .h1 {
+    #nbaGames, #nhlGames .h1 {
         font-size: 16px !important;
     }
     .gamesTable {
@@ -163,7 +163,7 @@
   }
 
   @media (min-width: 300px) and (max-width: 469px) {
-    #nbaGames .h1 {
+    #nbaGames, #nhlGames .h1 {
         font-size: 16px !important;
     }
     .gamesTable {
@@ -185,13 +185,13 @@
     }
   }
 
-  #nbaGamesPage {
+  #nbaGamesPage, #nhlGamesPage {
     margin-top: 7%;
     margin-bottom: 10%;
 }
 
 @media (max-width: 900px) {
-    #nbaGamesPage {
+    #nbaGamesPage, #nhlGamesPage {
         margin-top: 15%;
         margin-bottom: 20%;
     }

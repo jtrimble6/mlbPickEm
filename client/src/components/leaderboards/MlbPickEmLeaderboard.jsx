@@ -179,7 +179,7 @@ class Leaderboard extends Component {
       })
 
       // console.log('CURRENT USER: ', this.state.currentUser)
-      console.log('CHAL USERS DATA: ', this.state.challengeData.users)
+      // console.log('CHAL USERS DATA: ', this.state.challengeData.users)
       }
 
     getUser = () => {

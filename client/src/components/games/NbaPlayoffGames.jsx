@@ -289,11 +289,11 @@ class NbaPlayoffGames extends Component {
               this.overridePickResult(userId, date, newPick) 
               
               //ADD NEW WINS TO USER DB
-              API.addNbaPlayoffWin(userId, newWin)
-                .then (res => {
-                  console.log(res)
-                })
-                .catch(err => console.log(err))
+              // API.addNbaPlayoffWin(userId, newWin)
+              //   .then (res => {
+              //     console.log(res)
+              //   })
+              //   .catch(err => console.log(err))
             
               }
             }

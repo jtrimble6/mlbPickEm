@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
-import NbaPickEmActionNav from '../../components/nav/NbaPickEmActionNav'
-import NbaPlayoffBar from '../../components/profile/nbaPlayoffBar'
-import NbaPlayoffCalendar from '../../components/calendar/NbaPlayoffCalendar'
-// import NbaPlayoffGames from '../../components/games/NbaPlayoffGames'
-import NbaPlayoffLeaderboard from '../../components/leaderboards/NbaPlayoffLeaderboard'
+import NhlPickEmActionNav from '../../components/nav/NbaPickEmActionNav'
+import NhlPlayoffBar from '../../components/profile/nhlPlayoffBar'
+import NhlPlayoffCalendar from '../../components/calendar/NhlPlayoffCalendar'
+// import NhlPlayoffGames from '../../components/games/NhlPlayoffGames'
+import NhlPlayoffLeaderboard from '../../components/leaderboards/NhlPlayoffLeaderboard'
 //import Games from '../../components/games/Games'
 // import AdminBar from '../../components/nav/AdminBar'
 import moment from 'moment';
 import $ from 'jquery'
 import '../../css/actionPage.css'
 
-class NbaPlayoffActionPage extends Component {
+class NhlPlayoffActionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,8 +28,8 @@ class NbaPlayoffActionPage extends Component {
       winsCount: 0,
       pointsCount: 0,
       myPicks: [],
-      today: moment().subtract(256, 'days').format('YYYY-MM-DD'),
-      yesterday: moment().subtract(261, 'days').format('YYYY-MM-DD'),
+      today: moment().subtract(278, 'days').format('YYYY-MM-DD'),
+      yesterday: moment().subtract(279, 'days').format('YYYY-MM-DD'),
       todaysPick: 'No Pick'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -151,11 +151,11 @@ class NbaPlayoffActionPage extends Component {
         return (
             <div id='actionPage'>
               <div className="se-pre-con"></div>
-              <NbaPickEmActionNav 
+              <NhlPickEmActionNav 
                 challengeName={this.state.challengeData.challengeName}
               />
               
-              <NbaPlayoffBar
+              <NhlPlayoffBar
                 username={this.state.username}
                 lossesCount={this.state.lossesCount}
                 winsCount={this.state.winsCount}
@@ -166,14 +166,14 @@ class NbaPlayoffActionPage extends Component {
               
               <div className='row calRow'>
                 <div className='calBoard col-md-9'>
-                  <NbaPlayoffCalendar 
+                  <NhlPlayoffCalendar 
                     todaysDate={this.state.today}
                     username={this.state.username}
                   />
                 </div>
                 <div className='col-md-3'>
                 <div className="leaders row">
-                  <NbaPlayoffLeaderboard   
+                  <NhlPlayoffLeaderboard   
                     todaysDate={this.state.today}
                   />
                 </div>
@@ -186,4 +186,4 @@ class NbaPlayoffActionPage extends Component {
 
 }
 
-export default NbaPlayoffActionPage
+export default NhlPlayoffActionPage

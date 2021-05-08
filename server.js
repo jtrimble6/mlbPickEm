@@ -16,6 +16,8 @@ const nflTeamRoutes = require('./routes/API/nflTeamAPI')
 const nbaGameRoutes = require('./routes/API/nbaGameAPI')
 const nbaPlayoffGameRoutes = require('./routes/API/nbaPlayoffGameAPI')
 const nbaPlayoffTeamRoutes = require('./routes/API/nbaPlayoffTeamAPI')
+const nhlPlayoffGameRoutes = require('./routes/API/nhlPlayoffGameAPI')
+const nhlPlayoffTeamRoutes = require('./routes/API/nhlPlayoffTeamAPI')
 const nbaTeamRoutes = require('./routes/API/nbaTeamAPI')
 const challengeRoutes = require('./routes/API/challengeAPI')
 const mastersRoutes = require('./routes/API/mastersAPI')
@@ -68,6 +70,8 @@ app.use(
     nbaGameRoutes, 
     nbaPlayoffGameRoutes, 
     nbaPlayoffTeamRoutes, 
+    nhlPlayoffGameRoutes, 
+    nhlPlayoffTeamRoutes,
     nbaTeamRoutes,
     pLGameRoutes,
     pLTeamRoutes

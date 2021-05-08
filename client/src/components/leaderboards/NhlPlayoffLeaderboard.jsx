@@ -6,12 +6,13 @@ import '../../css/leaderboard.css'
 import moment from 'moment-timezone'
 import Countdown from 'react-countdown';
 import $ from 'jquery'
-import { mil, tor, phi, ind, bos, bkn, det, orl, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nbaLogos'
-
+// import { mil, tor, phi, ind, bos, bkn, det, orl, gsw, den, hou, por, lac, okc, uta, sas } from '../../css/nhlLogos'
+// import { nsh, tb, wsh, bos2, car, nyi, cbj, mtl, vgk, col, dal2, stl, van, cgy, ari, chi2 } from '../../css/nhlLogos'
+import { nsh, tb, wsh, bos2, car, nyi, cbj, wpg, vgk, col, dal2, stl, sjs, cgy, tor2, pit } from '../../css/nhlLogos'
 // import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-// import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
+// import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, nsh, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
 
-class NbaPlayoffLeaderboard extends Component {
+class NhlPlayoffLeaderboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,22 +40,25 @@ class NbaPlayoffLeaderboard extends Component {
           userPlace: {},
           timeDiff: '',
           teams: [
-            { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
-            { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
-            { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
-            { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '4' },
-            { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
-            { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '6' },
-            { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '7' },
-            { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary', conf: 'east', seed: '8' },
-            { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '1' },
-            { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '2' },
-            { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '3' },
-            { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '4' },
-            { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
-            { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '6' },
-            { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
-            { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
+            { name: 'Tampa Bay Lightning', abbr: 'tb', logo: tb, status: 'secondary', conf: 'east', seed: '1' },
+            { name: 'Boston Bruins', abbr: 'bos', logo: bos2, status: 'secondary', conf: 'east', seed: '2' },
+            { name: 'Toronto Maple Leafs', abbr: 'tor', logo: tor2, status: 'secondary', conf: 'east', seed: '3' },
+            { name: 'Columbus Blue Jackets', abbr: 'cbj', logo: cbj, status: 'secondary', conf: 'east', seed: '4' },
+
+            { name: 'Washington Capitals', abbr: 'wsh', logo: wsh, status: 'secondary', conf: 'east', seed: '1' },
+            { name: 'New York Islanders', abbr: 'nyi', logo: nyi, status: 'secondary', conf: 'east', seed: '2' },
+            { name: 'Pittsburgh Penguins', abbr: 'pit', logo: pit, status: 'secondary', conf: 'east', seed: '3' },
+            { name: 'Carolina Hurricanes', abbr: 'car', logo: car, status: 'secondary', conf: 'east', seed: '4' },
+
+            { name: 'Nashville Predators', abbr: 'nsh', logo: nsh, status: 'secondary', conf: 'west', seed: '1' },
+            { name: 'Winnipeg Jets', abbr: 'wpg', logo: wpg, status: 'secondary', conf: 'west', seed: '2' },
+            { name: 'St. Louis Blues', abbr: 'stl', logo: stl, status: 'secondary', conf: 'west', seed: '3' },
+            { name: 'Dallas Stars', abbr: 'dal', logo: dal2, status: 'secondary', conf: 'west', seed: '4' },
+
+            { name: 'Calgary Flames', abbr: 'cgy', logo: cgy, status: 'secondary', conf: 'west', seed: '1' },
+            { name: 'San Jose Sharks', abbr: 'sjs', logo: sjs, status: 'secondary', conf: 'west', seed: '2' },
+            { name: 'Vegas Golden Knights', abbr: 'vgk', logo: vgk, status: 'secondary', conf: 'west', seed: '3' },
+            { name: 'Colorado Avalanche', abbr: 'col', logo: col, status: 'secondary', conf: 'west', seed: '4' },
           ]
         }
         this.toggle = this.toggle.bind(this);
@@ -283,195 +287,6 @@ class NbaPlayoffLeaderboard extends Component {
         }
 
 
-        // changeLogo = () => {
-        //   let wins = this.state.activeUserWins
-        //   let teams = [
-        //     { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
-        //     { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
-        //     { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
-        //     { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '4' },
-        //     { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
-        //     { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '6' },
-        //     { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '7' },
-        //     { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary', conf: 'east', seed: '8' },
-        //     { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '1' },
-        //     { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '2' },
-        //     { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '3' },
-        //     { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '4' },
-        //     { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
-        //     { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '6' },
-        //     { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
-        //     { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
-        //   ]
-        //   let allPicks = this.state.activeUserPicks
-        //   let thisTeam = ''
-        //   //let matchedTeams = []
-        //   let theseMatchingWins = []
-        //   let allTeams = JSON.parse(JSON.stringify(teams))
-  
-        //   let todaysPickFunc = (picks) => {
-        //     return picks.gameDate === moment().format('YYYY-MM-DD')
-        //   }
-        //   let todaysPickObj = allPicks.filter(todaysPickFunc)
-        //   let todaysPick = ''
-        //   if (todaysPickObj[0]) {
-        //     todaysPick = todaysPickObj[0].team
-        //     //console.log('TODAYS PICK: ', todaysPick)
-        //   }
-  
-        //   // FIND TODAYS PICK
-        //   let matchingTeams = (theTeams) => {
-        //     return theTeams.name.trim() === todaysPick.trim()
-        //   }
-  
-        //   // FIND MATCHING WINS
-        //   let matchingWins = (winningTeams) => {
-        //     return winningTeams.win.trim() === thisTeam.trim()
-        //   }
-  
-        //   for (var j=0; j<allTeams.length; j++) {
-        //     console.log('CURRENT WINS: ', wins)
-        //     let thisTeamName = allTeams[j].name
-        //     console.log('this team: ', thisTeam)
-            
-        //     thisTeam = thisTeamName
-  
-        //     let teamMatched = allTeams.filter(matchingTeams)
-        //     if (teamMatched[0] && (this.state.timeDiff <= 0)) {
-        //       if (teamMatched[0].name.trim() === allTeams[j].name.trim()) {
-        //         // console.log('WE HAVE A PICK FOR TODAY: ', teamMatched[0].name)
-        //         allTeams[j].status = 'warning'
-        //       } 
-        //     }
-  
-        //     theseMatchingWins = wins.filter(matchingWins)
-        //     console.log('THIS TEAM: ', thisTeam)
-        //     if (theseMatchingWins[0]) {
-        //       console.log('THESE MATCHING WINS: ' , theseMatchingWins[0])
-        //       allTeams[j].status = 'success'
-        //     } 
-            
-        //     this.setState({
-        //         teams: allTeams,
-        //         todaysPick: teamMatched
-        //     })
-  
-        //     this.handlePreloader()
-        //     // console.log('NEW TEAMS ARRAY: ', this.state.challengeData.teams)
-  
-        //   }
-          
-        // }
-
-      // loadLogo = (team) => {
-      //   switch (true) {
-      //     case (team === 'bkn'):
-      //       return bkn;
-            
-      //     case (team === 'bos'):
-      //       return bos;
-            
-      //     case (team === 'den'):
-      //       return den;
-             
-      //     case (team === 'det'):
-      //       return det;
-             
-      //     case (team === 'gsw'):
-      //       return gsw;
-             
-      //     case (team === 'hou'):
-      //       return hou;
-             
-      //     case (team === 'ind'):
-      //       return ind;
-             
-      //     case (team === 'lac'):
-      //       return lac;
-             
-      //     case (team === 'orl'):
-      //       return orl;
-          
-      //     case (team === 'mil'):
-      //       return mil;
-             
-      //     case (team === 'okc'):
-      //       return okc;
-             
-      //     case (team === 'phi'):
-      //       return phi;
-             
-      //     case (team === 'por'):
-      //       return por;
-             
-      //     case (team === 'sas'):
-      //       return sas;
-             
-      //     case (team === 'tor'):
-      //       return tor;
-             
-      //     case (team === 'uta'):
-      //       return uta;
-             
-      //     default:
-      //       return uta;
-      //     }  
-  
-      //   }
-
-    // changeLogo = () => {
-    //   this.setState({
-    //     teams: [
-    //       { name: 'Milwalkee Bucks', abbr: 'mil', logo: mil, status: 'secondary', conf: 'east', seed: '1' },
-    //       { name: 'Toronto Raptors', abbr: 'tor', logo: tor, status: 'secondary', conf: 'east', seed: '2' },
-    //       { name: 'Philadelphia 76ers', abbr: 'phi', logo: phi, status: 'secondary', conf: 'east', seed: '3' },
-    //       { name: 'Boston Celtics', abbr: 'bos', logo: bos, status: 'secondary', conf: 'east', seed: '4' },
-    //       { name: 'Indiana Pacers', abbr: 'ind', logo: ind, status: 'secondary', conf: 'east', seed: '5' },
-    //       { name: 'Brooklyn Nets', abbr: 'bkn', logo: bkn, status: 'secondary', conf: 'east', seed: '6' },
-    //       { name: 'Orlando Magic', abbr: 'orl', logo: orl, status: 'secondary', conf: 'east', seed: '7' },
-    //       { name: 'Detroit Pistons', abbr: 'det', logo: det, status: 'secondary', conf: 'east', seed: '8' },
-    //       { name: 'Golden State Warriors', abbr: 'gsw', logo: gsw, status: 'secondary', conf: 'west', seed: '1' },
-    //       { name: 'Denver Nuggets', abbr: 'den', logo: den, status: 'secondary', conf: 'west', seed: '2' },
-    //       { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '3' },
-    //       { name: 'Houston Rockets', abbr: 'hou', logo: hou, status: 'secondary', conf: 'west', seed: '4' },
-    //       { name: 'Utah Jazz', abbr: 'uta', logo: uta, status: 'secondary', conf: 'west', seed: '5' },
-    //       { name: 'Oklahoma City Thunder', abbr: 'okc', logo: okc, status: 'secondary', conf: 'west', seed: '6' },
-    //       { name: 'San Antonio Spurs', abbr: 'sas', logo: sas, status: 'secondary', conf: 'west', seed: '7' },
-    //       { name: 'Los Angeles Clippers', abbr: 'lac', logo: lac, status: 'secondary', conf: 'west', seed: '8' },
-    //     ]
-    //   })
-    //   let wins = this.state.activeUserWins
-    //   let teams = JSON.parse(JSON.stringify(this.state.teams))
-    //   // console.log('THIS USERS WINS: ', wins)
-    //   // let thisWin = (theWins) => {
-    //   //   return theWins.team === this.state.userWin
-    //   // }
-    //     for (var j=0; j<wins.length; j++) {
-    //       this.setState({
-    //         userWin: wins[j].win.trim()
-    //       })
-
-    //       //let newWin = teams.filter(thisWin)
-
-    //       // if (newWin[0]) {
-    //       //   let thisUserWin = newWin[0].team
-    //       // }
-
-    //       for (var y=0; y<teams.length; y++) {
-    //         if (teams[y].name.trim() === wins[j].win.trim()) {
-    //           teams[y].status = 'success'
-    //         }
-    //       }
-
-    //       this.setState({
-    //           teams: teams
-    //       })
-    //       // console.log('NEW TEAMS ARRAY: ', this.state.teams)
-    //     }
-    //     //debugger;
-    //     this.handlePreloader()
-    //   }
-
     handleClick = e => {
       // let self = this
       let user = e.target
@@ -532,7 +347,7 @@ class NbaPlayoffLeaderboard extends Component {
       let date = this.props.todaysDate
 
       // GET GAME SCHEDULE FOR TODAY AND FIND FIRST GAME
-      API.getNbaPlayoffGamesByDate(date)
+      API.getNhlPlayoffGamesByDate(date)
         .then (res => {
           let games = res.data
           let sortedGames = games.sort((a,b) => new moment(a.gameTime) - new moment (b.gameTime))
@@ -773,4 +588,4 @@ class NbaPlayoffLeaderboard extends Component {
     }
 }
 
-export default NbaPlayoffLeaderboard
+export default NhlPlayoffLeaderboard

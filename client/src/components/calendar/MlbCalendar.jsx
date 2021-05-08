@@ -958,7 +958,7 @@ class MlbCalendar extends Component {
                   if (users.length === chalUsers.length) {
                     setTimeout(function() {
                       self.handlePreloader()
-                      document.location.reload()
+                      // document.location.reload()
                     }, 2000)
                   }
   
