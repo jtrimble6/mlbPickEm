@@ -129,7 +129,7 @@ class NbaPickEmActionPage extends Component {
                     username={this.state.username}
                   />
                 </div>
-                <div className='col-md-3'>
+                <div className='col-md-3 leaderboardCol'>
                 <div className="leaders row">
                   <Leaderboard   
                   />

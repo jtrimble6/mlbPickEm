@@ -134,18 +134,11 @@ class MlbActionPage extends Component {
                     username={this.state.username}
                   />
                 </div>
-                <div className='col-md-3'>
-                <div className="leaders row">
-                  <Leaderboard   
-                  />
-                </div>
-
-                {/* <div className="winningTeams row">
-                  <Games 
-                    username={this.state.username}
-                  />
-                </div> */}
-                  
+                <div className='leaderboardCol col-md-3'>
+                  <div className="leaders row">
+                    <Leaderboard   
+                    />
+                  </div>
                 </div>
               </div>
               <Footer />

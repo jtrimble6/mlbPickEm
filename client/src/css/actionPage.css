@@ -34,10 +34,20 @@
     margin-bottom: 200px;
   }
 
+  .leaderboardCol {
+    min-width: 80vw !important;
+    margin: 0 auto;
+    margin-top: 10vh;
+  }
+
   .leaderboard {
     height: 350px;
     margin-left: 0;
   }
+/* 
+  .leaderboardHeader {
+    position: static;
+  } */
 
   .winningTeams {
     height: 300px;
@@ -62,6 +72,10 @@
     height: 575px;
     overflow: auto;
     margin-bottom: 200px;
+  }
+
+  .leaderboardCol {
+    min-width: 100vw !important;
   }
 
   .leaderboard {
