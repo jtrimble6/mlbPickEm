@@ -25,6 +25,7 @@ class LandingPage extends Component {
       }
 
     handlePreloader() {
+      console.log('HANDLE PRELOADER')
       $(".se-pre-con").fadeOut("slow");
     }
 
