@@ -50,7 +50,7 @@ import MlbLeaderboard from './pages/leaderboards/MlbLeaderboardPage'
 import NbaLeaderboard from './pages/leaderboards/NbaPickEmLeaderboardPage'
 import NflDivisionLeaderboard from './pages/leaderboards/NflDivisionLeaderboardPage'
 // import {DragDropContext} from 'react-beautiful-dnd'
-
+import $ from 'jquery'
 
 
 
@@ -70,6 +70,7 @@ class App extends Component {
     // this.getAdmin = this.getAdmin.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.getUser = this.getUser.bind(this)
+    this.handlePreloader = this.handlePreloader.bind(this)
   }
   
 
@@ -77,6 +78,12 @@ class App extends Component {
     this.getUser()
     console.log('AT HOME PAGE')
     // this.getAdmin()
+  }
+
+  handlePreloader() {
+    console.log('HANDLE PRELOADER')
+    // $(".se-pre-con").fadeOut("slow");
+    $(".se-pre-con").hide();
   }
 
   updateUser = (userObject) => {
@@ -130,6 +137,7 @@ class App extends Component {
           }
         }).catch(error => {
           console.log('Login Error: ', error)
+          this.handlePreloader()
         })
     }
   }
