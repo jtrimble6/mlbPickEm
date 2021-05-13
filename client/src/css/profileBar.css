@@ -88,6 +88,10 @@
   margin: 0 auto;
 }
 
+.recentPicksTableDateCell {
+  font-weight: 900;
+}
+
 .recentPicksRow .title {
   font-size: 1.5rem;
 }
@@ -295,10 +299,12 @@ h2 {
   font-size: 18px;
 }
 
-@media (min-width: 950px) {
-  /* .profileBar {
-    margin-top: 9% !important;
-  } */
+@media (min-width: 1000px) {
+  .recentPicksTableDateCell {
+    font-size: 0.6rem;
+    /* padding: 0.5rem !important; */
+    vertical-align: top !important;
+  }
   .recordRow .col-md-3 {
     padding-right: 0px !important;
   }
@@ -338,10 +344,10 @@ h2 {
   }
 }
 
-@media (min-width: 858px) and (max-width: 949px) {
-  /* .profileBar {
-    margin-top: 11% !important;
-  } */
+@media (min-width: 858px) and (max-width: 999px) {
+  .recentPicksTableDateCell {
+    font-size: 0.5rem;
+  }
   .recentPicks {
     max-width: 77%;
     line-height: 1.5em;
@@ -358,9 +364,9 @@ h2 {
 }
 
 @media (min-width: 695px) and (max-width: 857px) {
-  /* .profileBar {
-    margin-top: 13% !important;
-  } */
+  .recentPicksTableDateCell {
+    font-size: 0.5rem;
+  }
   .recentPicksRow {
     margin: 0 auto;
   }
@@ -799,6 +805,9 @@ h2 {
     padding-right: 0vw !important;
     margin: 0 auto !important;
   }
+  .recentPicksTableDateCell {
+    font-size: 0.4rem;
+  }
   .jumbotronCol {
     max-width: 50% !important;
   }
@@ -821,7 +830,7 @@ h2 {
   .winsTitle, .winsHeader {
     margin-top: 1vh !important;
     margin-bottom: 1vh !important;
-    font-size: 0.75rem !important;
+    font-size: 0.55rem !important;
   }
   .table {
     margin-bottom: 0;
@@ -860,6 +869,7 @@ h2 {
 
 /* Portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+
 }
 
 /* Landscape */

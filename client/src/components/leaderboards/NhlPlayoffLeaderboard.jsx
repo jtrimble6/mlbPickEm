@@ -29,6 +29,7 @@ class NhlPlayoffLeaderboard extends Component {
           activeUserLosses: [],
           activeUserLossesCount: 0,
           activeUserWinsCount: 0,
+          activeUserPointsCount: 0,
           activeUserPicks: [],
           activeUserPrevPicks: [],
           prevPicks: [],
@@ -217,33 +218,10 @@ class NhlPlayoffLeaderboard extends Component {
         let leaders = placedUsers.map(function(el) {
             return newUsers[el.index]
         })
-        // console.log('LEADERS: ', leaders)
+        console.log('LEADERS: ', leaders)
+        console.log('USERS: ', this.state.allUsers)
         this.setState({ leaders: leaders })
 
-
-        // let users = this.state.challengeData.users
-        // // console.log('Create leaderboard with this data: ', users)
-        // let placedUsers = users.map(function(el, i) {
-        //     return { index: i, value: el.points }
-        // })
-        // // console.log('PLACED USERS: ', placedUsers)
-        // placedUsers.sort(function(a, b) {
-        //     if (a.value < b.value) {
-        //         return -1;
-        //     }
-        //     if (a.value > b.value) {
-        //         return 1;
-        //     }
-        //     return 0;
-        // })
-        // let leaders = placedUsers.map(function(el) {
-        //     return users[el.index]
-        // })
-        // // console.log('LEADERS: ', leaders)
-        // this.setState({ leaders: leaders })
-
-        // console.log('NEW LEADERBOARD: ', this.state.allUsers)
-        
       }
 
       findRecentPicks = () => {
@@ -260,11 +238,11 @@ class NhlPlayoffLeaderboard extends Component {
           })
   
         let todaysPickFunc = (userPicks) => {
-          return(moment(userPicks.gameDate).isSame(moment().format('YYYY-MM-DD')))
+          return(moment(userPicks.gameDate).isSame(this.props.todaysDate))
         }
   
         let prevPicksFunc = (userPrevPicks) => {
-          return (moment(userPrevPicks.gameDate).isBefore(moment().format('YYYY-MM-DD')))
+          return (moment(userPrevPicks.gameDate).isBefore(this.props.todaysDate))
         }
         let todaysUserPick = 'NO PICK'
         let userPick = sortedPicks.filter(todaysPickFunc)
@@ -291,7 +269,8 @@ class NhlPlayoffLeaderboard extends Component {
       // let self = this
       let user = e.target
       let player = user.textContent
-      let allUsers = this.state.challengeData.users
+      let allUsers = this.state.leaders
+      let challengeId = localStorage.getItem('userChallengeId')
       // console.log('ALL USERs: ', allUsers)
       if (isNaN(player)) {
         let thisPlayer = []
@@ -305,16 +284,24 @@ class NhlPlayoffLeaderboard extends Component {
         let thisPlayerObj = allUsers.filter(thisPlayerFunc)
         // console.log('THIS PLAYER: ', thisPlayerObj[0])
         thisPlayer.push(thisPlayerObj[0])
+        let filterChallengePicks = (picks) => {
+          return picks.challengeId === challengeId
+        }
+        let filteredPicks = thisPlayerObj[0].picks.filter(filterChallengePicks)
+        let filterWins = (picks) => {
+          return picks.result === 'win' && picks.challengeId === challengeId
+        }
+        let filteredWins = thisPlayerObj[0].picks.filter(filterWins)
+        // console.log('FILTERED WINS: ', filteredWins)
         this.setState({
-          activeUser: thisPlayer[0],
-          activeUserUsername: thisPlayer[0].username,
-          activeUserLosses: thisPlayer[0].points,
-          activeUserLossesCount: thisPlayer[0].points,
-          activeUserWinsCount: thisPlayer[0].wins.length,
-          activeUserPicks: thisPlayer[0].picks
+          activeUser: thisPlayerObj[0],
+          activeUserUsername: thisPlayerObj[0].username,
+          activeUserWins: filteredWins,
+          activeUserPicks: filteredPicks,
+          activeUserWinsCount: filteredWins.length,
+          activeUserPointsCount: thisPlayerObj[0].pointsCount
         }, () => {
           this.getUser()
-          // this.findRecentPicks()
           this.handlePreloader()
         })
         
@@ -387,7 +374,7 @@ class NhlPlayoffLeaderboard extends Component {
 
     render() {
       let uuidv4 = require('uuid/v4')
-      let record = (this.state.activeUserWinsCount + ' - ' + this.state.activeUserLossesCount)
+      // let record = (this.state.activeUserWinsCount + ' - ' + this.state.activeUserLossesCount)
       let leaderStyle = {
           overflow: 'scroll'
       }
@@ -433,41 +420,42 @@ class NhlPlayoffLeaderboard extends Component {
               text='Loading user...'
               >
             </LoadingOverlay>
-              <h2 className='leaderboardHeader'>Leaderboard</h2>
-              <hr />
-              <table className='leaderboardData table table-hover'>
-                <thead>
-                  <tr className='leaderboardHeader'>
-                    <th className='leaderboardHeader'>Place</th>
-                    <th className='leaderboardHeader'>User</th>
-                    <th className='leaderboardHeader'>Points</th>
-                    {/* <th>Teams</th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                
-                {
-                  this.state.leaders.map((leader, i) => (
-                    
-                    <tr key={uuidv4()} className='allRows'>
-                      <td className='leaderRow' style={leaderStyle}>{i+1}</td>
-                      <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
-                      <td className='leaderRow' style={leaderStyle}>{leader.pointsCount}</td>
-                    
-                      <Modal 
-                        isOpen={this.state.modal} 
-                        autoFocus={true}
-                        centered={true}
-                        size='lg'
-                        className='playerModal'
-                      >
-                          <ModalHeader id='modalTitle' className='leaderboardModalTitle'>
-                            {/* USER PROFILE ({username}) */}
-                            USER PROFILE
-                          </ModalHeader>
-                          <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
+              <h2 className='leaderboardHeaderTitle'>Leaderboard</h2>
+              {/* <hr /> */}
+              <div className='leaderboardDataDiv'>
+                <table className='leaderboardData table table-hover'>
+                  <thead className='leaderboardHeaderSpan'>
+                    <tr className='leaderboardHeaderRow'>
+                      <th className='leaderboardHeader'>Place</th>
+                      <th className='leaderboardHeader'>User</th>
+                      <th className='leaderboardHeader'>Points</th>
+                      {/* <th>Teams</th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  {
+                    this.state.leaders.map((leader, i) => (
+                      
+                      <tr key={uuidv4()} className='allRows'>
+                        <td className='leaderRow' style={leaderStyle}>{i+1}</td>
+                        <td className='leaderRow username' style={leaderStyle} onClick={this.handleClick}>{leader.username}</td>
+                        <td className='leaderRow' style={leaderStyle}>{leader.pointsCount}</td>
+                      
+                        <Modal 
+                          isOpen={this.state.modal} 
+                          autoFocus={true}
+                          centered={true}
+                          size='lg'
+                          className='playerModal'
+                        >
+                            <ModalHeader id='modalTitle' className='leaderboardModalTitle'>
+                              {/* USER PROFILE ({username}) */}
+                              USER PROFILE
+                            </ModalHeader>
+                            <ModalBody id='modalBody' className='nextGames' style={modalStyle}>
                             <div className="row playerRow">
-                              <div className='col-6'>
+                                <div className='col-6'>
                                 <Jumbotron className='playerJumbo leaderboardModalPlayerJumbo'>
                                   <Container fluid>
                                     <div className="display-4">
@@ -485,104 +473,79 @@ class NhlPlayoffLeaderboard extends Component {
                                               renderer={this.timerRender}
                                               className='userTimer'
                                             >
-                                              <EndTimer />
+                                              <span> 
+                                                {todaysPick}
+                                                {/* <EndTimer /> */}
+                                              </span>
+                                              
                                             </Countdown> 
                                           }
 
                                         </div>
                                       <div className="row recordRow">
                                         <div className="col-md-3">
-                                          <h4 className='winsHeader'>Points</h4> {}
-                                        </div>
-                                        <div className="col-md-3">
-                                          <h4 className='winsHeader'>Record</h4> {}
+                                          <h4 className='winsHeader'>Points</h4> {this.state.activeUserPointsCount}
                                         </div>  
+                                        <div className="col-md-3">
+                                          <h4 className='winsHeader'>Wins</h4> {this.state.activeUserWins?.length}
+                                        </div>
                                         {/* <div className="col-md-3">
-                                          <h4 className='wins'>Place</h4> {this.state.activeUserWins.length}
+                                          <h4 className='wins'>Streak</h4> {this.state.activeUserWinsCount}
                                         </div>   */}
                                       </div>  
                                     </div>
                                   </Container>
                                 </Jumbotron>
-                              </div>
-                              <span className='row recentPicks profilePicks'>
-                                <div className="col-10">
-                                  <table className='table table-hover'>
-                                    <thead>
-                                      <tr>
-                                        <th>Date</th>
-                                        <th>Pick</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                          
-                                      {
-                                        userPicks[0] ? 
-                                        
-                                        userPicks.map((newRecentPick, i) => (
-                                          <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
-                                            <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
-                                            <td>{newRecentPick.team}</td>
-                                          </tr> 
-                                          )
-                                        )                                            
-
-                                        : <tr className='loss'>
-                                            <td>--</td>
-                                            <td>No Previous Picks</td>
+                                </div>
+                                <div className='col-6'>
+                                  <div className='row leaderboardModalRecentPicks recentPicks profilePicks'>
+                                    <div className="col-12">
+                                      <table className='table table-hover'>
+                                        <thead>
+                                          <tr>
+                                            <th>Date</th>
+                                            <th>Pick</th>
                                           </tr>
-                                        
-                                      }
-                                      
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <div className="col-2 title">
-                                  <h3>{username}'s Picks</h3>
-                                </div>
-                              </span>
-                            </div>
+                                        </thead>
+                                        <tbody>
+                              
+                                          {
+                                            userPicks[0] ? 
+                                            
+                                            userPicks.map((newRecentPick, i) => (
+                                              <tr key={uuidv4()} style={hoverStyle} className={newRecentPick.result}>
+                                                <td>{moment(newRecentPick.gameDate).format('MM-DD')}</td>
+                                                <td>{newRecentPick.team}</td>
+                                              </tr> 
+                                              )
+                                            )                                            
 
-                            <span className="col-md"> 
-                              {/* <div className="row teamLogos">
-                                
-                                {
-                                  this.state.teams.map((team, i) => (
-                                  
-                                    <Button 
-                                      key={uuidv4()}
-                                      onClick={this.findTeamGames}
-                                      color={team.status} 
-                                      className='teamButton'
-                                      data={team.abbr}
-                                    >
-                                      <img
-                                        className='profLogo'
-                                        src={this.loadLogo(team.abbr)}
-                                        alt={team.abbr}
-                                        fluid='true'
-                                      />
-                                      <br />
-                                      {team.abbr.toUpperCase()}
-                                    </Button>
-                            
-                                  ))
-                                }
-                                
-                              </div> */}
-                            </span>
-                          </ModalBody>
-                          <ModalFooter>
-                            <Button color="secondary" onClick={this.toggle}>Close</Button>
-                          </ModalFooter>
-                
-                        </Modal>
+                                            : <tr className='loss'>
+                                                <td>--</td>
+                                                <td>No Previous Picks</td>
+                                              </tr>
+                                            
+                                          }
+                                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button color="secondary" onClick={this.toggle}>Close</Button>
+                            </ModalFooter>
+                  
+                          </Modal>
 
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
           </div>
         )
     }

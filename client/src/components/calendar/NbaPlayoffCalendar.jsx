@@ -120,9 +120,9 @@ class NbaPlayoffCalendar extends Component {
       }
 
     toggleActive(event) {
-      event.preventDefault()
+      event?.preventDefault()
       // console.log('event: ', event.target.getAttribute('data-team'))
-      let myPick = event.target.getAttribute('data-team')
+      let myPick = event?.target?.getAttribute('data-team')
       console.log('MY PICK: ', myPick)
       let _this = this
       $('.modal-open #modalBody .thisGame .team').click(function(){
@@ -341,7 +341,7 @@ class NbaPlayoffCalendar extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event?.preventDefault();
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId

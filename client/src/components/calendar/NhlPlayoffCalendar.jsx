@@ -9,14 +9,15 @@ import FullCalendar from 'fullcalendar-reactwrapper';
 import Countdown from 'react-countdown';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fas } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faIgloo, faCaretRight, faBasketballBall } from '@fortawesome/free-solid-svg-icons'
+import { faIgloo, faCaretRight, faBasketballBall, faHockeyPuck } from '@fortawesome/free-solid-svg-icons'
 import API from '../../utils/API'
 import $ from 'jquery'
 import moment from 'moment-timezone';
-import { nsh, tb, wsh, bos2, car, nyi, cbj, wpg, vgk, col, dal2, stl, sjs, cgy, tor2, pit, nhl } from '../../css/nhlLogos'
+import { chi2, tb, wsh, bos2, car, nyi, cbj, van, vgk, col, dal2, stl, ari, cgy, mtl, phi2, nhl } from '../../css/nhlLogos'
 // import NhlPlayoffGamesPage from '../../pages/admin/NhlPlayoffGamesPage'
-// import { atl, cbj, wsh, cha, chi, cle, tor2, dal2, det, gsw, stl, bos2, col, vgk, mem, car, nsh, min, nop, nyk, sjs, wpg, nyi, phx, pit, sac, sas, tbl, cgy, was } from '../../css/nhlLogos'
+// import { atl, cbj, wsh, cha, chi, cle, mtl, dal2, det, gsw, stl, bos2, col, vgk, mem, car, chi2, min, nop, nyk, ari, van, nyi, phx, phi2, sac, sas, tbl, cgy, was } from '../../css/nhlLogos'
 
 class NhlPlayoffCalendar extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class NhlPlayoffCalendar extends Component {
           closeAllNoPick: false, 
           challengeId: '',
           challengeData: {},
+          challengeUsers: [],
           allGames: [],
           playoffGames: [],
           yesterdaysGames: [], 
@@ -40,7 +42,7 @@ class NhlPlayoffCalendar extends Component {
           myLosses: [],
           userId: '',
           userPicks: [],
-          userLosses: [],
+          userWins: [],
           fullSchedule: [],
           allGameIds: [],
           yesterdaysGameIds: [],
@@ -120,10 +122,10 @@ class NhlPlayoffCalendar extends Component {
       }
 
     toggleActive(event) {
-      event.preventDefault()
+      event?.preventDefault()
       // console.log('event: ', event.target.getAttribute('data-team'))
-      let myPick = event.target.getAttribute('data-team')
-      console.log('MY PICK: ', myPick)
+      let myPick = event?.target?.getAttribute('data-team')
+      // console.log('MY PICK: ', myPick)
       let _this = this
       $('.modal-open #modalBody .thisGame .team').click(function(){
           $(this).addClass('active');
@@ -328,7 +330,7 @@ class NhlPlayoffCalendar extends Component {
     getTeamsData = () => {
       API.getNhlPlayoffTeams()
         .then(res => {
-          console.log('GOT TEAMS: ', res.data)
+          // console.log('GOT TEAMS: ', res.data)
           this.setState({
             teams: res.data
           }, () => {
@@ -341,7 +343,7 @@ class NhlPlayoffCalendar extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event?.preventDefault();
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId
@@ -349,13 +351,13 @@ class NhlPlayoffCalendar extends Component {
         let myPicks = this.state.myPicks
         // let myLosses = this.state.myLosses
         let teamPick = this.state.activePick
-        console.log('TEAMS: ', teams)
-        console.log('ACTIVE PICK: ', this.state.activePick)
+        // console.log('TEAMS: ', teams)
+        // console.log('ACTIVE PICK: ', this.state.activePick)
         let findTeamSeed = (team) => {
-          return team.teamName.trim() === teamPick.trim()
+          return team?.teamName?.trim() === teamPick.trim()
         }
         let teamFound = teams.filter(findTeamSeed)
-        let teamSeed = parseInt(teamFound[0].seed)
+        let teamSeed = parseInt(teamFound[0]?.seed)
         // console.log('TEAM SEEDING: ', teamSeed)
         // debugger;
         let pickDate = this.state.activeDate
@@ -413,7 +415,7 @@ class NhlPlayoffCalendar extends Component {
         
         API.addUserPick(myId, thisPick)
           .then(res => { 
-            console.log(res)
+            // console.log(res)
             this.toggle()
             document.location.reload()
            })
@@ -440,7 +442,8 @@ class NhlPlayoffCalendar extends Component {
     
       overridePick(date, newPick) {
         let localUser = localStorage.getItem('user')
-        let challengeId = this.state.challengeId
+        let challengeId = localStorage.getItem('userChallengeId')
+        // let challengeId = this.state.challengeId
         // console.log('OVERRIDE THIS PICK: ', localUser, challengeId, date, newPick)
   
         API.overrideUserPick(localUser, challengeId, date, newPick)
@@ -567,17 +570,17 @@ class NhlPlayoffCalendar extends Component {
       // PULL FULL SCHEDULE FROM DATABASE
       API.getNhlPlayoffGames()
         .then(res => {
-          console.log('A GAME: ', res.data)
+          // console.log('A GAME: ', res.data)
           let games = []
           let teams = this.state.teams
           res.data.forEach((game) => {
-            console.log('THIS GAME: ', game)
+            // console.log('THIS GAME: ', game)
             // let splitDate = game.gameDate
             let gameDate = game.gameDate
             let homeAlias = game.homeAlias.toLowerCase()
             let awayAlias = game.awayAlias.toLowerCase()
-            console.log('HOME ALIAS: ', homeAlias)
-            console.log('THE TEAMS: ', teams)
+            // console.log('HOME ALIAS: ', homeAlias)
+            // console.log('THE TEAMS: ', teams)
             let findHomeTeamSeed = (theTeams) => {
               return theTeams.teamAlias === homeAlias.toUpperCase()
             }
@@ -589,8 +592,8 @@ class NhlPlayoffCalendar extends Component {
             let awayTeamFound = teams.filter(findAwayTeamSeed)
             let homeSeed = homeTeamFound[0]?.seed
             let awaySeed = awayTeamFound[0]?.seed
-            console.log('HOME SEED: ', homeSeed)
-            console.log('AWAY SEED: ', awaySeed)
+            // console.log('HOME SEED: ', homeSeed)
+            // console.log('AWAY SEED: ', awaySeed)
             let gameInfo = {
                 id: game.gameId,
                 date: gameDate,
@@ -608,7 +611,7 @@ class NhlPlayoffCalendar extends Component {
               games.push(gameInfo)
             })
             this.setState({ allGames: games })
-            console.log('ALL PLAYOFF GAMES: ', games)
+            // console.log('ALL PLAYOFF GAMES: ', games)
         })
           .catch(err => console.log(err))
 
@@ -731,110 +734,97 @@ class NhlPlayoffCalendar extends Component {
     findUserPicks = () => {
       let self = this
       let localUser = localStorage.getItem('user')
+      // let challengeId = localStorage.getItem('userChallengeId')
       let chalUsers = this.state.challengeUsers
       let date = moment(this.props.todaysDate).subtract(1, 'day').format('YYYY-MM-DD')
 
       API.getNhlPlayoffGamesByDate(date)
         .then(res => {
-            let games = []
-            let yesterdaysGameIds = []
-            res.data.forEach((game) => {
-              let splitDate = game.gameDate.split('T')
-              let gameDate = splitDate[0]
-              let gameInfo = {
-                  id: game.gameId,
-                  date: gameDate,
-                  start: game.gameDate,
-                  status: game.gameStatus,
-                  homeTeam: game.homeTeam,
-                  awayTeam: game.awayTeam,
-                  gameWinner: game.gameResult.gameResult,
-                  title: game.homeAlias + ' vs ' + game.awayAlias,
-                  color: 'yellow',
-                  textColor: 'black',
-                  borderColor: 'blue'
-                }
+          let games = []
+          let yesterdaysGameIds = []
+          res.data.forEach((game) => {
+            let splitDate = game.gameDate.split('T')
+            let gameDate = splitDate[0]
+            let gameInfo = {
+                id: game.gameId,
+                date: gameDate,
+                start: game.gameDate,
+                status: game.gameStatus,
+                homeTeam: game.homeTeam,
+                awayTeam: game.awayTeam,
+                gameWinner: game.gameResult.gameResult,
+                title: game.homeAlias + ' vs ' + game.awayAlias,
+                color: 'yellow',
+                textColor: 'black',
+                borderColor: 'blue'
+              }
               games.push(gameInfo)
               yesterdaysGameIds.push(gameInfo.id)
               self.setState({ yesterdaysGames: games })
               self.setState({ yesterdaysGameIds: yesterdaysGameIds })
-              
+
+              // console.log('YESTERDAYS GAMES: ', games)
+
               if (games.length === res.data.length) {
-                // FILTER OUT THIS USER AND SET STATE
-                let chalFilter = (challengers) => {
-                  return challengers.username === localUser
-                }
-                let thisUser = chalUsers.filter(chalFilter)
-
-                // console.log('THIS CURRENT USER INFO: ', thisUser)
-                // console.log('ALL USERS DATA: ', chalUsers)
-
-                this.setState({
-                  userLosses: thisUser.wins,
-                  userPicks: thisUser.picks,
-                  userId: thisUser.username
-                })
+                let challengeId = localStorage.getItem('userChallengeId')
+                API.getUser(localUser)
+                    .then(res => {
+                      // console.log('THE USER: ', res.data)
+                      let thisUser = res.data
+                      let filterPicks = (picks) => {
+                        return picks.challengeId === challengeId
+                      }
+                      let filteredPicks = thisUser[0].picks.filter(filterPicks)
+                      let filterWins = (picks) => {
+                        return picks.result === 'win' 
+                      }
+                      let filteredWins = filteredPicks?.filter(filterWins)
+                      // console.log('FILTERED WINS: ', filteredWins)
+                      this.setState({
+                        userId: thisUser[0].username,
+                        userWins: filteredWins,
+                        userPicks: filteredPicks,
+                      })
+                    })
+                    .catch(err => {console.log(err)})
+                    
                 
                 let users = []
+                // console.log('CHAL USERS: ', chalUsers)
                 chalUsers.forEach((chalUser) => {
                   users.push(chalUser)
+                  let thisUser = chalUser
+                  let filterPicks = (picks) => {
+                    return picks.challengeId === challengeId
+                  }
+                  let filteredPicks = chalUser.picks.filter(filterPicks)
+                  let filterWins = (picks) => {
+                    return picks.result === 'win'
+                  }
+                  let filteredWins = filteredPicks?.filter(filterWins)
+                  // console.log('FILTERED WINS: ', filteredWins)
                   let thisUserObj = {
-                    userId: chalUser.username,
-                    userPicks: chalUser.picks,
-                    userLosses: chalUser.wins
+                      userId: thisUser.username,
+                      userWins: filteredWins,
+                      userPicks: filteredPicks,
                     }
                   // IF USER HAS MADE PICKS FIND THEIR WINS
-                  if (chalUser.picks[0]) {
-                    self.findUserWins(thisUserObj)
+                  // console.log('THIS CHALLENGE USER: ', thisUserObj)
+                  if (filteredPicks[0]) {
+                      self.findUserWins(thisUserObj)
                     }
-  
                 })
 
                 if (users.length === chalUsers.length) {
                   setTimeout(function() {
+                    // console.log('THEY EQUAL: ', users.length, chalUsers.length)
                     self.handlePreloader()
                     document.location.reload()
                   }, 2000)
                 }
 
               }
-
             })
-
-          // FILTER OUT THIS USER AND SET STATE
-          // // let chalFilter = (challengers) => {
-          // //   return challengers.username === localUser
-          // // }
-          // // let thisUser = chalUsers.filter(chalFilter)
-
-          // // // console.log('THIS CURRENT USER INFO: ', thisUser)
-          // // // console.log('ALL USERS DATA: ', chalUsers)
-
-          // // this.setState({
-          // //   userLosses: thisUser.wins,
-          // //   userPicks: thisUser.picks,
-          // //   userId: thisUser.username
-          // // })
-          // // let allUsers = 0
-          // // chalUsers.forEach((chalUser) => {
-          // //   allUsers++
-          // //   let thisUserObj = {
-          // //     userId: chalUser.username,
-          // //     userPicks: chalUser.picks,
-          // //     userLosses: chalUser.wins
-          // //     }
-          // //   // IF USER HAS MADE PICKS FIND THEIR WINS
-          // //   if (chalUser.picks[0]) {
-          // //     self.findUserWins(thisUserObj)
-          // //     }
-            
-          // //   if (allUsers.length === chalUsers.length) {
-          // //     // debugger;
-          // //     self.handlePreloader()
-          // //   }
-            
-          //   })
-
           })
           .catch(err => console.log(err))
       }
@@ -845,12 +835,12 @@ class NhlPlayoffCalendar extends Component {
       let userPicks = userData.userPicks
       let schedule = this.state.yesterdaysGames
       let challengeId = this.state.challengeId
-      // let userLosses = userData.userLosses
+      // let userWins = userData.userWins
       // console.log('DA SCHEDULE: ', schedule)
     
       // FIND THIS USER'S PICK FOR TODAY
       let thisPickDate = (picks) => {
-        return picks.gameDate === yesterday
+        return picks.gameDate === this.props.yesterdaysDate
       }
       let thisPick = userPicks.filter(thisPickDate)
       let thisPickTeam = ''
@@ -858,13 +848,13 @@ class NhlPlayoffCalendar extends Component {
       // IF THERE IS A PICK FOR YESTERDAY MAKE THAT 'THISPICKTEAM'
       if (thisPick[0]) {
         thisPickTeam = thisPick[0].team
-        // console.log('THIS PICK RESULT: ', userId, thisPickTeam, thisPick[0].result)
+        console.log('THIS PICK RESULT: ', userId, thisPickTeam, thisPick[0].result)
 
         // ONLY CHECKING GAMES WITH 'PENDING' RESULT
         if (thisPick[0].result === 'pending') {
         
           // CHECK TO SEE IF YESTERDAYS PICK IS A WINNER
-          let newWin = null
+          // let newWin = null
 
           let findWinFunc = (games) => {
             return games.gameWinner === thisPickTeam.trim()
@@ -872,12 +862,12 @@ class NhlPlayoffCalendar extends Component {
 
           let foundWinner = schedule.filter(findWinFunc)
 
-          // console.log('FOUND WINNER? ', foundWinner)
+          console.log('FOUND WINNER? ', foundWinner)
 
           if (foundWinner[0]) {
             let result = 'win'
-            // console.log('THIS IS A WINNER: ', thisPick)
-            newWin = { win: thisPickTeam }
+            console.log('THIS IS A WINNER: ', thisPick)
+            // newWin = { win: thisPickTeam }
 
             // CHANGE PICK RESULT IF WIN
             let newPick = {
@@ -942,8 +932,8 @@ class NhlPlayoffCalendar extends Component {
       // }
 
       switch (true) {
-        case (team === 'nsh'):
-          return nsh.default;
+        case (team === 'chi'):
+          return chi2.default;
           
         case (team === 'tb'):
           return tb.default;
@@ -951,7 +941,7 @@ class NhlPlayoffCalendar extends Component {
         case (team === 'wsh'):
           return wsh.default;
            
-        case (team === 'bos2'):
+        case (team === 'bos'):
           return bos2.default;
            
         case (team === 'car'):
@@ -963,8 +953,8 @@ class NhlPlayoffCalendar extends Component {
         case (team === 'cbj'):
           return cbj.default;
            
-        case (team === 'wpg'):
-          return wpg.default;
+        case (team === 'van'):
+          return van.default;
            
         case (team === 'vgk'):
           return vgk.default;
@@ -972,23 +962,23 @@ class NhlPlayoffCalendar extends Component {
         case (team === 'col'):
           return col.default;
            
-        case (team === 'dal2'):
+        case (team === 'dal'):
           return dal2.default;
            
         case (team === 'stl'):
           return stl.default;
            
-        case (team === 'sjs'):
-          return sjs.default;
+        case (team === 'ari'):
+          return ari.default;
            
         case (team === 'cgy'):
           return cgy.default;
            
-        case (team === 'tor2'):
-          return tor2.default;
+        case (team === 'mtl'):
+          return mtl.default;
            
-        case (team === 'pit'):
-          return pit.default;
+        case (team === 'phi'):
+          return phi2.default;
            
         default:
           return nhl.default;
@@ -997,7 +987,7 @@ class NhlPlayoffCalendar extends Component {
       }
 
     render() {
-      library.add(faIgloo, faCaretRight, faBasketballBall)
+      library.add(faIgloo, faCaretRight, faBasketballBall, faHockeyPuck)
       let timerEnded = false;
       let lastDate = this.state.lastDate
       let EndTimer = () => {
@@ -1102,7 +1092,7 @@ class NhlPlayoffCalendar extends Component {
               <div className="row countdown">
               <div className="col-3"></div>
               <div className="col-6 timeToPick">
-                TIME TO PICK <FontAwesomeIcon icon="basketball-ball" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
+                TIME TO PICK <FontAwesomeIcon icon="fas fa-hockey-puck" /> <Countdown date={Date.now() + this.state.timeDiff} zeroPadTime={2} daysInHours={true} renderer={this.timerRender}>
                     <EndTimer />
                   </Countdown>
                   <small id="est" className="form-text text-muted">All times shown in EST</small>
@@ -1130,7 +1120,7 @@ class NhlPlayoffCalendar extends Component {
                 showNonCurrentDates= {false}
                 events= {this.state.allGames}
                 eventClick= {(calEvent) => {
-                  if(moment(calEvent.date).isBefore(moment(this.props.todaysDate).subtract(1, 'day'))) {
+                  if(moment(calEvent.date).isBefore(moment(this.props.todaysDate))) {
                       // console.log('YOU CANT PICK THAT DATE')
                       // $('#calendar').fullCalendar('unselect');
                       this.handleChangeTeams(calEvent)

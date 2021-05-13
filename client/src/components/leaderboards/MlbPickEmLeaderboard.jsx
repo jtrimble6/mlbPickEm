@@ -602,7 +602,7 @@ class Leaderboard extends Component {
               text='Loading user...'
               >
             </LoadingOverlay>
-              <h2 className='leaderboardHeader'>Leaderboard</h2>
+              <h2 className='leaderboardHeaderTitle'>Leaderboard</h2>
                 {
 
                   moment(challengeStartDate).isBefore(today) ? 
@@ -616,8 +616,8 @@ class Leaderboard extends Component {
                 }
               <hr />
               <table className='leaderboardData table table-hover'>
-                <thead>
-                  <tr className='leaderboardHeader'>                
+                <thead className='leaderboardHeaderSpan'>
+                  <tr className='leaderboardHeaderRow'>                
                     <th className='leaderboardHeader'>Place</th>
                     <th className='leaderboardHeader'>User</th>
                     <th className='leaderboardHeader'>Points</th>

@@ -28,8 +28,8 @@ class NhlPlayoffActionPage extends Component {
       winsCount: 0,
       pointsCount: 0,
       myPicks: [],
-      today: moment().subtract(278, 'days').format('YYYY-MM-DD'),
-      yesterday: moment().subtract(279, 'days').format('YYYY-MM-DD'),
+      today: moment().subtract(258, 'days').format('YYYY-MM-DD'),
+      yesterday: moment().subtract(259, 'days').format('YYYY-MM-DD'),
       todaysPick: 'No Pick'
     }
     this.handlePreloader = this.handlePreloader.bind(this)
@@ -168,10 +168,11 @@ class NhlPlayoffActionPage extends Component {
                 <div className='calBoard col-md-9'>
                   <NhlPlayoffCalendar 
                     todaysDate={this.state.today}
+                    yesterdaysDate={this.state.yesterday}
                     username={this.state.username}
                   />
                 </div>
-                <div className='col-md-3'>
+                <div className='col-md-3 leaderboardCol'>
                 <div className="leaders row">
                   <NhlPlayoffLeaderboard   
                     todaysDate={this.state.today}

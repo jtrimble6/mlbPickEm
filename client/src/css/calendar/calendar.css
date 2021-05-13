@@ -16,8 +16,10 @@
 
 .calRow {
   min-height: auto;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  /* padding-left: 5vw;
+  padding-right: 5vw; */
+  width: 95vw;
+  margin: 0 auto;
   margin-bottom: 10vh;
 }
 
@@ -38,6 +40,10 @@
 #calendar {
   max-height: 100% !important;
   background-color: transparent;
+}
+
+.calendarTable {
+  min-height: 100%;
 }
 
 #modalBody {
@@ -162,20 +168,53 @@
   text-align: center;
 }
 
+.fc-day-grid-event {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 td.fc-event-container {
   border: none !important;
-  height: 40px;
-  margin: 10px;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box !important;
+  vertical-align: top;
+  padding: 0 1rem;
+  margin: 24px -4px 24px 0;
+  /* display: inline-block; */
+  /* width: 100%; */
+}
+
+.fc-time {
+  font-size: 0.8rem;
+  font-weight: 400 !important;
+  color: darkred;
+  display: inline-block !important;
+  width: 100%;
+}
+
+.fc-title {
+  width: 100%;
+  white-space: nowrap !important;
+  margin: 0 auto !important;
+  font-size: 0.8rem;
+  font-weight: 900 !important;
+}
+
+.fc-content {
+  padding: 1rem !important;
 }
 
 td.fc-event-container a {
-  min-height: 95%;
-  font-size: 12px !important;
+  font-size: 1rem !important;
 }
 
-.fc-view-container {
-  background-color: #209cee;
+.fc-widget-content, .fc-bg, .fc-content-skeleton {
+  background-color: #209cee !important;
 }
+
 .fc-today {
   background-color: gold;
   border-color: gold !important;
@@ -204,7 +243,7 @@ td.fc-event-container a {
 }
 
 .fc-day-header {
-  color: white;
+  color: white !important;
 }
 
 .fc-next-button,
@@ -244,6 +283,7 @@ td.fc-event-container a {
   margin-bottom: 10px;
   min-width: 80%;
   margin-left: 10%;
+  padding: 0.5rem;
 }
 
 .disclaimer {
@@ -342,24 +382,7 @@ td.fc-event-container a {
     max-height: 100% !important;
   }
 
-  table {
-    min-height: 100%;
-  }
-
-  td.fc-event-container {
-    height: 40px;
-    margin: 10px;
-  }
-
-  td.fc-event-container a {
-    min-height: 95%;
-    font-size: 10px !important;
-  }
-
-  .fc-view-container {
-    background-color: #209cee;
-  }
-
+  
   #modalBody {
     font-size: 20px;
     align-content: center;
@@ -377,6 +400,14 @@ td.fc-event-container a {
     background-color: gold;
     min-width: 80%;
     margin-left: 10%;
+  }
+
+  .fc-time {
+    font-size: 0.8rem
+  }
+  
+  .fc-title {
+    font-size: 0.7rem;
   }
 
   .fc-today {
@@ -449,6 +480,13 @@ td.fc-event-container a {
     min-width: 80%;
     margin-left: 10%;
   }
+  .fc-time {
+    font-size: 0.7rem;
+  }
+  
+  .fc-title {
+    font-size: 0.6rem;
+  }
 }
 
 @media (min-width: 776px) and (max-width: 999px) {
@@ -477,19 +515,11 @@ td.fc-event-container a {
     max-height: 100% !important;
   }
 
-  table {
-    min-height: 100%;
-  }
 
-  td.fc-event-container {
-    height: 40px;
-    margin: 10px;
-  }
-
-  td.fc-event-container a {
+  /* td.fc-event-container a {
     min-height: 95%;
     font-size: 9px !important;
-  }
+  } */
 
   .fc-view-container {
     background-color: #209cee;
@@ -575,6 +605,15 @@ td.fc-event-container a {
     text-align: center;
     align-content: center;
   }
+
+  .fc-time {
+    font-size: 0.7rem;
+  }
+  
+  .fc-title {
+    font-size: 0.6rem;
+  }
+
 }
 
 @media (min-width: 760px) and (max-width: 775px) {
@@ -600,10 +639,6 @@ td.fc-event-container a {
 
   .calendar {
     max-height: 100% !important;
-  }
-
-  table {
-    min-height: 100%;
   }
 
   td.fc-event-container {
@@ -745,10 +780,6 @@ td.fc-event-container a {
 
   .calendar {
     max-height: 100% !important;
-  }
-
-  table {
-    min-height: 100%;
   }
 
   td.fc-event-container {
@@ -931,10 +962,6 @@ td.fc-event-container a {
   .nflColumn .btn {
     white-space: pre-wrap;
     font-size: 9px !important;
-  }
-
-  table {
-    min-height: 100%;
   }
 
   td.fc-event-container {
@@ -1197,6 +1224,13 @@ td.fc-event-container a {
 
 /* Portrait */
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .calRow {
+    width: 95vw;
+  }
+  .calBoard {
+    min-width: 95vw !important;
+    margin: 0 auto;
+  }
   .fullCalModal {
     min-width: 100vw;
   }
@@ -1222,6 +1256,49 @@ td.fc-event-container a {
     margin-top: 2vh;
     /* display: inline-block; */
   }
+
+  td.fc-event-container {
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  td.fc-event-container {
+    border: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+    vertical-align: top;
+    padding: 0 0.1rem !important;
+    margin: 24px -4px 24px 0;
+    /* display: inline-block; */
+    /* width: 100%; */
+  }
+
+  td.fc-event-container a {
+    height: auto !important;
+    margin: 0 auto !important;
+    /* min-width: 100%; */
+  }
+  .fc-content {
+    padding: 0.1rem !important;
+  }
+
+  .fc-today-button {
+    margin-left: 0.1rem !important;
+  }
+
+  .fc-time {
+    font-size: 0.45rem;
+  }
+
+  .fc-title {
+    font-size: 0.45rem;
+  }
+  .timeToPick {
+    padding: 0.3rem;
+  }
+
 }
 
 /* Landscape */

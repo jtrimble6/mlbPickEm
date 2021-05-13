@@ -198,7 +198,7 @@ class NhlPlayoffBar extends Component {
     
     sortUserPicks = () => {
       let userPicks = this.state.userPicks
-      console.log('USER PICKS: ', this.state.userPicks)
+      // console.log('USER PICKS: ', this.state.userPicks)
 
       let oldPicksFunc = (picks) => {
         return picks.gameDate < this.props.todaysDate
@@ -230,8 +230,8 @@ class NhlPlayoffBar extends Component {
         let sortedPicks = this.state.sortedPicks
         let recentDates = this.state.pastFutureDates
         let recentPicks = []
-        console.log('SORTED PICKS ARRAY: ', sortedPicks)
-        console.log('PAST/FUTURE DATES: ', recentDates)
+        // console.log('SORTED PICKS ARRAY: ', sortedPicks)
+        // console.log('PAST/FUTURE DATES: ', recentDates)
         // let recentPickMatch = (thePicks) => {
         //   // console.log('pick date: ', thePicks.gameDate)
         //   // console.log('recent date: ', this.state.recentDate.date)
@@ -411,7 +411,7 @@ class NhlPlayoffBar extends Component {
       getUserData = () => {
         let localUser = localStorage.getItem('user')
         let challengeId = localStorage.getItem('userChallengeId')
-        console.log('THIS CHALLENGE: ', challengeId)
+        // console.log('THIS CHALLENGE: ', challengeId)
         API.getUser(localUser)
             .then(res => {
               // console.log('THE USER: ', res.data)
@@ -602,11 +602,11 @@ class NhlPlayoffBar extends Component {
         return (
 
           <div className="row profileBar">
-            <div className="col-8">
+            <div className="col-8 jumbotronCol">
               <Jumbotron>
                 <Container fluid>
                   <div className="display-4">
-                    <h2>{this.props.username.toUpperCase()}</h2> <hr />
+                    <h2 className='jumbotronHeader'>{this.props.username.toUpperCase()}</h2> <hr />
                     <h4 className='winsTitle'>Today's Pick</h4> {this.props.todaysPick} <br />
                     <div className="row">
                       <div className="col-md-3">
@@ -623,14 +623,14 @@ class NhlPlayoffBar extends Component {
                 </Container>
               </Jumbotron>
             </div>
-            <div className="col-4">
+            <div className="col-4 recentPicksCol">
               <div className='row recentPicksRow'>
                 <div className="col-10 recentPicks picks">
-                  <table className='table table-hover'>
+                  <table className='recentPicksTable table table-hover'>
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>Pick</th>
+                        <th className='recentPicksDateHeader'>Date</th>
+                        <th className='recentPicksDateHeader'>Pick</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -638,8 +638,8 @@ class NhlPlayoffBar extends Component {
                         this.state.recentPicks.map((recentPick, i) => (
                           <tr key={uuidv4()} className= {(recentPick.gameDate === this.props.todaysDate) ? 'todaysPick' : (recentPick.result) ? recentPick.result : recentPick.style }>
                           {/* <tr key={uuidv4()} className={recentPick.result}> */}
-                            <td>{moment(recentPick.gameDate).format('MM-DD')}</td>
-                            <td>{recentPick.team}</td>
+                            <td className='recentPicksTableDateCell'>{moment(recentPick.gameDate).format('MM-DD')}</td>
+                            <td className='recentPicksTablePickCell'>{recentPick.team}</td>
                           </tr> 
                             )
                           )     

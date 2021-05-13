@@ -8,7 +8,7 @@ import CreationSuccess from '../../components/alerts/CreationSuccess';
 import CreationError from '../../components/alerts/CreationError';
 import moment from 'moment'
 import { atl, bkn, bos, cha, chi, cle, dal, den, det, gsw, hou, ind, lac, lal, mem, mia, mil, min, nop, nyk, okc, orl, phi, phx, por, sac, sas, tor, uta, was } from '../../css/nbaLogos'
-import { nsh, tb, wsh, bos2, car, nyi, cbj, wpg, vgk, col, dal2, stl, sjs, cgy, tor2, pit } from '../../css/nhlLogos'
+import { chi2, tb, wsh, bos2, car, nyi, cbj, van, vgk, col, dal2, stl, ari, cgy, mtl, phi2 } from '../../css/nhlLogos'
 // import { cws } from '../../css/mlbLogos'
 // import { ari, atl2, bal, bos2, chc, cws, cle2, cin, col, det2, mia2, hou2, kc, laa, lad, nym, nyy, mil2, min2, oak, pit, sd, sf, phi2, sea, stl, tb, tex, tor2, wsh } from '../../css/mlbLogos'
 
@@ -103,25 +103,22 @@ class CreateChallenge extends Component {
               { name: 'Portland Trail Blazers', abbr: 'por', logo: por, status: 'secondary', conf: 'west', seed: '8' },
             ],
             nhlPlayoffTeams: [
-              { name: 'Tampa Bay Lightning', abbr: 'tb', logo: tb, status: 'secondary', conf: 'east', seed: '1' },
-              { name: 'Boston Bruins', abbr: 'bos', logo: bos2, status: 'secondary', conf: 'east', seed: '2' },
-              { name: 'Toronto Maple Leafs', abbr: 'tor', logo: tor2, status: 'secondary', conf: 'east', seed: '3' },
-              { name: 'Columbus Blue Jackets', abbr: 'cbj', logo: cbj, status: 'secondary', conf: 'east', seed: '4' },
-
-              { name: 'Washington Capitals', abbr: 'wsh', logo: wsh, status: 'secondary', conf: 'east', seed: '1' },
-              { name: 'New York Islanders', abbr: 'nyi', logo: nyi, status: 'secondary', conf: 'east', seed: '2' },
-              { name: 'Pittsburgh Penguins', abbr: 'pit', logo: pit, status: 'secondary', conf: 'east', seed: '3' },
-              { name: 'Carolina Hurricanes', abbr: 'car', logo: car, status: 'secondary', conf: 'east', seed: '4' },
-
-              { name: 'Nashville Predators', abbr: 'nsh', logo: nsh, status: 'secondary', conf: 'west', seed: '1' },
-              { name: 'Winnipeg Jets', abbr: 'wpg', logo: wpg, status: 'secondary', conf: 'west', seed: '2' },
-              { name: 'St. Louis Blues', abbr: 'stl', logo: stl, status: 'secondary', conf: 'west', seed: '3' },
-              { name: 'Dallas Stars', abbr: 'dal', logo: dal2, status: 'secondary', conf: 'west', seed: '4' },
-
-              { name: 'Calgary Flames', abbr: 'cgy', logo: cgy, status: 'secondary', conf: 'west', seed: '1' },
-              { name: 'San Jose Sharks', abbr: 'sjs', logo: sjs, status: 'secondary', conf: 'west', seed: '2' },
-              { name: 'Vegas Golden Knights', abbr: 'vgk', logo: vgk, status: 'secondary', conf: 'west', seed: '3' },
-              { name: 'Colorado Avalanche', abbr: 'col', logo: col, status: 'secondary', conf: 'west', seed: '4' },
+              { name: 'Philadelphia Flyers', abbr: 'phi', logo: phi2, status: 'secondary', conf: 'east', seed: '1' },
+              { name: 'Tampa Bay Lightning', abbr: 'tb', logo: tb, status: 'secondary', conf: 'east', seed: '2' },
+              { name: 'Washington Capitals', abbr: 'wsh', logo: wsh, status: 'secondary', conf: 'east', seed: '3' },
+              { name: 'Boston Bruins', abbr: 'bos', logo: bos2, status: 'secondary', conf: 'east', seed: '4' },
+              { name: 'Carolina Hurricanes', abbr: 'car', logo: car, status: 'secondary', conf: 'east', seed: '5' },
+              { name: 'New York Islanders', abbr: 'nyi', logo: nyi, status: 'secondary', conf: 'east', seed: '6' },
+              { name: 'Columbus Blue Jackets', abbr: 'cbj', logo: cbj, status: 'secondary', conf: 'east', seed: '7' },
+              { name: 'Montreal Canadiens', abbr: 'mtl', logo: mtl, status: 'secondary', conf: 'east', seed: '3' },
+              { name: 'Vegas Golden Knights', abbr: 'vgk', logo: vgk, status: 'secondary', conf: 'west', seed: '1' },
+              { name: 'Colorado Avalanche', abbr: 'col', logo: col, status: 'secondary', conf: 'west', seed: '2' },
+              { name: 'Dallas Stars', abbr: 'dal', logo: dal2, status: 'secondary', conf: 'west', seed: '3' },
+              { name: 'St. Louis Blues', abbr: 'stl', logo: stl, status: 'secondary', conf: 'west', seed: '4' },
+              { name: 'Vancouver Canucks', abbr: 'van', logo: van, status: 'secondary', conf: 'west', seed: '5' },
+              { name: 'Calgary Flames', abbr: 'cgy', logo: cgy, status: 'secondary', conf: 'west', seed: '6' },
+              { name: 'Arizona Coyotes', abbr: 'ari', logo: ari, status: 'secondary', conf: 'west', seed: '7' },
+              { name: 'Chicago Blackhawks', abbr: 'chi', logo: chi2, status: 'secondary', conf: 'west', seed: '8' },
             ],
             mlbTeams: [
               { name: 'Arizona Diamondbacks', abbr: 'ari', logo: 'ari', status: 'secondary', division: 'NL West' },

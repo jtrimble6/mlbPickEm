@@ -271,7 +271,7 @@ class NbaPickEmCalendar extends Component {
       }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event?.preventDefault();
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId
@@ -772,15 +772,19 @@ class NbaPickEmCalendar extends Component {
                       .then(res => {
                         // console.log('THE USER: ', res.data)
                         let thisUser = res.data
-                        let filterWins = (picks) => {
-                          return picks.result === 'win' && picks.challengeId === challengeId
+                        let filterPicks = (picks) => {
+                          return picks.challengeId === challengeId
                         }
-                        let filteredWins = thisUser[0].picks.filter(filterWins)
+                        let filteredPicks = thisUser[0].picks.filter(filterPicks)
+                        let filterWins = (picks) => {
+                          return picks.result === 'win' 
+                        }
+                        let filteredWins = filteredPicks?.filter(filterWins)
                         // console.log('FILTERED WINS: ', filteredWins)
                         this.setState({
                           userId: thisUser[0].username,
                           userWins: filteredWins,
-                          userPicks: thisUser[0].picks,
+                          userPicks: filteredPicks,
                         })
                       })
                       .catch(err => {console.log(err)})
@@ -791,19 +795,23 @@ class NbaPickEmCalendar extends Component {
                   chalUsers.forEach((chalUser) => {
                     users.push(chalUser)
                     let thisUser = chalUser
-                    let filterWins = (picks) => {
-                      return picks.result === 'win' && picks.challengeId === challengeId
+                    let filterPicks = (picks) => {
+                      return picks.challengeId === challengeId
                     }
-                    let filteredWins = thisUser.picks?.filter(filterWins)
+                    let filteredPicks = chalUser.picks.filter(filterPicks)
+                    let filterWins = (picks) => {
+                      return picks.result === 'win'
+                    }
+                    let filteredWins = filteredPicks?.filter(filterWins)
                     // console.log('FILTERED WINS: ', filteredWins)
                     let thisUserObj = {
                         userId: thisUser.username,
                         userWins: filteredWins,
-                        userPicks: thisUser.picks,
+                        userPicks: filteredPicks,
                       }
                     // IF USER HAS MADE PICKS FIND THEIR WINS
                     // console.log('THIS CHALLENGE USER: ', thisUserObj)
-                    if (chalUser.picks[0]) {
+                    if (filteredPicks[0]) {
                         self.findUserWins(thisUserObj)
                       }
                   })
@@ -818,16 +826,6 @@ class NbaPickEmCalendar extends Component {
   
                 }
               })
-
-            // GET RESULTS FROM YESTERDA IF THEY HAVEN'T BEEN PULLED(UNDEFINED)
-            // console.log('THESE GAMES: ', this.state.yesterdaysGames)
-            // if(this.state.yesterdaysGames[0].gameWinner === undefined) {
-                // self.getResults()
-              // } else {
-              //   //FIND ALL USERS PICKS
-              //   // console.log('finding user picks')
-              //   self.findUserPicks()
-              // }
             })
             .catch(err => console.log(err))
 

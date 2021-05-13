@@ -319,7 +319,7 @@ class MlbCalendar extends Component {
       }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event?.preventDefault();
         console.log('HANDLE SUBMIT')
         
         let self = this

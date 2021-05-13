@@ -241,7 +241,7 @@ class Calendar extends Component {
       }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event?.preventDefault();
         let self = this
         let myId = this.props.username
         let challengeId = this.state.challengeId
