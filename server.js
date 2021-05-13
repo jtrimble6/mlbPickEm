@@ -105,7 +105,7 @@ app.use( (req, res, next) => {
 
 let localDB = "mongodb://localhost/mlbpickem"
 // mongoose.connect(process.env.NODE_ENV === 'development' ? localDB : process.env.MONGO_URI, { useNewUrlParser: true }, { useUnifiedTopology: true }, { options : { ssl: true } }, );
-mongoose.connect(process.env.MONGO_URI || localDB, { useNewUrlParser: true }, { useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI || localDB, { options : { useNewUrlParser: true , useUnifiedTopology: true, ssl: true } } )
         .then(res => console.log('connected to mongodb..'))
         .catch(e => console.log('could not connect to mongodb', e))
 
