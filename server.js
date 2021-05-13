@@ -104,10 +104,10 @@ app.use( (req, res, next) => {
 // mongoose.connect(process.env.MONGO_URI || "");
 
 let localDB = "mongodb://localhost/mlbpickem"
-// mongoose.connect(process.env.NODE_ENV === 'development' ? localDB : process.env.MONGO_URI, { useNewUrlParser: true }, { useUnifiedTopology: true }, { options : { ssl: true } }, );
-mongoose.connect(process.env.MONGO_URI || localDB, { useNewUrlParser: true }, { useUnifiedTopology: true }, { options : { ssl: true } })
-        .then(res => console.log('connected to mongodb..'))
-        .catch(e => console.log('could not connect to mongodb', e))
+mongoose.connect(process.env.NODE_ENV === 'development' ? localDB : process.env.MONGO_URI, { useNewUrlParser: true }, { useUnifiedTopology: true }, { options : { ssl: true } }, );
+// mongoose.connect(process.env.MONGO_URI || localDB, { useNewUrlParser: true }, { useUnifiedTopology: true }, { options : { ssl: true } })
+//         .then(res => console.log('connected to mongodb..'))
+//         .catch(e => console.log('could not connect to mongodb', e))
 
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
